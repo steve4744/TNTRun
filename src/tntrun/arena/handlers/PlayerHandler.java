@@ -182,7 +182,7 @@ public class PlayerHandler {
 		// add to lostPlayers
 		arena.getGameHandler().lostPlayers++;
 		// remove scoreboard
-		player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
+		removeScoreboard(player);
 		// teleport to spectators spawn
 		player.teleport(arena.getStructureManager().getSpectatorSpawn());
 		// clear inventory
@@ -253,7 +253,7 @@ public class PlayerHandler {
 			Stats.addLoses(player, 1);
 		}
 		// remove scoreboard
-		player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
+		removeScoreboard(player);
 		// remove player from arena and restore his state
 		removePlayerFromArenaAndRestoreState(player, false);
 		// should not send messages and other things when player is a spectator
@@ -264,7 +264,7 @@ public class PlayerHandler {
 		Messages.sendMessage(player, msgtoplayer);
 		// modify signs
 		plugin.signEditor.modifySigns(arena.getArenaName());
-		// create scoreboard
+		// update scoreboard for remaining players
 		if(!arena.getStatusManager().isArenaRunning()){
 			arena.getGameHandler().createWaitingScoreBoard();
 		}
@@ -279,10 +279,10 @@ public class PlayerHandler {
 	}
 
 	protected void leaveWinner(Player player, String msgtoplayer) {
+		// remove scoreboard
+		removeScoreboard(player);
 		// remove player from arena and restore his state
 		removePlayerFromArenaAndRestoreState(player, true);
-		// remove scoreboard
-		player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
 		// send message to player
 		Messages.sendMessage(player, msgtoplayer);
 		// modify signs
@@ -400,6 +400,10 @@ public class PlayerHandler {
 	    item.setItemMeta(meta);
 	    
 	    p.getInventory().addItem(item);
+	}
+	
+	private void removeScoreboard(Player player) {
+		player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 	}
 
 }

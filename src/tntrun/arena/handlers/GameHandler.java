@@ -299,9 +299,11 @@ public class GameHandler {
 		
 		Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
-		Objective o = scoreboard.registerNewObjective("TNTRun", "waiting");
-		o.setDisplaySlot(DisplaySlot.SIDEBAR);
-		o.setDisplayName("§6§lTNTRUN");
+		if (TNTRun.getInstance().getConfig().getBoolean("special.UseScoreboard")) {
+			Objective o = scoreboard.registerNewObjective("TNTRun", "waiting");
+			o.setDisplaySlot(DisplaySlot.SIDEBAR);
+			o.setDisplayName("§6§lTNTRUN");
+		}
 		return scoreboard;
 	} 
 	
