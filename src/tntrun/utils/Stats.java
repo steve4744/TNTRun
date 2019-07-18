@@ -59,7 +59,7 @@ public class Stats {
 				if(config.get("stats." + player.getName() + ".played") == null){
 					config.set("stats." + player.getName() + ".played", value);
 				}else{
-					config.set("stats." + player.getName(), config.getInt("stats." + player.getName() + ".played") + value);
+					config.set("stats." + player.getName() + ".played", config.getInt("stats." + player.getName() + ".played") + value);
 				}
 			}
 			try {
@@ -85,7 +85,7 @@ public class Stats {
 				if(config.get("stats." + player.getName() + ".wins") == null){
 					config.set("stats." + player.getName() + ".wins", value);
 				}else{
-					config.set("stats." + player.getName(), config.getInt("stats." + player.getName() + ".wins") + value);
+					config.set("stats." + player.getName() + ".wins", config.getInt("stats." + player.getName() + ".wins") + value);
 				}
 			}
 			try {
@@ -111,7 +111,7 @@ public class Stats {
 				if(config.get("stats." + player.getName() + ".looses") == null){
 					config.set("stats." + player.getName() + ".looses", value);
 				}else{
-					config.set("stats." + player.getName(), config.getInt("stats." + player.getName() + ".looses") + value);
+					config.set("stats." + player.getName() + ".looses", config.getInt("stats." + player.getName() + ".looses") + value);
 				}
 			}
 			try {
