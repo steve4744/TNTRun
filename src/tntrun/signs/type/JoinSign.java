@@ -18,6 +18,7 @@
 package tntrun.signs.type;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
@@ -40,7 +41,7 @@ public class JoinSign implements SignType {
 
 	@Override
 	public void handleCreation(SignChangeEvent e) {
-		final Arena arena = plugin.amanager.getArenaByName(e.getLine(2));
+		final Arena arena = plugin.amanager.getArenaByName(ChatColor.stripColor(e.getLine(2)));
 		if (arena != null) {
 			e.setLine(0, FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")));
 			e.setLine(1, FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.join")));
@@ -64,7 +65,7 @@ public class JoinSign implements SignType {
 	@Override
 	public void handleClick(PlayerInteractEvent e) {
 		Player player = e.getPlayer();
-		Arena arena = plugin.amanager.getArenaByName(((Sign) e.getClickedBlock().getState()).getLine(2));
+		Arena arena = plugin.amanager.getArenaByName(ChatColor.stripColor(((Sign) e.getClickedBlock().getState()).getLine(2)));
 		if (arena != null) {
 			if (arena.getPlayerHandler().checkJoin(player)) {
 				arena.getPlayerHandler().spawnPlayer(player, Messages.playerjoinedtoplayer, Messages.playerjoinedtoothers);
@@ -79,7 +80,7 @@ public class JoinSign implements SignType {
 	@Override
 	public void handleDestroy(BlockBreakEvent e) {
 		Block b = e.getBlock();
-		plugin.signEditor.removeSign(b, ((Sign) b.getState()).getLine(2));
+		plugin.signEditor.removeSign(b, ChatColor.stripColor(((Sign) b.getState()).getLine(2)));
 		Messages.sendMessage(e.getPlayer(), Messages.trprefix + Messages.signremove);
 	}
 

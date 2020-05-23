@@ -243,19 +243,18 @@ public class Shop implements Listener{
 					return;
 				}
 
-				if (Material.getMaterial(cfg.getString(kit + ".material").toUpperCase()) == Material.FEATHER) {
-					doublejumpPurchase = true;
-				} else {
-					doublejumpPurchase = false;
-				}
+				doublejumpPurchase = Material.getMaterial(cfg.getString(kit + ".material").toUpperCase()) == Material.FEATHER;
+
 				if (!doublejumpPurchase && buyers.contains(p.getName())) {
 					Messages.sendMessage(p, Messages.trprefix + Messages.alreadyboughtitem);
 					plugin.sound.ITEM_SELECT(p);
 					p.closeInventory();
 					return;
 				}
+				Arena arena = plugin.amanager.getPlayerArena(p.getName());
 				if (doublejumpPurchase && !canBuyDoubleJumps(cfg, p, kit)) {
-					Messages.sendMessage(p, Messages.trprefix + Messages.maxdoublejumpsexceeded.replace("{MAXJUMPS}", plugin.getConfig().getInt("shop.doublejump.maxdoublejumps", 10) + ""));
+					Messages.sendMessage(p, Messages.trprefix + Messages.maxdoublejumpsexceeded.replace("{MAXJUMPS}",
+							arena.getPlayerHandler().getAllowedDoubleJumps(p, plugin.getConfig().getInt("shop.doublejump.maxdoublejumps", 10)) + ""));
 					plugin.sound.ITEM_SELECT(p);
 					p.closeInventory();
 					return;
@@ -264,7 +263,6 @@ public class Shop implements Listener{
 				String title = current.getItemMeta().getDisplayName();
 				int cost = cfg.getInt(kit + ".cost");
 
-				Arena arena = plugin.amanager.getPlayerArena(p.getName());
 				if (arena.getArenaEconomy().hasMoney(cost, p)) {
 					Messages.sendMessage(p, Messages.trprefix + Messages.playerboughtitem.replace("{ITEM}", title).replace("{MONEY}", cost + ""));
 					logPurchase(p, title, cost);
@@ -284,17 +282,13 @@ public class Shop implements Listener{
 
 	private boolean canBuyDoubleJumps(FileConfiguration cfg, Player p, int kit) {
 		Arena arena = plugin.amanager.getPlayerArena(p.getName());
-		int maxjumps = plugin.getConfig().getInt("shop.doublejump.maxdoublejumps", 10);
+		int maxjumps = arena.getPlayerHandler().getAllowedDoubleJumps(p, plugin.getConfig().getInt("shop.doublejump.maxdoublejumps", 10));
 		int quantity = cfg.getInt(kit + ".items." + kit + ".amount", 1);
 
 		if (plugin.getConfig().getBoolean("freedoublejumps.enabled")) {
-			if (maxjumps <= plugin.getConfig().getInt("doublejumps." + p.getName()) || maxjumps < (plugin.getConfig().getInt("doublejumps." + p.getName()) + quantity)) {
-				return false;
-			}
-		} else if (maxjumps <= arena.getPlayerHandler().getDoubleJumps(p) || maxjumps < (arena.getPlayerHandler().getDoubleJumps(p) + quantity)) {
-			return false;
+			return maxjumps >= (plugin.getConfig().getInt("doublejumps." + p.getName()) + quantity);
 		}
-		return true;
+		return maxjumps >= (arena.getPlayerHandler().getDoubleJumps(p) + quantity);
 	}
 
 	public void setItems(Inventory inventory, Player player){

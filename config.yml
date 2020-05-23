@@ -10,6 +10,7 @@ special:
   BossBarColor: RANDOM
   UseTitle: true
   UseScoreboard: true
+  UseDoubleJumpPermissions: false
   CheckForNewVersion: true
   Metrics: true
 UseRankInChat:

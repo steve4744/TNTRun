@@ -61,7 +61,7 @@ public class SignHandler implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onTNTRunSignCreate(SignChangeEvent e) {
 		Player player = e.getPlayer();
-		if (ChatColor.stripColor(e.getLine(0)).equalsIgnoreCase("[TNTRun]")) {  
+		if (ChatColor.stripColor(e.getLine(0)).equalsIgnoreCase("[TNTRun]")) {
 			if (!player.hasPermission("tntrun.setup")) {
 				Messages.sendMessage(player, Messages.trprefix + Messages.nopermission);
 				e.setCancelled(true);

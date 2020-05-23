@@ -115,7 +115,7 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 			String entry = temp[2];
 			int pos = Integer.parseInt(temp[3]);
 
-			return entry.equalsIgnoreCase("player") ? plugin.stats.getLeaderboardPosition(pos, type, entry) : plugin.stats.getLeaderboardPosition(pos, type, entry);
+			return plugin.stats.getLeaderboardPosition(pos, type, entry);
 
 		}
 		return null;

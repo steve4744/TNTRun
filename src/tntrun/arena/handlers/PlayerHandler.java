@@ -30,6 +30,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -46,6 +47,7 @@ import tntrun.events.PlayerSpectateArenaEvent;
 import tntrun.utils.Bars;
 import tntrun.utils.FormattingCodesParser;
 import tntrun.utils.TitleMsg;
+import tntrun.utils.Utils;
 import tntrun.messages.Messages;
 
 public class PlayerHandler {
@@ -169,7 +171,7 @@ public class PlayerHandler {
 		}.runTaskLater(plugin, 5L);
 
 		if (plugin.getConfig().getBoolean("freedoublejumps.enabled")) {
-			int amount = plugin.getConfig().getInt("freedoublejumps.amount", 0);
+			int amount = getAllowedDoubleJumps(player, plugin.getConfig().getInt("freedoublejumps.amount", 0));
 			if (amount > 0) {
 				doublejumps.put(player.getName(), amount);
 			}
@@ -511,6 +513,30 @@ public class PlayerHandler {
 			plugin.saveConfig();
 		}
 		doublejumps.remove(player.getName());
+	}
+
+	/**
+	 * The maximum number of double jumps the player is allowed. If permissions are used,
+	 * return the lower number of the maximum and number allowed by the permission node.
+	 * @param player
+	 * @param max allowed double jumps
+	 * @return integer representing the number of double jumps to give player
+	 */
+	public int getAllowedDoubleJumps(Player player, Integer max) {
+		if (!plugin.getConfig().getBoolean("special.UseDoubleJumpPermissions") || max <= 0) {
+			return max;
+		}
+		String permissionPrefix = "tntrun.doublejumps.";
+		for (PermissionAttachmentInfo attachmentInfo : player.getEffectivePermissions()) {
+			if (attachmentInfo.getPermission().startsWith(permissionPrefix)) {
+				String permission = attachmentInfo.getPermission();
+				if (!Utils.isNumber(permission.substring(permission.lastIndexOf(".") + 1))) {
+					return 0;
+				}
+				return Math.min(Integer.parseInt(permission.substring(permission.lastIndexOf(".") + 1)), max);
+			}
+		}
+		return max;
 	}
 
 	/**

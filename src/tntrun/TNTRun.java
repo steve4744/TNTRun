@@ -119,7 +119,7 @@ public class TNTRun extends JavaPlugin {
 
 		if (getConfig().getBoolean("special.Metrics", true)) {
 			log.info("Attempting to start metrics (bStats)...");
-			new Metrics(this);
+			new Metrics(this, 2192);
 		}
 
 		setStorage();
@@ -134,22 +134,19 @@ public class TNTRun extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		//Close mysql connection
 		if (!file) {
 			mysql.close();
 		}
-		// save arenas
 		saveArenas();
-		// save lobby
 		globallobby.saveToConfig();
 		globallobby = null;
-		// save kits
+
 		kitmanager.saveToConfig();
 		kitmanager = null;
-		// save signs
+
 		signEditor.saveConfiguration();
 		signEditor = null;
-		// unload other things
+
 		amanager = null;
 		pdata = null;
 		stats = null;

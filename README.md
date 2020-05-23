@@ -1,14 +1,11 @@
 # TNTRun_reloaded
 
-This was originally forked from the (now unsupported) TNTRun by Shevchik for Minecraft v1.9 and has been improved and updated as new versions of Minecraft have been released, so that it supports all Minecraft versions from 1.8 through to 1.15.
+This was originally forked from the (now unsupported) TNTRun by Shevchik for Minecraft v1.9 and has been improved and updated as new versions of Minecraft have been released. The latest version runs on all Minecraft versions from 1.13 to 1.5.2, while the legacy version is for servers running Minecraft versions from 1.8 through to 1.12.2.
 
 
 ## Description
 
-TNTRun is a fully automated minigame plugin that is based on the popular map TNTRUN. For those who don't know what it is, here is an explanation.
-Players start on a layer of sand and every block that they step on disappears. If they fall through a hole, they continue on the layer of sand below. 
-When  a player falls through the final layer he loses the game. The last player wins the game.
-
+TNTRun is a fully automated minigame plugin that is based on the popular map TNTRUN. Players start on a layer of sand and every block that they step on disappears. If a player falls through a hole, he will continue to run on the layer below. When a player falls through the final layer he loses the game. The last player remaining wins the game.
 
 ## Download
 
@@ -51,6 +48,7 @@ Note that there is a legacy bug fix release (version 6.8.2) only available from 
     PVP can be enabled/disabled per arena
     Player rewards
     Built-in placeholder support
+    mcMMO support - allow players in same mcMMO party to PVP if enabled in arena
     MySQL support
     Bungeecord support
     Legacy placeholder support - https://www.spigotmc.org/resources/tntrun_reloaded-expansion.53945/
@@ -60,15 +58,20 @@ Note that there is a legacy bug fix release (version 6.8.2) only available from 
 The following plugin dependencies are needed to compile the source code. With the exception of WorldEdit, all are optional to run TNTRun_reloaded on a Spigot server.
 Links to download each plugin are available on TNTRun_reloaded's Spigot page.
 
-For Minecraft 1.13+ the minimum version required for each plugin is listed below:
+The latest version of TNTRun_reloaded has been tested with the following versions of these plugins:
 
-    WorldEdit 7.0.0
+    WorldEdit 7.1.0 (required)
     Vault 1.7.2 (optional, required to use economy)
-    HeadsPlus 6.4 (optional, required to run around wearing a different head)
+    HeadsPlus 6.10.2 (optional, allow players to buy and run around wearing different heads)
     mcMMO Classic 1.6.1 (optional, will allow players in same mcMMO party to PVP in arena)
     PlaceholderAPI 2.10.3 (optional, needed to use placeholders)
+    
+Although not required to compile the plugin, the following plugins (or similar) are required to create Holographic Leaderboards for TNTRun_reloaded.
+    
+    HolographicDisplays 2.4.1 (optional, an example plugin needed to create holograms)
+    HolographicExtension (optional, needed with HolographicDisplays to create holograms using placeholders. Also requires ProtolcolLib)
 
-FAWE is also supported, and can be used in place of the WorldEdit 7.0.0 dependency on 1.13 servers.
+FAWE is also supported, and can be used in place of the WorldEdit 7.1.0 dependency on 1.13+ servers.
 
 For legacy Minecraft 1.12.2 and below:
 
@@ -80,4 +83,4 @@ For legacy Minecraft 1.12.2 and below:
 <br />
 <br />
 <br />
-Updated steve4744 - 5th April 2020
+Updated steve4744 - 1st May 2020

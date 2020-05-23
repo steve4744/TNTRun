@@ -54,19 +54,14 @@ public class StatusManager {
 		for (Player player : arena.getPlayersManager().getPlayersCopy()) {
 			arena.getPlayerHandler().leavePlayer(player, Messages.trprefix + Messages.arenadisabling, "");
 		}
-		// stop arena
 		if (arena.getStatusManager().isArenaRunning()) {
 			arena.getGameHandler().stopArena();
 		}
-		// stop countdown
 		if (arena.getStatusManager().isArenaStarting()) {
 			arena.getGameHandler().stopArenaCountdown();
 		}
-		// stop antileave handler
 		arena.getGameHandler().stopArenaAntiLeaveHandler();
-		// regen gamezone
 		arena.getStructureManager().getGameZone().regenNow();
-		// modify signs
 		arena.plugin.signEditor.modifySigns(arena.getArenaName());
 	}
 

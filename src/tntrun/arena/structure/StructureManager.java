@@ -60,6 +60,7 @@ public class StructureManager {
 	private int regenerationdelay = 60;
 	private String currency;
 	private double fee = 0;
+	private boolean finished = false;
 
 	public String getWorldName() {
 		return world;
@@ -207,12 +208,20 @@ public class StructureManager {
 			return "Arena bounds not set";
 		}
 		if (!loselevel.isConfigured()) {
-			return "Arena looselevel not set";
+			return "Arena loselevel not set";
 		}
 		if (spawnpoint == null) {
 			return "Arena spawnpoint not set";
 		}
 		return "yes";
+	}
+
+	public boolean isArenaFinished() {
+		return finished;
+	}
+
+	public void setArenaFinished(boolean finished) {
+		this.finished = finished;
 	}
 
 	public void setArenaPoints(Location loc1, Location loc2) {
@@ -334,6 +343,7 @@ public class StructureManager {
 		config.set("regenerationdelay", regenerationdelay);
 		config.set("joinfee", fee);
 		config.set("currency", currency);
+		config.set("finished", finished);
 		rewards.saveToConfig(config);
 		try {
 			config.save(arena.getArenaFile());
@@ -364,6 +374,10 @@ public class StructureManager {
 		regenerationdelay = config.getInt("regenerationdelay", regenerationdelay);
 		fee = config.getDouble("joinfee", fee);
 		currency = config.getString("currency", null);
+		finished = config.getBoolean("finished");
+		if (!finished && arena.getStructureManager().isArenaConfigured()) {
+			finished = true;
+		}
 	}
 
 }

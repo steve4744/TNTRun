@@ -239,23 +239,13 @@ public class SignEditor {
 			for (String arena : file.getKeys(false)) {
 				if (arena.equalsIgnoreCase("leaderboards")) continue;
 				ConfigurationSection section = file.getConfigurationSection(arena);
-				for (String block : section.getKeys(false)) {
-					ConfigurationSection blockSection = section.getConfigurationSection(block);
-					SignInfo si = new SignInfo(blockSection.getString("world"), blockSection.getInt("x"), blockSection.getInt("y"), blockSection.getInt("z"));
-					addSignInfo(si, arena);
-				}
-				modifySigns(arena);
+				readSignInfo(section, arena);
 			}
 		} else {
 			ConfigurationSection arenaSection = file.getConfigurationSection("arenas");
 			for (String arena : arenaSection.getKeys(false)) {
 				ConfigurationSection section = arenaSection.getConfigurationSection(arena);
-				for (String block : section.getKeys(false)) {
-					ConfigurationSection blockSection = section.getConfigurationSection(block);
-					SignInfo si = new SignInfo(blockSection.getString("world"), blockSection.getInt("x"), blockSection.getInt("y"), blockSection.getInt("z"));
-					addSignInfo(si, arena);
-				}
-				modifySigns(arena);
+				readSignInfo(section, arena);
 			}
 		}
 		if (file.isConfigurationSection("leaderboards")) {
@@ -269,6 +259,15 @@ public class SignEditor {
 		}
 	}
 
+	private void readSignInfo(ConfigurationSection section, String arena) {
+		for (String block : section.getKeys(false)) {
+			ConfigurationSection blockSection = section.getConfigurationSection(block);
+			SignInfo si = new SignInfo(blockSection.getString("world"), blockSection.getInt("x"), blockSection.getInt("y"), blockSection.getInt("z"));
+			addSignInfo(si, arena);
+		}
+		modifySigns(arena);
+	}
+
 	public void saveConfiguration() {
 		FileConfiguration file = new YamlConfiguration();
 
@@ -277,26 +276,28 @@ public class SignEditor {
 			int i = 0;
 			for (SignInfo si : getSigns(arena)) {
 				ConfigurationSection blockSection = section.createSection(Integer.toString(i++));
-				blockSection.set("x", si.getX());
-				blockSection.set("y", si.getY());
-				blockSection.set("z", si.getZ());
-				blockSection.set("world", si.getWorldName());
+				writeSignInfo(blockSection, si);
 			}
 		}
 		ConfigurationSection section = file.createSection("leaderboards");
 		int i = 0;
 		for (SignInfo si : lbsigns) {
 			ConfigurationSection blockSection = section.createSection(Integer.toString(i++));
-			blockSection.set("x", si.getX());
-			blockSection.set("y", si.getY());
-			blockSection.set("z", si.getZ());
-			blockSection.set("world", si.getWorldName());
+			writeSignInfo(blockSection, si);
 		}
 
 		try {
 			file.save(configfile);
 		} catch (IOException e) {
+			plugin.getLogger().info("Error saving file " + configfile);
+			e.printStackTrace();
 		}
 	}
 
+	private void writeSignInfo(ConfigurationSection blockSection, SignInfo si) {
+		blockSection.set("x", si.getX());
+		blockSection.set("y", si.getY());
+		blockSection.set("z", si.getZ());
+		blockSection.set("world", si.getWorldName());
+	}
 }

@@ -329,7 +329,7 @@ public class Stats {
 		}
 
 		if (rank > workingMap.size()) {
-			return null;
+			return "";
 		}
 		Optional<Entry<String, Integer>> opt = Streams.findLast(
 				workingMap.entrySet().stream()

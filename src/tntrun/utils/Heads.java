@@ -17,15 +17,17 @@
 
 package tntrun.utils;
 
+import java.util.HashMap;
+
 import org.bukkit.entity.Player;
 
-import io.github.thatsmusic99.headsplus.util.InventoryManager;
+import io.github.thatsmusic99.headsplus.inventories.InventoryManager;
 
 public class Heads {
 
 	public static void openMenu(Player player) {
-		InventoryManager im2 = InventoryManager.getOrCreate(player);
-		im2.showScreen(InventoryManager.Type.LIST_MENU);
+		InventoryManager im2 = InventoryManager.getManager(player);
+		im2.open(InventoryManager.InventoryType.HEADS_MENU, new HashMap<>());
 	}
 
 }

@@ -37,12 +37,15 @@ public class EnableArena implements CommandHandlerInterface {
 		if (arena != null) {
 			if (arena.getStatusManager().isArenaEnabled()) {
 				Messages.sendMessage(player, Messages.trprefix + "&c Arena &6" + args[0] + "&c already enabled");
+
+			} else if (!arena.getStructureManager().isArenaFinished()) {
+				Messages.sendMessage(player, Messages.trprefix + "&c Arena &6" + args[0] + "&c isn't finished. Please run:&6 /trsetup finish " + args[0]);
+
+			} else if (arena.getStatusManager().enableArena()) {
+				Messages.sendMessage(player, Messages.trprefix + "&7 Arena &6" + args[0] + "&7 enabled");
+
 			} else {
-				if (arena.getStatusManager().enableArena()) {
-					Messages.sendMessage(player, Messages.trprefix + "&7 Arena &6" + args[0] + "&7 enabled");
-				} else {
-					Messages.sendMessage(player, Messages.trprefix + "&c Arena &6" + args[0] + "&c isn't configured. Reason: " + arena.getStructureManager().isArenaConfigured());
-				}
+				Messages.sendMessage(player, Messages.trprefix + "&c Arena &6" + args[0] + "&c isn't configured. Reason: &6" + arena.getStructureManager().isArenaConfiguredString());
 			}
 		} else {
 			Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[0]));
