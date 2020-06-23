@@ -55,23 +55,23 @@ Note that there is a legacy bug fix release (version 6.8.2) only available from 
 
 ## Dependencies
 
-The following plugin dependencies are needed to compile the source code. With the exception of WorldEdit, all are optional to run TNTRun_reloaded on a Spigot server.
+The following plugin dependencies are needed to compile the source code. All are optional to run TNTRun_reloaded on a Spigot server.
 Links to download each plugin are available on TNTRun_reloaded's Spigot page.
 
 The latest version of TNTRun_reloaded has been tested with the following versions of these plugins:
 
-    WorldEdit 7.1.0 (required)
+    WorldEdit 7.1.0 (optional, internal commands setP1 and setP2 can be used to set arena bounds)
     Vault 1.7.2 (optional, required to use economy)
-    HeadsPlus 6.10.2 (optional, allow players to buy and run around wearing different heads)
+    HeadsPlus 6.10.8 (optional, allow players to buy and run around wearing different heads)
     mcMMO Classic 1.6.1 (optional, will allow players in same mcMMO party to PVP in arena)
-    PlaceholderAPI 2.10.3 (optional, needed to use placeholders)
+    PlaceholderAPI 2.10.6 (optional, needed to use placeholders)
     
 Although not required to compile the plugin, the following plugins (or similar) are required to create Holographic Leaderboards for TNTRun_reloaded.
     
     HolographicDisplays 2.4.1 (optional, an example plugin needed to create holograms)
     HolographicExtension (optional, needed with HolographicDisplays to create holograms using placeholders. Also requires ProtolcolLib)
 
-FAWE is also supported, and can be used in place of the WorldEdit 7.1.0 dependency on 1.13+ servers.
+FAWE is also supported, and can be used in place of the WorldEdit 7.1.0 on 1.13+ servers.
 
 For legacy Minecraft 1.12.2 and below:
 
@@ -83,4 +83,4 @@ For legacy Minecraft 1.12.2 and below:
 <br />
 <br />
 <br />
-Updated steve4744 - 1st May 2020
+Updated steve4744 - 23rd June 2020
