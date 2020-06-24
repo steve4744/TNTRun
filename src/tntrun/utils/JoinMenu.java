@@ -19,6 +19,7 @@ package tntrun.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -37,25 +38,24 @@ import tntrun.messages.Messages;
 public class JoinMenu {
 
 	private final TNTRun plugin;
+	private int keyPos;
 
 	public JoinMenu(TNTRun plugin) {
 		this.plugin = plugin;
 	}
 
 	public void buildMenu(Player player) {
-		List<String> lores = new ArrayList<String>();
-		int keyPos = 9;
-
 		ItemStack is = new ItemStack(getMenuItem());
 		ItemMeta im = is.getItemMeta();	
 
-		List<Arena> arenas = getDisplayArenas();
+		TreeMap<String, Arena> arenas = getDisplayArenas();
 
 		int size = getInventorySize(arenas.size());
 		Inventory inv = Bukkit.createInventory(player, size, FormattingCodesParser.parseFormattingCodes(Messages.menutitle));
 
-		for (Arena arena : arenas) {
-			lores = new ArrayList<String>();
+		keyPos = 9;
+		arenas.forEach((arenaname, arena) -> {
+			List<String> lores = new ArrayList<String>();
 			im.setDisplayName(FormattingCodesParser.parseFormattingCodes(Messages.menuarenaname).replace("{ARENA}", arena.getArenaName()));
 
 			lores.add(FormattingCodesParser.parseFormattingCodes(Messages.menutext) + " " + getArenaCount(arena));
@@ -73,7 +73,8 @@ public class JoinMenu {
 				default :  keyPos++;
 			}
 			inv.setItem(keyPos,is);
-		}
+		});
+
 		fillEmptySlots(inv, size);
 		player.openInventory(inv);
 	}
@@ -146,13 +147,17 @@ public class JoinMenu {
 		return autoarena;
 	}
 
-	private List<Arena> getDisplayArenas() {
-		List<Arena> arenas = new ArrayList<Arena>();
+	/**
+	 * Get the list of arenas, by default excluding disabled arenas, in alphabetical order.
+	 * @return Sorted map of arenas
+	 */
+	private TreeMap<String, Arena> getDisplayArenas() {
+		TreeMap<String, Arena> arenas = new TreeMap<String, Arena>(String.CASE_INSENSITIVE_ORDER);
 		for (Arena arena : plugin.amanager.getArenas()) {
 			if (!arena.getStatusManager().isArenaEnabled() && !plugin.getConfig().getBoolean("menu.includedisabled")) {
 				continue;
 			}
-			arenas.add(arena);
+			arenas.put(arena.getArenaName(), arena);
 		}
 		return arenas;
 	}
