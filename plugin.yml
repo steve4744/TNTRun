@@ -1,7 +1,7 @@
 name: TNTRun_reloaded
 main: tntrun.TNTRun
 softdepend: [WorldEdit, Vault, HeadsPlus, mcMMO, PlaceholderAPI]
-version: 9.2-SNAPSHOT
+version: 9.2
 api-version: 1.13
 author: [steve4744]
 commands:
