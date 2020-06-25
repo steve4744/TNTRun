@@ -1,6 +1,6 @@
 # TNTRun_reloaded
 
-This was originally forked from the (now unsupported) TNTRun by Shevchik for Minecraft v1.9 and has been improved and updated as new versions of Minecraft have been released. The latest version runs on all Minecraft versions from 1.13 to 1.5.2, while the legacy version is for servers running Minecraft versions from 1.8 through to 1.12.2.
+This was originally forked from the (now unsupported) TNTRun by Shevchik for Minecraft v1.9 and has been improved and updated as new versions of Minecraft have been released. The latest version runs on all Minecraft versions from 1.13 to 1.16.1, while the legacy version is for servers running Minecraft versions from 1.8 through to 1.12.2.
 
 
 ## Description
@@ -62,16 +62,16 @@ The latest version of TNTRun_reloaded has been tested with the following version
 
     WorldEdit 7.1.0 (optional, internal commands setP1 and setP2 can be used to set arena bounds)
     Vault 1.7.2 (optional, required to use economy)
-    HeadsPlus 6.10.8 (optional, allow players to buy and run around wearing different heads)
+    HeadsPlus 6.10.9 (optional, allow players to buy and run around wearing different heads)
     mcMMO Classic 1.6.1 (optional, will allow players in same mcMMO party to PVP in arena)
     PlaceholderAPI 2.10.6 (optional, needed to use placeholders)
     
 Although not required to compile the plugin, the following plugins (or similar) are required to create Holographic Leaderboards for TNTRun_reloaded.
     
-    HolographicDisplays 2.4.1 (optional, an example plugin needed to create holograms)
+    HolographicDisplays (optional, an example plugin needed to create holograms)
     HolographicExtension (optional, needed with HolographicDisplays to create holograms using placeholders. Also requires ProtolcolLib)
 
-FAWE is also supported, and can be used in place of the WorldEdit 7.1.0 on 1.13+ servers.
+FAWE is also supported, and can be used in place of the WorldEdit on 1.13+ servers.
 
 For legacy Minecraft 1.12.2 and below:
 
@@ -83,4 +83,4 @@ For legacy Minecraft 1.12.2 and below:
 <br />
 <br />
 <br />
-Updated steve4744 - 23rd June 2020
+Updated steve4744 - 25th June 2020
