@@ -71,8 +71,8 @@ public class TNTRun extends JavaPlugin {
 	private BungeeHandler bungeeHandler;
 	private Arena bungeeArena;
 	private JoinMenu joinMenu;
+	private PlayerDataStore pdata;
 
-	public PlayerDataStore pdata;
 	public ArenasManager amanager;
 	public GlobalLobby globallobby;
 	public SignEditor signEditor;
@@ -350,6 +350,10 @@ public class TNTRun extends JavaPlugin {
 
 	public Arena getBungeeArena() {
 		return bungeeArena;
+	}
+
+	public PlayerDataStore getPData() {
+		return pdata;
 	}
 
 	public void updateScoreboardList() {

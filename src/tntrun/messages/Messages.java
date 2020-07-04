@@ -44,6 +44,7 @@ public class Messages {
 	public static String arenanotexist = "&c Arena &6{ARENA}&c doesn't exist";
 	public static String noarenas = "&c There are no arenas available to join";
 	public static String arenanotdisabled = "&c Please disable arena: &6/trsetup disable {ARENA}";
+	public static String arenanospectatorspawn = "&c No spectator spawn set for arena &6{ARENA}";
 	public static String availablekits = "&7 Available kits:&r ";
 	public static String arenawolrdna = "&7 Arena world is not loaded";
 	public static String arenanobounds = "&7 Arena bounds not set";
@@ -65,6 +66,7 @@ public class Messages {
 	public static String limitreached = "&7 Arena is full.";
 	public static String playerjoinedtoplayer = "&7 You joined the arena";
 	public static String playerjoinedtoothers = "&c {RANK}&6{PLAYER} &7joined the arena";
+	public static String playerjoinedasspectator = "&7 You joined arena &6{ARENA} &7as a spectator";
 	public static String playerlefttoplayer = "&7 You left the arena";
 	public static String playerlefttoothers = "&c {RANK}&6{PLAYER} &7left the game";
 	public static String playervotedforstart = "&f You voted to force-start the game";
@@ -105,6 +107,7 @@ public class Messages {
 	public static String helplist = "List all arenas OR List arena details";
 	public static String helpjoin = "Open join menu OR Join the arena";
 	public static String helpautojoin = "Automatically join the first available arena";
+	public static String helpspectate = "Join the arena as a spectator";
 	public static String helpleave = "Leave the current arena";
 	public static String helpvote = "Vote to force-start current arena";
 	public static String helpcmds = "View all TNTRun commands";
@@ -180,6 +183,7 @@ public class Messages {
 		arenanotexist = config.getString("arenanotexist", arenanotexist);
 		noarenas = config.getString("noarenas", noarenas);
 		arenanotdisabled = config.getString("arenanotdisabled", arenanotdisabled);
+		arenanospectatorspawn = config.getString("arenanospectatorspawn", arenanospectatorspawn);
 		arenawolrdna = config.getString("arenawolrdna", arenawolrdna);
 		arenanobounds = config.getString("arenanobounds", arenanobounds);
 		arenadisabled = config.getString("arenadisabled", arenadisabled);
@@ -198,6 +202,7 @@ public class Messages {
 		limitreached = config.getString("limitreached", limitreached);
 		playerjoinedtoplayer = config.getString("playerjoinedtoplayer", playerjoinedtoplayer);
 		playerjoinedtoothers = config.getString("playerjoinedtoothers", playerjoinedtoothers);
+		playerjoinedasspectator = config.getString("playerjoinedasspectator", playerjoinedasspectator);
 		playerlefttoplayer = config.getString("playerlefttoplayer", playerlefttoplayer);
 		playerlefttoothers = config.getString("playerlefttoothers", playerlefttoothers);
 		playervotedforstart = config.getString("playervotedforstart", playervotedforstart);
@@ -233,6 +238,7 @@ public class Messages {
 		helplist = config.getString("helplist", helplist);
 		helplistkit = config.getString("helplistkit", helplistkit);
 		helpjoin = config.getString("helpjoin", helpjoin);
+		helpspectate = config.getString("helpspectate", helpspectate);
 		helpautojoin = config.getString("helpautojoin", helpautojoin);
 		helpleave = config.getString("helpleave", helpleave);
 		helpvote = config.getString("helpvote", helpvote);
@@ -295,6 +301,7 @@ public class Messages {
 		config.set("arenanotexist", arenanotexist);
 		config.set("noarenas", noarenas);
 		config.set("arenanotdisabled", arenanotdisabled);
+		config.set("arenanospectatorspawn", arenanospectatorspawn);
 		config.set("availablearenas", availablearenas);
 		config.set("availablekits", availablekits);
 		config.set("arenawolrdna", arenawolrdna);
@@ -315,6 +322,7 @@ public class Messages {
 		config.set("limitreached", limitreached);
 		config.set("playerjoinedtoplayer", playerjoinedtoplayer);
 		config.set("playerjoinedtoothers", playerjoinedtoothers);
+		config.set("playerjoinedasspectator", playerjoinedasspectator);
 		config.set("playerlefttoplayer", playerlefttoplayer);
 		config.set("playerlefttoothers", playerlefttoothers);
 		config.set("playervotedforstart", playervotedforstart);
@@ -350,6 +358,7 @@ public class Messages {
 		config.set("helplist", helplist);
 		config.set("helplistkit", helplistkit);
 		config.set("helpjoin", helpjoin);
+		config.set("helpspectate", helpspectate);
 		config.set("helpautojoin", helpautojoin);
 		config.set("helpleave", helpleave);
 		config.set("helpvote", helpvote);

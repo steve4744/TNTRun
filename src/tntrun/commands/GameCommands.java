@@ -57,6 +57,7 @@ public class GameCommands implements CommandExecutor {
 			player.spigot().sendMessage(Utils.getTextComponent("/tr lobby", true), Utils.getTextComponent(Messages.helplobby));
 			player.spigot().sendMessage(Utils.getTextComponent("/tr list [arena]", true), Utils.getTextComponent(Messages.helplist));
 			player.spigot().sendMessage(Utils.getTextComponent("/tr join [arena]", true), Utils.getTextComponent(Messages.helpjoin));
+			player.spigot().sendMessage(Utils.getTextComponent("/tr spectate [arena]", true), Utils.getTextComponent(Messages.helpspectate));
 			player.spigot().sendMessage(Utils.getTextComponent("/tr autojoin", true), Utils.getTextComponent(Messages.helpautojoin));
 			player.spigot().sendMessage(Utils.getTextComponent("/tr leave", true), Utils.getTextComponent(Messages.helpleave));
 			player.spigot().sendMessage(Utils.getTextComponent("/tr vote", true), Utils.getTextComponent(Messages.helpvote));
@@ -172,6 +173,34 @@ public class GameCommands implements CommandExecutor {
 				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[1]));
 				return true;
 			}
+		}
+
+		// spectate arena
+		else if (args[0].equalsIgnoreCase("spectate")) {
+			/*if (args.length == 1 && player.hasPermission("tntrun.joinmenu")) {
+				plugin.getJoinMenu().buildMenu(player);
+				return false;
+			}*/
+			if (args.length != 2) {
+				Messages.sendMessage(player, Messages.trprefix + "&c Invalid number of arguments supplied");
+				return false;
+			}
+			Arena arena = plugin.amanager.getArenaByName(args[1]);
+			if (arena == null) {
+				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[1]));
+				return true;
+			}
+			if (arena.getStructureManager().getSpectatorSpawnVector() == null) {
+				Messages.sendMessage(player, Messages.trprefix + Messages.arenanospectatorspawn.replace("{ARENA}", args[1]));
+				return true;
+			}
+			if (!arena.getStatusManager().isArenaEnabled()) {
+				Messages.sendMessage(player, Messages.trprefix + Messages.arenadisabled);
+				return true;
+			}
+			arena.getPlayerHandler().spectatePlayer(player, Messages.playerjoinedasspectator, "");
+			return true;
+
 		}
 
 		// autojoin

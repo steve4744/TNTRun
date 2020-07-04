@@ -133,26 +133,17 @@ public class PlayerHandler {
 	}
 
 	public void spawnPlayer(final Player player, String msgtoplayer, String msgtoarenaplayers) {
-		plugin.pdata.storePlayerLocation(player);
+		plugin.getPData().storePlayerLocation(player);
 		player.teleport(arena.getStructureManager().getSpawnPoint());
 		for (Player aplayer : Bukkit.getOnlinePlayers()) {
 			aplayer.showPlayer(plugin, player);
 		}
-		plugin.pdata.storePlayerGameMode(player);
-		plugin.pdata.storePlayerFlight(player);
-		player.setFlying(false);
-		player.setAllowFlight(false);
-		plugin.pdata.storePlayerLevel(player);
-		plugin.pdata.storePlayerInventory(player);
-		plugin.pdata.storePlayerArmor(player);
-		plugin.pdata.storePlayerPotionEffects(player);
-		plugin.pdata.storePlayerHunger(player);
-		
+
+		storePlayerData(player);
+
 		if (plugin.isMCMMO() && !arena.getStructureManager().getDamageEnabled().equals(DamageEnabled.NO)) {
 			allowFriendlyFire(player);
 		}
-
-		player.updateInventory();
 
 		if (!arena.getStatusManager().isArenaStarting()) {
 			arena.getGameHandler().count = arena.getStructureManager().getCountdown();
@@ -239,12 +230,22 @@ public class PlayerHandler {
 			player.teleport(arena.getStructureManager().getSpectatorSpawn());
 			return;
 		}
-		// remove form players
-		arena.getPlayersManager().remove(player);
-		arena.getGameHandler().lostPlayers++;
-		arena.getScoreboardHandler().removeScoreboard(player);
+		// if player is direct joining spectator
+		if (!arena.getPlayersManager().getPlayers().contains(player)) {
+			plugin.getPData().storePlayerLocation(player);
+		}
+
 		player.teleport(arena.getStructureManager().getSpectatorSpawn());
-		// clear inventory and potion effects
+
+		// if player did not join arena as spectator
+		if (arena.getPlayersManager().getPlayers().contains(player)) {
+			arena.getPlayersManager().remove(player);
+			arena.getGameHandler().lostPlayers++;
+			arena.getScoreboardHandler().removeScoreboard(player);
+		} else {
+			storePlayerData(player);
+		}
+
 		player.getInventory().clear();
 		player.getInventory().setArmorContents(new ItemStack[4]);
 		clearPotionEffects(player);
@@ -255,14 +256,16 @@ public class PlayerHandler {
 			oplayer.hidePlayer(plugin, player);
 		}
 
-		Messages.sendMessage(player, Messages.trprefix + msgtoplayer);
+		Messages.sendMessage(player, Messages.trprefix + msgtoplayer.replace("{ARENA}", arena.getArenaName()));
 		plugin.signEditor.modifySigns(arena.getArenaName());
 
 		msgtoarenaplayers = msgtoarenaplayers.replace("{PLAYER}", player.getName()).replace("{RANK}", getDisplayName(player));
 		for (Player oplayer : arena.getPlayersManager().getAllParticipantsCopy()) {
 			Messages.sendMessage(oplayer, Messages.trprefix + msgtoarenaplayers);
 		}
+
 		arena.getPlayersManager().addSpectator(player);
+
 		new BukkitRunnable() {
 			@Override
 			public void run(){
@@ -349,11 +352,11 @@ public class PlayerHandler {
 		arena.getPlayersManager().remove(player);
 		clearPotionEffects(player);
 
-		plugin.pdata.restorePlayerHunger(player);
-		plugin.pdata.restorePlayerPotionEffects(player);
-		plugin.pdata.restorePlayerArmor(player);
-		plugin.pdata.restorePlayerInventory(player);
-		plugin.pdata.restorePlayerLevel(player);
+		plugin.getPData().restorePlayerHunger(player);
+		plugin.getPData().restorePlayerPotionEffects(player);
+		plugin.getPData().restorePlayerArmor(player);
+		plugin.getPData().restorePlayerInventory(player);
+		plugin.getPData().restorePlayerLevel(player);
 		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 80, 80, true));
 
 		if (plugin.isBungeecord()) {
@@ -366,9 +369,9 @@ public class PlayerHandler {
 		if (winner) {
 			arena.getStructureManager().getRewards().rewardPlayer(player);
 		}
-		plugin.pdata.restorePlayerGameMode(player);
+		plugin.getPData().restorePlayerGameMode(player);
 		player.updateInventory();
-		plugin.pdata.restorePlayerFlight(player);
+		plugin.getPData().restorePlayerFlight(player);
 		removeFriendlyFire(player);
 
 		if (plugin.getConfig().getBoolean("shop.onleave.removepurchase")) {
@@ -391,9 +394,9 @@ public class PlayerHandler {
 	private void connectToLobby(Player player) {
 		if (arena.getStructureManager().getTeleportDestination() == TeleportDestination.LOBBY && plugin.globallobby.isLobbyLocationWorldAvailable()) {
 			player.teleport(plugin.globallobby.getLobbyLocation());
-			plugin.pdata.clearPlayerLocation(player);
+			plugin.getPData().clearPlayerLocation(player);
 		} else {
-			plugin.pdata.restorePlayerLocation(player);
+			plugin.getPData().restorePlayerLocation(player);
 		}
 	}
 
@@ -635,5 +638,19 @@ public class PlayerHandler {
 
 	public String getDisplayName(Player player) {
 		return getRank(player) == null ? "" : getRank(player);
+	}
+
+	private void storePlayerData(Player player) {
+		plugin.getPData().storePlayerGameMode(player);
+		plugin.getPData().storePlayerFlight(player);
+		player.setFlying(false);
+		player.setAllowFlight(false);
+		plugin.getPData().storePlayerLevel(player);
+		plugin.getPData().storePlayerInventory(player);
+		plugin.getPData().storePlayerArmor(player);
+		plugin.getPData().storePlayerPotionEffects(player);
+		plugin.getPData().storePlayerHunger(player);
+
+		player.updateInventory();
 	}
 }
