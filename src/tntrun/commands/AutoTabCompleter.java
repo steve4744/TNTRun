@@ -19,6 +19,7 @@ package tntrun.commands;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -26,7 +27,6 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import tntrun.TNTRun;
-import tntrun.arena.Arena;
 
 public class AutoTabCompleter implements TabCompleter {
 
@@ -36,10 +36,10 @@ public class AutoTabCompleter implements TabCompleter {
 			if (!(sender instanceof Player)) {
 				return null;
 			}
-			
+
 			List<String> list = new ArrayList<String>();
 			List<String> auto = new ArrayList<String>();
-			
+
 			if (args.length == 1) {
 				list.add("help");
 				list.add("lobby");
@@ -56,11 +56,13 @@ public class AutoTabCompleter implements TabCompleter {
 				if (sender.hasPermission("tntrun.start")) {
 					list.add("start");
 				}
+				if (sender.hasPermission("tntrun.spectate")) {
+					list.add("spectate");
+				}
 			} else if (args.length == 2) {
-				if (args[0].equalsIgnoreCase("join") || args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("start")) {
-					for (Arena arena : TNTRun.getInstance().amanager.getArenas()) {
-						list.add(arena.getArenaName());
-					}
+				if (Stream.of("join", "list", "start", "spectate").anyMatch(s -> s.equalsIgnoreCase(args[0]))) {
+					list.addAll(TNTRun.getInstance().amanager.getArenasNames());
+
 				} else if (args[0].equalsIgnoreCase("listkits") || args[0].equalsIgnoreCase("listkit")) {
 					list.addAll(TNTRun.getInstance().kitmanager.getKits());
 				}
@@ -71,9 +73,8 @@ public class AutoTabCompleter implements TabCompleter {
 				}
 			}
 			return auto.isEmpty() ? list : auto;
-			
+
 		}
 		return null;
 	}
-
 }

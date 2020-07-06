@@ -36,3 +36,6 @@ permissions:
   tntrun.start:
     description: allow players to start an arena before the minimum players is reached
     default: op
+  tntrun.spectate:
+    description: allow players to join the arena as a spectator
+    default: op

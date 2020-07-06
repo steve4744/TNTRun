@@ -177,10 +177,10 @@ public class GameCommands implements CommandExecutor {
 
 		// spectate arena
 		else if (args[0].equalsIgnoreCase("spectate")) {
-			/*if (args.length == 1 && player.hasPermission("tntrun.joinmenu")) {
-				plugin.getJoinMenu().buildMenu(player);
-				return false;
-			}*/
+			if (!player.hasPermission("tntrun.spectate")) {
+				Messages.sendMessage(player, Messages.trprefix + Messages.nopermission);
+				return true;
+			}
 			if (args.length != 2) {
 				Messages.sendMessage(player, Messages.trprefix + "&c Invalid number of arguments supplied");
 				return false;
