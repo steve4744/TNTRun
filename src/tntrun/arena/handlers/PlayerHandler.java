@@ -66,7 +66,56 @@ public class PlayerHandler {
 		return checkJoin(player, false);
 	}
 
+	/**
+	 * Returns whether a player is able to join the arena at this time.
+	 * @param player
+	 * @param silent
+	 * @return
+	 */
 	public boolean checkJoin(Player player, boolean silent) {
+		if (!preJoinChecks(player, silent)) {
+			return false;
+		}
+		if (arena.getStatusManager().isArenaRunning()) {
+			if (!silent) {
+				Messages.sendMessage(player, Messages.trprefix + Messages.arenarunning);
+			}
+			return false;
+		}
+		if (!player.hasPermission("tntrun.join")) {
+			if (!silent) {
+				Messages.sendMessage(player, Messages.trprefix + Messages.nopermission);
+			}
+			return false;
+		}
+		if (arena.getPlayersManager().getPlayersCount() == arena.getStructureManager().getMaxPlayers()) {
+			if (!silent) {
+				Messages.sendMessage(player, Messages.trprefix + Messages.limitreached);
+			}
+			return false;
+		}
+		if (arena.getStructureManager().hasFee()) {
+			double fee = arena.getStructureManager().getFee();
+			if (!arena.getArenaEconomy().hasFunds(player, fee)) {
+				if (!silent) {
+					Messages.sendMessage(player, Messages.trprefix + Messages.arenanofee.replace("{FEE}", arena.getStructureManager().getArenaCost(arena)));
+				}
+				return false;
+			}
+			if (!silent) {
+				Messages.sendMessage(player, Messages.trprefix + Messages.arenafee.replace("{FEE}", arena.getStructureManager().getArenaCost(arena)));
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Returns whether a player is able to join the arena either as a spectator or player.
+	 * @param player
+	 * @param silent
+	 * @return
+	 */
+	public boolean preJoinChecks(Player player, boolean silent) {
 		if (!arena.getStatusManager().isArenaEnabled()) {
 			if (!silent) {
 				Messages.sendMessage(player, Messages.trprefix + Messages.arenadisabled);
@@ -79,21 +128,9 @@ public class PlayerHandler {
 			}
 			return false;
 		}
-		if (arena.getStatusManager().isArenaRunning()) {
-			if (!silent) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenarunning);
-			}
-			return false;
-		}
 		if (arena.getStatusManager().isArenaRegenerating()) {
 			if (!silent) {
 				Messages.sendMessage(player, Messages.trprefix + Messages.arenaregenerating);
-			}
-			return false;
-		}
-		if (!player.hasPermission("tntrun.join")) {
-			if (!silent) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.nopermission);
 			}
 			return false;
 		}
@@ -103,31 +140,11 @@ public class PlayerHandler {
 			}
 			return false;
 		}
-		if (arena.getPlayersManager().getPlayersCount() == arena.getStructureManager().getMaxPlayers()) {
-			if (!silent) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.limitreached);
-			}
-			return false;
-		}
-
 		if (plugin.amanager.getPlayerArena(player.getName()) != null) {
 			if (!silent) {
 				Messages.sendMessage(player, Messages.trprefix + Messages.arenajoined);
 			}
 			return false;
-		}
-
-		if (arena.getStructureManager().hasFee()) {
-			double fee = arena.getStructureManager().getFee();
-			if (!arena.getArenaEconomy().hasFunds(player, fee)) {
-				if (!silent) {
-					Messages.sendMessage(player, Messages.trprefix + Messages.arenanofee.replace("{FEE}", arena.getStructureManager().getArenaCost(arena)));
-				}
-				return false;
-			}
-			if (!silent) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenafee.replace("{FEE}", arena.getStructureManager().getArenaCost(arena)));
-			}
 		}
 		return true;
 	}

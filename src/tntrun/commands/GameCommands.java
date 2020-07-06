@@ -67,11 +67,9 @@ public class GameCommands implements CommandExecutor {
 			player.spigot().sendMessage(Utils.getTextComponent("/tr listkit [kit]", true), Utils.getTextComponent(Messages.helplistkit));
 			player.spigot().sendMessage(Utils.getTextComponent("/tr start {arena}", true), Utils.getTextComponent(Messages.helpstart));
 			player.spigot().sendMessage(Utils.getTextComponent("/tr cmds", true), Utils.getTextComponent(Messages.helpcmds));
-			return true;
 
 		} else if (args[0].equalsIgnoreCase("lobby")) {
 			plugin.globallobby.joinLobby(player);
-			return true;
 		}
 
 		// list arenas
@@ -135,7 +133,7 @@ public class GameCommands implements CommandExecutor {
 				if (arena.getStructureManager().isTestMode()) {
 					player.sendMessage(ChatColor.GOLD + "Test Mode " + ChatColor.WHITE + "- " + ChatColor.RED + "Enabled");
 				}
-				return true;
+				return false;
 			}
 			StringBuilder message = new StringBuilder(200);
 			message.append(Messages.trprefix + Messages.availablearenas);
@@ -150,7 +148,6 @@ public class GameCommands implements CommandExecutor {
 				message.setLength(message.length() - 2);
 			}
 			Messages.sendMessage(player, message.toString());
-			return true;
 		}
 
 		// join arena
@@ -168,7 +165,6 @@ public class GameCommands implements CommandExecutor {
 				if (arena.getPlayerHandler().checkJoin(player)) {
 					arena.getPlayerHandler().spawnPlayer(player, Messages.playerjoinedtoplayer, Messages.playerjoinedtoothers);
 				}
-				return true;
 			} else {
 				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[1]));
 				return true;
@@ -194,13 +190,10 @@ public class GameCommands implements CommandExecutor {
 				Messages.sendMessage(player, Messages.trprefix + Messages.arenanospectatorspawn.replace("{ARENA}", args[1]));
 				return true;
 			}
-			if (!arena.getStatusManager().isArenaEnabled()) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenadisabled);
+			if (!arena.getPlayerHandler().preJoinChecks(player, false)) {
 				return true;
 			}
 			arena.getPlayerHandler().spectatePlayer(player, Messages.playerjoinedasspectator, "");
-			return true;
-
 		}
 
 		// autojoin
@@ -246,7 +239,6 @@ public class GameCommands implements CommandExecutor {
 			Arena arena = plugin.amanager.getPlayerArena(player.getName());
 			if (arena != null) {
 				arena.getPlayerHandler().leavePlayer(player, Messages.playerlefttoplayer, Messages.playerlefttoothers);
-				return true;
 			} else {
 				Messages.sendMessage(player, Messages.trprefix + Messages.playernotinarena);
 				return true;
@@ -297,8 +289,9 @@ public class GameCommands implements CommandExecutor {
 					Messages.sendMessage(player, Messages.trprefix + Messages.playervotedforstart);
 				} else {
 					Messages.sendMessage(player, Messages.trprefix + Messages.playeralreadyvotedforstart);
+					return true;
 				}
-				return true;
+
 			} else {
 				Messages.sendMessage(player, Messages.trprefix + Messages.playernotinarena);
 				return true;
@@ -308,7 +301,6 @@ public class GameCommands implements CommandExecutor {
 		// listkits
 		else if (args[0].equalsIgnoreCase("listkit") || args[0].equalsIgnoreCase("listkits")) {
 			if (args.length >= 2) {
-				//list kit details
 				plugin.kitmanager.listKit(args[1], player);
 				return true;
 			}
@@ -321,7 +313,6 @@ public class GameCommands implements CommandExecutor {
 				message.setLength(message.length() - 2);
 			}
 			Messages.sendMessage(player, message.toString());
-			return true;
 		}
 
 		// start
@@ -343,7 +334,9 @@ public class GameCommands implements CommandExecutor {
 				if (!arena.getStatusManager().isArenaStarting()) {
 					plugin.getServer().getConsoleSender().sendMessage("[TNTRun] Arena " + ChatColor.GOLD + arena.getArenaName() + ChatColor.WHITE + " force-started by " + ChatColor.AQUA + player.getName());
 					arena.getGameHandler().forceStartByCommand();
-					return false;
+				} else {
+					Messages.sendMessage(player, Messages.trprefix + Messages.arenastarting.replace("{ARENA}", args[1]));
+					return true;
 				}
 			} else {
 				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[1]));
