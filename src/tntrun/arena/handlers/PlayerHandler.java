@@ -248,15 +248,17 @@ public class PlayerHandler {
 			player.teleport(arena.getStructureManager().getSpectatorSpawn());
 			return;
 		}
-		// if player is direct joining spectator
+
+		boolean isSpectatorOnly = false;
 		if (!arena.getPlayersManager().getPlayers().contains(player)) {
+			// player joined only as spectator
+			isSpectatorOnly = true;
 			plugin.getPData().storePlayerLocation(player);
 		}
 
 		player.teleport(arena.getStructureManager().getSpectatorSpawn());
 
-		// if player did not join arena as spectator
-		if (arena.getPlayersManager().getPlayers().contains(player)) {
+		if (!isSpectatorOnly) {
 			arena.getPlayersManager().remove(player);
 			arena.getGameHandler().lostPlayers++;
 			arena.getScoreboardHandler().removeScoreboard(player);
@@ -298,7 +300,9 @@ public class PlayerHandler {
 			}
 		}.runTaskLater(plugin, 5L);
 
-		plugin.getServer().getPluginManager().callEvent(new PlayerSpectateArenaEvent(player, arena.getArenaName()));
+		if (!isSpectatorOnly) {
+			plugin.getServer().getPluginManager().callEvent(new PlayerSpectateArenaEvent(player, arena.getArenaName()));
+		}
 	}
 	/**
 	 * If the winner attempts to leave, teleport to arena spawn.
