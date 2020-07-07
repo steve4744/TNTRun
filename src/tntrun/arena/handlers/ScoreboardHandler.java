@@ -84,7 +84,6 @@ public class ScoreboardHandler {
 
 			for (String s : plugin.getConfig().getStringList("scoreboard.waiting")) {
 				s = FormattingCodesParser.parseFormattingCodes(s).replace("{ARENA}", arena.getArenaName());
-				//s = s.replace("{PS}", arena.getPlayersManager().getAllParticipantsCopy().size() + "");
 				s = s.replace("{PS}", arena.getPlayersManager().getPlayersCount() + "");
 				s = s.replace("{MPS}", arena.getStructureManager().getMaxPlayers() + "");
 				s = s.replace("{COUNT}", arena.getGameHandler().count + "");
@@ -153,7 +152,6 @@ public class ScoreboardHandler {
 		int size = plugin.getConfig().getStringList("scoreboard.playing").size();
 		for (String s : plugin.getConfig().getStringList("scoreboard.playing")) {
 			s = FormattingCodesParser.parseFormattingCodes(s).replace("{ARENA}", arena.getArenaName());
-			//s = s.replace("{PS}", arena.getPlayersManager().getAllParticipantsCopy().size() + "");
 			s = s.replace("{PS}", arena.getPlayersManager().getPlayersCount() + "");
 			s = s.replace("{MPS}", arena.getStructureManager().getMaxPlayers() + "");
 			s = s.replace("{LOST}", arena.getGameHandler().lostPlayers + "");

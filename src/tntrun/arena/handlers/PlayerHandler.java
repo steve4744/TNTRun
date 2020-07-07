@@ -251,7 +251,6 @@ public class PlayerHandler {
 
 		boolean isSpectatorOnly = false;
 		if (!arena.getPlayersManager().getPlayers().contains(player)) {
-			// player joined only as spectator
 			isSpectatorOnly = true;
 			plugin.getPData().storePlayerLocation(player);
 		}
