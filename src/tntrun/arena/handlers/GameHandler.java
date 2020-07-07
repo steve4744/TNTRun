@@ -331,7 +331,7 @@ public class GameHandler {
 		Bukkit.getScheduler().cancelTask(arenahandler);
 		Bukkit.getScheduler().cancelTask(arena.getScoreboardHandler().getPlayingTask());
 
-		plugin.getServer().getPluginManager().callEvent(new PlayerWinArenaEvent(player, arena.getArenaName()));
+		plugin.getServer().getPluginManager().callEvent(new PlayerWinArenaEvent(player, arena));
 
 		if (plugin.getConfig().getBoolean("fireworksonwin.enabled")) {
 	
@@ -339,7 +339,7 @@ public class GameHandler {
 				int i = 0;
 				@Override
 				public void run() {
-					//cancel on duration-1 to avoid firework overrun
+					//cancel on duration -1 to avoid firework overrun
 					if (i >= (getFireworkDuration() - 1)) {
 						this.cancel();
 					}

@@ -234,7 +234,7 @@ public class PlayerHandler {
 			}
 		}
 
-		plugin.getServer().getPluginManager().callEvent(new PlayerJoinArenaEvent(player, arena.getArenaName()));
+		plugin.getServer().getPluginManager().callEvent(new PlayerJoinArenaEvent(player, arena));
 
 		// check for game start
 		if (!arena.getStatusManager().isArenaStarting() && arena.getPlayersManager().getPlayersCount() == arena.getStructureManager().getMinPlayers()) {
@@ -301,7 +301,7 @@ public class PlayerHandler {
 		}.runTaskLater(plugin, 5L);
 
 		if (!isSpectatorOnly) {
-			plugin.getServer().getPluginManager().callEvent(new PlayerSpectateArenaEvent(player, arena.getArenaName()));
+			plugin.getServer().getPluginManager().callEvent(new PlayerSpectateArenaEvent(player, arena));
 		}
 	}
 	/**
@@ -355,7 +355,7 @@ public class PlayerHandler {
 				Bars.setBar(arena, Bars.waiting, arena.getPlayersManager().getPlayersCount(), 0, progress, plugin);
 			}
 		}
-		plugin.getServer().getPluginManager().callEvent(new PlayerLeaveArenaEvent(player, arena.getArenaName()));
+		plugin.getServer().getPluginManager().callEvent(new PlayerLeaveArenaEvent(player, arena));
 	}
 
 	protected void leaveWinner(Player player, String msgtoplayer) {
