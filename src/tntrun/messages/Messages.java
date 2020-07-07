@@ -153,6 +153,9 @@ public class Messages {
 	public static String setupdisablekits = "Disable kits for the arena";
 	public static String setupaddkit = "Create a TNTRun kit";
 	public static String setupdelkit = "Delete a TNTRun kit";
+	public static String setupp1 = "Set targeted block as first selection point";
+	public static String setupp2 = "Set targeted block as second selection point";
+	public static String setupclear = "Clear selection points";
 	
 	
 	public static void sendMessage(CommandSender sender, String message) {
@@ -283,6 +286,9 @@ public class Messages {
 		setupdisablekits = config.getString("setupdisablekits", setupdisablekits);
 		setupaddkit = config.getString("setupaddkit", setupaddkit);
 		setupdelkit = config.getString("setupdelkit", setupaddkit);
+		setupp1 = config.getString("setupp1", setupp1);
+		setupp2 = config.getString("setupp2", setupp2);
+		setupclear = config.getString("setupclear", setupclear);
 		kitexists = config.getString("kitexists", kitexists);
 		kitnotexists = config.getString("kitnotexists", kitnotexists);
 		saveMessages(messageconfig);
@@ -404,6 +410,9 @@ public class Messages {
 		config.set("setupdisablekits", setupdisablekits);
 		config.set("setupaddkit", setupaddkit);
 		config.set("setupdelkit", setupdelkit);
+		config.set("setupp1", setupp1);
+		config.set("setupp2", setupp2);
+		config.set("setupclear", setupclear);
 		config.set("kitexists", kitexists);
 		config.set("kitnotexists", kitnotexists);
 		try {
