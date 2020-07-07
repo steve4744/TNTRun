@@ -56,6 +56,7 @@ public class PlayerHandler {
 	private Arena arena;
 	private Map<String, Integer> doublejumps = new HashMap<String, Integer>();   // playername -> number_of_doublejumps
 	private List<String> pparty = new ArrayList<String>();
+	private HashSet<String> votes = new HashSet<String>();
 
 	public PlayerHandler(TNTRun plugin, Arena arena) {
 		this.plugin = plugin;
@@ -417,9 +418,13 @@ public class PlayerHandler {
 		}
 	}
 
-	// vote for game start
-	private HashSet<String> votes = new HashSet<String>();
-
+	/**
+	 * Players waiting for the game to start can vote to force start the game before the minimum number of players is reached.
+	 * The number of votes required is determined by the value of the 'votepercent' setting.
+	 * Players who have joined the arena as spectators are not allowed to vote.
+	 * @param player
+	 * @return true if player voted successfully
+	 */
 	public boolean vote(Player player) {
 		if (!votes.contains(player.getName())) {
 			votes.add(player.getName());

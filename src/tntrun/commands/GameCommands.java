@@ -285,6 +285,10 @@ public class GameCommands implements CommandExecutor {
 		else if (args[0].equalsIgnoreCase("vote")) {
 			Arena arena = plugin.amanager.getPlayerArena(player.getName());
 			if (arena != null) {
+				if (!arena.getPlayersManager().getPlayers().contains(player)) {
+					Messages.sendMessage(player, Messages.trprefix + Messages.playercannotvote);
+					return true;
+				}
 				if (arena.getPlayerHandler().vote(player)) {
 					Messages.sendMessage(player, Messages.trprefix + Messages.playervotedforstart);
 				} else {

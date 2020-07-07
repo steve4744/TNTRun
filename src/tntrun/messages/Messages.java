@@ -71,6 +71,7 @@ public class Messages {
 	public static String playerlefttoothers = "&c {RANK}&6{PLAYER} &7left the game";
 	public static String playervotedforstart = "&f You voted to force-start the game";
 	public static String playeralreadyvotedforstart = "&c You have already voted";
+	public static String playercannotvote = "&c You cannot vote to force-start the arena";
 	public static String arenastarted = "&7 Arena started. Time limit is {TIMELIMIT} seconds";
 	public static String arenanolimit = "&7 Arena started. No time limit";
 	public static String arenacountdown = "&7 Arena starts in {COUNTDOWN} seconds";
@@ -207,6 +208,7 @@ public class Messages {
 		playerlefttoothers = config.getString("playerlefttoothers", playerlefttoothers);
 		playervotedforstart = config.getString("playervotedforstart", playervotedforstart);
 		playeralreadyvotedforstart = config.getString("playeralreadyvotedforstart", playeralreadyvotedforstart);
+		playercannotvote = config.getString("playercannotvote", playercannotvote);
 		playersrequiredtostart = config.getString("playersrequiredtostart", playersrequiredtostart);
 		arenastarted = config.getString("arenastarted", arenastarted);
 		arenanolimit = config.getString("arenanolimit", arenanolimit);
@@ -327,6 +329,7 @@ public class Messages {
 		config.set("playerlefttoothers", playerlefttoothers);
 		config.set("playervotedforstart", playervotedforstart);
 		config.set("playeralreadyvotedforstart", playeralreadyvotedforstart);
+		config.set("playercannotvote", playercannotvote);
 		config.set("arenastarted", arenastarted);
 		config.set("arenanolimit", arenanolimit);
 		config.set("arenacountdown", arenacountdown);
