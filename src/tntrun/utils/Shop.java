@@ -20,6 +20,7 @@ package tntrun.utils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -60,10 +61,10 @@ public class Shop implements Listener {
 		invname = FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("shop.name"));
 	}  
 
-	private HashMap<Integer, Integer> itemSlot = new HashMap<Integer, Integer>();
-	private HashMap<String, ArrayList<ItemStack>> pitems = new HashMap<String, ArrayList<ItemStack>>(); // player-name -> items
+	private Map<Integer, Integer> itemSlot = new HashMap<Integer, Integer>();
+	private Map<String, ArrayList<ItemStack>> pitems = new HashMap<String, ArrayList<ItemStack>>(); // player-name -> items
 	private List<String> buyers = new ArrayList<String>();
-	private HashMap<String, List<PotionEffect>> potionMap = new HashMap<String, List<PotionEffect>>();  // player-name -> effects
+	private Map<String, List<PotionEffect>> potionMap = new HashMap<String, List<PotionEffect>>();  // player-name -> effects
 	private boolean doublejumpPurchase;
 
 	private void giveItem(int slot, Player player, String title) {
@@ -79,7 +80,7 @@ public class Shop implements Listener {
 		}
 
 		buyers.add(player.getName());
-		for(String items : cfg.getConfigurationSection(kit + ".items").getKeys(false)) {
+		for (String items : cfg.getConfigurationSection(kit + ".items").getKeys(false)) {
 			try {				
 				Material material = Material.getMaterial(cfg.getString(kit + ".items." + items + ".material"));
 				int amount = cfg.getInt(kit + ".items." + items + ".amount");
@@ -327,11 +328,13 @@ public class Shop implements Listener {
 		ItemStack item = new ItemStack(material, amount);
 		ItemMeta meta = item.getItemMeta();
 
-		meta.setDisplayName(title);
-		if ((lore != null) && (!lore.isEmpty())) {
-			meta.setLore(lore);
+		if (meta != null) {
+			meta.setDisplayName(title);
+			if ((lore != null) && (!lore.isEmpty())) {
+				meta.setLore(lore);
+			}
+			item.setItemMeta(meta);
 		}
-		item.setItemMeta(meta);
 		return item;
 	}
 
@@ -372,7 +375,7 @@ public class Shop implements Listener {
 		return invsize;
 	}
 
-	public HashMap<String, ArrayList<ItemStack>> getPlayersItems() {
+	public Map<String, ArrayList<ItemStack>> getPlayersItems() {
 		return pitems;
 	}
 
