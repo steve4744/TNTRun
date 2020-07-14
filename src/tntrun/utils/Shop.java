@@ -232,11 +232,15 @@ public class Shop implements Listener {
 		if (e.getSlot() == e.getRawSlot() && e.getCurrentItem() != null) {
 			ItemStack current = e.getCurrentItem();
 			if (current.hasItemMeta() && current.getItemMeta().hasDisplayName()) {
-				int kit = itemSlot.get(e.getSlot());
-
 				FileConfiguration cfg = ShopFiles.getShopConfiguration();
-				String permission = cfg.getString(kit + ".permission");
 
+				int kit = itemSlot.get(e.getSlot());
+				if (cfg.getInt(kit + ".items.1.amount") <= 0) {
+					Messages.sendMessage(p, Messages.trprefix + Messages.shopnostock);
+					return;
+				}
+
+				String permission = cfg.getString(kit + ".permission");
 				if (!p.hasPermission(permission) && !p.hasPermission("tntrun.shop")) {
 					p.closeInventory();
 					Messages.sendMessage(p, Messages.trprefix + Messages.nopermission);
@@ -245,13 +249,13 @@ public class Shop implements Listener {
 				}
 
 				doublejumpPurchase = Material.getMaterial(cfg.getString(kit + ".material").toUpperCase()) == Material.FEATHER;
-
 				if (!doublejumpPurchase && buyers.contains(p.getName())) {
 					Messages.sendMessage(p, Messages.trprefix + Messages.alreadyboughtitem);
 					plugin.sound.ITEM_SELECT(p);
 					p.closeInventory();
 					return;
 				}
+
 				Arena arena = plugin.amanager.getPlayerArena(p.getName());
 				if (doublejumpPurchase && !canBuyDoubleJumps(cfg, p, kit)) {
 					Messages.sendMessage(p, Messages.trprefix + Messages.maxdoublejumpsexceeded.replace("{MAXJUMPS}",

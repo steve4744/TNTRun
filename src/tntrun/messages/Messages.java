@@ -85,6 +85,7 @@ public class Messages {
 	public static String playerboughtwait = "&7 You will get your items when the game starts";
 	public static String notenoughtmoney = "&c You need {MONEY} coins to buy this item";
 	public static String alreadyboughtitem = "&c You have already bought a shop item";
+	public static String shopnostock = "&c This item is currently out of stock";
 	public static String maxdoublejumpsexceeded = "&c You cannot exceed the maximum doublejumps allowed ({MAXJUMPS})";
 	public static String playernotinarena = "&c You are not in a TNTRun arena";
 	public static String playerkit = "&7 You have been given kit &6{KIT}";
@@ -227,6 +228,7 @@ public class Messages {
 		playerkit = config.getString("playerkit", playerkit);
 		notenoughtmoney = config.getString("notenoughtmoney", notenoughtmoney);
 		alreadyboughtitem = config.getString("alreadyboughtitem", alreadyboughtitem);
+		shopnostock = config.getString("shopnostock", shopnostock);
 		maxdoublejumpsexceeded = config.getString("maxdoublejumpsexceeded", maxdoublejumpsexceeded);
 		playernotinarena = config.getString("playernotinarena", playernotinarena);
 		gamesplayed = config.getString("gamesplayed", gamesplayed);
@@ -351,6 +353,7 @@ public class Messages {
 		config.set("playersrequiredtostart", playersrequiredtostart);
 		config.set("notenoughtmoney", notenoughtmoney);
 		config.set("alreadyboughtitem", alreadyboughtitem);
+		config.set("shopnostock", shopnostock);
 		config.set("maxdoublejumpsexceeded", maxdoublejumpsexceeded);
 		config.set("playernotinarena", playernotinarena);
 		config.set("gamesplayed", gamesplayed);
