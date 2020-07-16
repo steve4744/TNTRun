@@ -82,6 +82,7 @@ items:
     name: '&2&lStats'
     slot: 3
   leave:
+    use: true
     material: GREEN_BED
     name: '&2&lLeave'
     slot: 8

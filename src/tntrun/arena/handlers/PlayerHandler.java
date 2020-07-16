@@ -183,8 +183,9 @@ public class PlayerHandler {
 		new BukkitRunnable() {
 			@Override
 			public void run(){
-				addLeaveItem(player);
-				
+				if (plugin.getConfig().getBoolean("items.leave.use")) {
+					addLeaveItem(player);
+				}
 				if (plugin.getConfig().getBoolean("items.vote.use")) {
 					addVote(player);
 				}
@@ -288,8 +289,9 @@ public class PlayerHandler {
 		new BukkitRunnable() {
 			@Override
 			public void run(){
-				addLeaveItem(player);
-
+				if (plugin.getConfig().getBoolean("items.leave.use")) {
+					addLeaveItem(player);
+				}
 				if (plugin.getConfig().getBoolean("items.info.use")) {
 					addInfo(player);
 				}
@@ -530,7 +532,9 @@ public class PlayerHandler {
 			for (Player player : arena.getPlayersManager().getPlayers()) {
 				plugin.kitmanager.giveKit(kitnames[rnd.nextInt(kitnames.length)], player);
 				//kits will replace the GUI items, so give each player the leave item again
-				addLeaveItem(player);
+				if (plugin.getConfig().getBoolean("items.leave.use")) {
+					addLeaveItem(player);
+				}
 			}
 		}
 	}
