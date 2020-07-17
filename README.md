@@ -2,7 +2,9 @@
 
 TNTRun is a highly configurable, fully automated minigame for Minecraft servers. Traditionally players start on a layer of sand supported by TNT blocks, although any combination of blocks can be used, and every block that they step on disappears. If a player falls through a hole, he/she will continue to run on the layer below. Once a player falls through the final layer he/she loses the game and becomes a spectator for the remainder of the game. The last player remaining wins the game.
 
-This fork was created in 2016 from the unsupported TNTRun by Shevchik for Minecraft v1.10, and has been improved and updated as new versions of Minecraft have been released. The latest version of TNTRun_reloaded supports all Minecraft versions from 1.13 to 1.16.1, while the legacy version is supported for servers running Minecraft versions from 1.8 through to 1.12.2. The following description and features apply to the latest release. Many of the features will not be present in the legacy version which is maintained and supported on an 'as is' basis, and will only be updated if a bug is reported or an existing feature breaks.
+This fork was created in 2016 from the unsupported TNTRun by Shevchik for Minecraft v1.10, and has been improved and updated as new versions of Minecraft have been released. The latest version of TNTRun_reloaded supports all Minecraft versions from 1.13 to 1.16.1, while the legacy version is supported for servers running Minecraft versions from 1.8 through to 1.12.2. 
+
+The following description and features apply to the latest release. Many of the features will not be present in the legacy version which is maintained and supported on an 'as is' basis, and will only be updated if a bug is reported or an existing feature breaks.
 
 The plugin features a customisable shop where players can buy items such as double-jumps, splash potions and snowballs (with knockback), an option to enable PVP in an arena, and interfaces with HeadsPlus (by ThatsMusic99) allowing players to buy/wear custom heads during the game.
 
