@@ -49,9 +49,11 @@ public class SetupTabCompleter implements TabCompleter {
 		arenacommands.add("setarena");
 		arenacommands.add("setloselevel");
 		arenacommands.add("setspawn");
+		arenacommands.add("addspawn");
 		arenacommands.add("setspectate");
 		arenacommands.add("finish");
 		arenacommands.add("delspectate");
+		arenacommands.add("deletespawnpoints");
 		arenacommands.add("setgameleveldestroydelay");
 		arenacommands.add("setregenerationdelay");
 		arenacommands.add("setmaxplayers");
