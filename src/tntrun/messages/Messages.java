@@ -126,6 +126,8 @@ public class Messages {
 	public static String setuploselevel = "Set loselevel bounds";
 	public static String setupspawn = "Set arena spawn at your feet";
 	public static String setupspectate = "Set spectator spawn point";
+	public static String setupaddspawn = "Set an additional spawn at your feet";
+	public static String setupdelspawns = "Delete all spawn points created with the addspawn command";
 	public static String setupfinish = "Finish arena and save";
 	public static String setupdelspectate = "Delete spectator spawn for arena";
 	public static String setupdelay = "Set delay for removing block when player steps on it";
@@ -260,6 +262,8 @@ public class Messages {
 		setuploselevel = config.getString("setuploselevel", setuploselevel);
 		setupspawn = config.getString("setupspawn", setupspawn);
 		setupspectate = config.getString("setupspectate", setupspectate);
+		setupaddspawn = config.getString("setupaddspawn", setupaddspawn);
+		setupdelspawns = config.getString("setupdelspawns", setupdelspawns);
 		setupfinish = config.getString("setupfinish", setupfinish);
 		setupdelspectate = config.getString("setupdelspectate", setupdelspectate);
 		setupdelay = config.getString("setupdelay", setupdelay);
@@ -385,6 +389,8 @@ public class Messages {
 		config.set("setuploselevel", setuploselevel);
 		config.set("setupspawn", setupspawn);
 		config.set("setupspectate", setupspectate);
+		config.set("setupaddspawn", setupaddspawn);
+		config.set("setupdelspawns", setupdelspawns);
 		config.set("setupfinish", setupfinish);
 		config.set("setupdelspectate", setupdelspectate);
 		config.set("setupdelay", setupdelay);

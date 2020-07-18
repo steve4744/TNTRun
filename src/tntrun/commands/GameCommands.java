@@ -281,6 +281,8 @@ public class GameCommands implements CommandExecutor {
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup setcurrency {arena} {item}", true), Utils.getTextComponent(Messages.setupcurrency));
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup setlobby", true), Utils.getTextComponent(Messages.setuplobby));
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup deletelobby", true), Utils.getTextComponent(Messages.setupdellobby));
+			player.spigot().sendMessage(Utils.getTextComponent("/trsetup addspawn", true), Utils.getTextComponent(Messages.setupaddspawn));
+			player.spigot().sendMessage(Utils.getTextComponent("/trsetup deletespawnpoints", true), Utils.getTextComponent(Messages.setupdelspawns));
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup help", true), Utils.getTextComponent(Messages.setuphelp));
 		}
 

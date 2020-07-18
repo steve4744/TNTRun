@@ -292,6 +292,10 @@ public class StructureManager {
 		spectatorspawn = null;
 	}
 
+	public void removeAdditionalSpawnPoints() {
+		additionalSpawnPoints = null;
+	}
+
 	public void setMaxPlayers(int maxplayers) {
 		maxPlayers = maxplayers;
 	}

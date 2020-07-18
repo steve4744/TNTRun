@@ -29,6 +29,7 @@ import tntrun.TNTRun;
 import tntrun.commands.setup.arena.AddSpawn;
 import tntrun.commands.setup.arena.CreateArena;
 import tntrun.commands.setup.arena.DeleteArena;
+import tntrun.commands.setup.arena.DeleteSpawnPoints;
 import tntrun.commands.setup.arena.DeleteSpectatorSpawn;
 import tntrun.commands.setup.arena.DisableArena;
 import tntrun.commands.setup.arena.DisableKits;
@@ -92,6 +93,7 @@ public class SetupCommandsHandler implements CommandExecutor {
 		commandHandlers.put("setloselevel", new SetLoseLevel(plugin, plselection));
 		commandHandlers.put("setspawn", new SetSpawn(plugin));
 		commandHandlers.put("addspawn", new AddSpawn(plugin));
+		commandHandlers.put("deletespawnpoints", new DeleteSpawnPoints(plugin));
 		commandHandlers.put("setspectate", new SetSpectatorSpawn(plugin));
 		commandHandlers.put("delspectate", new DeleteSpectatorSpawn(plugin));
 		commandHandlers.put("setmaxplayers", new SetMaxPlayers(plugin));
