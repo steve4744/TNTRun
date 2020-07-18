@@ -52,7 +52,7 @@ public class SetupTabCompleter implements TabCompleter {
 		arenacommands.add("addspawn");
 		arenacommands.add("setspectate");
 		arenacommands.add("finish");
-		arenacommands.add("delspectate");
+		arenacommands.add("deletespectate");
 		arenacommands.add("deletespawnpoints");
 		arenacommands.add("setgameleveldestroydelay");
 		arenacommands.add("setregenerationdelay");

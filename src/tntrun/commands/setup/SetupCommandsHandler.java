@@ -95,7 +95,7 @@ public class SetupCommandsHandler implements CommandExecutor {
 		commandHandlers.put("addspawn", new AddSpawn(plugin));
 		commandHandlers.put("deletespawnpoints", new DeleteSpawnPoints(plugin));
 		commandHandlers.put("setspectate", new SetSpectatorSpawn(plugin));
-		commandHandlers.put("delspectate", new DeleteSpectatorSpawn(plugin));
+		commandHandlers.put("deletespectate", new DeleteSpectatorSpawn(plugin));
 		commandHandlers.put("setmaxplayers", new SetMaxPlayers(plugin));
 		commandHandlers.put("setminplayers", new SetMinPlayers(plugin));
 		commandHandlers.put("setvotepercent", new SetVotePercent(plugin));
