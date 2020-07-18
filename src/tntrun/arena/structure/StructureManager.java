@@ -18,6 +18,8 @@
 package tntrun.arena.structure;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -62,6 +64,8 @@ public class StructureManager {
 	private String currency;
 	private double fee = 0;
 	private boolean finished = false;
+	private List<Vector> additionalSpawnPoints = new ArrayList<Vector>();
+	private List<Vector> tempList = new ArrayList<Vector>();;
 
 	public String getWorldName() {
 		return world;
@@ -108,7 +112,15 @@ public class StructureManager {
 	}
 
 	public Location getSpawnPoint() {
-		return new Location(getWorld(), spawnpoint.getX(), spawnpoint.getY(), spawnpoint.getZ());
+		Vector v = spawnpoint;
+		if (hasAdditionalSpawnPoints()) {
+			v = nextSpawnPoint();
+		}
+		return new Location(getWorld(), v.getX(), v.getY(), v.getZ());
+	}
+
+	public List<Vector> getAdditionalSpawnPoints() {
+		return additionalSpawnPoints;
 	}
 
 	public int getMaxPlayers() {
@@ -263,6 +275,19 @@ public class StructureManager {
 		return false;
 	}
 
+	/**
+	 * Creates an additional spawn point from the supplied location.
+	 * @param loc
+	 * @return true if created successfully
+	 */
+	public boolean addSpawnPoint(Location loc) {
+		if (isInArenaBounds(loc)) {
+			additionalSpawnPoints.add(loc.toVector());
+			return true;
+		}
+		return false;
+	}
+
 	public void removeSpectatorsSpawn() {
 		spectatorspawn = null;
 	}
@@ -315,6 +340,18 @@ public class StructureManager {
 		this.currency = currency.toString();
 	}
 
+	public boolean hasAdditionalSpawnPoints() {
+		return additionalSpawnPoints != null;
+	}
+
+	private Vector nextSpawnPoint() {
+		if (tempList.isEmpty()) {
+			tempList.add(spawnpoint);
+			tempList.addAll(additionalSpawnPoints);
+		}
+		return tempList.remove(0);
+	}
+
 	public void saveToConfig() {
 		FileConfiguration config = new YamlConfiguration();
 		try {
@@ -350,6 +387,7 @@ public class StructureManager {
 		config.set("joinfee", fee);
 		config.set("currency", currency);
 		config.set("finished", finished);
+		config.set("spawnpoints", additionalSpawnPoints);
 		rewards.saveToConfig(config);
 		try {
 			config.save(arena.getArenaFile());
@@ -358,6 +396,7 @@ public class StructureManager {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public void loadFromConfig() {
 		FileConfiguration config = YamlConfiguration.loadConfiguration(arena.getArenaFile());
 		world = config.getString("world", null);
@@ -385,6 +424,7 @@ public class StructureManager {
 		if (!finished && arena.getStructureManager().isArenaConfigured()) {
 			finished = true;
 		}
+		additionalSpawnPoints = (List<Vector>) config.getList("spawnpoints");
 	}
 
 }

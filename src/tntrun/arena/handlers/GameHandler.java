@@ -111,7 +111,7 @@ public class GameHandler {
 					message = message.replace("{COUNTDOWN}", String.valueOf(count));
 
 					for (Player player : arena.getPlayersManager().getPlayers()) {
-						if (isAntiCamping()) {
+						if (isAntiCamping() && !arena.getStructureManager().hasAdditionalSpawnPoints()) {
 							player.teleport(arena.getStructureManager().getSpawnPoint());
 						}
 						displayCountdown(player, count, message);
