@@ -76,7 +76,11 @@ public class Utils {
 			link.setClickEvent( new ClickEvent( ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/tntrun_reloaded.53359/"));
 			tc.addExtra(link);
 
+			//TODO update for 1.16 API
+			//Content content = new Text(getUpdateMessage().create());
+			//tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, content));
 			tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, getUpdateMessage().create()));
+
 			player.spigot().sendMessage(tc);
 		}
 	}
@@ -122,6 +126,8 @@ public class Utils {
 	}
 
 	public static TextComponent getTextComponent(String text, Boolean click) {
+		//TODO update to 1.16 API
+		//Content msg = new Text("Click to select");
 		TextComponent tc = new TextComponent(text);
 		if (click) {
 			String splitter = "[";
@@ -130,6 +136,9 @@ public class Utils {
 			}
 			tc.setColor(ChatColor.GOLD);
 			tc.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, StringUtils.substringBefore(text, splitter)));
+
+			//TODO update to 1.16 API
+			//tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, msg));
 			tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click to select").create()));
 			tc.addExtra(getTextComponentDelimiter(" - "));
 		} else {
@@ -143,4 +152,5 @@ public class Utils {
 		tc.setColor(ChatColor.WHITE);
 		return tc;
 	}
+
 }
