@@ -148,10 +148,6 @@ public class Stats {
 			.forEach(e -> {
 			if (Bukkit.getOnlineMode()) {
 				OfflinePlayer p = Bukkit.getOfflinePlayer(UUID.fromString(e.getKey()));
-				if (!p.hasPlayedBefore()) {
-					// continue to next entry
-					return;
-				}
 				lbentry = p.getName();
 			} else {
 				lbentry = e.getKey();
@@ -174,6 +170,16 @@ public class Stats {
 		return true;
 	}
 
+	private boolean isKnownPlayer(String identity) {
+		OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(identity));
+		return player.hasPlayedBefore();
+	}
+
+	/**
+	 * Cache the contents of stats.yml. Online servers use players UUIDs and offline servers use player names.
+	 * For online servers, validate the UUID as the file could contain player names if the server has been in
+	 * offline mode. Ignore UUID entries for servers in offline mode.
+	 */
 	private void getStatsFromFile() {
 		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 		ConfigurationSection stats = config.getConfigurationSection("stats");
@@ -181,8 +187,7 @@ public class Stats {
 		if (stats != null) {
 			if (Bukkit.getOnlineMode()) {
 				for (String uuid : stats.getKeys(false)) {
-					// validate UUID as file could contain player names if its been in offline mode
-					if (!isValidUuid(uuid)) {
+					if (!isValidUuid(uuid) || !isKnownPlayer(uuid)) {
 						continue;
 					}
 					wmap.put(uuid, config.getInt("stats." + uuid + ".wins", 0));
@@ -200,6 +205,11 @@ public class Stats {
 		}
 	}
 
+	/**
+	 * Cache the stats from the database. Online servers use players UUIDs and offline servers use player names.
+	 * For online servers, validate the UUID as the file could contain player names if the server has been in
+	 * offline mode. Ignore UUID entries for servers in offline mode.
+	 */
 	private void getStatsFromDB(String table) {
 		Stream.of("wins", "played").forEach(stat -> {
 			Map<String, Integer> workingMap = new HashMap<String, Integer>();
@@ -209,10 +219,8 @@ public class Stats {
 
 				while (rs.next()) {
 					String playerName = rs.getString("username");
-
-					// check if valid uuid
 					if (Bukkit.getOnlineMode()) {
-						if (!isValidUuid(playerName)) {
+						if (!isValidUuid(playerName) || !isKnownPlayer(playerName)) {
 							continue;
 						}
 					} else if (isValidUuid(playerName)) {
@@ -323,9 +331,7 @@ public class Stats {
 			lbplaceholdername = opt.get().getKey();
 			if (Bukkit.getOnlineMode()) {
 				OfflinePlayer p = Bukkit.getOfflinePlayer(UUID.fromString(opt.get().getKey()));
-				if (p.hasPlayedBefore()) {
-					lbplaceholdername = p.getName();
-				}
+				lbplaceholdername = p.getName();
 			}
 			lbplaceholdervalue = String.valueOf(opt.get().getValue());
 		});
