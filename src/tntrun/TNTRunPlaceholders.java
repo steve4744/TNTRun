@@ -117,6 +117,13 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 
 			return plugin.stats.getLeaderboardPosition(pos, type, entry);
 
+		} else if (identifier.startsWith("status")) {
+			String[] temp = identifier.split("_");
+			if (temp.length != 2) {
+				return null;
+			}
+			Arena arena = plugin.amanager.getArenaByName(temp[1]);
+			return arena != null ? arena.getStatusManager().getArenaStatus() : null;
 		}
 		return null;
 	}
