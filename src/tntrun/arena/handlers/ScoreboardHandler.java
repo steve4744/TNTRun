@@ -18,6 +18,7 @@ package tntrun.arena.handlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -37,7 +38,8 @@ public class ScoreboardHandler {
 
 	private final TNTRun plugin;
 	private Scoreboard scoreboard;
-	private HashMap<String, Scoreboard> scoreboardMap = new HashMap<String, Scoreboard>();
+	private Map<String, Scoreboard> scoreboardMap = new HashMap<String, Scoreboard>();
+	private Map<String, Scoreboard> prejoinScoreboards = new HashMap<String, Scoreboard>();
 	private int playingtask;
 	private Arena arena;
 
@@ -167,4 +169,15 @@ public class ScoreboardHandler {
 		return playingtask;
 	}
 
+	public void storePrejoinScoreboard(Player player) {
+		if (plugin.getConfig().getBoolean("special.UseScoreboard")) {
+			prejoinScoreboards.put(player.getName(), player.getScoreboard());
+		}
+	}
+
+	public void restorePrejoinScoreboard(Player player) {
+		if (prejoinScoreboards.get(player.getName()) != null) {
+			player.setScoreboard(prejoinScoreboards.remove(player.getName()));
+		}
+	}
 }

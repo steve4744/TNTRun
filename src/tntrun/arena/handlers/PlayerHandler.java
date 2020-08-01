@@ -381,6 +381,7 @@ public class PlayerHandler {
 		plugin.getPData().restorePlayerInventory(player);
 		plugin.getPData().restorePlayerLevel(player);
 		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 80, 80, true));
+		arena.getScoreboardHandler().restorePrejoinScoreboard(player);
 
 		if (plugin.isBungeecord()) {
 			plugin.getBungeeHandler().connectToHub(player);
@@ -679,7 +680,8 @@ public class PlayerHandler {
 		plugin.getPData().storePlayerArmor(player);
 		plugin.getPData().storePlayerPotionEffects(player);
 		plugin.getPData().storePlayerHunger(player);
-
 		player.updateInventory();
+
+		arena.getScoreboardHandler().storePrejoinScoreboard(player);
 	}
 }
