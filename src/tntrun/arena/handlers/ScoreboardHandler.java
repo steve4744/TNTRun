@@ -170,9 +170,7 @@ public class ScoreboardHandler {
 	}
 
 	public void storePrejoinScoreboard(Player player) {
-		if (plugin.getConfig().getBoolean("special.UseScoreboard")) {
-			prejoinScoreboards.put(player.getName(), player.getScoreboard());
-		}
+		prejoinScoreboards.put(player.getName(), player.getScoreboard());
 	}
 
 	public void restorePrejoinScoreboard(Player player) {
