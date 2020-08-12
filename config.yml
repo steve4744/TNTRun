@@ -10,7 +10,7 @@ special:
    UseBarApi: true
    UseTitle: true
    UseScoreboard: true
-   CheckForNewVersion: true
+   CheckForNewVersion: false
 shop:
    name: '&6&lTNTRun &f&lSHOP'
    size: 27
