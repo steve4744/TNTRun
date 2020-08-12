@@ -131,7 +131,7 @@ public class Messages {
 		arenaregenerating = config.getString("arenaregenerating", arenaregenerating);
 		arenavehicle = config.getString("arenavehicle", arenavehicle);
 		arenadisabling = config.getString("arenadisabling", arenadisabling);
-		arenastarting = config.getString("arenastarting ", arenastarting);
+		arenastarting = config.getString("arenastarting", arenastarting);
 		playerscountinarena = config.getString("playerscountinarena", playerscountinarena);
 		limitreached = config.getString("limitreached", limitreached);
 		playerjoinedtoplayer = config.getString("playerjoinedtoplayer", playerjoinedtoplayer);
