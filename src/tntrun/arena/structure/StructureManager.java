@@ -53,6 +53,7 @@ public class StructureManager {
 	private Rewards rewards = new Rewards();
 	private TeleportDestination teleportDest = TeleportDestination.PREVIOUS;
 	private DamageEnabled damageEnabled = DamageEnabled.NO;
+	private boolean testmode = false;
 
 	public String getWorldName() {
 		return world;
@@ -144,6 +145,10 @@ public class StructureManager {
 
 	public static enum DamageEnabled {
 		YES, ZERO, NO
+	}
+
+	public boolean isTestMode() {
+		return testmode;
 	}
 
 	public boolean isInArenaBounds(Location loc) {
@@ -283,6 +288,7 @@ public class StructureManager {
 		config.set("teleportto", teleportDest.toString());
 		// save damage enabled
 		config.set("damageenabled", damageEnabled.toString());
+		config.set("testmode", testmode);
 		// save kits
 		kits.saveToConfig(config);
 		// save rewards
@@ -323,6 +329,7 @@ public class StructureManager {
 		teleportDest = TeleportDestination.valueOf(config.getString("teleportto", TeleportDestination.PREVIOUS.toString()));
 		// load damage enabled
 		damageEnabled = DamageEnabled.valueOf(config.getString("damageenabled", DamageEnabled.NO.toString()));
+		testmode = config.getBoolean("testmode");
 		// load kits
 		kits.loadFromConfig(config);
 		// load rewards

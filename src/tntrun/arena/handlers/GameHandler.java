@@ -283,13 +283,18 @@ public class GameHandler {
 		// remove block under player feet
 		arena.getStructureManager().getGameZone().destroyBlock(plufloc);
 		// check for win
-		if (arena.getPlayersManager().getPlayersCount() == 1) {
-			// last player won
+		if (arena.getPlayersManager().getPlayersCount() == 1 && !arena.getStructureManager().isTestMode()) {
+			// last player wins
 			startEnding(player);
 			return;
 		}
 		// check for lose
 		if (arena.getStructureManager().getLoseLevel().isLooseLocation(plloc)) {
+			if (arena.getPlayersManager().getPlayersCount() == 1) {
+				// must be test mode
+				startEnding(player);
+				return;
+			}
 			// if we have the spectate spawn than we will move player to spectators, otherwise we will remove him from arena
 			if (arena.getStructureManager().getSpectatorSpawnVector() != null) {
 				arena.getPlayerHandler().spectatePlayer(player, Messages.playerlosttoplayer, Messages.playerlosttoothers);

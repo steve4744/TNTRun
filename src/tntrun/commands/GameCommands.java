@@ -122,7 +122,11 @@ public class GameCommands implements CommandExecutor {
 				if (arena.getStructureManager().getRewards().getCommandReward() != null) {
 					sender.sendMessage("§6Command Reward §f- §6\"§c" + arena.getStructureManager().getRewards().getCommandReward() + "§6\"");
 				}
-				
+
+				if (arena.getStructureManager().isTestMode()) {
+					player.sendMessage("§6Test Mode §f- §6\"§c\"Enabled");
+				}
+
 				return true;
 			}
 			StringBuilder message = new StringBuilder(200);
