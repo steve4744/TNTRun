@@ -2,7 +2,7 @@ name: TNTRun_reloaded
 main: tntrun.TNTRun
 depend: [WorldEdit]
 softdepend: [Vault]
-version: 6.8.2
+version: 6.8.3
 author: [_Shevchik_, steve4744]
 commands:
   tntrunsetup:

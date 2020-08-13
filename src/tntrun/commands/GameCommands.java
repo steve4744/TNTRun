@@ -124,7 +124,7 @@ public class GameCommands implements CommandExecutor {
 				}
 
 				if (arena.getStructureManager().isTestMode()) {
-					player.sendMessage("§6Test Mode §f- §6\"§c\"Enabled");
+					player.sendMessage("§6Test Mode §f- §c Enabled");
 				}
 
 				return true;
