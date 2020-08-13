@@ -81,6 +81,7 @@ public class Messages {
 	public static String helpcmds = "View all TNTRun commands";
 	public static String helpinfo = "View plugin info";
 	public static String helpstats = "View player stats";
+	public static String helplb = "Display the TNTRun leaderboard";
 	
 	public static String setuplobby = "Set lobby at your current location";
 	public static String setupcreate = "Create a new arena";
@@ -171,6 +172,7 @@ public class Messages {
 		helpcmds = config.getString("helpcmds", helpcmds);
 		helpinfo = config.getString("helpinfo", helpinfo);
 		helpstats = config.getString("helpstats", helpstats);
+		helplb = config.getString("helplb", helplb);
 		setuplobby = config.getString("setuplobby", setuplobby);
 		setupcreate = config.getString("setupcreate", setupcreate);
 		setupbounds = config.getString("setupbounds", setupbounds);
@@ -249,6 +251,7 @@ public class Messages {
 		config.set("helpcmds", helpcmds);
 		config.set("helpinfo", helpinfo);
 		config.set("helpstats", helpstats);
+		config.set("helplb", helplb);
 		config.set("setuplobby", setuplobby);
 		config.set("setupcreate", setupcreate);
 		config.set("setupbounds", setupbounds);

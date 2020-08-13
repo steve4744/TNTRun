@@ -60,6 +60,7 @@ public class GameCommands implements CommandExecutor {
 			Messages.sendMessage(player, "§6/tr cmds §f- §c" + Messages.helpcmds);
 			Messages.sendMessage(player, "§6/tr info §f- §c" + Messages.helpinfo);
 			Messages.sendMessage(player, "§6/tr stats §f- §c" + Messages.helpstats);
+			Messages.sendMessage(player, "§6/tr leaderboard [size] §f- §c" + Messages.helplb);
 			return true;
 		} else if (args[0].equalsIgnoreCase("lobby")) {
 			if (plugin.globallobby.isLobbyLocationSet()) {
