@@ -190,7 +190,7 @@ public class TNTRun extends JavaPlugin {
 						needUpdate = false;
 					}else{
 						log.info("Your version: " + getDescription().getVersion());
-						log.info("New version : " + version[0]);
+						log.info("New version : " + version[0] + " for Minecraft 1.13+");
 						log.info("New version available! Download now: https://www.spigotmc.org/resources/tntrun_reloaded.53359/");
 						needUpdate = true;
 						for(Player p : Bukkit.getOnlinePlayers()){
@@ -198,7 +198,7 @@ public class TNTRun extends JavaPlugin {
 								p.sendMessage(" ");
 								p.sendMessage("§7[§6TNTRun§7] §6New update available!");
 								p.sendMessage("§7[§6TNTRun§7] §7Your version: §6" + getDescription().getVersion());
-								p.sendMessage("§7[§6TNTRun§7] §7New version : §6" + version[0]);
+								p.sendMessage("§7[§6TNTRun§7] §7New version : §6" + version[0] + " for Minecraft 1.13+");
 								p.sendMessage("§7[§6TNTRun§7] §7New version available! Download now: §6https://www.spigotmc.org/resources/tntrun_reloaded.53359/");
 							}
 						}
