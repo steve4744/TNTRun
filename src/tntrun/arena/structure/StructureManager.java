@@ -153,6 +153,13 @@ public class StructureManager {
 		return false;
 	}
 
+	public boolean isArenaBoundsSet() {
+		if (getP1() == null || getP2() == null || world == null) {
+			return false;
+		}
+		return true;
+	}
+
 	public boolean isArenaConfigured() {
 		return isArenaConfiguredString().equals("yes");
 	}
