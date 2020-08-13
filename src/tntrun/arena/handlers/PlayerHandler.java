@@ -32,7 +32,6 @@ import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.arena.structure.StructureManager.TeleportDestination;
 import tntrun.utils.Bars;
-import tntrun.utils.Stats;
 import tntrun.utils.TitleMsg;
 import tntrun.messages.Messages;
 
@@ -254,7 +253,6 @@ public class PlayerHandler {
 		if(arena.getStatusManager().isArenaRunning()){
 			// add to lostPlayers
 			arena.getGameHandler().lostPlayers++;
-			Stats.addLoses(player, 1);
 		}
 		// remove scoreboard
 		removeScoreboard(player);

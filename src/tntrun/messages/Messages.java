@@ -21,10 +21,9 @@ import java.io.File;
 import java.io.IOException;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-
 import tntrun.FormattingCodesParser;
 import tntrun.TNTRun;
 
@@ -71,6 +70,8 @@ public class Messages {
 	public static String gameswon = "&7Wins: &6";
 	public static String gameslost = "&7Losses: &6";
 	public static String statsdisabled = "&7[&6TNTRun&7] &cStats are currently disabled";
+	public static String leaderboard = "{POSITION}) &b{PLAYER} &f: Wins &3{WINS}";
+	public static String leaderhead = "&7======[&6TNTRun Leaderboard&7]======";
 	
 	public static String helplobby = "Teleport to lobby";
 	public static String helplist = "List all arenas &for &cList arena details";
@@ -108,9 +109,9 @@ public class Messages {
 	public static String setupreward = "Set the rewards for the arena";
 	
 	
-	public static void sendMessage(Player player, String message) {
+	public static void sendMessage(CommandSender sender, String message) {
 		if (!message.equals("")) {
-			player.sendMessage(FormattingCodesParser.parseFormattingCodes(message));
+			sender.sendMessage(FormattingCodesParser.parseFormattingCodes(message));
 		}
 	}
 
@@ -160,6 +161,8 @@ public class Messages {
 		gameswon = config.getString("gameswon", gameswon);
 		gameslost = config.getString("gameslost", gameslost);
 		statsdisabled = config.getString("statsdisabled", statsdisabled);
+		leaderboard = config.getString("leaderboard", leaderboard);
+		leaderhead = config.getString("leaderhead", leaderhead);
 		helplobby = config.getString("helplobby", helplobby);
 		helplist = config.getString("helplist", helplist);
 		helpjoin = config.getString("helpjoin", helpjoin);
@@ -236,6 +239,8 @@ public class Messages {
 		config.set("gameswon", gameswon);
 		config.set("gameslost", gameslost);
 		config.set("statsdisabled", statsdisabled);
+		config.set("leaderhead", leaderhead);
+		config.set("leaderboard", leaderboard);
 		config.set("helplobby", helplobby);
 		config.set("helplist", helplist);
 		config.set("helpjoin", helpjoin);

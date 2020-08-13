@@ -53,12 +53,13 @@ public class TNTRun extends JavaPlugin {
 	public ArenasManager amanager;
 	public GlobalLobby globallobby;
 	public SignEditor signEditor;
-	public boolean file = false;
-	public boolean usestats = false;
+	private boolean file = false;
+	private boolean usestats = false;
 	public boolean needUpdate = false;
 	public String[] version = {"Nothing", "Nothing"};
 	public Sounds sound;
-	
+	public Stats stats;
+
 	public static TNTRun instance;
 
 	@Override
@@ -107,10 +108,9 @@ public class TNTRun extends JavaPlugin {
 			},
 			20
 		);
-		
-		//check for update
+
 		checkUpdate();
-		
+
 		/* Version 1.9 and above should use new_Sounds_1_9 */
 		String version = Bukkit.getBukkitVersion().split("-")[0];
 		if(version.contains("1.8") || version.contains("1.7")){
@@ -118,27 +118,17 @@ public class TNTRun extends JavaPlugin {
 		}else{
 			sound = new Sounds_1_9();
 		}
-		
+
 	    log.info("Starting Metrics...");
 	    new Metrics(this);
 	    log.info("Metrics started!");
-	     
-	     if(this.getConfig().getString("database").equals("file")){
-	    	 file = true;
-	    	 usestats = true;
-	     }else if(this.getConfig().getString("database").equals("sql")){
-	    	 this.connectToMySQL();
-	    	 usestats = true;
-	    	 file = false;
-	     }else{
-	    	 log.info("This database is not supported, supported database: sql, file");
-	    	 usestats = false;
-	    	 file = false;
-	    	 log.info("Disabling stats...");
-	     }
-	     new Stats(this);
+
+	    setStorage();
+		if (usestats) {
+			stats = new Stats(this);
+		}
 	}
-	
+
 	public static TNTRun getInstance(){
 		return instance;
 	}
@@ -170,8 +160,19 @@ public class TNTRun extends JavaPlugin {
 	public void logSevere(String message) {
 		log.severe(message);
 	}
-	
-	//private void checkUpdate(final boolean runUpdateTask){
+
+	public boolean useStats() {
+		return usestats;
+	}
+
+	public void setUseStats(boolean usestats) {
+		this.usestats = usestats;
+	}
+
+	public boolean isFile() {
+		return file;
+	}
+
 	private void checkUpdate(){
 		if(!getConfig().getBoolean("special.CheckForNewVersion", true)){
 			return;
@@ -208,9 +209,9 @@ public class TNTRun extends JavaPlugin {
 			}
 		}, 30L);
 	}
-	
+
 	public MySQL mysql;
-	
+
 	private void connectToMySQL(){
 		log.info("Connecting to MySQL database...");
 		String host = this.getConfig().getString("MySQL.host");
@@ -226,5 +227,21 @@ public class TNTRun extends JavaPlugin {
                 + "UNIQUE KEY `username` (`username`) ) ENGINE=InnoDB DEFAULT CHARSET=latin1;");
         
         log.info("Connected to MySQL database!");
+	}
+
+	private void setStorage() {
+		if (this.getConfig().getString("database").equals("file")) {
+			usestats = true;
+			file = true;
+		} else if (this.getConfig().getString("database").equals("sql")) {
+			this.connectToMySQL();
+			usestats = true;
+			file = false;
+		} else {
+			log.info("This database is not supported, supported database types: sql, file");
+			usestats = false;
+			file = false;
+			log.info("Disabling stats...");
+		}
 	}
 }

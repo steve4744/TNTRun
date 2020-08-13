@@ -46,7 +46,7 @@ public class PlayerEffects implements Listener {
 			return;
 		}
 		//change to use effect
-		if (!plugin.usestats) {
+		if (!plugin.useStats()) {
 			return;
 		}
 		

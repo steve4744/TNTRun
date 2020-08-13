@@ -21,6 +21,8 @@ commandsonwin:
 - say Congratulations...
 fireworksonwin: true
 broadcastwinlevel: 2
+leaderboard:
+  maxentries: 10
 items:
    vote:
       use: true

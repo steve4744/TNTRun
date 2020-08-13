@@ -27,7 +27,6 @@ import org.bukkit.entity.Player;
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.messages.Messages;
-import tntrun.utils.Stats;
 import tntrun.utils.Utils;
 
 public class GameCommands implements CommandExecutor {
@@ -164,14 +163,29 @@ public class GameCommands implements CommandExecutor {
 		}
 		// player stats
 		else if (args[0].equalsIgnoreCase("stats")) {
-			if(!plugin.usestats){
+			if(!plugin.useStats()){
 				Messages.sendMessage(player, Messages.statsdisabled);
 				return true;
 			}
 			player.sendMessage("§7============[§6TNTRun§7]§7============");
-			Messages.sendMessage(player, Messages.gamesplayed + Stats.getPlayedGames(player));
-			Messages.sendMessage(player, Messages.gameswon + Stats.getWins(player));
-			Messages.sendMessage(player, Messages.gameslost + Stats.getLooses(player));
+			Messages.sendMessage(player, Messages.gamesplayed + plugin.stats.getPlayedGames(player));
+			Messages.sendMessage(player, Messages.gameswon + plugin.stats.getWins(player));
+			Messages.sendMessage(player, Messages.gameslost + plugin.stats.getLosses(player));
+		}
+		// leaderboard
+		else if (args[0].equalsIgnoreCase("leaderboard")) {
+			if (!plugin.useStats()) {
+				Messages.sendMessage(player, Messages.statsdisabled);
+				return true;
+			}
+			int entries = plugin.getConfig().getInt("leaderboard.maxentries", 10);
+			if (args.length > 1) {
+				if (Utils.isNumber(args[1]) && Integer.parseInt(args[1]) > 0 && Integer.parseInt(args[1]) <= entries) {
+					entries = Integer.parseInt(args[1]);
+				}
+			}
+			Messages.sendMessage(player, Messages.leaderhead);
+			plugin.stats.getLeaderboard(player, entries);
 		}
 		// leave arena
 		else if (args[0].equalsIgnoreCase("leave")) {

@@ -276,18 +276,18 @@ public class RestrictionHandler implements Listener {
 						p.sendMessage(" ");
 						p.sendMessage("§7[§6TNTRun§7] §6New update available!");
 						p.sendMessage("§7[§6TNTRun§7] §7Your version: §6" + TNTRun.getInstance().getDescription().getVersion());
-						p.sendMessage("§7[§6TNTRun§7] §7New version: §6" + TNTRun.getInstance().version[0]);
+						p.sendMessage("§7[§6TNTRun§7] §7New version: §6" + TNTRun.getInstance().version[0] + " for Minecraft 1.13+");
 						p.sendMessage("§7[§6TNTRun§7] §7New version available! Download now: §6https://www.spigotmc.org/resources/tntrun_reloaded.53359/");
 					}
 				}, 30L);
 			}
 		}
 		
-		if(!plugin.usestats){
+		if(!plugin.useStats()){
 			return;
 		}
 		
-		if(plugin.file){
+		if(plugin.isFile()){
 			return;
 		}
 		

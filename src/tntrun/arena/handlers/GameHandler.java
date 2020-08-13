@@ -44,7 +44,6 @@ import tntrun.arena.Arena;
 import tntrun.arena.structure.Kits;
 import tntrun.utils.Bars;
 import tntrun.utils.Shop;
-import tntrun.utils.Stats;
 import tntrun.utils.TitleMsg;
 import tntrun.messages.Messages;
 
@@ -185,7 +184,10 @@ public class GameHandler {
 		message = message.replace("{TIMELIMIT}", String.valueOf(arena.getStructureManager().getTimeLimit()));
 		for (Player player : arena.getPlayersManager().getPlayers()) {
 			player.closeInventory();
-			Stats.addPlayedGames(player, 1);
+			//Stats.addPlayedGames(player, 1);
+			if (plugin.useStats()) {
+				plugin.stats.addPlayedGames(player, 1);
+			}
 			player.setAllowFlight(true);
 			Messages.sendMessage(player, message);
 			TNTRun.getInstance().sound.ENDER_DRAGON(player, 1, 999);
@@ -394,7 +396,10 @@ public class GameHandler {
 	}
 	
 	public void startEnding(final Player player){
-		Stats.addWins(player, 1);
+		//Stats.addWins(player, 1);
+		if (plugin.useStats()) {
+			plugin.stats.addWins(player, 1);
+		}
 		TitleMsg.sendFullTitle(player, TitleMsg.win, TitleMsg.subwin, 20, 60, 20, plugin);
 		
 		String message = Messages.playerwonbroadcast;

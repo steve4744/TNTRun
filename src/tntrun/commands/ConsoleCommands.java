@@ -27,6 +27,7 @@ import org.bukkit.command.RemoteConsoleCommandSender;
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.utils.Bars;
+import tntrun.utils.Utils;
 import tntrun.messages.Messages;
 
 public class ConsoleCommands implements CommandExecutor {
@@ -71,6 +72,22 @@ public class ConsoleCommands implements CommandExecutor {
 			} else {
 				sender.sendMessage("Arena does not exist");
 			}
+			return true;
+		}
+		// leader board
+		else if (args.length >= 1 && args[0].equalsIgnoreCase("leaderboard")) {
+			if (!plugin.useStats()) {
+				Messages.sendMessage(sender, Messages.statsdisabled);
+				return true;
+			}
+			int entries = plugin.getConfig().getInt("leaderboard.maxentries", 10);
+			if (args.length >= 2) {
+				if (Utils.isNumber(args[1]) && Integer.parseInt(args[1]) > 0 && Integer.parseInt(args[1]) <= entries) {
+					entries = Integer.parseInt(args[1]);
+				}
+			}
+			Messages.sendMessage(sender, Messages.leaderhead);
+			plugin.stats.getLeaderboard(sender, entries);
 			return true;
 		}
 		// reload messages
