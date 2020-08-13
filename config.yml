@@ -46,6 +46,7 @@ items:
       material: GLOWSTONE_DUST
       name: '&cEFFECTS'
 scoreboard:
+   header: '&6&lTNTRUN'
    waiting:
    - '&fWelcome to TNTRun'
    - '&a '

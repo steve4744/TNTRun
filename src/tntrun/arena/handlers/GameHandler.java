@@ -21,12 +21,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -36,6 +38,7 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
+import tntrun.FormattingCodesParser;
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.arena.structure.Kits;
@@ -297,12 +300,14 @@ public class GameHandler {
 
 	public Scoreboard buildScoreboard() {
 		
+		FileConfiguration config = TNTRun.getInstance().getConfig();
 		Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
-		if (TNTRun.getInstance().getConfig().getBoolean("special.UseScoreboard")) {
+		if (config.getBoolean("special.UseScoreboard")) {
 			Objective o = scoreboard.registerNewObjective("TNTRun", "waiting");
 			o.setDisplaySlot(DisplaySlot.SIDEBAR);
-			o.setDisplayName("§6§lTNTRUN");
+			String header = FormattingCodesParser.parseFormattingCodes(config.getString("scoreboard.header", ChatColor.GOLD.toString() + ChatColor.BOLD + "TNTRUN"));
+			o.setDisplayName(header);
 		}
 		return scoreboard;
 	} 
