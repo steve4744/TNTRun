@@ -22,6 +22,7 @@ import org.bukkit.entity.Player;
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.commands.setup.CommandHandlerInterface;
+import tntrun.messages.Messages;
 
 public class EnableArena implements CommandHandlerInterface {
 
@@ -36,13 +37,16 @@ public class EnableArena implements CommandHandlerInterface {
 		if (arena != null) {
 			if (arena.getStatusManager().isArenaEnabled()) {
 				player.sendMessage("§7[§6TNTRun§7] §cArena §6" + args[0] + "§c already enabled");
+
+			} else if (!arena.getStructureManager().isArenaFinished()) {
+				Messages.sendMessage(player, "&c Arena &6" + args[0] + "&c isn't finished. Please run:&6 /trsetup finish " + args[0]);
+
+			} else if (arena.getStatusManager().enableArena()) {
+				Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 enabled");
 			} else {
-				if (arena.getStatusManager().enableArena()) {
-					player.sendMessage("§7[§6TNTRun§7] §cArena §6" + args[0] + "§c enabled");
-				} else {
-					player.sendMessage("§7[§6TNTRun§7] §cArena §6" + args[0] + "§c isn't configured. Reason: " + arena.getStructureManager().isArenaConfigured());
-				}
+				Messages.sendMessage(player, "&c Arena &6" + args[0] + "&c isn't configured. Reason: &6" + arena.getStructureManager().isArenaConfiguredString());
 			}
+
 		} else {
 			player.sendMessage("§7[§6TNTRun§7] §cArena §6" + args[0] + "§c doesn't exist");
 		}

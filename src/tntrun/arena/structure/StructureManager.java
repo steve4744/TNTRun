@@ -54,6 +54,7 @@ public class StructureManager {
 	private TeleportDestination teleportDest = TeleportDestination.PREVIOUS;
 	private DamageEnabled damageEnabled = DamageEnabled.NO;
 	private boolean testmode = false;
+	private boolean finished = false;
 
 	public String getWorldName() {
 		return world;
@@ -174,12 +175,20 @@ public class StructureManager {
 			return "Arena bounds not set";
 		}
 		if (!loselevel.isConfigured()) {
-			return "Arena looselevel not set";
+			return "Arena loselevel not set";
 		}
 		if (spawnpoint == null) {
 			return "Arena spawnpoint not set";
 		}
 		return "yes";
+	}
+
+	public boolean isArenaFinished() {
+		return finished;
+	}
+
+	public void setArenaFinished(boolean finished) {
+		this.finished = finished;
 	}
 
 	public void setArenaPoints(Location loc1, Location loc2) {
@@ -289,6 +298,7 @@ public class StructureManager {
 		// save damage enabled
 		config.set("damageenabled", damageEnabled.toString());
 		config.set("testmode", testmode);
+		config.set("finished", finished);
 		// save kits
 		kits.saveToConfig(config);
 		// save rewards
@@ -330,6 +340,10 @@ public class StructureManager {
 		// load damage enabled
 		damageEnabled = DamageEnabled.valueOf(config.getString("damageenabled", DamageEnabled.NO.toString()));
 		testmode = config.getBoolean("testmode");
+		finished = config.getBoolean("finished");
+		if (!finished && arena.getStructureManager().isArenaConfigured()) {
+			finished = true;
+		}
 		// load kits
 		kits.loadFromConfig(config);
 		// load rewards
