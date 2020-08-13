@@ -77,6 +77,10 @@ public class PlayerHandler {
 			Messages.sendMessage(player, Messages.limitreached);
 			return false;
 		}
+		if (plugin.amanager.getPlayerArena(player.getName()) != null) {
+			Messages.sendMessage(player, Messages.arenajoined);
+			return false;
+		}
 		return true;
 	}
 
