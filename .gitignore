@@ -1,2 +1,4 @@
-/bin/
-/nbproject/private/
+.classpath
+.project
+.settings/
+bin/
