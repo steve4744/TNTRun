@@ -19,8 +19,7 @@ package tntrun;
 
 import java.util.stream.Stream;
 
-import org.bukkit.entity.Player;
-
+import org.bukkit.OfflinePlayer;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import tntrun.arena.Arena;
 import tntrun.utils.Utils;
@@ -58,7 +57,7 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 	}
 
 	@Override
-	public String onPlaceholderRequest(Player p, String identifier) {
+	public String onRequest(OfflinePlayer p, String identifier) {
 
 		if (p == null) {
 			return "";

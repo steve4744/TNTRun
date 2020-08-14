@@ -126,7 +126,7 @@ public class Stats {
 		saveStats(player, "wins");
 	}
 
-	public int getLosses(Player player) {
+	public int getLosses(OfflinePlayer player) {
 		return getPlayedGames(player) - getWins(player);
 	}
 
