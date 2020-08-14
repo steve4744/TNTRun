@@ -254,6 +254,7 @@ public class Messages {
 		helpcmds = config.getString("helpcmds", helpcmds);
 		helpinfo = config.getString("helpinfo", helpinfo);
 		helpstats = config.getString("helpstats", helpstats);
+		helplb = config.getString("helplb", helplb);
 		helpstart = config.getString("helpstart", helpstart);
 		setuplobby = config.getString("setuplobby", setuplobby);
 		setupdellobby = config.getString("setupdellobby", setupdellobby);
@@ -381,6 +382,7 @@ public class Messages {
 		config.set("helpcmds", helpcmds);
 		config.set("helpinfo", helpinfo);
 		config.set("helpstats", helpstats);
+		config.set("helplb", helplb);
 		config.set("helpstart",  helpstart);
 		config.set("setuplobby", setuplobby);
 		config.set("setupdellobby", setupdellobby);
