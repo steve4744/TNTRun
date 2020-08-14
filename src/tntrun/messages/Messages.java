@@ -42,6 +42,7 @@ public class Messages {
 	public static String arenajoined = "&c You have already joined an arena";
 	public static String arenadisabling = "&7[&6TNTRun&7] &6Arena is disabling";
 	public static String arenastarting = "&7[&6TNTRun&7] &6Arena already starting";
+	public static String arenawaiting = "&6 Arena is waiting";
 	
 	public static String playerscountinarena = "&7[&6TNTRun&7] &6Current number of players in arena: {COUNT} players";
 	public static String limitreached = "&7[&6TNTRun&7] Arena is full.";
@@ -136,6 +137,7 @@ public class Messages {
 		arenajoined = config.getString("arenajoined", arenajoined);
 		arenadisabling = config.getString("arenadisabling", arenadisabling);
 		arenastarting = config.getString("arenastarting", arenastarting);
+		arenawaiting = config.getString("arenawaiting", arenawaiting);
 		playerscountinarena = config.getString("playerscountinarena", playerscountinarena);
 		limitreached = config.getString("limitreached", limitreached);
 		playerjoinedtoplayer = config.getString("playerjoinedtoplayer", playerjoinedtoplayer);
@@ -215,6 +217,7 @@ public class Messages {
 		config.set("arenajoined", arenajoined);
 		config.set("arenadisabling", arenadisabling);
 		config.set("arenastarting", arenastarting);
+		config.set("arenawaiting", arenawaiting);
 		config.set("playerscountinarena", playerscountinarena);
 		config.set("limitreached", limitreached);
 		config.set("playerjoinedtoplayer", playerjoinedtoplayer);

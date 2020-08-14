@@ -94,4 +94,16 @@ public class StatusManager {
 		this.regenerating = regenerating;
 	}
 
+	public String getArenaStatus() {
+		if (isArenaRunning()) {
+			return Messages.arenarunning;
+		} else if (isArenaRegenerating()) {
+			return Messages.arenaregenerating;
+		} else if (isArenaStarting()) {
+			return Messages.arenastarting;
+		} else if(!isArenaEnabled()) {
+			return Messages.arenadisabled;
+		}
+		return Messages.arenawaiting;
+	}
 }

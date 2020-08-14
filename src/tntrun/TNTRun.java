@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import tntrun.arena.Arena;
@@ -55,6 +56,7 @@ public class TNTRun extends JavaPlugin {
 	public SignEditor signEditor;
 	private boolean file = false;
 	private boolean usestats = false;
+	private boolean placeholderapi = false;
 	public boolean needUpdate = false;
 	public String[] version = {"Nothing", "Nothing"};
 	public Sounds sound;
@@ -81,7 +83,15 @@ public class TNTRun extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new PlayerLeaveArenaChecker(this), this);
 		getServer().getPluginManager().registerEvents(new SignHandler(this), this);
 		getServer().getPluginManager().registerEvents(new Shop(this), this);
-	    // config
+
+		Plugin PlaceholderAPI = getServer().getPluginManager().getPlugin("PlaceholderAPI");
+		if (PlaceholderAPI != null && PlaceholderAPI.isEnabled()) {
+			placeholderapi = true;
+			log.info("Successfully linked with PlaceholderAPI, version " + PlaceholderAPI.getDescription().getVersion());
+			new TNTRunPlaceholders(this).register();
+		}
+
+		// config
 	    saveDefaultConfig();
 	    getConfig().options().copyDefaults(true);
 	    saveConfig();
@@ -159,6 +169,10 @@ public class TNTRun extends JavaPlugin {
 
 	public void logSevere(String message) {
 		log.severe(message);
+	}
+
+	public boolean isPlaceholderAPI() {
+		return placeholderapi;
 	}
 
 	public boolean useStats() {
