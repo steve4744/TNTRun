@@ -15,7 +15,7 @@ Optionally, a fee can be set to join each arena, which can be monetary or any mi
 
 If your server is running Minecraft 1.13 or later, then the latest version of TNTRun\_reloaded can be [downloaded from Spigot.](https://www.spigotmc.org/resources/tntrun_reloaded.53359/ "TNTRun_reloaded")
 
-For Minecraft versions from 1.8 through to 1.12.2, the legacy version of TNTRun\_reloaded (version 6.8.x) is available from the GitHub Releases tab above, or can be [downloaded here.](https://github.com/steve4744/TNTRun/releases/download/v6.8.1/TNTRun_reloaded_6.8.3.jar "v6.8.3")
+For Minecraft versions from 1.8 through to 1.12.2, the legacy version of TNTRun\_reloaded (version 6.8.x) is available from the GitHub Releases tab above, or can be [downloaded here.](https://github.com/steve4744/TNTRun/releases/download/v6.8.3/TNTRun_reloaded-6.8.3.jar "v6.8.3")
 
 
 ## Features
