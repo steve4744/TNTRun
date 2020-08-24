@@ -194,6 +194,9 @@ public class GameCommands implements CommandExecutor {
 				return true;
 			}
 			arena.getPlayerHandler().spectatePlayer(player, Messages.playerjoinedasspectator, "");
+			if (Utils.debug()) {
+				plugin.getLogger().info("Player " + player.getName() + " joined arena " + arena.getArenaName() + " as a spectator");
+			}
 		}
 
 		// autojoin

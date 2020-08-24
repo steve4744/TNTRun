@@ -156,6 +156,11 @@ public class PlayerHandler {
 		for (Player aplayer : Bukkit.getOnlinePlayers()) {
 			aplayer.showPlayer(plugin, player);
 		}
+		arena.getPlayersManager().add(player);
+		if (Utils.debug()) {
+			plugin.getLogger().info("Player " + player.getName() + " joined arena " + arena.getArenaName());
+			plugin.getLogger().info("Players in arena: " + arena.getPlayersManager().getPlayersCount());
+		}
 
 		storePlayerData(player);
 
@@ -171,7 +176,7 @@ public class PlayerHandler {
 			Messages.sendMessage(player, Messages.trprefix + msgtoplayer);
 		}	
 
-		arena.getPlayersManager().add(player);
+		//arena.getPlayersManager().add(player);
 
 		msgtoarenaplayers = FormattingCodesParser.parseFormattingCodes(msgtoarenaplayers).replace("{PLAYER}", player.getName()).replace("{RANK}", getDisplayName(player));;
 
@@ -374,6 +379,10 @@ public class PlayerHandler {
 		resetDoubleJumps(player);
 		arena.getPlayersManager().remove(player);
 		clearPotionEffects(player);
+		if (Utils.debug()) {
+			plugin.getLogger().info("Player " + player.getName() + " left arena " + arena.getArenaName());
+			plugin.getLogger().info("Players in arena: " + arena.getPlayersManager().getPlayersCount());
+		}
 
 		plugin.getPData().restorePlayerHunger(player);
 		plugin.getPData().restorePlayerPotionEffects(player);

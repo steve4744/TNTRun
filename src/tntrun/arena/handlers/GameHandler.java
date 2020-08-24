@@ -36,6 +36,7 @@ import tntrun.arena.Arena;
 import tntrun.events.PlayerWinArenaEvent;
 import tntrun.utils.Bars;
 import tntrun.utils.TitleMsg;
+import tntrun.utils.Utils;
 import tntrun.messages.Messages;
 
 public class GameHandler {
@@ -157,6 +158,10 @@ public class GameHandler {
 
 	public void startArena() {
 		arena.getStatusManager().setRunning(true);
+		if (Utils.debug() ) {
+			plugin.getLogger().info("Arena " + arena.getArenaName() + " started");
+			plugin.getLogger().info("Players in arena: " + arena.getPlayersManager().getPlayersCount());
+		}
 
 		String message = Messages.trprefix;
 		int limit = arena.getStructureManager().getTimeLimit();
@@ -318,6 +323,8 @@ public class GameHandler {
 				Messages.sendMessage(all, message);
 			}
 		}
+		plugin.getLogger().info("Player " + player.getName() + " won arena " + arena.getArenaName());
+
 		// allow winner to fly at arena spawn
 		player.setAllowFlight(true);
 		player.setFlying(true);

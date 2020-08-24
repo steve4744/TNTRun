@@ -25,6 +25,7 @@ import tntrun.commands.setup.CommandHandlerInterface;
 import tntrun.messages.Messages;
 import tntrun.selectionget.PlayerCuboidSelection;
 import tntrun.selectionget.PlayerSelection;
+import tntrun.utils.Utils;
 
 public class SetLoseLevel implements CommandHandlerInterface {
 
@@ -53,9 +54,13 @@ public class SetLoseLevel implements CommandHandlerInterface {
 		PlayerCuboidSelection sel = selection.getPlayerSelection(player);
 		if (sel != null) {
 			if (arena.getStructureManager().setLooseLevel(sel.getMinimumLocation(), sel.getMaximumLocation())) {
-				Messages.sendMessage(player, Messages.trprefix + "&7 Arena &6" + args[0] + "&7 LoseLevel set");
+				Messages.sendMessage(player, Messages.trprefix + "&7 Arena &6" + args[0] + "&7 Loselevel set");
 			} else {
 				Messages.sendMessage(player, Messages.trprefix + "&c Arena &6" + args[0] + "&c Error: Loselevel is not within the bounds of the arena");
+			}
+			if (Utils.debug()) {
+				plugin.getLogger().info("Arena " + arena.getArenaName() + " min loselevel: " + sel.getMinimumLocation().toVector().toString());
+				plugin.getLogger().info("Arena " + arena.getArenaName() + " max loselevel: " + sel.getMaximumLocation().toVector().toString());
 			}
 		} else {
 			Messages.sendMessage(player, Messages.trprefix + "&c Arena &6" + args[0] + "&c locations are wrong - retry or use WorldEdit to select the loselevel bounds");
