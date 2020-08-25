@@ -382,6 +382,7 @@ public class PlayerHandler {
 		if (Utils.debug()) {
 			plugin.getLogger().info("Player " + player.getName() + " left arena " + arena.getArenaName());
 			plugin.getLogger().info("Players in arena: " + arena.getPlayersManager().getPlayersCount());
+			plugin.getLogger().info("Spectators in arena: " + arena.getPlayersManager().getSpectators().size());
 		}
 
 		plugin.getPData().restorePlayerHunger(player);
