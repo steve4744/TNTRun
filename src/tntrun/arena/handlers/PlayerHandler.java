@@ -311,6 +311,7 @@ public class PlayerHandler {
 		if (Utils.debug()) {
 			plugin.getLogger().info("Player " + player.getName() + " left arena " + arena.getArenaName());
 			plugin.getLogger().info("Players in arena: " + arena.getPlayersManager().getPlayersCount());
+			plugin.getLogger().info("Spectators in arena: " + arena.getPlayersManager().getSpectators().size());
 		}
 		// restore player status
 		plugin.pdata.restorePlayerHunger(player);
@@ -343,6 +344,9 @@ public class PlayerHandler {
 		
 		// check if arena has 0 players
 		if (arena.getStatusManager().isArenaRunning() && arena.getPlayersManager().getPlayersCount() == 0) {
+			if (Utils.debug()) {
+				plugin.getLogger().info("PH calling stopArena...");
+			}
 			arena.getGameHandler().stopArena();
 		}
 	}
