@@ -57,4 +57,8 @@ public class Utils {
 		player.sendMessage("§7============[§6TNTRun§7]§7============");
 	}
 
+	public static boolean debug() {
+		return TNTRun.getInstance().getConfig().getBoolean("debug", false);
+	}
+
 }

@@ -24,6 +24,7 @@ import tntrun.arena.Arena;
 import tntrun.commands.setup.CommandHandlerInterface;
 import tntrun.selectionget.PlayerCuboidSelection;
 import tntrun.selectionget.PlayerSelection;
+import tntrun.utils.Utils;
 
 public class SetLoseLevel implements CommandHandlerInterface {
 
@@ -51,9 +52,13 @@ public class SetLoseLevel implements CommandHandlerInterface {
 		}
 		PlayerCuboidSelection sel = selection.getPlayerSelection(player);
 		if (arena.getStructureManager().setLooseLevel(sel.getMinimumLocation(), sel.getMaximumLocation())) {
-			player.sendMessage("§7[§6TNTRun§7] §7Arena §6" + args[0] + "§7 LoseLevel set");
+			player.sendMessage("§7[§6TNTRun§7] §7Arena §6" + args[0] + "§7 Loselevel set");
 		} else {
 			player.sendMessage("§7[§6TNTRun§7] §cArena §6" + args[0] + "§c bounds are wrong");
+		}
+		if (Utils.debug()) {
+			plugin.getLogger().info("Arena " + arena.getArenaName() + " min loselevel: " + sel.getMinimumLocation().toVector().toString());
+			plugin.getLogger().info("Arena " + arena.getArenaName() + " max loselevel: " + sel.getMaximumLocation().toVector().toString());
 		}
 		return true;
 	}

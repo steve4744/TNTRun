@@ -24,6 +24,7 @@ import tntrun.arena.Arena;
 import tntrun.commands.setup.CommandHandlerInterface;
 import tntrun.selectionget.PlayerCuboidSelection;
 import tntrun.selectionget.PlayerSelection;
+import tntrun.utils.Utils;
 
 public class SetArena implements CommandHandlerInterface {
 
@@ -46,6 +47,10 @@ public class SetArena implements CommandHandlerInterface {
 			if (sel != null) {
 				arena.getStructureManager().setArenaPoints(sel.getMinimumLocation(), sel.getMaximumLocation());
 				player.sendMessage("§7[§6TNTRun§7] §7Arena §6" + args[0] + "§7 set");
+				if (Utils.debug()) {
+					plugin.getLogger().info("Arena " + arena.getArenaName() + " min point: " + sel.getMinimumLocation().toVector().toString());
+					plugin.getLogger().info("Arena " + arena.getArenaName() + " max point: " + sel.getMaximumLocation().toVector().toString());
+				}
 			} else {
 				player.sendMessage("§7[§6TNTRun§7] §cArena §6" + args[0] + "§c locations are wrong, use WorldEdit to make locations");
 			}

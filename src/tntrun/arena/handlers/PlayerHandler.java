@@ -33,6 +33,7 @@ import tntrun.arena.Arena;
 import tntrun.arena.structure.StructureManager.TeleportDestination;
 import tntrun.utils.Bars;
 import tntrun.utils.TitleMsg;
+import tntrun.utils.Utils;
 import tntrun.messages.Messages;
 
 public class PlayerHandler {
@@ -96,6 +97,11 @@ public class PlayerHandler {
 				aplayer.showPlayer(plugin, player);
 			}
 		}
+		arena.getPlayersManager().add(player);
+		if (Utils.debug()) {
+			plugin.getLogger().info("Player " + player.getName() + " joined arena " + arena.getArenaName());
+			plugin.getLogger().info("Players in arena: " + arena.getPlayersManager().getPlayersCount());
+		}
 		// change player status
 		plugin.pdata.storePlayerGameMode(player);
 		plugin.pdata.storePlayerFlight(player);
@@ -117,7 +123,7 @@ public class PlayerHandler {
 			Messages.sendMessage(player, msgtoplayer);
 		}	
 		// set player on arena data
-		arena.getPlayersManager().add(player);
+		//arena.getPlayersManager().add(player);
 		// send message to other players
 		for (Player oplayer : arena.getPlayersManager().getPlayers()) {
 			msgtoarenaplayers = msgtoarenaplayers.replace("{PLAYER}", player.getName());
@@ -301,6 +307,10 @@ public class PlayerHandler {
 		// remove all potion effects
 		for (PotionEffect effect : player.getActivePotionEffects()) {
 			player.removePotionEffect(effect.getType());
+		}
+		if (Utils.debug()) {
+			plugin.getLogger().info("Player " + player.getName() + " left arena " + arena.getArenaName());
+			plugin.getLogger().info("Players in arena: " + arena.getPlayersManager().getPlayersCount());
 		}
 		// restore player status
 		plugin.pdata.restorePlayerHunger(player);

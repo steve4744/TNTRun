@@ -45,6 +45,7 @@ import tntrun.arena.structure.Kits;
 import tntrun.utils.Bars;
 import tntrun.utils.Shop;
 import tntrun.utils.TitleMsg;
+import tntrun.utils.Utils;
 import tntrun.messages.Messages;
 
 public class GameHandler {
@@ -180,6 +181,10 @@ public class GameHandler {
 	Random rnd = new Random();
 	public void startArena() {
 		arena.getStatusManager().setRunning(true);
+		if (Utils.debug() ) {
+			plugin.getLogger().info("Arena " + arena.getArenaName() + " started");
+			plugin.getLogger().info("Players in arena: " + arena.getPlayersManager().getPlayersCount());
+		}
 		String message = Messages.arenastarted;
 		message = message.replace("{TIMELIMIT}", String.valueOf(arena.getStructureManager().getTimeLimit()));
 		for (Player player : arena.getPlayersManager().getPlayers()) {
@@ -406,6 +411,7 @@ public class GameHandler {
 			plugin.stats.addWins(player, 1);
 		}
 		TitleMsg.sendFullTitle(player, TitleMsg.win, TitleMsg.subwin, 20, 60, 20, plugin);
+		plugin.getLogger().info("Player " + player.getName() + " won arena " + arena.getArenaName());
 		
 		String message = Messages.playerwonbroadcast;
 		message = message.replace("{PLAYER}", player.getName());
@@ -473,8 +479,8 @@ public class GameHandler {
 					for(String commands : plugin.getConfig().getStringList("commandsonwin")){
 						Bukkit.dispatchCommand(console, commands.replace("{PLAYER}", player.getName()));
 					}
-				}catch (NullPointerException ex){
-							
+				}catch (Exception e){
+					e.printStackTrace();
 				}
 			}
 			

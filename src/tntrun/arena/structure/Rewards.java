@@ -27,6 +27,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -96,6 +97,7 @@ public class Rewards {
 
 	public void rewardPlayer(Player player) {
 		String rewardmessage = "";
+		final ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 		for (int i=0; i < materialrewards.size(); i++) {
 			if (isValidReward(materialrewards.get(i), materialamounts.get(i))) {
 				ItemStack reward = new ItemStack(Material.getMaterial(materialrewards.get(i)), Integer.parseInt(materialamounts.get(i)));
@@ -121,12 +123,14 @@ public class Rewards {
 		if (commandreward != null && commandreward.length() != 0) {
 			Bukkit.getServer().dispatchCommand(
 					Bukkit.getServer().getConsoleSender(), commandreward.replace("%PLAYER%", player.getName()));
+			console.sendMessage("[TNTRun_reloaded] Command " + ChatColor.GOLD + commandreward + ChatColor.WHITE + " has been executed for " + ChatColor.AQUA + player.getName());
 		}
 		
 		if (rewardmessage.endsWith(", ")) {
 			rewardmessage = rewardmessage.substring(0, rewardmessage.length() - 2);
 		}
 		if (!rewardmessage.isEmpty()) {
+			console.sendMessage("[TNTRun_reloaded] " + ChatColor.AQUA + player.getName() + ChatColor.WHITE + " has been rewarded " + ChatColor.GOLD + rewardmessage);
 			rewardmessage = Messages.playerrewardmessage.replace("{REWARD}", rewardmessage);
 			Messages.sendMessage(player, rewardmessage);
 		}
