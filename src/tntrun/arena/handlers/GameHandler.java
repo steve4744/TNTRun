@@ -200,6 +200,9 @@ public class GameHandler {
 			public void run() {
 				// stop arena if player count is 0
 				if (arena.getPlayersManager().getPlayersCount() == 0) {
+					if (Utils.debug()) {
+						plugin.getLogger().info("GH calling stopArena...");
+					}
 					stopArena();
 					return;
 				}
@@ -227,13 +230,22 @@ public class GameHandler {
 	}
 
 	public void stopArena() {
+		if (!arena.getStatusManager().isArenaRunning()) {
+			if (Utils.debug()) {
+				plugin.getLogger().info("stopArena: arena not running. Exiting...");
+			}
+			return;
+		}
+		arena.getStatusManager().setRunning(false);
 		for (Player player : arena.getPlayersManager().getAllParticipantsCopy()) {
+			if (Utils.debug()) {
+				plugin.getLogger().info("stopArena is removing player " + player.getName());
+			}
 			arena.getScoreboardHandler().removeScoreboard(player);
 			arena.getPlayerHandler().leavePlayer(player, "", "");
 		}
 		lostPlayers = 0;
 		forceStartByCmd = false;
-		arena.getStatusManager().setRunning(false);
 		Bukkit.getScheduler().cancelTask(arenahandler);
 		Bukkit.getScheduler().cancelTask(arena.getScoreboardHandler().getPlayingTask());
 		plugin.signEditor.modifySigns(arena.getArenaName());
@@ -273,6 +285,9 @@ public class GameHandler {
 			return;
 		}
 		arena.getStatusManager().setRegenerating(true);
+		if (Utils.debug()) {
+			plugin.getLogger().info("Arena regen started");
+		}
 		plugin.signEditor.modifySigns(arena.getArenaName());
 
 		int delay = arena.getStructureManager().getGameZone().regen();

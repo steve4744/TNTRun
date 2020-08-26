@@ -174,9 +174,7 @@ public class PlayerHandler {
 
 		if (!plugin.getConfig().getBoolean("special.UseTitle")) {
 			Messages.sendMessage(player, Messages.trprefix + msgtoplayer);
-		}	
-
-		//arena.getPlayersManager().add(player);
+		}
 
 		msgtoarenaplayers = FormattingCodesParser.parseFormattingCodes(msgtoarenaplayers).replace("{PLAYER}", player.getName()).replace("{RANK}", getDisplayName(player));;
 
@@ -417,6 +415,9 @@ public class PlayerHandler {
 		}		
 
 		if (arena.getStatusManager().isArenaRunning() && arena.getPlayersManager().getPlayersCount() == 0) {
+			if (Utils.debug()) {
+				plugin.getLogger().info("PH calling stopArena...");
+			}
 			arena.getGameHandler().stopArena();
 		}
 	}
@@ -542,7 +543,7 @@ public class PlayerHandler {
 			String[] kitnames = kits.toArray(new String[kits.size()]);
 			for (Player player : arena.getPlayersManager().getPlayers()) {
 				plugin.kitmanager.giveKit(kitnames[rnd.nextInt(kitnames.length)], player);
-				//kits will replace the GUI items, so give each player the leave item again
+				// kits will replace the GUI items, so give each player the leave item again
 				if (plugin.getConfig().getBoolean("items.leave.use")) {
 					addLeaveItem(player);
 				}
