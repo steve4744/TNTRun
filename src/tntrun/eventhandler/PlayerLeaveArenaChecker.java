@@ -61,7 +61,7 @@ public class PlayerLeaveArenaChecker implements Listener {
 		if (arena == null) {
 			return;
 		}
-		arena.getPlayerHandler().leavePlayer(player, "", Messages.playerlefttoothers);
+		arena.getPlayerHandler().dispatchPlayer(player);
 	}
 
 }

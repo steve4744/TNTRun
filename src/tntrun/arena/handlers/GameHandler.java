@@ -73,12 +73,17 @@ public class GameHandler {
 				public void run() {
 					for (Player player : arena.getPlayersManager().getPlayersCopy()) {
 						if (!arena.getStructureManager().isInArenaBounds(player.getLocation())) {
-							arena.getPlayerHandler().leavePlayer(player, Messages.playerlefttoplayer, Messages.playerlefttoothers);
+							//remove player during countdown, otherwise spectate
+							if (arena.getStatusManager().isArenaStarting()) {
+								arena.getPlayerHandler().leavePlayer(player, Messages.playerlefttoplayer, Messages.playerlefttoothers);
+							} else {
+								arena.getPlayerHandler().dispatchPlayer(player);
+							}
 						}
 					}
 					for (Player player : arena.getPlayersManager().getSpectatorsCopy()) {
 						if (!arena.getStructureManager().isInArenaBounds(player.getLocation())) {
-							arena.getPlayerHandler().leavePlayer(player, "", "");
+							arena.getPlayerHandler().spectatePlayer(player, "", "");
 						}
 					}
 				}
@@ -314,12 +319,7 @@ public class GameHandler {
 				startEnding(player);
 				return;
 			}
-			// if we have the spectate spawn than we will move player to spectators, otherwise we will remove him from arena
-			if (arena.getStructureManager().getSpectatorSpawnVector() != null) {
-				arena.getPlayerHandler().spectatePlayer(player, Messages.playerlosttoplayer, Messages.playerlosttoothers);
-			} else {
-				arena.getPlayerHandler().leavePlayer(player, Messages.playerlosttoplayer, Messages.playerlosttoothers);
-			}
+			arena.getPlayerHandler().dispatchPlayer(player);
 			return;
 		}
 	}
@@ -422,6 +422,12 @@ public class GameHandler {
 		);
 	}
 	
+	/**
+	 * Called when there is only 1 player left, to update winner stats and
+	 * teleport winner and spectators to the arena spawn point. It then
+	 * stops the arena.
+	 * @param player
+	 */
 	public void startEnding(final Player player){
 		//Stats.addWins(player, 1);
 		if (plugin.useStats()) {
@@ -444,11 +450,12 @@ public class GameHandler {
 				all.sendMessage(message.replace("&", "§"));
 			}
 		}
-		
+		// allow winner to fly at arena spawn
+		player.setAllowFlight(true);
+		player.setFlying(true);
+		// teleport winner and spectators to arena spawn
 		for(Player p : arena.getPlayersManager().getAllParticipantsCopy()) {
 			TNTRun.getInstance().sound.ENDER_DRAGON(p, 5, 999);
-			p.setAllowFlight(true);
-			p.setFlying(true);
 			p.teleport(arena.getStructureManager().getSpawnPoint());
 			p.getInventory().clear();
 		}
