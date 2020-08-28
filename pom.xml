@@ -13,7 +13,7 @@
 
   <licenses>
     <license>
-        <name>MIT License</name>
+        <name>GNU General Public License</name>
         <url>https://opensource.org/licenses/GPL-3.0</url>
         <distribution>repo</distribution>
 	</license>
@@ -112,13 +112,13 @@
     <finalName>${project.artifactId}-${project.version}</finalName>
 	<defaultGoal>clean package</defaultGoal>
 
-    <sourceDirectory>src</sourceDirectory>
+    <sourceDirectory>src/main/java</sourceDirectory>
 
     <resources>
       <resource>
           <targetPath>.</targetPath>
           <filtering>true</filtering>
-          <directory>${basedir}</directory>
+          <directory>src/main/resources</directory>
           <includes>
               <include>plugin.yml</include>
               <include>config.yml</include>
@@ -171,7 +171,7 @@
                 <relocations>
 <!--                 <relocation>-->
 <!--                      <pattern>org.bstats</pattern>-->
-<!--                      <shadedPattern>io.github.a5h73y.parkour</shadedPattern>-->
+<!--                      <shadedPattern>io.github.steve4744.tntrun</shadedPattern>-->
 <!--                  </relocation>-->
                 </relocations>
             </configuration>
