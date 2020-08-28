@@ -112,7 +112,7 @@
     <finalName>${project.artifactId}-${project.version}</finalName>
 	<defaultGoal>clean package</defaultGoal>
 
-    <sourceDirectory>src</sourceDirectory>
+    <sourceDirectory>src/main/java</sourceDirectory>
 
     <resources>
       <resource>
