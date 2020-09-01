@@ -468,54 +468,54 @@ public class PlayerHandler {
 
 	private void addInfo(Player player) {
 		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.info.material")));	     
-	    ItemMeta meta = item.getItemMeta();
-	    meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.info.name")));
-	    item.setItemMeta(meta);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.info.name")));
+		item.setItemMeta(meta);
 
-	    player.getInventory().setItem(plugin.getConfig().getInt("items.info.slot", 1), item);
+		player.getInventory().setItem(plugin.getConfig().getInt("items.info.slot", 1), item);
 	}
 
 	private void addVote(Player player) {
 		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.vote.material")));     
-	    ItemMeta meta = item.getItemMeta();
-	    meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.vote.name")));
-	    item.setItemMeta(meta);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.vote.name")));
+		item.setItemMeta(meta);
 
-	    player.getInventory().setItem(plugin.getConfig().getInt("items.vote.slot", 0), item);
+		player.getInventory().setItem(plugin.getConfig().getInt("items.vote.slot", 0), item);
 	}
 
 	private void addShop(Player player) {
 		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.shop.material"))); 
-	    ItemMeta meta = item.getItemMeta();
-	    meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.shop.name")));
-	    item.setItemMeta(meta);
-	    
-	    player.getInventory().setItem(plugin.getConfig().getInt("items.shop.slot", 2), item);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.shop.name")));
+		item.setItemMeta(meta);
+
+		player.getInventory().setItem(plugin.getConfig().getInt("items.shop.slot", 2), item);
 	}
 
 	private void addStats(Player player) {
 		Material statsMaterial = Material.getMaterial(plugin.getConfig().getString("items.stats.material"));
 		ItemStack item = new ItemStack(statsMaterial);
-	    ItemMeta meta = item.getItemMeta();
-	    meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.stats.name")));
-	    item.setItemMeta(meta);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.stats.name")));
+		item.setItemMeta(meta);
 
-	    if (statsMaterial == Material.PLAYER_HEAD) {
-	    	SkullMeta skullMeta = (SkullMeta) item.getItemMeta();
-	    	skullMeta.setOwningPlayer(player);
-	        item.setItemMeta(skullMeta);
-	    }
+		if (statsMaterial == Material.PLAYER_HEAD) {
+			SkullMeta skullMeta = (SkullMeta) item.getItemMeta();
+			skullMeta.setOwningPlayer(player);
+			item.setItemMeta(skullMeta);
+		}
 
-	    player.getInventory().setItem(plugin.getConfig().getInt("items.stats.slot", 3), item);
+		player.getInventory().setItem(plugin.getConfig().getInt("items.stats.slot", 3), item);
 	}
 
 	private void addHeads(Player player) {
 		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.heads.material")));
-	    ItemMeta meta = item.getItemMeta();
-	    meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.heads.name")));
-	    item.setItemMeta(meta);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.heads.name")));
+		item.setItemMeta(meta);
 
-	    player.getInventory().setItem(plugin.getConfig().getInt("items.heads.slot", 4), item);
+		player.getInventory().setItem(plugin.getConfig().getInt("items.heads.slot", 4), item);
 	}
 
 	private void addLeaveItem(Player player) {
