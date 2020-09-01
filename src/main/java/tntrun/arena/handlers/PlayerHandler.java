@@ -30,6 +30,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -493,10 +494,17 @@ public class PlayerHandler {
 	}
 
 	private void addStats(Player player) {
-		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.stats.material")));
+		Material statsMaterial = Material.getMaterial(plugin.getConfig().getString("items.stats.material"));
+		ItemStack item = new ItemStack(statsMaterial);
 	    ItemMeta meta = item.getItemMeta();
 	    meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.stats.name")));
 	    item.setItemMeta(meta);
+
+	    if (statsMaterial == Material.PLAYER_HEAD) {
+	    	SkullMeta skullMeta = (SkullMeta) item.getItemMeta();
+	    	skullMeta.setOwningPlayer(player);
+	        item.setItemMeta(skullMeta);
+	    }
 
 	    player.getInventory().setItem(plugin.getConfig().getInt("items.stats.slot", 3), item);
 	}
@@ -512,13 +520,13 @@ public class PlayerHandler {
 
 	private void addLeaveItem(Player player) {
 		// Old config files will have BED as leave item which is no longer valid on 1.13. Update any invalid material to valid one.
-		Material leaveItem = Material.getMaterial(plugin.getConfig().getString("items.leave.material"));
-		if (leaveItem == null) {
-			leaveItem = Material.getMaterial("GREEN_BED");
-			plugin.getConfig().set("items.leave.material", leaveItem.toString());
+		Material leaveMaterial = Material.getMaterial(plugin.getConfig().getString("items.leave.material"));
+		if (leaveMaterial == null) {
+			leaveMaterial = Material.getMaterial("GREEN_BED");
+			plugin.getConfig().set("items.leave.material", leaveMaterial.toString());
 			plugin.saveConfig();
 		}
-		ItemStack item = new ItemStack(leaveItem);
+		ItemStack item = new ItemStack(leaveMaterial);
 		ItemMeta im = item.getItemMeta();
 		im.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.leave.name")));
 		item.setItemMeta(im);

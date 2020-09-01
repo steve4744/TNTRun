@@ -78,7 +78,7 @@ items:
     slot: 2
   stats:
     use: true
-    material: REDSTONE
+    material: PLAYER_HEAD
     name: '&2&lStats'
     slot: 3
   leave:
