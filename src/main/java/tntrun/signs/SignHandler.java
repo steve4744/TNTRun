@@ -31,6 +31,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import tntrun.TNTRun;
 import tntrun.messages.Messages;
+import tntrun.signs.type.AutoJoinSign;
 import tntrun.signs.type.JoinSign;
 import tntrun.signs.type.LeaveSign;
 import tntrun.signs.type.SignType;
@@ -46,6 +47,7 @@ public class SignHandler implements Listener {
 		signs.put("[join]", new JoinSign(plugin));
 		signs.put("[leave]", new LeaveSign(plugin));
 		signs.put("[vote]", new VoteSign(plugin));
+		signs.put("[autojoin]", new AutoJoinSign(plugin));
 		
 		pl = plugin;
 	}

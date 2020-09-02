@@ -37,7 +37,7 @@ public class Messages {
 	public static String teleporttolobby = "&7[&6TNTRun&7] Teleported to lobby";
 
 	public static String availablearenas = "&7[&6TNTRun&7] Available arenas:&r ";
-	public static String noarenas = "&7[&6TNTRun&7]&c There are no arenas available to join";
+	public static String noarenas = "&7[&6TNTRun&7] &cThere are no arenas available to join";
 	public static String arenawolrdna = "&7[&6TNTRun&7] Arena world is not loaded";
 	public static String arenadisabled = "&7[&6TNTRun&7] Arena is disabled";
 	public static String arenarunning = "&7[&6TNTRun&7] Arena already running";
@@ -47,6 +47,8 @@ public class Messages {
 	public static String arenadisabling = "&7[&6TNTRun&7] &6Arena is disabling";
 	public static String arenastarting = "&7[&6TNTRun&7] &6Arena already starting";
 	public static String arenawaiting = "&6 Arena is waiting";
+	public static String signcreate = "&7[&6TNTRun&7] Sign successfully created";
+	public static String signremove = "&7[&6TNTRun&7] Sign successfully removed";
 	
 	public static String playerscountinarena = "&7[&6TNTRun&7] &6Current number of players in arena: {COUNT} players";
 	public static String limitreached = "&7[&6TNTRun&7] Arena is full.";
@@ -148,6 +150,8 @@ public class Messages {
 		arenadisabling = config.getString("arenadisabling", arenadisabling);
 		arenastarting = config.getString("arenastarting", arenastarting);
 		arenawaiting = config.getString("arenawaiting", arenawaiting);
+		signcreate = config.getString("signcreate", signcreate);
+		signremove = config.getString("signremove", signremove);
 		playerscountinarena = config.getString("playerscountinarena", playerscountinarena);
 		limitreached = config.getString("limitreached", limitreached);
 		playerjoinedtoplayer = config.getString("playerjoinedtoplayer", playerjoinedtoplayer);
@@ -233,6 +237,8 @@ public class Messages {
 		config.set("arenadisabling", arenadisabling);
 		config.set("arenastarting", arenastarting);
 		config.set("arenawaiting", arenawaiting);
+		config.set("signcreate", signcreate);
+		config.set("signremove", signremove);
 		config.set("playerscountinarena", playerscountinarena);
 		config.set("limitreached", limitreached);
 		config.set("playerjoinedtoplayer", playerjoinedtoplayer);
