@@ -27,6 +27,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import tntrun.arena.Arena;
 import tntrun.utils.Bars;
+import tntrun.utils.JoinMenu;
 import tntrun.utils.Shop;
 import tntrun.utils.Sounds;
 import tntrun.utils.Sounds_1_8;
@@ -61,6 +62,7 @@ public class TNTRun extends JavaPlugin {
 	public String[] version = {"Nothing", "Nothing"};
 	public Sounds sound;
 	public Stats stats;
+	private JoinMenu joinMenu;
 
 	public static TNTRun instance;
 
@@ -75,6 +77,7 @@ public class TNTRun extends JavaPlugin {
 		TitleMsg.loadTitles(this);
 		pdata = new PlayerDataStore();
 		amanager = new ArenasManager();
+		joinMenu = new JoinMenu(this);
 		getCommand("tntrunsetup").setExecutor(new SetupCommandsHandler(this));
 		getCommand("tntrun").setExecutor(new GameCommands(this));
 		getCommand("tntrunconsole").setExecutor(new ConsoleCommands(this));
@@ -185,6 +188,10 @@ public class TNTRun extends JavaPlugin {
 
 	public boolean isFile() {
 		return file;
+	}
+
+	public JoinMenu getJoinMenu() {
+		return joinMenu;
 	}
 
 	private void checkUpdate(){

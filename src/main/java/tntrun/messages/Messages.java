@@ -29,11 +29,15 @@ import tntrun.TNTRun;
 
 public class Messages {
 
+	public static String menutitle = "&1TNTRun_reloaded Arenas";
+	public static String menuarenaname = "&a{ARENA}";
+	public static String menutext = "&5Players:&6";
 	public static String nopermission = "&7[&6TNTRun&7] &cYou don't have permission to do this";
 
 	public static String teleporttolobby = "&7[&6TNTRun&7] Teleported to lobby";
 
 	public static String availablearenas = "&7[&6TNTRun&7] Available arenas:&r ";
+	public static String noarenas = "&7[&6TNTRun&7]&c There are no arenas available to join";
 	public static String arenawolrdna = "&7[&6TNTRun&7] Arena world is not loaded";
 	public static String arenadisabled = "&7[&6TNTRun&7] Arena is disabled";
 	public static String arenarunning = "&7[&6TNTRun&7] Arena already running";
@@ -77,6 +81,8 @@ public class Messages {
 	public static String helplobby = "Teleport to lobby";
 	public static String helplist = "List all arenas &for &cList arena details";
 	public static String helpjoin = "Join the arena";
+	//public static String helpjoin = "Open join menu OR Join the arena";
+	public static String helpautojoin = "Automatically join the first available arena";
 	public static String helpleave = "Leave the current arena";
 	public static String helpvote = "Vote to force-start current arena";
 	public static String helpcmds = "View all TNTRun commands";
@@ -126,9 +132,13 @@ public class Messages {
 	public static void loadMessages(TNTRun plugin) {
 		File messageconfig = new File(plugin.getDataFolder(), "messages.yml");
 		FileConfiguration config = YamlConfiguration.loadConfiguration(messageconfig);
+		menutitle = config.getString("menutitle", menutitle);
+		menuarenaname = config.getString("menuarenaname", menuarenaname);
+		menutext = config.getString("menutext", menutext);
 		nopermission = config.getString("nopermission", nopermission);
 		teleporttolobby = config.getString("teleporttolobby", teleporttolobby);
 		availablearenas = config.getString("availablearenas", availablearenas);
+		noarenas = config.getString("noarenas", noarenas);
 		arenawolrdna = config.getString("arenawolrdna", arenawolrdna);
 		arenadisabled = config.getString("arenadisabled", arenadisabled);
 		arenarunning = config.getString("arenarunning", arenarunning);
@@ -181,6 +191,7 @@ public class Messages {
 		setuploselevel = config.getString("setuploselevel", setuploselevel);
 		setupspawn = config.getString("setupspawn", setupspawn);
 		setupspectate = config.getString("setupspectate", setupspectate);
+		helpautojoin = config.getString("helpautojoin", helpautojoin);
 		setupfinish = config.getString("setupfinish", setupfinish);
 		setupdelspectate = config.getString("setupdelspectate", setupdelspectate);
 		setupdelay = config.getString("setupdelay", setupdelay);
@@ -206,9 +217,13 @@ public class Messages {
 	private static void saveMessages(File messageconfig) {
 		FileConfiguration config = new YamlConfiguration();
 		
+		config.set("menutitle",  menutitle);
+		config.set("menuarenaname", menuarenaname);
+		config.set("menutext",  menutext);
 		config.set("nopermission", nopermission);
 		config.set("teleporttolobby", teleporttolobby);
 		config.set("availablearenas", availablearenas);
+		config.set("noarenas", noarenas);
 		config.set("arenawolrdna", arenawolrdna);
 		config.set("arenadisabled", arenadisabled);
 		config.set("arenarunning", arenarunning);
@@ -261,6 +276,7 @@ public class Messages {
 		config.set("setuploselevel", setuploselevel);
 		config.set("setupspawn", setupspawn);
 		config.set("setupspectate", setupspectate);
+		config.set("helpautojoin", helpautojoin);
 		config.set("setupfinish", setupfinish);
 		config.set("setupdelspectate", setupdelspectate);
 		config.set("setupdelay", setupdelay);

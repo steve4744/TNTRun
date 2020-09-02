@@ -55,6 +55,7 @@ public class GameCommands implements CommandExecutor {
 			Messages.sendMessage(player, "§6/tr lobby §f- §c" + Messages.helplobby);
 			Messages.sendMessage(player, "§6/tr list [arena] §f- §c" + Messages.helplist);
 			Messages.sendMessage(player, "§6/tr join {arena} §f- §c" + Messages.helpjoin);
+			Messages.sendMessage(player, "§6/tr autojoin §f- §c" + Messages.helpautojoin);
 			Messages.sendMessage(player, "§6/tr leave §f- §c" + Messages.helpleave);
 			Messages.sendMessage(player, "§6/tr vote §f- §c" + Messages.helpvote);
 			Messages.sendMessage(player, "§6/tr cmds §f- §c" + Messages.helpcmds);
@@ -161,6 +162,10 @@ public class GameCommands implements CommandExecutor {
 				sender.sendMessage("§7[§6TNTRun§7] §cArena §6" + args[1] + "§c doesn't exist");
 				return true;
 			}
+		}
+		// autojoin
+		else if (args[0].equalsIgnoreCase("autojoin")) {
+			plugin.getJoinMenu().autoJoin(player);
 		}
 		// tntrun_reloaded info
 		else if (args[0].equalsIgnoreCase("info")) {
