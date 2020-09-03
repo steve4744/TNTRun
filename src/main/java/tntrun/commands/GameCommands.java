@@ -147,6 +147,10 @@ public class GameCommands implements CommandExecutor {
 		}
 		// join arena
 		else if (args[0].equalsIgnoreCase("join")) {
+			if (args.length == 1 && player.hasPermission("tntrun.joinmenu")) {
+				plugin.getJoinMenu().buildMenu(player);
+				return false;
+			}
 			if (args.length != 2) {
 				player.sendMessage("§7[§6TNTRun§7] §cInvalid number of arguments supplied");
 				return false;

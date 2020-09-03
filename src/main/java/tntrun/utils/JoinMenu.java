@@ -21,16 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 import org.bukkit.Bukkit;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.google.common.base.Enums;
-
-import net.md_5.bungee.api.ChatColor;
 import tntrun.FormattingCodesParser;
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
@@ -76,11 +72,11 @@ public class JoinMenu {
 			inv.setItem(keyPos,is);
 		});
 
-		fillEmptySlots(inv, size);
+		//fillEmptySlots(inv, size);
 		player.openInventory(inv);
 	}
 
-	private void fillEmptySlots(Inventory inv, Integer size) {
+	/*private void fillEmptySlots(Inventory inv, Integer size) {
 		ItemStack is = new ItemStack(getPane());
 		if (is.getType() == Material.AIR) {
 			return;
@@ -101,7 +97,7 @@ public class JoinMenu {
 			return Material.AIR;
 		}
 		return Material.getMaterial(colour + "_STAINED_GLASS_PANE");
-	}
+	}*/
 
 	private Material getMenuItem() {
 		String item = plugin.getConfig().getString("menu.item", "TNT").toUpperCase();

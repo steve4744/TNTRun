@@ -82,8 +82,7 @@ public class Messages {
 	
 	public static String helplobby = "Teleport to lobby";
 	public static String helplist = "List all arenas &for &cList arena details";
-	public static String helpjoin = "Join the arena";
-	//public static String helpjoin = "Open join menu OR Join the arena";
+	public static String helpjoin = "Open join menu OR Join the arena";
 	public static String helpautojoin = "Automatically join the first available arena";
 	public static String helpleave = "Leave the current arena";
 	public static String helpvote = "Vote to force-start current arena";

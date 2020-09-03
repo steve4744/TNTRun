@@ -16,6 +16,9 @@ shop:
    size: 27
    doublejump:
       maxdoublejumps: 10
+menu:
+  item: TNT
+  includedisabled: false
 commandsonwin:
 - say {PLAYER} won TNTRun
 - say Congratulations...

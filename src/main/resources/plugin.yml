@@ -18,6 +18,9 @@ permissions:
   tntrun.join:
     description: used to control who can play TNTRun and where.
     default: true
+  tntrun.joinmenu:
+    description: allow players to use the join menu
+    default: true
   tntrun.setup:
     description: used to create and modify arenas and gameplay
     default: op

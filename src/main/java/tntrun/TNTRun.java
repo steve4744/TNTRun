@@ -39,6 +39,7 @@ import tntrun.commands.GameCommands;
 import tntrun.commands.setup.SetupCommandsHandler;
 import tntrun.datahandler.ArenasManager;
 import tntrun.datahandler.PlayerDataStore;
+import tntrun.eventhandler.MenuHandler;
 import tntrun.eventhandler.PlayerLeaveArenaChecker;
 import tntrun.eventhandler.PlayerStatusHandler;
 import tntrun.eventhandler.RestrictionHandler;
@@ -85,6 +86,7 @@ public class TNTRun extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new RestrictionHandler(this), this);
 		getServer().getPluginManager().registerEvents(new PlayerLeaveArenaChecker(this), this);
 		getServer().getPluginManager().registerEvents(new SignHandler(this), this);
+		getServer().getPluginManager().registerEvents(new MenuHandler(this), this);
 		getServer().getPluginManager().registerEvents(new Shop(this), this);
 
 		Plugin PlaceholderAPI = getServer().getPluginManager().getPlugin("PlaceholderAPI");
