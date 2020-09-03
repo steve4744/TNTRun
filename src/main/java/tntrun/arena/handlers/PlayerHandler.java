@@ -22,9 +22,11 @@ import java.util.HashSet;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -422,12 +424,22 @@ public class PlayerHandler {
 	}
 	
 	public void addStats(Player p){
-		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.stats.material")));
-	    ItemMeta meta = item.getItemMeta();
-	    meta.setDisplayName(plugin.getConfig().getString("items.stats.name").replace("&", "§"));
-	    item.setItemMeta(meta);
-	    
-	    p.getInventory().addItem(item);
+		Material statsMaterial = Material.getMaterial(plugin.getConfig().getString("items.stats.material"));
+		ItemStack item = null;
+
+		if (statsMaterial == Material.SKULL_ITEM) {
+			item = new ItemStack(statsMaterial, 1, (short) SkullType.PLAYER.ordinal());
+			SkullMeta skullMeta = (SkullMeta) item.getItemMeta();
+			skullMeta.setOwner(p.getName());
+			item.setItemMeta(skullMeta);
+		} else {
+			item = new ItemStack(statsMaterial);
+		}
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(plugin.getConfig().getString("items.stats.name").replace("&", "§"));
+		item.setItemMeta(meta);
+
+		p.getInventory().addItem(item);
 	}
 	
 	public void addEffects(Player p){

@@ -41,7 +41,7 @@ items:
       name: '&cSHOP'
    stats:
       use: true
-      material: REDSTONE
+      material: SKULL_ITEM
       name: '&cSTATS'
    leave:
       material: BED
