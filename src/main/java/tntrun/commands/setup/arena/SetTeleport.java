@@ -43,7 +43,7 @@ public class SetTeleport implements CommandHandlerInterface {
 			if (args[1].equalsIgnoreCase("previous")) {
 				arena.getStructureManager().setTeleportDestination(TeleportDestination.PREVIOUS);
 			} else if (args[1].equalsIgnoreCase("lobby")) {
-				if (plugin.globallobby.isLobbyLocationSet()) {
+				if (plugin.getGlobalLobby().isLobbyLocationSet()) {
 					arena.getStructureManager().setTeleportDestination(TeleportDestination.LOBBY);
 				} else {
 					Messages.sendMessage(player, Messages.trprefix + "&c Global lobby isn't set, run &6/trsetup setlobby");

@@ -70,16 +70,16 @@ public class TNTRun extends JavaPlugin {
 	private boolean file = false;
 	private VaultHandler vaultHandler;
 	private BungeeHandler bungeeHandler;
+	private GlobalLobby globallobby;
 	private Arena bungeeArena;
 	private JoinMenu joinMenu;
 	private PlayerDataStore pdata;
+	private Kits kitmanager;
+	private Sounds sound;
 
 	public ArenasManager amanager;
-	public GlobalLobby globallobby;
 	public SignEditor signEditor;
-	public Kits kitmanager;
 	public String[] version = {"Nothing", "Nothing"};
-	public Sounds sound;
 	public MySQL mysql;
 	public Stats stats;
 	public Shop shop;
@@ -355,6 +355,18 @@ public class TNTRun extends JavaPlugin {
 
 	public PlayerDataStore getPData() {
 		return pdata;
+	}
+
+	public Kits getKitManager() {
+		return kitmanager;
+	}
+
+	public GlobalLobby getGlobalLobby() {
+		return globallobby;
+	}
+
+	public Sounds getSound() {
+		return sound;
 	}
 
 	public void updateScoreboardList() {

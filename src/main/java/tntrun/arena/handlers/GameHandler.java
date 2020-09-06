@@ -182,7 +182,7 @@ public class GameHandler {
 			player.setAllowFlight(true);
 
 			Messages.sendMessage(player, message);
-			plugin.sound.ARENA_START(player);
+			plugin.getSound().ARENA_START(player);
 			
 			setGameInventory(player);
 			TitleMsg.sendFullTitle(player, TitleMsg.start, TitleMsg.substart, 20, 20, 20, plugin);
@@ -345,7 +345,7 @@ public class GameHandler {
 		player.setFlying(true);
 		// teleport winner and spectators to arena spawn
 		for(Player p : arena.getPlayersManager().getAllParticipantsCopy()) {
-			plugin.sound.ARENA_START(p);
+			plugin.getSound().ARENA_START(p);
 			p.teleport(arena.getStructureManager().getSpawnPoint());
 			p.getInventory().clear();
 		}
@@ -428,7 +428,7 @@ public class GameHandler {
 	 * @param message
 	 */
 	private void displayCountdown(Player player, int count, String message) {
-		plugin.sound.NOTE_PLING(player, 1, 999);
+		plugin.getSound().NOTE_PLING(player, 1, 999);
 		if (!plugin.getConfig().getBoolean("special.UseTitle")) {
 			Messages.sendMessage(player, Messages.trprefix + message);
 		} 

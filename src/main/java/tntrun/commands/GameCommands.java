@@ -69,7 +69,7 @@ public class GameCommands implements CommandExecutor {
 			player.spigot().sendMessage(Utils.getTextComponent("/tr cmds", true), Utils.getTextComponent(Messages.helpcmds));
 
 		} else if (args[0].equalsIgnoreCase("lobby")) {
-			plugin.globallobby.joinLobby(player);
+			plugin.getGlobalLobby().joinLobby(player);
 		}
 
 		// list arenas
@@ -313,13 +313,13 @@ public class GameCommands implements CommandExecutor {
 		// listkits
 		else if (args[0].equalsIgnoreCase("listkit") || args[0].equalsIgnoreCase("listkits")) {
 			if (args.length >= 2) {
-				plugin.kitmanager.listKit(args[1], player);
+				plugin.getKitManager().listKit(args[1], player);
 				return true;
 			}
 			StringBuilder message = new StringBuilder(200);
 			message.append(Messages.trprefix + Messages.availablekits);
-			if (plugin.kitmanager.getKits().size() != 0) {
-				for (String kit : plugin.kitmanager.getKits()) {
+			if (plugin.getKitManager().getKits().size() != 0) {
+				for (String kit : plugin.getKitManager().getKits()) {
 					message.append("&a" + kit + " ; ");
 				}
 				message.setLength(message.length() - 2);

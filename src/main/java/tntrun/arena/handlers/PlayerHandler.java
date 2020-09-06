@@ -55,7 +55,7 @@ public class PlayerHandler {
 
 	private TNTRun plugin;
 	private Arena arena;
-	private Map<String, Integer> doublejumps = new HashMap<String, Integer>();   // playername -> number_of_doublejumps
+	private Map<String, Integer> doublejumps = new HashMap<>();   // playername -> number_of_doublejumps
 	private List<String> pparty = new ArrayList<String>();
 	private HashSet<String> votes = new HashSet<String>();
 
@@ -235,7 +235,7 @@ public class PlayerHandler {
 			
 			Bars.setBar(arena, Bars.waiting, arena.getPlayersManager().getPlayersCount(), 0, progress, plugin);
 			for (Player oplayer : arena.getPlayersManager().getPlayers()) {
-				plugin.sound.NOTE_PLING(oplayer, 5, 999);
+				plugin.getSound().NOTE_PLING(oplayer, 5, 999);
 			}
 		}
 
@@ -428,8 +428,8 @@ public class PlayerHandler {
 	 * @param player
 	 */
 	private void connectToLobby(Player player) {
-		if (arena.getStructureManager().getTeleportDestination() == TeleportDestination.LOBBY && plugin.globallobby.isLobbyLocationWorldAvailable()) {
-			player.teleport(plugin.globallobby.getLobbyLocation());
+		if (arena.getStructureManager().getTeleportDestination() == TeleportDestination.LOBBY && plugin.getGlobalLobby().isLobbyLocationWorldAvailable()) {
+			player.teleport(plugin.getGlobalLobby().getLobbyLocation());
 			plugin.getPData().clearPlayerLocation(player);
 		} else {
 			plugin.getPData().restorePlayerLocation(player);
@@ -546,11 +546,11 @@ public class PlayerHandler {
 
 	public void allocateKits() {
 		Random rnd = new Random();
-		HashSet<String> kits = plugin.kitmanager.getKits();
+		HashSet<String> kits = plugin.getKitManager().getKits();
 		if (kits.size() > 0) {
 			String[] kitnames = kits.toArray(new String[kits.size()]);
 			for (Player player : arena.getPlayersManager().getPlayers()) {
-				plugin.kitmanager.giveKit(kitnames[rnd.nextInt(kitnames.length)], player);
+				plugin.getKitManager().giveKit(kitnames[rnd.nextInt(kitnames.length)], player);
 				// kits will replace the GUI items, so give each player the leave item again
 				if (plugin.getConfig().getBoolean("items.leave.use")) {
 					addLeaveItem(player);

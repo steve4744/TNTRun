@@ -64,7 +64,7 @@ public class AutoTabCompleter implements TabCompleter {
 					list.addAll(TNTRun.getInstance().amanager.getArenasNames());
 
 				} else if (args[0].equalsIgnoreCase("listkits") || args[0].equalsIgnoreCase("listkit")) {
-					list.addAll(TNTRun.getInstance().kitmanager.getKits());
+					list.addAll(TNTRun.getInstance().getKitManager().getKits());
 				}
 			}
 			for (String s : list) {

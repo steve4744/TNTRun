@@ -31,7 +31,7 @@ public class AddKit implements CommandHandlerInterface {
 
 	@Override
 	public boolean handleCommand(Player player, String[] args) {		
-		plugin.kitmanager.registerKit(args[0], player);
+		plugin.getKitManager().registerKit(args[0], player);
 		return true;
 	}
 
