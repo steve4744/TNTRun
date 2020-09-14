@@ -122,6 +122,7 @@ MySQL:
   user: root
   pass: password
   useSSL: false
+  flags: allowPublicKeyRetrieval=true
 signs:
   prefix: '&6&lTNTRun'
   join: '[Join]'

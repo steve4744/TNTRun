@@ -43,17 +43,14 @@ import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.messages.Messages;
 import tntrun.utils.Heads;
-import tntrun.utils.Sounds;
 import tntrun.utils.Utils;
 
 public class RestrictionHandler implements Listener {
 
 	private TNTRun plugin;
-	private Sounds sound;
 
 	public RestrictionHandler(TNTRun plugin) {
 		this.plugin = plugin;
-		this.sound = plugin.getSound();
 	}
 
 	private HashSet<String> allowedcommands = new HashSet<String>(
@@ -122,12 +119,12 @@ public class RestrictionHandler implements Listener {
 		}
 		if (e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.leave.material"))) {
 			e.setCancelled(true);
-			sound.ITEM_SELECT(player);
+			plugin.getSound().ITEM_SELECT(player);
 			arena.getPlayerHandler().leavePlayer(player, Messages.playerlefttoplayer, Messages.playerlefttoothers);
 
 		} else if (e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.shop.material"))) {
 			e.setCancelled(true);
-			sound.ITEM_SELECT(player);
+			plugin.getSound().ITEM_SELECT(player);
 			Inventory inv = Bukkit.createInventory(null, plugin.shop.getInvsize(), plugin.shop.getInvname());
 			plugin.shop.setItems(inv, player);
 			player.openInventory(inv);
@@ -135,21 +132,21 @@ public class RestrictionHandler implements Listener {
 		} else if (e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.info.material"))) {
 			e.setCancelled(true);
 			if (u.contains(player)) {
-				sound.NOTE_PLING(player, 5, 999);
+				plugin.getSound().NOTE_PLING(player, 5, 999);
 				return;
 			}
 			u.add(player);
 			coolDown(player);
-			sound.ITEM_SELECT(player);
+			plugin.getSound().ITEM_SELECT(player);
 			Utils.displayInfo(player);
 
 		} else if (e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.vote.material"))) {
 			e.setCancelled(true);
 			if (u.contains(player)) {
-				sound.NOTE_PLING(player, 5, 999);
+				plugin.getSound().NOTE_PLING(player, 5, 999);
 				return;
 			}
-			sound.ITEM_SELECT(player);
+			plugin.getSound().ITEM_SELECT(player);
 			u.add(player);
 			coolDown(player);
 
@@ -166,18 +163,18 @@ public class RestrictionHandler implements Listener {
 		} else if (e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.stats.material"))) {
 			e.setCancelled(true);
 			if (u.contains(player)) {
-				sound.NOTE_PLING(player, 5, 999);
+				plugin.getSound().NOTE_PLING(player, 5, 999);
 				return;
 			}
 			u.add(player);
 			coolDown(player);
-			sound.ITEM_SELECT(player);
+			plugin.getSound().ITEM_SELECT(player);
 			player.chat("/tntrun stats");
 
 		} else if (e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.heads.material"))) {
 			e.setCancelled(true);
 			if (u.contains(player)) {
-				sound.NOTE_PLING(player, 5, 999);
+				plugin.getSound().NOTE_PLING(player, 5, 999);
 				return;
 			}
 			if (!player.hasPermission("tntrun.heads")) {
@@ -186,7 +183,7 @@ public class RestrictionHandler implements Listener {
 			}
 			u.add(player);
 			coolDown(player);
-			sound.ITEM_SELECT(player);
+			plugin.getSound().ITEM_SELECT(player);
 			Heads.openMenu(player);
 		}
 	}
@@ -234,7 +231,7 @@ public class RestrictionHandler implements Listener {
 		arena.getPlayerHandler().decrementDoubleJumps(p);
 		p.setFlying(false);
 		p.setVelocity(p.getLocation().getDirection().multiply(1.5D).setY(0.7D));
-		sound.NOTE_PLING(p, 5, 999);
+		plugin.getSound().NOTE_PLING(p, 5, 999);
 		u.add(p);
 
 		new BukkitRunnable() {

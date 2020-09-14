@@ -239,7 +239,8 @@ public class TNTRun extends JavaPlugin {
 		String user = this.getConfig().getString("MySQL.user");
 		String pass = this.getConfig().getString("MySQL.pass");
 		String useSSL = this.getConfig().getString("MySQL.useSSL");
-		mysql = new MySQL(host, port, name, user, pass, useSSL, this);
+		String flags = this.getConfig().getString("MySQL.flags");
+		mysql = new MySQL(host, port, name, user, pass, useSSL, flags, this);
 
 		new BukkitRunnable() {
 			@Override
