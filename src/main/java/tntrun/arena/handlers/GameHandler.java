@@ -36,6 +36,7 @@ import tntrun.arena.Arena;
 import tntrun.events.PlayerWinArenaEvent;
 import tntrun.utils.Bars;
 import tntrun.utils.TitleMsg;
+import tntrun.utils.Utils;
 import tntrun.messages.Messages;
 
 public class GameHandler {
@@ -157,6 +158,10 @@ public class GameHandler {
 
 	public void startArena() {
 		arena.getStatusManager().setRunning(true);
+		if (Utils.debug() ) {
+			plugin.getLogger().info("Arena " + arena.getArenaName() + " started");
+			plugin.getLogger().info("Players in arena: " + arena.getPlayersManager().getPlayersCount());
+		}
 
 		String message = Messages.trprefix;
 		int limit = arena.getStructureManager().getTimeLimit();
@@ -177,7 +182,7 @@ public class GameHandler {
 			player.setAllowFlight(true);
 
 			Messages.sendMessage(player, message);
-			plugin.sound.ARENA_START(player);
+			plugin.getSound().ARENA_START(player);
 			
 			setGameInventory(player);
 			TitleMsg.sendFullTitle(player, TitleMsg.start, TitleMsg.substart, 20, 20, 20, plugin);
@@ -195,6 +200,9 @@ public class GameHandler {
 			public void run() {
 				// stop arena if player count is 0
 				if (arena.getPlayersManager().getPlayersCount() == 0) {
+					if (Utils.debug()) {
+						plugin.getLogger().info("GH calling stopArena...");
+					}
 					stopArena();
 					return;
 				}
@@ -222,13 +230,22 @@ public class GameHandler {
 	}
 
 	public void stopArena() {
+		if (!arena.getStatusManager().isArenaRunning()) {
+			if (Utils.debug()) {
+				plugin.getLogger().info("stopArena: arena not running. Exiting...");
+			}
+			return;
+		}
+		arena.getStatusManager().setRunning(false);
 		for (Player player : arena.getPlayersManager().getAllParticipantsCopy()) {
+			if (Utils.debug()) {
+				plugin.getLogger().info("stopArena is removing player " + player.getName());
+			}
 			arena.getScoreboardHandler().removeScoreboard(player);
 			arena.getPlayerHandler().leavePlayer(player, "", "");
 		}
 		lostPlayers = 0;
 		forceStartByCmd = false;
-		arena.getStatusManager().setRunning(false);
 		Bukkit.getScheduler().cancelTask(arenahandler);
 		Bukkit.getScheduler().cancelTask(arena.getScoreboardHandler().getPlayingTask());
 		plugin.signEditor.modifySigns(arena.getArenaName());
@@ -268,6 +285,9 @@ public class GameHandler {
 			return;
 		}
 		arena.getStatusManager().setRegenerating(true);
+		if (Utils.debug()) {
+			plugin.getLogger().info("Arena regen started");
+		}
 		plugin.signEditor.modifySigns(arena.getArenaName());
 
 		int delay = arena.getStructureManager().getGameZone().regen();
@@ -318,12 +338,14 @@ public class GameHandler {
 				Messages.sendMessage(all, message);
 			}
 		}
+		plugin.getLogger().info("Player " + player.getName() + " won arena " + arena.getArenaName());
+
 		// allow winner to fly at arena spawn
 		player.setAllowFlight(true);
 		player.setFlying(true);
 		// teleport winner and spectators to arena spawn
 		for(Player p : arena.getPlayersManager().getAllParticipantsCopy()) {
-			plugin.sound.ARENA_START(p);
+			plugin.getSound().ARENA_START(p);
 			p.teleport(arena.getStructureManager().getSpawnPoint());
 			p.getInventory().clear();
 		}
@@ -406,7 +428,7 @@ public class GameHandler {
 	 * @param message
 	 */
 	private void displayCountdown(Player player, int count, String message) {
-		plugin.sound.NOTE_PLING(player, 1, 999);
+		plugin.getSound().NOTE_PLING(player, 1, 999);
 		if (!plugin.getConfig().getBoolean("special.UseTitle")) {
 			Messages.sendMessage(player, Messages.trprefix + message);
 		} 

@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -69,16 +70,16 @@ public class TNTRun extends JavaPlugin {
 	private boolean file = false;
 	private VaultHandler vaultHandler;
 	private BungeeHandler bungeeHandler;
+	private GlobalLobby globallobby;
 	private Arena bungeeArena;
 	private JoinMenu joinMenu;
 	private PlayerDataStore pdata;
+	private Kits kitmanager;
+	private Sounds sound;
 
 	public ArenasManager amanager;
-	public GlobalLobby globallobby;
 	public SignEditor signEditor;
-	public Kits kitmanager;
 	public String[] version = {"Nothing", "Nothing"};
-	public Sounds sound;
 	public MySQL mysql;
 	public Stats stats;
 	public Shop shop;
@@ -238,7 +239,8 @@ public class TNTRun extends JavaPlugin {
 		String user = this.getConfig().getString("MySQL.user");
 		String pass = this.getConfig().getString("MySQL.pass");
 		String useSSL = this.getConfig().getString("MySQL.useSSL");
-		mysql = new MySQL(host, port, name, user, pass, useSSL, this);
+		String flags = this.getConfig().getString("MySQL.flags");
+		mysql = new MySQL(host, port, name, user, pass, useSSL, flags, this);
 
 		new BukkitRunnable() {
 			@Override
@@ -354,6 +356,18 @@ public class TNTRun extends JavaPlugin {
 
 	public PlayerDataStore getPData() {
 		return pdata;
+	}
+
+	public Kits getKitManager() {
+		return kitmanager;
+	}
+
+	public GlobalLobby getGlobalLobby() {
+		return globallobby;
+	}
+
+	public Sounds getSound() {
+		return sound;
 	}
 
 	public void updateScoreboardList() {

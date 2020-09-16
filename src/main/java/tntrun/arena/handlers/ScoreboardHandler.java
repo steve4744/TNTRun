@@ -23,6 +23,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -106,7 +107,7 @@ public class ScoreboardHandler {
 		return StringUtils.substringBetween(s, "%") != null && !StringUtils.substringBetween(s, "%").isEmpty();
 	}
 
-	private String getPlaceholderString(String s, Player player) {
+	private String getPlaceholderString(String s, OfflinePlayer player) {
 		if (!plugin.isPlaceholderAPI() || !isPlaceholderString(s)) {
 			return s;
 		}

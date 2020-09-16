@@ -153,4 +153,8 @@ public class Utils {
 		return tc;
 	}
 
+	public static boolean debug() {
+		return TNTRun.getInstance().getConfig().getBoolean("debug", false);
+	}
+
 }

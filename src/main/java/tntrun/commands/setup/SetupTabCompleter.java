@@ -102,7 +102,7 @@ public class SetupTabCompleter implements TabCompleter {
 				}
 				list.add("RANDOM");
 			} else if (args[0].equalsIgnoreCase("deletekit")) {
-				list.addAll(TNTRun.getInstance().kitmanager.getKits());	
+				list.addAll(TNTRun.getInstance().getKitManager().getKits());
 			}
 
 		} else if (args.length == 3) {

@@ -50,7 +50,7 @@ public class GameZone {
 						public void run() {
 							if (arena.getStatusManager().isArenaRunning()) {
 								blockstodestroy.remove(fblock);
-								TNTRun.getInstance().sound.BLOCK_BREAK(fblock);
+								TNTRun.getInstance().getSound().BLOCK_BREAK(fblock);
 								removeGLBlocks(fblock);
 							}
 						}

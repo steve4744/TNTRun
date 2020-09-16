@@ -30,6 +30,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -54,7 +55,7 @@ public class PlayerHandler {
 
 	private TNTRun plugin;
 	private Arena arena;
-	private Map<String, Integer> doublejumps = new HashMap<String, Integer>();   // playername -> number_of_doublejumps
+	private Map<String, Integer> doublejumps = new HashMap<>();   // playername -> number_of_doublejumps
 	private List<String> pparty = new ArrayList<String>();
 	private HashSet<String> votes = new HashSet<String>();
 
@@ -156,6 +157,11 @@ public class PlayerHandler {
 		for (Player aplayer : Bukkit.getOnlinePlayers()) {
 			aplayer.showPlayer(plugin, player);
 		}
+		arena.getPlayersManager().add(player);
+		if (Utils.debug()) {
+			plugin.getLogger().info("Player " + player.getName() + " joined arena " + arena.getArenaName());
+			plugin.getLogger().info("Players in arena: " + arena.getPlayersManager().getPlayersCount());
+		}
 
 		storePlayerData(player);
 
@@ -169,9 +175,7 @@ public class PlayerHandler {
 
 		if (!plugin.getConfig().getBoolean("special.UseTitle")) {
 			Messages.sendMessage(player, Messages.trprefix + msgtoplayer);
-		}	
-
-		arena.getPlayersManager().add(player);
+		}
 
 		msgtoarenaplayers = FormattingCodesParser.parseFormattingCodes(msgtoarenaplayers).replace("{PLAYER}", player.getName()).replace("{RANK}", getDisplayName(player));;
 
@@ -231,7 +235,7 @@ public class PlayerHandler {
 			
 			Bars.setBar(arena, Bars.waiting, arena.getPlayersManager().getPlayersCount(), 0, progress, plugin);
 			for (Player oplayer : arena.getPlayersManager().getPlayers()) {
-				plugin.sound.NOTE_PLING(oplayer, 5, 999);
+				plugin.getSound().NOTE_PLING(oplayer, 5, 999);
 			}
 		}
 
@@ -374,6 +378,11 @@ public class PlayerHandler {
 		resetDoubleJumps(player);
 		arena.getPlayersManager().remove(player);
 		clearPotionEffects(player);
+		if (Utils.debug()) {
+			plugin.getLogger().info("Player " + player.getName() + " left arena " + arena.getArenaName());
+			plugin.getLogger().info("Players in arena: " + arena.getPlayersManager().getPlayersCount());
+			plugin.getLogger().info("Spectators in arena: " + arena.getPlayersManager().getSpectators().size());
+		}
 
 		plugin.getPData().restorePlayerHunger(player);
 		plugin.getPData().restorePlayerPotionEffects(player);
@@ -407,6 +416,9 @@ public class PlayerHandler {
 		}		
 
 		if (arena.getStatusManager().isArenaRunning() && arena.getPlayersManager().getPlayersCount() == 0) {
+			if (Utils.debug()) {
+				plugin.getLogger().info("PH calling stopArena...");
+			}
 			arena.getGameHandler().stopArena();
 		}
 	}
@@ -416,8 +428,8 @@ public class PlayerHandler {
 	 * @param player
 	 */
 	private void connectToLobby(Player player) {
-		if (arena.getStructureManager().getTeleportDestination() == TeleportDestination.LOBBY && plugin.globallobby.isLobbyLocationWorldAvailable()) {
-			player.teleport(plugin.globallobby.getLobbyLocation());
+		if (arena.getStructureManager().getTeleportDestination() == TeleportDestination.LOBBY && plugin.getGlobalLobby().isLobbyLocationWorldAvailable()) {
+			player.teleport(plugin.getGlobalLobby().getLobbyLocation());
 			plugin.getPData().clearPlayerLocation(player);
 		} else {
 			plugin.getPData().restorePlayerLocation(player);
@@ -456,58 +468,65 @@ public class PlayerHandler {
 
 	private void addInfo(Player player) {
 		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.info.material")));	     
-	    ItemMeta meta = item.getItemMeta();
-	    meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.info.name")));
-	    item.setItemMeta(meta);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.info.name")));
+		item.setItemMeta(meta);
 
-	    player.getInventory().setItem(plugin.getConfig().getInt("items.info.slot", 1), item);
+		player.getInventory().setItem(plugin.getConfig().getInt("items.info.slot", 1), item);
 	}
 
 	private void addVote(Player player) {
 		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.vote.material")));     
-	    ItemMeta meta = item.getItemMeta();
-	    meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.vote.name")));
-	    item.setItemMeta(meta);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.vote.name")));
+		item.setItemMeta(meta);
 
-	    player.getInventory().setItem(plugin.getConfig().getInt("items.vote.slot", 0), item);
+		player.getInventory().setItem(plugin.getConfig().getInt("items.vote.slot", 0), item);
 	}
 
 	private void addShop(Player player) {
 		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.shop.material"))); 
-	    ItemMeta meta = item.getItemMeta();
-	    meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.shop.name")));
-	    item.setItemMeta(meta);
-	    
-	    player.getInventory().setItem(plugin.getConfig().getInt("items.shop.slot", 2), item);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.shop.name")));
+		item.setItemMeta(meta);
+
+		player.getInventory().setItem(plugin.getConfig().getInt("items.shop.slot", 2), item);
 	}
 
 	private void addStats(Player player) {
-		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.stats.material")));
-	    ItemMeta meta = item.getItemMeta();
-	    meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.stats.name")));
-	    item.setItemMeta(meta);
+		Material statsMaterial = Material.getMaterial(plugin.getConfig().getString("items.stats.material"));
+		ItemStack item = new ItemStack(statsMaterial);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.stats.name")));
+		item.setItemMeta(meta);
 
-	    player.getInventory().setItem(plugin.getConfig().getInt("items.stats.slot", 3), item);
+		if (statsMaterial == Material.PLAYER_HEAD) {
+			SkullMeta skullMeta = (SkullMeta) item.getItemMeta();
+			skullMeta.setOwningPlayer(player);
+			item.setItemMeta(skullMeta);
+		}
+
+		player.getInventory().setItem(plugin.getConfig().getInt("items.stats.slot", 3), item);
 	}
 
 	private void addHeads(Player player) {
 		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.heads.material")));
-	    ItemMeta meta = item.getItemMeta();
-	    meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.heads.name")));
-	    item.setItemMeta(meta);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.heads.name")));
+		item.setItemMeta(meta);
 
-	    player.getInventory().setItem(plugin.getConfig().getInt("items.heads.slot", 4), item);
+		player.getInventory().setItem(plugin.getConfig().getInt("items.heads.slot", 4), item);
 	}
 
 	private void addLeaveItem(Player player) {
 		// Old config files will have BED as leave item which is no longer valid on 1.13. Update any invalid material to valid one.
-		Material leaveItem = Material.getMaterial(plugin.getConfig().getString("items.leave.material"));
-		if (leaveItem == null) {
-			leaveItem = Material.getMaterial("GREEN_BED");
-			plugin.getConfig().set("items.leave.material", leaveItem.toString());
+		Material leaveMaterial = Material.getMaterial(plugin.getConfig().getString("items.leave.material"));
+		if (leaveMaterial == null) {
+			leaveMaterial = Material.getMaterial("GREEN_BED");
+			plugin.getConfig().set("items.leave.material", leaveMaterial.toString());
 			plugin.saveConfig();
 		}
-		ItemStack item = new ItemStack(leaveItem);
+		ItemStack item = new ItemStack(leaveMaterial);
 		ItemMeta im = item.getItemMeta();
 		im.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.leave.name")));
 		item.setItemMeta(im);
@@ -527,12 +546,12 @@ public class PlayerHandler {
 
 	public void allocateKits() {
 		Random rnd = new Random();
-		HashSet<String> kits = plugin.kitmanager.getKits();
+		HashSet<String> kits = plugin.getKitManager().getKits();
 		if (kits.size() > 0) {
 			String[] kitnames = kits.toArray(new String[kits.size()]);
 			for (Player player : arena.getPlayersManager().getPlayers()) {
-				plugin.kitmanager.giveKit(kitnames[rnd.nextInt(kitnames.length)], player);
-				//kits will replace the GUI items, so give each player the leave item again
+				plugin.getKitManager().giveKit(kitnames[rnd.nextInt(kitnames.length)], player);
+				// kits will replace the GUI items, so give each player the leave item again
 				if (plugin.getConfig().getBoolean("items.leave.use")) {
 					addLeaveItem(player);
 				}

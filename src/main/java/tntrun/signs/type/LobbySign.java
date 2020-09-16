@@ -41,7 +41,7 @@ public class LobbySign implements SignType {
 
 	@Override
 	public void handleClick(PlayerInteractEvent e) {
-		plugin.globallobby.joinLobby(e.getPlayer());
+		plugin.getGlobalLobby().joinLobby(e.getPlayer());
 		e.setCancelled(true);
 	}
 
