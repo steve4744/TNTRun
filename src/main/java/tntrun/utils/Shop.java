@@ -51,11 +51,9 @@ public class Shop implements Listener {
 	private String invname;
 	private int invsize;
 	private int knockback;
-	private Sounds sound;
 
 	public Shop(TNTRun plugin) {
 		this.plugin = plugin;
-		this.sound = plugin.getSound();
 		ShopFiles shopFiles = new ShopFiles(plugin);
 		shopFiles.setShopItems();
 
@@ -246,14 +244,14 @@ public class Shop implements Listener {
 				if (!p.hasPermission(permission) && !p.hasPermission("tntrun.shop")) {
 					p.closeInventory();
 					Messages.sendMessage(p, Messages.trprefix + Messages.nopermission);
-					sound.ITEM_SELECT(p);
+					plugin.getSound().ITEM_SELECT(p);
 					return;
 				}
 
 				doublejumpPurchase = Material.getMaterial(cfg.getString(kit + ".material").toUpperCase()) == Material.FEATHER;
 				if (!doublejumpPurchase && buyers.contains(p.getName())) {
 					Messages.sendMessage(p, Messages.trprefix + Messages.alreadyboughtitem);
-					sound.ITEM_SELECT(p);
+					plugin.getSound().ITEM_SELECT(p);
 					p.closeInventory();
 					return;
 				}
@@ -262,7 +260,7 @@ public class Shop implements Listener {
 				if (doublejumpPurchase && !canBuyDoubleJumps(cfg, p, kit)) {
 					Messages.sendMessage(p, Messages.trprefix + Messages.maxdoublejumpsexceeded.replace("{MAXJUMPS}",
 							arena.getPlayerHandler().getAllowedDoubleJumps(p, plugin.getConfig().getInt("shop.doublejump.maxdoublejumps", 10)) + ""));
-					sound.ITEM_SELECT(p);
+					plugin.getSound().ITEM_SELECT(p);
 					p.closeInventory();
 					return;
 				}
@@ -276,10 +274,10 @@ public class Shop implements Listener {
 					if (!doublejumpPurchase) {
 						Messages.sendMessage(p, Messages.trprefix + Messages.playerboughtwait);
 					}
-					sound.NOTE_PLING(p, 5, 10);
+					plugin.getSound().NOTE_PLING(p, 5, 10);
 				} else {
 					Messages.sendMessage(p, Messages.trprefix + Messages.notenoughtmoney.replace("{MONEY}", cost + ""));
-					sound.ITEM_SELECT(p);
+					plugin.getSound().ITEM_SELECT(p);
 					return;
 				}
 				giveItem(e.getSlot(), p, title);  
