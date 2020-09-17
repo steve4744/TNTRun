@@ -544,15 +544,30 @@ public class PlayerHandler {
 		}
 	}
 
+	/**
+	 * Allocate a random kit preserving any purchased head the player may have, and
+	 * re-adding the leave item.
+	 *
+	 * @param player
+	 */
 	public void allocateKits(Player player) {
-		Random rnd = new Random();
 		HashSet<String> kits = plugin.getKitManager().getKits();
 		if (kits.size() > 0) {
+			Random rnd = new Random();
+			ItemStack purchasedHead = null;
+
+			if (player.getInventory().getHelmet() != null) {
+				purchasedHead = new ItemStack(player.getInventory().getHelmet());
+			}
+
 			String[] kitnames = kits.toArray(new String[kits.size()]);
 			plugin.getKitManager().giveKit(kitnames[rnd.nextInt(kitnames.length)], player);
-			// kits will replace the GUI items, so give each player the leave item again
+
 			if (plugin.getConfig().getBoolean("items.leave.use")) {
 				addLeaveItem(player);
+			}
+			if (purchasedHead != null && purchasedHead.getType() == Material.PLAYER_HEAD) {
+				player.getInventory().setHelmet(purchasedHead);
 			}
 		}
 	}
