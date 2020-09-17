@@ -183,16 +183,13 @@ public class GameHandler {
 
 			Messages.sendMessage(player, message);
 			plugin.getSound().ARENA_START(player);
-			
 			setGameInventory(player);
+
 			TitleMsg.sendFullTitle(player, TitleMsg.start, TitleMsg.substart, 20, 20, 20, plugin);
 		}
+
 		plugin.signEditor.modifySigns(arena.getArenaName());
-		
-		//if kits are enabled on the arena, give each player a random kit
-		if (arena.getStructureManager().isKitsEnabled()) {
-			arena.getPlayerHandler().allocateKits();
-		}
+
 		timeremaining = limit * 20;
 		arena.getScoreboardHandler().createPlayingScoreBoard();
 		arenahandler = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
@@ -436,7 +433,7 @@ public class GameHandler {
 	}
 
 	/**
-	 * Remove the inventory items and give the player any items bought in the shop
+	 * Remove the inventory items and optionally give the player a kit and any items bought in the shop.
 	 * @param player
 	 */
 	private void setGameInventory(Player player) {
@@ -446,6 +443,10 @@ public class GameHandler {
 		player.getInventory().remove(Material.getMaterial(plugin.getConfig().getString("items.stats.material")));
 		player.getInventory().remove(Material.getMaterial(plugin.getConfig().getString("items.heads.material")));
 		player.getInventory().setItemInOffHand(null);
+
+		if (arena.getStructureManager().isKitsEnabled()) {
+			arena.getPlayerHandler().allocateKits(player);
+		}
 
 		if (plugin.shop.getPlayersItems().containsKey(player.getName())) {
 			ArrayList<ItemStack> items = plugin.shop.getPlayersItems().get(player.getName());

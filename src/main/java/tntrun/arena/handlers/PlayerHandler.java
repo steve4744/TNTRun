@@ -544,17 +544,15 @@ public class PlayerHandler {
 		}
 	}
 
-	public void allocateKits() {
+	public void allocateKits(Player player) {
 		Random rnd = new Random();
 		HashSet<String> kits = plugin.getKitManager().getKits();
 		if (kits.size() > 0) {
 			String[] kitnames = kits.toArray(new String[kits.size()]);
-			for (Player player : arena.getPlayersManager().getPlayers()) {
-				plugin.getKitManager().giveKit(kitnames[rnd.nextInt(kitnames.length)], player);
-				// kits will replace the GUI items, so give each player the leave item again
-				if (plugin.getConfig().getBoolean("items.leave.use")) {
-					addLeaveItem(player);
-				}
+			plugin.getKitManager().giveKit(kitnames[rnd.nextInt(kitnames.length)], player);
+			// kits will replace the GUI items, so give each player the leave item again
+			if (plugin.getConfig().getBoolean("items.leave.use")) {
+				addLeaveItem(player);
 			}
 		}
 	}
