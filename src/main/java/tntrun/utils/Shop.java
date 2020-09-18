@@ -61,10 +61,10 @@ public class Shop implements Listener {
 		invname = FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("shop.name"));
 	}  
 
-	private Map<Integer, Integer> itemSlot = new HashMap<Integer, Integer>();
-	private Map<String, ArrayList<ItemStack>> pitems = new HashMap<String, ArrayList<ItemStack>>(); // player-name -> items
-	private List<String> buyers = new ArrayList<String>();
-	private Map<String, List<PotionEffect>> potionMap = new HashMap<String, List<PotionEffect>>();  // player-name -> effects
+	private Map<Integer, Integer> itemSlot = new HashMap<>();
+	private Map<String, ArrayList<ItemStack>> pitems = new HashMap<>(); // player-name -> items
+	private List<String> buyers = new ArrayList<>();
+	private Map<String, List<PotionEffect>> potionMap = new HashMap<>();  // player-name -> effects
 	private boolean doublejumpPurchase;
 
 	private void giveItem(int slot, Player player, String title) {
@@ -124,12 +124,9 @@ public class Shop implements Listener {
 	 */
 	private void giveDoubleJumps(Player player, int quantity) {
 		if (plugin.getConfig().getBoolean("freedoublejumps.enabled")) {
-			if(plugin.getConfig().get("doublejumps." + player.getName()) == null) {
-				plugin.getConfig().set("doublejumps." + player.getName(), quantity);
-			} else {
-				plugin.getConfig().set("doublejumps." + player.getName(), plugin.getConfig().getInt("doublejumps." + player.getName()) + quantity);
-			}
-			plugin.saveConfig();
+			quantity += plugin.getPData().getDoubleJumpsFromFile(player);
+			plugin.getPData().saveDoubleJumpsToFile(player, quantity);
+
 		} else {
 			Arena arena = plugin.amanager.getPlayerArena(player.getName());
 			arena.getPlayerHandler().incrementDoubleJumps(player, quantity);
@@ -291,7 +288,7 @@ public class Shop implements Listener {
 		int quantity = cfg.getInt(kit + ".items." + kit + ".amount", 1);
 
 		if (plugin.getConfig().getBoolean("freedoublejumps.enabled")) {
-			return maxjumps >= (plugin.getConfig().getInt("doublejumps." + p.getName()) + quantity);
+			return maxjumps >= (plugin.getPData().getDoubleJumpsFromFile(p) + quantity);
 		}
 		return maxjumps >= (arena.getPlayerHandler().getDoubleJumps(p) + quantity);
 	}
@@ -388,7 +385,7 @@ public class Shop implements Listener {
 	}
 
 	public boolean hasDoubleJumps(Player player) {
-		return plugin.getConfig().getInt("doublejumps." + player.getName(), 0) > 0;
+		return plugin.getPData().getDoubleJumpsFromFile(player) > 0;
 	}
 
 	public double getKnockback() {

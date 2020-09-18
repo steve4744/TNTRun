@@ -55,9 +55,9 @@ public class PlayerHandler {
 
 	private TNTRun plugin;
 	private Arena arena;
-	private Map<String, Integer> doublejumps = new HashMap<>();   // playername -> number_of_doublejumps
-	private List<String> pparty = new ArrayList<String>();
-	private HashSet<String> votes = new HashSet<String>();
+	private Map<String, Integer> doublejumps = new HashMap<>();   // playername -> doublejumps
+	private List<String> pparty = new ArrayList<>();
+	private HashSet<String> votes = new HashSet<>();
 
 	public PlayerHandler(TNTRun plugin, Arena arena) {
 		this.plugin = plugin;
@@ -208,16 +208,7 @@ public class PlayerHandler {
 			}
 		}.runTaskLater(plugin, 5L);
 
-		if (plugin.getConfig().getBoolean("freedoublejumps.enabled")) {
-			int amount = getAllowedDoubleJumps(player, plugin.getConfig().getInt("freedoublejumps.amount", 0));
-			if (amount > 0) {
-				doublejumps.put(player.getName(), amount);
-			}
-		} else {
-			if (plugin.shop.hasDoubleJumps(player)) {
-				doublejumps.put(player.getName(), plugin.getConfig().getInt("doublejumps." + player.getName()));
-			}
-		}
+		cacheDoubleJumps(player);
 
 		if (plugin.getConfig().getBoolean("special.UseBossBar")) {
 			Bars.addPlayerToBar(player, arena.getArenaName());
@@ -572,6 +563,21 @@ public class PlayerHandler {
 		}
 	}
 
+	private void cacheDoubleJumps(Player player) {
+		int amount = 0;
+		if (plugin.getConfig().getBoolean("freedoublejumps.enabled")) {
+			amount = getAllowedDoubleJumps(player, plugin.getConfig().getInt("freedoublejumps.amount", 0));
+
+		} else {
+			if (plugin.shop.hasDoubleJumps(player)) {
+				amount = plugin.getPData().getDoubleJumpsFromFile(player);
+			}
+		}
+		if (amount > 0) {
+			doublejumps.put(player.getName(), amount);
+		}
+	}
+
 	public boolean hasDoubleJumps(Player player) {
 		return getDoubleJumps(player) > 0;
 	}
@@ -581,7 +587,7 @@ public class PlayerHandler {
 	}
 
 	public void decrementDoubleJumps(Player player) {
-		if (getDoubleJumps(player) > 0) {
+		if (hasDoubleJumps(player)) {
 			doublejumps.put(player.getName(), getDoubleJumps(player) - 1);
 		}
 	}
@@ -592,12 +598,7 @@ public class PlayerHandler {
 
 	private void resetDoubleJumps(Player player) {
 		if (!plugin.getConfig().getBoolean("freedoublejumps.enabled")) {
-			if (hasDoubleJumps(player)) {
-				plugin.getConfig().set("doublejumps." + player.getName(), getDoubleJumps(player));
-			} else {
-				plugin.getConfig().set("doublejumps." + player.getName(), null);
-			}
-			plugin.saveConfig();
+			plugin.getPData().saveDoubleJumpsToFile(player, getDoubleJumps(player));
 		}
 		doublejumps.remove(player.getName());
 	}

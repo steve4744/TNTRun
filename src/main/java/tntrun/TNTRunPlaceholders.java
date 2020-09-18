@@ -89,7 +89,7 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 			return arena != null ? String.valueOf(arena.getPlayersManager().getPlayersCount()) : null;
 
 		} else if (identifier.equals("doublejumps")) {
-			return String.valueOf(plugin.getConfig().getInt("doublejumps." + p.getName(), 0));
+			return String.valueOf(plugin.getPData().getDoubleJumpsFromFile(p));
 
 		} else if (identifier.startsWith("joinfee") || identifier.startsWith("currency")) {
 			String[] temp = identifier.split("_");

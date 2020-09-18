@@ -17,25 +17,47 @@
 
 package tntrun.datahandler;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
+
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 
+import tntrun.TNTRun;
+
 public class PlayerDataStore {
 
-	private HashMap<String, ItemStack[]> plinv = new HashMap<String, ItemStack[]>();
-	private HashMap<String, ItemStack[]> plarmor = new HashMap<String, ItemStack[]>();
-	private HashMap<String, Collection<PotionEffect>> pleffects = new HashMap<String, Collection<PotionEffect>>();
-	private HashMap<String, Location> plloc = new HashMap<String, Location>();
-	private HashMap<String, Integer> plhunger = new HashMap<String, Integer>();
-	private HashMap<String, GameMode> plgamemode = new HashMap<String, GameMode>();
-	private HashMap<String, Integer> pllevel = new HashMap<String, Integer>();
-	private HashMap<String, Boolean> plflight = new HashMap<String, Boolean>();
+	private Map<String, ItemStack[]> plinv = new HashMap<>();
+	private Map<String, ItemStack[]> plarmor = new HashMap<>();
+	private Map<String, Collection<PotionEffect>> pleffects = new HashMap<>();
+	private Map<String, Location> plloc = new HashMap<>();
+	private Map<String, Integer> plhunger = new HashMap<>();
+	private Map<String, GameMode> plgamemode = new HashMap<>();
+	private Map<String, Integer> pllevel = new HashMap<>();
+	private Map<String, Boolean> plflight = new HashMap<>();
+	private File file;
+
+	public PlayerDataStore(TNTRun plugin) {
+		file = new File(plugin.getDataFolder(), "players.yml");
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	public void storePlayerInventory(Player player) {
 		PlayerInventory pinv = player.getInventory();
@@ -116,4 +138,24 @@ public class PlayerDataStore {
 		player.setLevel(pllevel.remove(player.getName()));
 	}
 
+	public void saveDoubleJumpsToFile(Player player, int amount) {
+		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+		String uuid = Bukkit.getOnlineMode() ? player.getUniqueId().toString() : player.getName();
+		if (amount == 0) {
+			config.set(uuid, null);
+		} else {
+			config.set(uuid + ".doublejumps", amount);
+		}
+		try {
+			config.save(file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public int getDoubleJumpsFromFile(OfflinePlayer player) {
+		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+		String uuid = Bukkit.getOnlineMode() ? player.getUniqueId().toString() : player.getName();
+		return config.getInt(uuid + ".doublejumps", 0);
+	}
 }

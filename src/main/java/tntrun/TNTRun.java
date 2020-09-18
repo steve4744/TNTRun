@@ -96,7 +96,7 @@ public class TNTRun extends JavaPlugin {
 		Messages.loadMessages(this);
 		Bars.loadBars(this);
 		TitleMsg.loadTitles(this);
-		pdata = new PlayerDataStore();
+		pdata = new PlayerDataStore(this);
 		amanager = new ArenasManager();
 		shop = new Shop(this);
 		joinMenu = new JoinMenu(this);
