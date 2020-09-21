@@ -138,7 +138,7 @@ public class PlayerDataStore {
 		player.setLevel(pllevel.remove(player.getName()));
 	}
 
-	public void saveDoubleJumpsToFile(Player player, int amount) {
+	public void saveDoubleJumpsToFile(OfflinePlayer player, int amount) {
 		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 		String uuid = Bukkit.getOnlineMode() ? player.getUniqueId().toString() : player.getName();
 		if (amount == 0) {
