@@ -174,8 +174,10 @@ public class Rewards {
 			if (config.getConfigurationSection(path + ".material") != null) {
 				Set<String> materials = config.getConfigurationSection(path + ".material").getKeys(false);
 				for (String material : materials) {
-					ItemStack is = new ItemStack(Material.getMaterial(material), config.getInt(path + ".material." + material  + ".amount"));
-					materialrewards.computeIfAbsent(index, k -> new ArrayList<>()).add(is);
+					if (isValidReward(material, config.getInt(path + ".material." + material  + ".amount"))) {
+						ItemStack is = new ItemStack(Material.getMaterial(material), config.getInt(path + ".material." + material  + ".amount"));
+						materialrewards.computeIfAbsent(index, k -> new ArrayList<>()).add(is);
+					}
 				}
 			}
 			index++;

@@ -100,6 +100,7 @@ public class GameCommands implements CommandExecutor {
 				} else {
 					player.sendMessage(ChatColor.GOLD + "Kits Enabled " + ChatColor.WHITE + "- " + ChatColor.RED + "No");
 				}
+
 				if (arena.getStructureManager().getRewards().getXPReward(1) != 0) {
 					player.sendMessage(ChatColor.GOLD + "XP Reward " + ChatColor.WHITE + "- " + ChatColor.RED + arena.getStructureManager().getRewards().getXPReward(1));
 				}
