@@ -65,7 +65,7 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 	private class ChooseRewardType extends FixedSetPrompt {
 
 		public ChooseRewardType() {
-			super("material", "command", "xp");
+			super("material", "command", "xp", "money");
 		}
 
 		@Override
@@ -76,16 +76,18 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 
 		@Override
 		protected Prompt acceptValidatedInput(ConversationContext context, String choice) {
-			if (choice.equalsIgnoreCase("material"))
+			switch(choice.toLowerCase()) {
+			case "material":
 				return new ChooseMaterial();
-
-			if (choice.equalsIgnoreCase("command"))
+			case "command":
 				return new ChooseCommand();
-
-			if (choice.equalsIgnoreCase("xp"))
+			case "xp":
 				return new ChooseXP();
-
-			return null;
+			case "money":
+				return new ChooseMoney();
+			default:
+				return null;
+			}
 		}
 	}
 
@@ -202,7 +204,7 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 			arena.getStructureManager().getRewards().setCommandReward(
 					context.getSessionData("command").toString(), place);
 
-			return GRAY + "[" + GOLD + "TNTRun" + GRAY + "] The Command reward for " + GOLD + arena.getArenaName() + GRAY + " was set to /" + GOLD + context.getSessionData("command");
+			return GRAY + "[" + GOLD + "TNTRun" + GRAY + "] The command reward for " + GOLD + arena.getArenaName() + GRAY + " was set to /" + GOLD + context.getSessionData("command");
 		}
 
 		@Override
@@ -242,6 +244,45 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 					Integer.parseInt(context.getSessionData("amount").toString()), place);
 
 			return GRAY + "[" + GOLD + "TNTRun" + GRAY + "] The XP reward for " + GOLD + arena.getArenaName() + GRAY + " was set to " + GOLD + context.getSessionData("amount");
+		}
+
+		@Override
+		protected Prompt getNextPrompt(ConversationContext context) {
+			return Prompt.END_OF_CONVERSATION;
+		}
+	}
+
+	/* === Reward Money === */
+	private class ChooseMoney extends NumericPrompt {
+
+		@Override
+		public String getPromptText(ConversationContext context) {
+			return GOLD + " How much money would you like to reward the player with?";
+		}
+
+		@Override
+		protected boolean isNumberValid(ConversationContext context, Number input) {
+			return input.intValue() >= 0;
+		}
+
+		@Override
+		protected String getFailedValidationText(ConversationContext context, Number invalidInput) {
+			return "Amount of money must be at least zero";
+		}
+
+		@Override
+		protected Prompt acceptValidatedInput(ConversationContext context, Number amount) {
+			context.setSessionData("amount", amount.intValue());
+			return new MoneyProcessComplete();
+		}
+	}
+
+	private class MoneyProcessComplete extends MessagePrompt {
+		public String getPromptText(ConversationContext context) {
+			arena.getStructureManager().getRewards().setMoneyReward(
+					Integer.parseInt(context.getSessionData("amount").toString()), place);
+
+			return GRAY + "[" + GOLD + "TNTRun" + GRAY + "] The money reward for " + GOLD + arena.getArenaName() + GRAY + " was set to " + GOLD + context.getSessionData("amount");
 		}
 
 		@Override
