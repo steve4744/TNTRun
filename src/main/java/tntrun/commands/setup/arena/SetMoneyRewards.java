@@ -41,7 +41,7 @@ public class SetMoneyRewards implements CommandHandlerInterface {
 				return true;
 			}
 			if (Utils.isNumber(args[1])) {
-				arena.getStructureManager().getRewards().setMoneyReward(Integer.parseInt(args[1]));
+				arena.getStructureManager().getRewards().setMoneyReward(Integer.parseInt(args[1]), 1);
 				Messages.sendMessage(player, Messages.trprefix + "&7 Arena &6" + args[0] + "&7 Money reward set to &6" + args[1]);
 			} else {
 				Messages.sendMessage(player, Messages.trprefix + "&c The reward amount must be an integer");

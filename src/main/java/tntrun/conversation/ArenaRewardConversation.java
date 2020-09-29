@@ -35,32 +35,60 @@ import tntrun.conversation.TNTRunConversation;
 public class ArenaRewardConversation extends FixedSetPrompt {
 	private Arena arena;
 	private Boolean isFirstItem = true;
-	
+	private int place;
+
 	public ArenaRewardConversation(Arena arena) {
-		super("material", "command", "xp");
+		super("first", "second", "third");
 		this.arena = arena;
 	}
-	
+
 	@Override
 	public String getPromptText(ConversationContext context) {
-		return GOLD + " What type of reward would you like to set?\n" 
+		return GOLD + " What reward place would you like to set?\n"
 				+ GREEN + formatFixedSet();
 	}
-	
+
 	@Override
 	protected Prompt acceptValidatedInput(ConversationContext context, String choice) {
-		if (choice.equalsIgnoreCase("material"))
-			return new ChooseMaterial();
-	
-		if (choice.equalsIgnoreCase("command"))
-			return new ChooseCommand();
+		place = 0;
+		if (choice.equalsIgnoreCase("first")) {
+			place = 1;
+		} else if (choice.equalsIgnoreCase("second")) {
+			place = 2;
+		} else if (choice.equalsIgnoreCase("third")) {
+			place = 3;
+		}
 
-		if (choice.equalsIgnoreCase("xp"))
-			return new ChooseXP();
-
-		return null;
+		return place != 0 ? new ChooseRewardType() : null;
 	}
-	
+
+	private class ChooseRewardType extends FixedSetPrompt {
+
+		public ChooseRewardType() {
+			super("material", "command", "xp");
+		}
+
+		@Override
+		public String getPromptText(ConversationContext context) {
+			return GOLD + " What type of reward would you like to set?\n"
+					+ GREEN + formatFixedSet();
+		}
+
+		@Override
+		protected Prompt acceptValidatedInput(ConversationContext context, String choice) {
+			if (choice.equalsIgnoreCase("material"))
+				return new ChooseMaterial();
+
+			if (choice.equalsIgnoreCase("command"))
+				return new ChooseCommand();
+
+			if (choice.equalsIgnoreCase("xp"))
+				return new ChooseXP();
+
+			return null;
+		}
+	}
+
 	/* === Reward Material === */
 	private class ChooseMaterial extends StringPrompt {
 		@Override
@@ -75,7 +103,6 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 				TNTRunConversation.sendErrorMessage(context, "This is not a valid material");
 				return this;
 			}
-
 			context.setSessionData("material", message.toUpperCase());
 			return new ChooseAmount();
 		}		
@@ -101,7 +128,6 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 		@Override
 		protected Prompt acceptValidatedInput(ConversationContext context, Number amount) {
 			context.setSessionData("amount", amount.intValue());
-
 			return new MaterialProcessComplete();
 		}
 	}
@@ -114,16 +140,17 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 		@Override
         protected Prompt acceptValidatedInput(ConversationContext context, boolean nextMaterial) {
 			arena.getStructureManager().getRewards().setMaterialReward(
-                    context.getSessionData("material").toString(),
-                    context.getSessionData("amount").toString(),
-                    isFirstItem);
+					context.getSessionData("material").toString(),
+					context.getSessionData("amount").toString(),
+					isFirstItem,
+					place);
 
 			if (isFirstItem) {
 				context.getForWhom().sendRawMessage(GRAY + "[" + GOLD + "TNTRun" + GRAY + "] Material reward for " + GOLD + arena.getArenaName() + GRAY + " set to " + GOLD + context.getSessionData("amount") + GRAY + " x " + GOLD + context.getSessionData("material"));
 			} else {
 				context.getForWhom().sendRawMessage(GRAY + "[" + GOLD + "TNTRun" + GRAY + "] " + GOLD + context.getSessionData("amount") + GRAY + " x " + GOLD + context.getSessionData("material") + GRAY + " added to Material reward for " + GOLD + arena.getArenaName());
 			}
-			
+
 			if (nextMaterial) {
 				isFirstItem = false;
 				return new ChooseMaterial();
@@ -132,7 +159,7 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 			return Prompt.END_OF_CONVERSATION;
 		}
 	}
-	
+
 	/* === Reward Command === */
 	private class ChooseCommand extends StringPrompt {
 
@@ -146,7 +173,6 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 		public Prompt acceptInput(ConversationContext context, String message) {
 			String command = message.replace("/", "");
 			context.setSessionData("command", command);
-
 			return new ChooseRunNow();
 		}
 	}
@@ -174,7 +200,7 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 	private class CommandProcessComplete extends MessagePrompt {
 		public String getPromptText(ConversationContext context) {
 			arena.getStructureManager().getRewards().setCommandReward(
-                    context.getSessionData("command").toString());
+					context.getSessionData("command").toString(), place);
 
 			return GRAY + "[" + GOLD + "TNTRun" + GRAY + "] The Command reward for " + GOLD + arena.getArenaName() + GRAY + " was set to /" + GOLD + context.getSessionData("command");
 		}
@@ -184,7 +210,7 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 			return Prompt.END_OF_CONVERSATION;
 		}
 	}
-	
+
 	/* === Reward XP === */
 	private class ChooseXP extends NumericPrompt {
 
@@ -206,7 +232,6 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 		@Override
 		protected Prompt acceptValidatedInput(ConversationContext context, Number amount) {
 			context.setSessionData("amount", amount.intValue());
-
 			return new XPProcessComplete();
 		}
 	}
@@ -214,7 +239,7 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 	private class XPProcessComplete extends MessagePrompt {
 		public String getPromptText(ConversationContext context) {
 			arena.getStructureManager().getRewards().setXPReward(
-                    Integer.parseInt(context.getSessionData("amount").toString()));
+					Integer.parseInt(context.getSessionData("amount").toString()), place);
 
 			return GRAY + "[" + GOLD + "TNTRun" + GRAY + "] The XP reward for " + GOLD + arena.getArenaName() + GRAY + " was set to " + GOLD + context.getSessionData("amount");
 		}

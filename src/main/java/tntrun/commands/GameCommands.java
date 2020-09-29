@@ -17,8 +17,6 @@
 
 package tntrun.commands;
 
-import java.util.Map;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -102,25 +100,25 @@ public class GameCommands implements CommandExecutor {
 				} else {
 					player.sendMessage(ChatColor.GOLD + "Kits Enabled " + ChatColor.WHITE + "- " + ChatColor.RED + "No");
 				}
-				if (arena.getStructureManager().getRewards().getXPReward() != 0) {
-					player.sendMessage(ChatColor.GOLD + "XP Reward " + ChatColor.WHITE + "- " + ChatColor.RED + arena.getStructureManager().getRewards().getXPReward());
+				if (arena.getStructureManager().getRewards().getXPReward(1) != 0) {
+					player.sendMessage(ChatColor.GOLD + "XP Reward " + ChatColor.WHITE + "- " + ChatColor.RED + arena.getStructureManager().getRewards().getXPReward(1));
 				}
-				if (arena.getStructureManager().getRewards().getMoneyReward() != 0) {
-					player.sendMessage(ChatColor.GOLD + "Money Reward " + ChatColor.WHITE + "- " + ChatColor.RED + arena.getStructureManager().getRewards().getMoneyReward());
+				if (arena.getStructureManager().getRewards().getMoneyReward(1) != 0) {
+					player.sendMessage(ChatColor.GOLD + "Money Reward " + ChatColor.WHITE + "- " + ChatColor.RED + arena.getStructureManager().getRewards().getMoneyReward(1));
 				}
 
-				String rewardmessage = "";
-				for (Map.Entry<String, Integer> entry : arena.getStructureManager().getRewards().getMaterialReward().entrySet()) {
-					if (arena.getStructureManager().getRewards().isValidReward(entry.getKey(), entry.getValue())) {
-						rewardmessage += "" + entry.getValue() + ChatColor.GOLD + " x " + ChatColor.RED + entry.getKey() + ", ";
-					}
+				StringBuilder rewardmessage = new StringBuilder();
+				if (arena.getStructureManager().getRewards().getMaterialReward(1) != null) {
+					arena.getStructureManager().getRewards().getMaterialReward(1).forEach(reward -> {
+						rewardmessage.append("" + reward.getAmount() + ChatColor.GOLD + " x " + ChatColor.RED + reward.getType().toString() + ", ");
+					});
 				}
 				if (rewardmessage.length() > 0) {
 					player.sendMessage(ChatColor.GOLD + "Material Reward " + ChatColor.WHITE + "-  " + ChatColor.RED + rewardmessage.substring(0, rewardmessage.length() - 2));
 				}
 
-				if (arena.getStructureManager().getRewards().getCommandReward() != null) {
-					player.sendMessage(ChatColor.GOLD + "Command Reward " + ChatColor.WHITE + "- " + ChatColor.GOLD + "\"" + ChatColor.RED + arena.getStructureManager().getRewards().getCommandReward() + ChatColor.GOLD + "\"");
+				if (arena.getStructureManager().getRewards().getCommandReward(1) != null) {
+					player.sendMessage(ChatColor.GOLD + "Command Reward " + ChatColor.WHITE + "- " + ChatColor.GOLD + "\"" + ChatColor.RED + arena.getStructureManager().getRewards().getCommandReward(1) + ChatColor.GOLD + "\"");
 				}
 
 				if (arena.getStructureManager().getFee() > 0) {

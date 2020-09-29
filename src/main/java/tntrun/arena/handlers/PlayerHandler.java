@@ -391,8 +391,12 @@ public class PlayerHandler {
 
 		// reward player before restoring gamemode if player is winner
 		if (winner) {
-			arena.getStructureManager().getRewards().rewardPlayer(player);
+			arena.getStructureManager().getRewards().rewardPlayer(player, 1);
 		}
+		if (arena.getGameHandler().getPlace(player.getName()) != 0) {
+			arena.getStructureManager().getRewards().rewardPlayer(player, arena.getGameHandler().getPlace(player.getName()));
+		}
+
 		plugin.getPData().restorePlayerGameMode(player);
 		player.updateInventory();
 		plugin.getPData().restorePlayerFlight(player);

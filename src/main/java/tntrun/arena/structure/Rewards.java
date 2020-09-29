@@ -17,9 +17,12 @@
 
 package tntrun.arena.structure;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import net.milkbowl.vault.economy.Economy;
 
@@ -33,6 +36,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import tntrun.TNTRun;
 import tntrun.messages.Messages;
+import tntrun.utils.Utils;
 
 public class Rewards {
 
@@ -42,77 +46,92 @@ public class Rewards {
 		econ = TNTRun.getInstance().getVaultHandler().getEconomy();
 	}
 
-	private Map<String, Integer> materialrewards = new HashMap<String, Integer>();
-	private int moneyreward = 0;
-	private int xpreward = 0;
-	private String commandreward;
+	private Map<Integer, Integer> moneyreward = new HashMap<>();
+	private Map<Integer, Integer> xpreward = new HashMap<>();
+	private Map<Integer, String> commandreward = new HashMap<>();
+	private Map<Integer, List<ItemStack>> materialrewards = new HashMap<>();
+	private int index;
 
-	public Map<String, Integer> getMaterialReward() {
-		return materialrewards;
+	public List<ItemStack> getMaterialReward(int place) {
+		return materialrewards.get(place);
 	}
 
-	public int getMoneyReward() {
-		return moneyreward;
+	public int getMoneyReward(int place) {
+		return moneyreward.get(place);
 	}
-	
-	public String getCommandReward() {
-		return commandreward;
+
+	public String getCommandReward(int place) {
+		return commandreward.get(place);
 	}
-	
-	public int getXPReward() {
-		return xpreward;
+
+	public int getXPReward(int place) {
+		return xpreward.get(place);
 	}
-	
-	public void setMaterialReward(String item, String amount, Boolean isFirstItem) {
+
+	public void setMaterialReward(String item, String amount, Boolean isFirstItem, int place) {
 		if (isFirstItem) {
-			materialrewards.clear();
+			materialrewards.remove(place);
 		}
-		materialrewards.put(item, Integer.valueOf(amount));
+		if (Utils.debug()) {
+			Bukkit.getLogger().info("[TNTRun] reward(" + place + ") = " + materialrewards.toString());
+		}
+
+		ItemStack reward = new ItemStack(Material.getMaterial(item), Integer.valueOf(amount));
+		materialrewards.computeIfAbsent(place, k -> new ArrayList<>()).add(reward);
+
+		if (Utils.debug()) {
+			Bukkit.getLogger().info("[TNTRun] reward(\" + place + \") = " + materialrewards.toString());
+		}
 	}
 
-	public void setMoneyReward(int money) {
-		moneyreward = money;
+	public void setMoneyReward(int money, int place) {
+		moneyreward.put(place, money);
 	}
 	
-	public void setCommandReward(String cmdreward) {
-		commandreward = cmdreward;
+	public void setCommandReward(String cmdreward, int place) {
+		commandreward.put(place, cmdreward);
 	}
 	
-	public void setXPReward(int xprwd) {
-		xpreward = xprwd;
+	public void setXPReward(int xprwd, int place) {
+		xpreward.put(place, xprwd);
 	}
 
-	public void rewardPlayer(Player player) {
-		String rewardmessage = "";
+	public void rewardPlayer(Player player, int place) {
+		StringBuilder stringbuilder = new StringBuilder();
 		final ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 
-		for (Map.Entry<String, Integer> entry : materialrewards.entrySet()) {
-			if (isValidReward(entry.getKey(), entry.getValue())) {
-				ItemStack reward = new ItemStack(Material.getMaterial(entry.getKey()), entry.getValue());
+		if (getMaterialReward(place) != null) {
+			getMaterialReward(place).forEach(reward -> {
 				if (player.getInventory().firstEmpty() != -1) {
 					player.getInventory().addItem(reward);
 					player.updateInventory();
 				} else {
 					player.getWorld().dropItemNaturally(player.getLocation(),reward);
 				}
-				rewardmessage += reward.getAmount() + " x " + reward.getType().toString() + ", ";
-			}
+				stringbuilder.append(reward.getAmount() + " x " + reward.getType().toString() + ", ");
+			});
 		}
-		
+
+		int moneyreward = getMoneyReward(place);
 		if (moneyreward != 0) {
 			OfflinePlayer offplayer = player.getPlayer();
 			rewardMoney(offplayer, moneyreward);
-			rewardmessage += moneyreward + " coins, ";
+			stringbuilder.append(moneyreward + " coins, ");
 		}
+
+		int xpreward = getXPReward(place);
 		if (xpreward > 0) {
 			player.giveExp(xpreward);
-			rewardmessage += xpreward + " XP";
+			stringbuilder.append(xpreward + " XP");
 		}
+
+		String commandreward = getCommandReward(place);
 		if (commandreward != null && commandreward.length() != 0) {
 			Bukkit.getServer().dispatchCommand(console, commandreward.replace("%PLAYER%", player.getName()));
 			console.sendMessage("[TNTRun_reloaded] Command " + ChatColor.GOLD + commandreward + ChatColor.WHITE + " has been executed for " + ChatColor.AQUA + player.getName());
 		}
 		
+		String rewardmessage = stringbuilder.toString();
 		if (rewardmessage.endsWith(", ")) {
 			rewardmessage = rewardmessage.substring(0, rewardmessage.length() - 2);
 		}
@@ -130,28 +149,37 @@ public class Rewards {
 	}
 
 	public void saveToConfig(FileConfiguration config) {
-		config.set("reward.money", moneyreward);
-		config.set("reward.command", commandreward);
-		config.set("reward.xp", xpreward);
-		
-		String path = "";
-		for (Map.Entry<String, Integer> entry : materialrewards.entrySet()) {
-			path = "reward.material." + entry.getKey() + ".amount";
-			config.set(path, entry.getValue());
-		}
+		index = 1;
+		Stream<String> stream = Stream.of("reward", "places.second", "places.third");
+		stream.forEach(path -> {
+			config.set(path + ".money", getMoneyReward(index));
+			config.set(path + ".xp", getXPReward(index));
+			config.set(path + ".command", getCommandReward(index));
+			if (getMaterialReward(index) != null) {
+				getMaterialReward(index).forEach(is -> {
+					config.set(path + ".material." + is.getType().toString()  + ".amount", is.getAmount());
+				});
+			}
+			index++;
+		});
 	}
 
 	public void loadFromConfig(FileConfiguration config) {
-		moneyreward = config.getInt("reward.money", moneyreward);
-		xpreward = config.getInt("reward.xp", xpreward);
-		commandreward = config.getString("reward.command", commandreward);
-		
-		if (config.getConfigurationSection("reward.material") != null) {
-			Set<String> materials = config.getConfigurationSection("reward.material").getKeys(false);
-			for (String material : materials) {
-				materialrewards.put(material, config.getInt("reward.material." + material  + ".amount"));
+		index = 1;
+		Stream<String> stream = Stream.of("reward", "places.second", "places.third");
+		stream.forEach(path -> {
+			setMoneyReward(config.getInt(path + ".money"), index);
+			setXPReward(config.getInt(path + ".xp"), index);
+			setCommandReward(config.getString(path + ".command"), index);
+			if (config.getConfigurationSection(path + ".material") != null) {
+				Set<String> materials = config.getConfigurationSection(path + ".material").getKeys(false);
+				for (String material : materials) {
+					ItemStack is = new ItemStack(Material.getMaterial(material), config.getInt(path + ".material." + material  + ".amount"));
+					materialrewards.computeIfAbsent(index, k -> new ArrayList<>()).add(is);
+				}
 			}
-		}
+			index++;
+		});
 	}
 
 	public boolean isValidReward(String materialreward, int materialamount) {
@@ -160,5 +188,4 @@ public class Rewards {
 		}
 		return false;
 	}
-
 }

@@ -18,6 +18,9 @@
 package tntrun.arena.handlers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -44,6 +47,7 @@ public class GameHandler {
 	private TNTRun plugin;
 	private Arena arena;
 	public int lostPlayers = 0;
+	private Map<String, Integer> places = new HashMap<>();
 
 	public GameHandler(TNTRun plugin, Arena arena) {
 		this.plugin = plugin;
@@ -265,13 +269,20 @@ public class GameHandler {
 		}
 		// check for lose
 		if (arena.getStructureManager().getLoseLevel().isLooseLocation(plloc)) {
-			if (arena.getPlayersManager().getPlayersCount() == 1) {
+			int remainingPlayers = arena.getPlayersManager().getPlayersCount();
+			if (remainingPlayers == 1) {
 				// must be test mode
 				startEnding(player);
 				return;
+			} else if (remainingPlayers < 4) {
+				places.put(player.getName(), remainingPlayers);
 			}
 			arena.getPlayerHandler().dispatchPlayer(player);
 		}
+	}
+
+	public int getPlace(String playerName) {
+		return places.containsKey(playerName) ? places.get(playerName) : 0;
 	}
 
 	/**
