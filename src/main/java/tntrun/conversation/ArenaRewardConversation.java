@@ -35,7 +35,9 @@ import tntrun.conversation.TNTRunConversation;
 public class ArenaRewardConversation extends FixedSetPrompt {
 	private Arena arena;
 	private Boolean isFirstItem = true;
+	private String podium;
 	private int place;
+	private static final String PREFIX = GRAY + "[" + GOLD + "TNTRun_reloaded" + GRAY + "] ";
 
 	public ArenaRewardConversation(Arena arena) {
 		super("first", "second", "third");
@@ -50,15 +52,22 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 
 	@Override
 	protected Prompt acceptValidatedInput(ConversationContext context, String choice) {
-		place = 0;
-		if (choice.equalsIgnoreCase("first")) {
+		switch(choice.toLowerCase()) {
+		case "first":
+			podium = GOLD + "First " + GRAY + "place ";
 			place = 1;
-		} else if (choice.equalsIgnoreCase("second")) {
+			break;
+		case "second":
+			podium = GOLD + "Second " + GRAY + "place ";
 			place = 2;
-		} else if (choice.equalsIgnoreCase("third")) {
+			break;
+		case "third":
+			podium = GOLD + "Third " + GRAY + "place ";
 			place = 3;
+			break;
+		default:
+			place = 0;
 		}
-
 		return place != 0 ? new ChooseRewardType() : null;
 	}
 
@@ -148,9 +157,9 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 					place);
 
 			if (isFirstItem) {
-				context.getForWhom().sendRawMessage(GRAY + "[" + GOLD + "TNTRun" + GRAY + "] Material reward for " + GOLD + arena.getArenaName() + GRAY + " set to " + GOLD + context.getSessionData("amount") + GRAY + " x " + GOLD + context.getSessionData("material"));
+				context.getForWhom().sendRawMessage(PREFIX + podium + "material reward for " + GOLD + arena.getArenaName() + GRAY + " set to " + GOLD + context.getSessionData("amount") + GRAY + " x " + GOLD + context.getSessionData("material"));
 			} else {
-				context.getForWhom().sendRawMessage(GRAY + "[" + GOLD + "TNTRun" + GRAY + "] " + GOLD + context.getSessionData("amount") + GRAY + " x " + GOLD + context.getSessionData("material") + GRAY + " added to Material reward for " + GOLD + arena.getArenaName());
+				context.getForWhom().sendRawMessage(PREFIX + podium + GOLD + context.getSessionData("amount") + GRAY + " x " + GOLD + context.getSessionData("material") + GRAY + " added to " + podium + "material reward for " + GOLD + arena.getArenaName());
 			}
 
 			if (nextMaterial) {
@@ -204,7 +213,7 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 			arena.getStructureManager().getRewards().setCommandReward(
 					context.getSessionData("command").toString(), place);
 
-			return GRAY + "[" + GOLD + "TNTRun" + GRAY + "] The command reward for " + GOLD + arena.getArenaName() + GRAY + " was set to /" + GOLD + context.getSessionData("command");
+			return PREFIX + podium + "command reward for " + GOLD + arena.getArenaName() + GRAY + " was set to /" + GOLD + context.getSessionData("command");
 		}
 
 		@Override
@@ -243,7 +252,7 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 			arena.getStructureManager().getRewards().setXPReward(
 					Integer.parseInt(context.getSessionData("amount").toString()), place);
 
-			return GRAY + "[" + GOLD + "TNTRun" + GRAY + "] The XP reward for " + GOLD + arena.getArenaName() + GRAY + " was set to " + GOLD + context.getSessionData("amount");
+			return PREFIX + podium + "XP reward for " + GOLD + arena.getArenaName() + GRAY + " was set to " + GOLD + context.getSessionData("amount");
 		}
 
 		@Override
@@ -282,7 +291,7 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 			arena.getStructureManager().getRewards().setMoneyReward(
 					Integer.parseInt(context.getSessionData("amount").toString()), place);
 
-			return GRAY + "[" + GOLD + "TNTRun" + GRAY + "] The money reward for " + GOLD + arena.getArenaName() + GRAY + " was set to " + GOLD + context.getSessionData("amount");
+			return PREFIX + podium + "money reward for " + GOLD + arena.getArenaName() + GRAY + " was set to " + GOLD + context.getSessionData("amount");
 		}
 
 		@Override
