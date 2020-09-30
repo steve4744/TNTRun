@@ -50,6 +50,8 @@ public class Rewards {
 	private Map<Integer, Integer> xpreward = new HashMap<>();
 	private Map<Integer, String> commandreward = new HashMap<>();
 	private Map<Integer, List<ItemStack>> materialrewards = new HashMap<>();
+	private Map<Integer, Boolean> activereward = new HashMap<>();
+	private Map<Integer, Integer> minplayersrequired = new HashMap<>();
 	private int index;
 
 	public List<ItemStack> getMaterialReward(int place) {
@@ -66,6 +68,14 @@ public class Rewards {
 
 	public int getXPReward(int place) {
 		return xpreward.get(place);
+	}
+
+	public int getMinPlayersRequired(int place) {
+		return minplayersrequired .get(place);
+	}
+
+	public boolean isActiveReward(int place) {
+		return activereward.get(place);
 	}
 
 	public void setMaterialReward(String item, String amount, Boolean isFirstItem, int place) {
@@ -96,8 +106,15 @@ public class Rewards {
 		xpreward.put(place, xprwd);
 	}
 
+	public void setMinPlayersRequired(int min, int place) {
+		minplayersrequired.put(place, min);
+	}
+
 	public void rewardPlayer(Player player, int place) {
-		StringBuilder stringbuilder = new StringBuilder();
+		if (!isActiveReward(place)) {
+			return;
+		}
+		StringBuilder stringbuilder = new StringBuilder(32);
 		final ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 
 		if (getMaterialReward(place) != null) {
@@ -148,10 +165,20 @@ public class Rewards {
 		}
 	}
 
+	public void setActiveRewards(int playercount) {
+		for (int place = 1; place < 4; place++) {
+			activereward.put(place, false);
+			if (playercount >= getMinPlayersRequired(place)) {
+				activereward.put(place, true);
+			}
+		}
+	}
+
 	public void saveToConfig(FileConfiguration config) {
 		index = 1;
 		Stream<String> stream = Stream.of("reward", "places.second", "places.third");
 		stream.forEach(path -> {
+			config.set(path + ".minPlayers", getMinPlayersRequired(index));
 			config.set(path + ".money", getMoneyReward(index));
 			config.set(path + ".xp", getXPReward(index));
 			config.set(path + ".command", getCommandReward(index));
@@ -168,6 +195,7 @@ public class Rewards {
 		index = 1;
 		Stream<String> stream = Stream.of("reward", "places.second", "places.third");
 		stream.forEach(path -> {
+			setMinPlayersRequired(config.getInt(path + ".minPlayers"), index);
 			setMoneyReward(config.getInt(path + ".money"), index);
 			setXPReward(config.getInt(path + ".xp"), index);
 			setCommandReward(config.getString(path + ".command"), index);
@@ -184,7 +212,7 @@ public class Rewards {
 		});
 	}
 
-	public boolean isValidReward(String materialreward, int materialamount) {
+	private boolean isValidReward(String materialreward, int materialamount) {
 		if (Material.getMaterial(materialreward) != null && materialamount > 0) {
 			return true;
 		}

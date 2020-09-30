@@ -167,6 +167,8 @@ public class GameHandler {
 			plugin.getLogger().info("Players in arena: " + arena.getPlayersManager().getPlayersCount());
 		}
 
+		arena.getStructureManager().getRewards().setActiveRewards(arena.getPlayersManager().getPlayersCount());
+
 		String message = Messages.trprefix;
 		int limit = arena.getStructureManager().getTimeLimit();
 		if (limit != 0) {
