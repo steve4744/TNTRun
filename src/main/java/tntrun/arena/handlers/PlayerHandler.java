@@ -389,12 +389,18 @@ public class PlayerHandler {
 			connectToLobby(player);
 		}
 
-		// reward player before restoring gamemode if player is winner
+		// reward players before restoring gamemode
+		//debug
+		plugin.getLogger().info("DEBUG: rewarding players now");
 		if (winner) {
 			arena.getStructureManager().getRewards().rewardPlayer(player, 1);
 		}
-		if (arena.getGameHandler().getPlace(player.getName()) != 0) {
-			arena.getStructureManager().getRewards().rewardPlayer(player, arena.getGameHandler().getPlace(player.getName()));
+		if (arena.getGameHandler().getPlaces().containsValue(player.getName())) {
+			int position = 3;
+			if (arena.getGameHandler().getPlaces().get(2).equalsIgnoreCase(player.getName())) {
+				position = 2;
+			}
+			arena.getStructureManager().getRewards().rewardPlayer(player, position);
 		}
 
 		plugin.getPData().restorePlayerGameMode(player);

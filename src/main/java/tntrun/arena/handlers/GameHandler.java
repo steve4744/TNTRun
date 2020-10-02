@@ -47,7 +47,7 @@ public class GameHandler {
 	private TNTRun plugin;
 	private Arena arena;
 	public int lostPlayers = 0;
-	private Map<String, Integer> places = new HashMap<>();
+	private Map<Integer, String> places = new HashMap<>();
 
 	public GameHandler(TNTRun plugin, Arena arena) {
 		this.plugin = plugin;
@@ -99,7 +99,7 @@ public class GameHandler {
 		runtaskid = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 			@Override
 			public void run() {
-				// check if countdown should be stopped for some various reasons
+				// check if countdown should be stopped for various reasons
 				if (arena.getPlayersManager().getPlayersCount() < arena.getStructureManager().getMinPlayers() && !arena.getPlayerHandler().forceStart()) {
 					double progress = (double) arena.getPlayersManager().getPlayersCount() / arena.getStructureManager().getMinPlayers();
 					Bars.setBar(arena, Bars.waiting, arena.getPlayersManager().getPlayersCount(), 0, progress, plugin);
@@ -249,6 +249,7 @@ public class GameHandler {
 		}
 		lostPlayers = 0;
 		forceStartByCmd = false;
+		places.clear();
 		Bukkit.getScheduler().cancelTask(arenahandler);
 		Bukkit.getScheduler().cancelTask(arena.getScoreboardHandler().getPlayingTask());
 		plugin.signEditor.modifySigns(arena.getArenaName());
@@ -277,14 +278,18 @@ public class GameHandler {
 				startEnding(player);
 				return;
 			} else if (remainingPlayers < 4) {
-				places.put(player.getName(), remainingPlayers);
+				places.put(remainingPlayers, player.getName());
 			}
 			arena.getPlayerHandler().dispatchPlayer(player);
 		}
 	}
 
-	public int getPlace(String playerName) {
-		return places.containsKey(playerName) ? places.get(playerName) : 0;
+	public Map<Integer, String> getPlaces() {
+		return places;
+	}
+
+	public void setPlaces(Integer remainingPlayers, String playerName) {
+		places.put(remainingPlayers, playerName);
 	}
 
 	/**
@@ -342,10 +347,12 @@ public class GameHandler {
 		if (plugin.getConfig().getInt("broadcastwinlevel") == 1) {
 			for (Player all : arena.getPlayersManager().getAllParticipantsCopy()) {
 				Messages.sendMessage(all, message);
+				sendPodiumPlaces(all, player.getName());
 			}
 		} else if (plugin.getConfig().getInt("broadcastwinlevel") >= 2) {
 			for (Player all : Bukkit.getOnlinePlayers()) {
 				Messages.sendMessage(all, message);
+				sendPodiumPlaces(all, player.getName());
 			}
 		}
 		plugin.getLogger().info("Player " + player.getName() + " won arena " + arena.getArenaName());
@@ -527,4 +534,23 @@ public class GameHandler {
 		return hasTimeLimit ? timeremaining : 0;
 	}
 
+	private void sendPodiumPlaces(Player player, String winner) {
+		StringBuilder sb = new StringBuilder(200);
+		sb.append("\n============" + Messages.trprefix + "============");
+		sb.append("\n ");
+		sb.append("\n                 &a1st place: &f" + winner);
+		if (places.get(2) != null) {
+			sb.append("\n                 &a2nd place: &f" + places.get(2));
+		} else {
+			sb.append("\n                 &a2nd place: &f-");
+		}
+		if (places.get(3) != null) {
+			sb.append("\n                 &a3rd place: &f" + places.get(3));
+		} else {
+			sb.append("\n                 &a3rd place: &f-");
+		}
+		sb.append("\n ");
+		sb.append("\n============" + Messages.trprefix + "============");
+		Messages.sendMessage(player, sb.toString());
+	}
 }

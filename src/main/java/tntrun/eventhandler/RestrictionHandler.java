@@ -120,6 +120,12 @@ public class RestrictionHandler implements Listener {
 		if (e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.leave.material"))) {
 			e.setCancelled(true);
 			plugin.getSound().ITEM_SELECT(player);
+			int remainingPlayers = arena.getPlayersManager().getPlayersCount();
+			if (arena.getStatusManager().isArenaRunning()) {
+				if (remainingPlayers < 4 && remainingPlayers > 1) {
+					arena.getGameHandler().setPlaces(remainingPlayers, player.getName());
+				}
+			}
 			arena.getPlayerHandler().leavePlayer(player, Messages.playerlefttoplayer, Messages.playerlefttoothers);
 
 		} else if (e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.shop.material"))) {
