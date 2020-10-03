@@ -272,24 +272,36 @@ public class GameHandler {
 		}
 		// check for lose
 		if (arena.getStructureManager().getLoseLevel().isLooseLocation(plloc)) {
-			int remainingPlayers = arena.getPlayersManager().getPlayersCount();
-			if (remainingPlayers == 1) {
+			if (arena.getPlayersManager().getPlayersCount() == 1) {
 				// must be test mode
 				startEnding(player);
 				return;
-			} else if (remainingPlayers < 4) {
-				places.put(remainingPlayers, player.getName());
 			}
+			setPlaces(player.getName());
 			arena.getPlayerHandler().dispatchPlayer(player);
 		}
 	}
 
+	/**
+	 * Get Map containing the 2nd and 3rd place player names.
+	 *
+	 * @return player names finishing 2nd and 3rd.
+	 */
 	public Map<Integer, String> getPlaces() {
 		return places;
 	}
 
-	public void setPlaces(Integer remainingPlayers, String playerName) {
-		places.put(remainingPlayers, playerName);
+	/**
+	 * Store the names of the players finishing in places 2 and 3.
+	 * The players can be at the lose level or can have quit the game.
+	 *
+	 * @param playerName
+	 */
+	public void setPlaces(String playerName) {
+		int remainingPlayers = arena.getPlayersManager().getPlayersCount();
+		if (remainingPlayers < 4 && remainingPlayers > 1) {
+			places.put(remainingPlayers, playerName);
+		}
 	}
 
 	/**
@@ -329,6 +341,7 @@ public class GameHandler {
 	 * Called when there is only 1 player left, to update winner stats and
 	 * teleport winner and spectators to the arena spawn point. It then
 	 * stops the arena.
+	 *
 	 * @param player
 	 */
 	public void startEnding(final Player player) {
@@ -423,6 +436,7 @@ public class GameHandler {
 	 * Get the number of seconds to run the fireworks for from config.
 	 * The fireworks task repeats every 10 ticks so return double this number.
 	 * Default is 4 seconds.
+	 *
 	 * @return number of half seconds
 	 */
 	private int getFireworkDuration() {
@@ -433,13 +447,15 @@ public class GameHandler {
 	/**
 	 * Is anti-camping enabled. If true players are teleported to arena spawn when
 	 * countdown hits 5 seconds.
-	 * @return anti-camping
+	 *
+	 * @return boolean anti-camping
 	 */
 	private boolean isAntiCamping() {
 		return plugin.getConfig().getBoolean("anticamping.enabled", true);
 	}
 	/**
-	 * Displays the current value of countdown on the screeen.
+	 * Displays the current value of countdown on the screen.
+	 *
 	 * @param player
 	 * @param count
 	 * @param message
@@ -454,6 +470,7 @@ public class GameHandler {
 
 	/**
 	 * Remove the inventory items and optionally give the player a kit and any items bought in the shop.
+	 *
 	 * @param player
 	 */
 	private void setGameInventory(Player player) {
@@ -490,9 +507,10 @@ public class GameHandler {
 	}
 
 	/**
-	 * Validate itemstack is an item of armour
+	 * Validate ItemStack is an item of armour.
+	 *
 	 * @param item
-	 * @return
+	 * @return boolean
 	 */
 	private boolean isArmor(ItemStack item) {
 		String[] armor = new String[] {"HELMET", "CHESTPLATE", "LEGGINGS", "BOOTS"};
@@ -505,7 +523,8 @@ public class GameHandler {
 	}
 
 	/**
-	 * Equip the armour item
+	 * Equip the armour item.
+	 *
 	 * @param player
 	 * @param item
 	 */
@@ -534,6 +553,12 @@ public class GameHandler {
 		return hasTimeLimit ? timeremaining : 0;
 	}
 
+	/**
+	 * Displays the players in the first 3 positions at the end of the game.
+	 *
+	 * @param player to display to
+	 * @param winner player name
+	 */
 	private void sendPodiumPlaces(Player player, String winner) {
 		StringBuilder sb = new StringBuilder(200);
 		sb.append("\n============" + Messages.trprefix + "============");
