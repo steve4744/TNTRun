@@ -354,10 +354,11 @@ public class PlayerHandler {
 		plugin.getServer().getPluginManager().callEvent(new PlayerLeaveArenaEvent(player, arena));
 	}
 
-	protected void leaveWinner(Player player) {
+	protected void leaveWinner(Player player, String msgtoplayer) {
 		arena.getScoreboardHandler().removeScoreboard(player);
 		player.setFlying(false);
 		removePlayerFromArenaAndRestoreState(player, true);
+		Messages.sendMessage(player, Messages.trprefix + msgtoplayer);
 		plugin.signEditor.modifySigns(arena.getArenaName());
 		plugin.signEditor.refreshLeaderBoards();
 	}

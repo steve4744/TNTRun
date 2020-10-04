@@ -409,7 +409,8 @@ public class GameHandler {
 			@Override
 			public void run() {
 				try {
-					arena.getPlayerHandler().leaveWinner(player);
+
+					arena.getPlayerHandler().leaveWinner(player, Messages.playerwontoplayer);
 					stopArena();
 						
 					final ConsoleCommandSender console = Bukkit.getConsoleSender();
