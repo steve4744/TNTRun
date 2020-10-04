@@ -351,24 +351,19 @@ public class GameHandler {
 		TitleMsg.sendFullTitle(player, TitleMsg.win, TitleMsg.subwin, 20, 60, 20, plugin);
 		arena.getPlayerHandler().clearPotionEffects(player);
 
-		String message = Messages.trprefix + Messages.playerwonbroadcast;
-		message = message.replace("{PLAYER}", player.getName());
-		message = message.replace("{ARENA}", arena.getArenaName());
-		message = message.replace("{RANK}", arena.getPlayerHandler().getDisplayName(player));
-
+		String message = getPodiumPlaces(player);
 		/* Determine who should receive notification of win (0 suppresses broadcast) */
 		if (plugin.getConfig().getInt("broadcastwinlevel") == 1) {
 			for (Player all : arena.getPlayersManager().getAllParticipantsCopy()) {
 				Messages.sendMessage(all, message);
-				sendPodiumPlaces(all, player.getName());
 			}
 		} else if (plugin.getConfig().getInt("broadcastwinlevel") >= 2) {
 			for (Player all : Bukkit.getOnlinePlayers()) {
 				Messages.sendMessage(all, message);
-				sendPodiumPlaces(all, player.getName());
 			}
 		}
-		plugin.getLogger().info("Player " + player.getName() + " won arena " + arena.getArenaName());
+
+		plugin.getLogger().info("1. " + player.getName() + ", 2. " + getPlaces().get(2) + ", 3. " + getPlaces().get(3));
 
 		// allow winner to fly at arena spawn
 		player.setAllowFlight(true);
@@ -414,7 +409,7 @@ public class GameHandler {
 			@Override
 			public void run() {
 				try {
-					arena.getPlayerHandler().leaveWinner(player, Messages.playerwontoplayer);
+					arena.getPlayerHandler().leaveWinner(player);
 					stopArena();
 						
 					final ConsoleCommandSender console = Bukkit.getConsoleSender();
@@ -554,28 +549,35 @@ public class GameHandler {
 	}
 
 	/**
-	 * Displays the players in the first 3 positions at the end of the game.
+	 * Gets the players in the first 3 positions at the end of the game.
 	 *
-	 * @param player to display to
-	 * @param winner player name
+	 * @param winner player
+	 * @return string podium places
 	 */
-	private void sendPodiumPlaces(Player player, String winner) {
+	private String getPodiumPlaces(Player winner) {
 		StringBuilder sb = new StringBuilder(200);
 		sb.append("\n============" + Messages.trprefix + "============");
 		sb.append("\n ");
-		sb.append("\n                 &a1st place: &f" + winner);
+		sb.append("\n                 " + Messages.playerfirstplace.replace("{RANK}", arena.getPlayerHandler().getDisplayName(winner)) + winner.getName());
+
 		if (places.get(2) != null) {
-			sb.append("\n                 &a2nd place: &f" + places.get(2));
+			String playerName = places.get(2);
+			String message = Messages.playersecondplace.replace("{RANK}", arena.getPlayerHandler().getDisplayName(Bukkit.getPlayer(playerName)));
+			sb.append("\n                 " + message + playerName);
 		} else {
-			sb.append("\n                 &a2nd place: &f-");
+			sb.append("\n                 " + Messages.playersecondplace.replace("{RANK}", "") + "-");
 		}
+
 		if (places.get(3) != null) {
-			sb.append("\n                 &a3rd place: &f" + places.get(3));
+			String playerName = places.get(3);
+			String message = Messages.playerthirdplace.replace("{RANK}", arena.getPlayerHandler().getDisplayName(Bukkit.getPlayer(playerName)));
+			sb.append("\n                 " + message + playerName);
 		} else {
-			sb.append("\n                 &a3rd place: &f-");
+			sb.append("\n                 " + Messages.playerthirdplace.replace("{RANK}", "") + "-");
 		}
 		sb.append("\n ");
 		sb.append("\n============" + Messages.trprefix + "============");
-		Messages.sendMessage(player, sb.toString());
+
+		return sb.toString();
 	}
 }

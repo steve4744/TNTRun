@@ -354,11 +354,10 @@ public class PlayerHandler {
 		plugin.getServer().getPluginManager().callEvent(new PlayerLeaveArenaEvent(player, arena));
 	}
 
-	protected void leaveWinner(Player player, String msgtoplayer) {
+	protected void leaveWinner(Player player) {
 		arena.getScoreboardHandler().removeScoreboard(player);
 		player.setFlying(false);
 		removePlayerFromArenaAndRestoreState(player, true);
-		Messages.sendMessage(player, Messages.trprefix + msgtoplayer);
 		plugin.signEditor.modifySigns(arena.getArenaName());
 		plugin.signEditor.refreshLeaderBoards();
 	}
@@ -390,8 +389,6 @@ public class PlayerHandler {
 		}
 
 		// reward players before restoring gamemode
-		//debug
-		plugin.getLogger().info("DEBUG: rewarding players now");
 		if (winner) {
 			arena.getStructureManager().getRewards().rewardPlayer(player, 1);
 		}

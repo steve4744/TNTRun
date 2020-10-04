@@ -79,7 +79,9 @@ public class Messages {
 	public static String playerwontoplayer = "&7 You won the game!";
 	public static String playerlosttoplayer = "&7 You lost the game";
 	public static String playerlosttoothers = "&c {RANK}&6{PLAYER} &7lost the game";
-	public static String playerwonbroadcast = "&c {RANK}&6{PLAYER} &7won the game on arena &6{ARENA}";
+	public static String playerfirstplace = "&a1st place: &f{RANK}";
+	public static String playersecondplace = "&a2nd place: &f{RANK}";
+	public static String playerthirdplace = "&a3rd place: &f{RANK}";
 	public static String playerrewardmessage = "&7 You have been rewarded: &6{REWARD}";
 	public static String playerboughtitem = "&7 You have bought item &6{ITEM} &7for &6{MONEY} &7coins";
 	public static String playerboughtwait = "&7 You will get your items when the game starts";
@@ -223,7 +225,9 @@ public class Messages {
 		playerwontoplayer = config.getString("playerwontoplayer", playerwontoplayer);
 		playerlosttoplayer = config.getString("playerlosttoplayer", playerlosttoplayer);
 		playerlosttoothers = config.getString("playerlosttoothers", playerlosttoothers);
-		playerwonbroadcast = config.getString("playerwonbroadcast", playerwonbroadcast);
+		playerfirstplace = config.getString("playerfirstplace", playerfirstplace);
+		playersecondplace = config.getString("playersecondplace", playersecondplace);
+		playerfirstplace = config.getString("playerfirstplace", playerfirstplace);
 		playerrewardmessage = config.getString("playerrewardmessage", playerrewardmessage);
 		playerboughtitem = config.getString("playerboughtitem", playerboughtitem);
 		playerboughtwait = config.getString("playerboughtwait", playerboughtwait);
@@ -350,7 +354,9 @@ public class Messages {
 		config.set("playerwontoplayer", playerwontoplayer);
 		config.set("playerlosttoplayer", playerlosttoplayer);
 		config.set("playerlosttoothers", playerlosttoothers);
-		config.set("playerwonbroadcast", playerwonbroadcast);
+		config.set("playerfirstplace", playerfirstplace);
+		config.set("playersecondplace", playersecondplace);
+		config.set("playerthirdplace", playerthirdplace);
 		config.set("playerrewardmessage", playerrewardmessage);
 		config.set("playerboughtitem", playerboughtitem);
 		config.set("playerboughtwait", playerboughtwait);
