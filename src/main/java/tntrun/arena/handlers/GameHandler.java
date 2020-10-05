@@ -372,6 +372,7 @@ public class GameHandler {
 		for(Player p : arena.getPlayersManager().getAllParticipantsCopy()) {
 			plugin.getSound().ARENA_START(p);
 			p.teleport(arena.getStructureManager().getSpawnPoint());
+			p.closeInventory();
 			p.getInventory().clear();
 		}
 

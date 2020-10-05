@@ -70,6 +70,7 @@ public class PlayerHandler {
 
 	/**
 	 * Returns whether a player is able to join the arena at this time.
+	 *
 	 * @param player
 	 * @param silent
 	 * @return
@@ -113,6 +114,7 @@ public class PlayerHandler {
 
 	/**
 	 * Returns whether a player is able to join the arena either as a spectator or player.
+	 *
 	 * @param player
 	 * @param silent
 	 * @return
@@ -151,6 +153,13 @@ public class PlayerHandler {
 		return true;
 	}
 
+	/**
+	 * Teleport the player to the arena spawn. Store the player data and put the arena items into the hotbar.
+	 *
+	 * @param player
+	 * @param msgtoplayer Join message sent to player.
+	 * @param msgtoarenaplayers Player join message sent to players in the arena.
+	 */
 	public void spawnPlayer(final Player player, String msgtoplayer, String msgtoarenaplayers) {
 		plugin.getPData().storePlayerLocation(player);
 		player.teleport(arena.getStructureManager().getSpawnPoint());
@@ -242,6 +251,14 @@ public class PlayerHandler {
 		}
 	} 
 
+	/**
+	 * Teleport the player to the spectator spawn point. For players joining the arena as spectators, store their
+	 * data for restore later.
+	 *
+	 * @param player
+	 * @param msgtoplayer
+	 * @param msgtoarenaplayers
+	 */
 	public void spectatePlayer(final Player player, String msgtoplayer, String msgtoarenaplayers) {
 		// if existing spectator leaves bounds, send back to spectator spawn
 		if (arena.getPlayersManager().isSpectator(player.getName())) {
@@ -309,9 +326,12 @@ public class PlayerHandler {
 	/**
 	 * If the winner attempts to leave, teleport to arena spawn.
 	 * For other players, if we have a spectator spawn then we will move player to spectators, otherwise we will remove player from arena.
+	 * Close inventory to prevent items being dragged out.
+	 *
 	 * @param player
 	 */
 	public void dispatchPlayer(Player player) {
+		player.closeInventory();
 		if (arena.getPlayersManager().getPlayersCount() == 1) {
 			player.teleport(arena.getStructureManager().getSpawnPoint());
 		} else if (arena.getStructureManager().getSpectatorSpawnVector() != null) {
@@ -321,7 +341,13 @@ public class PlayerHandler {
 		}
 	}
 
-	// remove player from arena
+	/**
+	 * Remove the player from the arena. All players will be processed here except the winner.
+	 *
+	 * @param player
+	 * @param msgtoplayer
+	 * @param msgtoarenaplayers
+	 */
 	public void leavePlayer(Player player, String msgtoplayer, String msgtoarenaplayers) {
 		// reset spectators
 		boolean spectator = arena.getPlayersManager().isSpectator(player.getName());
@@ -365,6 +391,12 @@ public class PlayerHandler {
 		plugin.getServer().getPluginManager().callEvent(new PlayerLeaveArenaEvent(player, arena));
 	}
 
+	/**
+	 * The winner will leave the arena through this method.
+	 *
+	 * @param player
+	 * @param msgtoplayer
+	 */
 	protected void leaveWinner(Player player, String msgtoplayer) {
 		arena.getScoreboardHandler().removeScoreboard(player);
 		player.setFlying(false);
@@ -374,6 +406,12 @@ public class PlayerHandler {
 		plugin.signEditor.refreshLeaderBoards();
 	}
 
+	/**
+	 * Restore each player's data and teleport to the lobby or previous location.
+	 *
+	 * @param player
+	 * @param winner
+	 */
 	private void removePlayerFromArenaAndRestoreState(Player player, boolean winner) {
 		votes.remove(player.getName());
 		Bars.removeBar(player, arena.getArenaName());
@@ -435,6 +473,7 @@ public class PlayerHandler {
 
 	/**
 	 * On a multiworld server, return the player to the lobby or previous location.
+	 *
 	 * @param player
 	 */
 	private void connectToLobby(Player player) {
@@ -450,6 +489,7 @@ public class PlayerHandler {
 	 * Players waiting for the game to start can vote to force start the game before the minimum number of players is reached.
 	 * The number of votes required is determined by the value of the 'votepercent' setting.
 	 * Players who have joined the arena as spectators are not allowed to vote.
+	 *
 	 * @param player
 	 * @return true if player voted successfully
 	 */
@@ -625,6 +665,7 @@ public class PlayerHandler {
 	/**
 	 * The maximum number of double jumps the player is allowed. If permissions are used,
 	 * return the lower number of the maximum and number allowed by the permission node.
+	 *
 	 * @param player
 	 * @param max allowed double jumps
 	 * @return integer representing the number of double jumps to give player
@@ -649,6 +690,7 @@ public class PlayerHandler {
 	/**
 	 * Allow players in mcMMO parties to PVP.
 	 * If vault has detected a permissions plugin, then give the player the mcMMO friendly fire permission.
+	 *
 	 * @param player
 	 */
 	private void allowFriendlyFire(Player player) {
@@ -668,6 +710,7 @@ public class PlayerHandler {
 
 	/**
 	 * Restore the player's mcMMO friendly fire permission.
+	 *
 	 * @param player
 	 */
 	private void removeFriendlyFire(Player player) {
@@ -679,6 +722,7 @@ public class PlayerHandler {
 
 	/**
 	 * Attempt to get a player's rank. This can be either the player's prefix or primary group.
+	 *
 	 * @param player
 	 * @return rank
 	 */
@@ -706,6 +750,7 @@ public class PlayerHandler {
 	/**
 	 * Remove the cached purchase for the player. This can be when the game starts and the
 	 * player receives the item, or if the player leaves the arena before the game starts.
+	 *
 	 * @param player
 	 */
 	public void removePurchase(Player player ) {
@@ -718,10 +763,22 @@ public class PlayerHandler {
 		}
 	}
 
+	/**
+	 * Return the player's rank or an empty string for display purposes.
+	 *
+	 * @param player
+	 * @return
+	 */
 	public String getDisplayName(Player player) {
 		return getRank(player) == null ? "" : getRank(player);
 	}
 
+	/**
+	 * Store the players data before clearing the inventory and resetting the other
+	 * data ready to play.
+	 *
+	 * @param player
+	 */
 	private void storePlayerData(Player player) {
 		plugin.getPData().storePlayerGameMode(player);
 		plugin.getPData().storePlayerFlight(player);
