@@ -559,22 +559,22 @@ public class GameHandler {
 		StringBuilder sb = new StringBuilder(200);
 		sb.append("\n============" + Messages.trprefix + "============");
 		sb.append("\n ");
-		sb.append("\n                 " + Messages.playerfirstplace.replace("{RANK}", arena.getPlayerHandler().getDisplayName(winner)) + winner.getName());
+		sb.append("\n                " + Messages.playerfirstplace.replace("{RANK}", arena.getPlayerHandler().getDisplayName(winner)) + winner.getName());
 
 		if (places.get(2) != null) {
 			String playerName = places.get(2);
 			String message = Messages.playersecondplace.replace("{RANK}", arena.getPlayerHandler().getDisplayName(Bukkit.getPlayer(playerName)));
-			sb.append("\n                 " + message + playerName);
+			sb.append("\n                " + message + playerName);
 		} else {
-			sb.append("\n                 " + Messages.playersecondplace.replace("{RANK}", "") + "-");
+			sb.append("\n                " + Messages.playersecondplace.replace("{RANK}", "") + "-");
 		}
 
 		if (places.get(3) != null) {
 			String playerName = places.get(3);
 			String message = Messages.playerthirdplace.replace("{RANK}", arena.getPlayerHandler().getDisplayName(Bukkit.getPlayer(playerName)));
-			sb.append("\n                 " + message + playerName);
+			sb.append("\n                " + message + playerName);
 		} else {
-			sb.append("\n                 " + Messages.playerthirdplace.replace("{RANK}", "") + "-");
+			sb.append("\n                " + Messages.playerthirdplace.replace("{RANK}", "") + "-");
 		}
 		sb.append("\n ");
 		sb.append("\n============" + Messages.trprefix + "============");

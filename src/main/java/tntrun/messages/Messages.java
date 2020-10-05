@@ -65,10 +65,10 @@ public class Messages {
 	public static String playersrequiredtostart = "&c There must be at least 2 players in the arena to force-start";
 	public static String limitreached = "&7 Arena is full.";
 	public static String playerjoinedtoplayer = "&7 You joined the arena";
-	public static String playerjoinedtoothers = "&c {RANK}&6{PLAYER} &7joined the arena";
+	public static String playerjoinedtoothers = "&c {RANK}&6{PLAYER} &7joined the arena (&6{PS}&7/&6{MPS}&7)";
 	public static String playerjoinedasspectator = "&7 You joined arena &6{ARENA} &7as a spectator";
 	public static String playerlefttoplayer = "&7 You left the arena";
-	public static String playerlefttoothers = "&c {RANK}&6{PLAYER} &7left the game";
+	public static String playerlefttoothers = "&c {RANK}&6{PLAYER} &7left the game (&6{PS}&7/&6{MPS}&7)";
 	public static String playervotedforstart = "&f You voted to force-start the game";
 	public static String playeralreadyvotedforstart = "&c You have already voted";
 	public static String playercannotvote = "&c You cannot vote to force-start the arena";

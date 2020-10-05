@@ -177,7 +177,11 @@ public class PlayerHandler {
 			Messages.sendMessage(player, Messages.trprefix + msgtoplayer);
 		}
 
-		msgtoarenaplayers = FormattingCodesParser.parseFormattingCodes(msgtoarenaplayers).replace("{PLAYER}", player.getName()).replace("{RANK}", getDisplayName(player));;
+		msgtoarenaplayers = FormattingCodesParser.parseFormattingCodes(msgtoarenaplayers)
+				.replace("{PLAYER}", player.getName())
+				.replace("{RANK}", getDisplayName(player))
+				.replace("{PS}", String.valueOf(arena.getPlayersManager().getPlayersCount()))
+				.replace("{MPS}", String.valueOf(arena.getStructureManager().getMaxPlayers()));
 
 		for (Player oplayer : arena.getPlayersManager().getPlayers()) {
 			Messages.sendMessage(oplayer, Messages.trprefix + msgtoarenaplayers);
@@ -274,9 +278,11 @@ public class PlayerHandler {
 		Messages.sendMessage(player, Messages.trprefix + msgtoplayer.replace("{ARENA}", arena.getArenaName()));
 		plugin.signEditor.modifySigns(arena.getArenaName());
 
-		msgtoarenaplayers = msgtoarenaplayers.replace("{PLAYER}", player.getName()).replace("{RANK}", getDisplayName(player));
-		for (Player oplayer : arena.getPlayersManager().getAllParticipantsCopy()) {
-			Messages.sendMessage(oplayer, Messages.trprefix + msgtoarenaplayers);
+		if (!isSpectatorOnly) {
+			msgtoarenaplayers = msgtoarenaplayers.replace("{PLAYER}", player.getName()).replace("{RANK}", getDisplayName(player));
+			for (Player oplayer : arena.getPlayersManager().getAllParticipantsCopy()) {
+				Messages.sendMessage(oplayer, Messages.trprefix + msgtoarenaplayers);
+			}
 		}
 
 		arena.getPlayersManager().addSpectator(player);
@@ -343,7 +349,12 @@ public class PlayerHandler {
 			arena.getScoreboardHandler().createWaitingScoreBoard();
 		}
 
-		msgtoarenaplayers = msgtoarenaplayers.replace("{PLAYER}", player.getName()).replace("{RANK}", getDisplayName(player));
+		msgtoarenaplayers = msgtoarenaplayers
+				.replace("{PLAYER}", player.getName())
+				.replace("{RANK}", getDisplayName(player))
+				.replace("{PS}", String.valueOf(arena.getPlayersManager().getPlayersCount()))
+				.replace("{MPS}", String.valueOf(arena.getStructureManager().getMaxPlayers()));
+
 		for (Player oplayer : arena.getPlayersManager().getAllParticipantsCopy()) {
 			Messages.sendMessage(oplayer, Messages.trprefix + msgtoarenaplayers);
 			if (!arena.getStatusManager().isArenaStarting() && !arena.getStatusManager().isArenaRunning()) {
