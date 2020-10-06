@@ -59,8 +59,11 @@ public class AutoTabCompleter implements TabCompleter {
 				if (sender.hasPermission("tntrun.spectate")) {
 					list.add("spectate");
 				}
+				if (sender.hasPermission("tntrun.listrewards")) {
+					list.add("listrewards");
+				}
 			} else if (args.length == 2) {
-				if (Stream.of("join", "list", "start", "spectate").anyMatch(s -> s.equalsIgnoreCase(args[0]))) {
+				if (Stream.of("join", "list", "start", "spectate", "listrewards").anyMatch(s -> s.equalsIgnoreCase(args[0]))) {
 					list.addAll(TNTRun.getInstance().amanager.getArenasNames());
 
 				} else if (args[0].equalsIgnoreCase("listkits") || args[0].equalsIgnoreCase("listkit")) {
