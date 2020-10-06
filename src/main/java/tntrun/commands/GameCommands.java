@@ -102,26 +102,7 @@ public class GameCommands implements CommandExecutor {
 					player.sendMessage(ChatColor.GOLD + "Kits Enabled " + ChatColor.WHITE + "- " + ChatColor.RED + "No");
 				}
 
-				if (arena.getStructureManager().getRewards().getXPReward(1) != 0) {
-					player.sendMessage(ChatColor.GOLD + "XP Reward " + ChatColor.WHITE + "- " + ChatColor.RED + arena.getStructureManager().getRewards().getXPReward(1));
-				}
-				if (arena.getStructureManager().getRewards().getMoneyReward(1) != 0) {
-					player.sendMessage(ChatColor.GOLD + "Money Reward " + ChatColor.WHITE + "- " + ChatColor.RED + arena.getStructureManager().getRewards().getMoneyReward(1));
-				}
-
-				StringBuilder rewardmessage = new StringBuilder();
-				if (arena.getStructureManager().getRewards().getMaterialReward(1) != null) {
-					arena.getStructureManager().getRewards().getMaterialReward(1).forEach(reward -> {
-						rewardmessage.append("" + reward.getAmount() + ChatColor.GOLD + " x " + ChatColor.RED + reward.getType().toString() + ", ");
-					});
-				}
-				if (rewardmessage.length() > 0) {
-					player.sendMessage(ChatColor.GOLD + "Material Reward " + ChatColor.WHITE + "-  " + ChatColor.RED + rewardmessage.substring(0, rewardmessage.length() - 2));
-				}
-
-				if (arena.getStructureManager().getRewards().getCommandReward(1) != null) {
-					player.sendMessage(ChatColor.GOLD + "Command Reward " + ChatColor.WHITE + "- " + ChatColor.GOLD + "\"" + ChatColor.RED + arena.getStructureManager().getRewards().getCommandReward(1) + ChatColor.GOLD + "\"");
-				}
+				player.sendMessage(ChatColor.GOLD + "Rewards " + ChatColor.WHITE + "- " + ChatColor.RED + "Use command '/tr listrewards {arena}'");
 
 				if (arena.getStructureManager().getFee() > 0) {
 					player.sendMessage(ChatColor.GOLD + "Join Fee " + ChatColor.WHITE + "- " + ChatColor.RED + arena.getStructureManager().getFee());
