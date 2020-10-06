@@ -25,7 +25,7 @@ import tntrun.arena.Arena;
 
 public class ArenasManager {
 
-	private HashMap<String, Arena> arenanames = new HashMap<String, Arena>();
+	private HashMap<String, Arena> arenanames = new HashMap<>();
 
 	public void registerArena(Arena arena) {
 		arenanames.put(arena.getArenaName(), arena);

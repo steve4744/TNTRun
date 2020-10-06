@@ -26,8 +26,8 @@ import org.bukkit.entity.Player;
 
 public class PlayersManager {
 
-	private HashMap<String, Player> players = new HashMap<String, Player>();
-	private HashMap<String, Player> spectators = new HashMap<String, Player>();
+	private HashMap<String, Player> players = new HashMap<>();
+	private HashMap<String, Player> spectators = new HashMap<>();
 
 	public boolean isInArena(String name) {
 		return players.containsKey(name) || spectators.containsKey(name);
@@ -38,7 +38,7 @@ public class PlayersManager {
 	}
 
 	public HashSet<Player> getAllParticipantsCopy() {
-		HashSet<Player> p = new HashSet<Player>();
+		HashSet<Player> p = new HashSet<>();
 		p.addAll(players.values());
 		p.addAll(spectators.values());
 		return p;

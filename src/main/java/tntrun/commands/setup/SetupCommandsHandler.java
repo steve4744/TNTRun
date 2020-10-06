@@ -74,7 +74,7 @@ public class SetupCommandsHandler implements CommandExecutor {
 
 	private PlayerSelection plselection = new PlayerSelection();
 
-	private HashMap<String, CommandHandlerInterface> commandHandlers = new HashMap<String, CommandHandlerInterface>();
+	private HashMap<String, CommandHandlerInterface> commandHandlers = new HashMap<>();
 
 	public SetupCommandsHandler(TNTRun plugin) {
 		commandHandlers.put("setp1", new SetP1(plselection));

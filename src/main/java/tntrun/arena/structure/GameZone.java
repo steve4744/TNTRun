@@ -19,8 +19,8 @@ import tntrun.arena.Arena;
 
 public class GameZone {
 
-	private HashSet<Block> blockstodestroy = new HashSet<Block>();
-	private LinkedList<BlockState> blocks = new LinkedList<BlockState>();
+	private HashSet<Block> blockstodestroy = new HashSet<>();
+	private LinkedList<BlockState> blocks = new LinkedList<>();
 
 	public Arena arena;
 

@@ -25,8 +25,8 @@ import org.bukkit.entity.Player;
 
 public class OwnLocations {
 
-	private HashMap<String, Location> loc1 = new HashMap<String, Location>();
-	private HashMap<String, Location> loc2 = new HashMap<String, Location>();
+	private HashMap<String, Location> loc1 = new HashMap<>();
+	private HashMap<String, Location> loc2 = new HashMap<>();
 
 	protected void putPlayerLoc1(String playername, Location loc) {
 		Bukkit.getLogger().info("[TNTRun] Location P1 set to " + loc.toString());

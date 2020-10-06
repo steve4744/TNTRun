@@ -39,7 +39,7 @@ import tntrun.arena.Arena;
 
 public class Bars {
 
-	private static HashMap<String, BossBar> barmap = new HashMap<String, BossBar>();
+	private static HashMap<String, BossBar> barmap = new HashMap<>();
 	
 	public static String waiting = "&6Minimum players:&r {MIN}&6, current player count:&r {COUNT}";
 	public static String starting = "&6Arena starts in:&r {SECONDS} seconds";

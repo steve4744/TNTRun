@@ -43,7 +43,7 @@ import tntrun.utils.FormattingCodesParser;
 
 public class SignHandler implements Listener {
 
-	private HashMap<String, SignType> signs = new HashMap<String, SignType>();
+	private HashMap<String, SignType> signs = new HashMap<>();
 
 	private TNTRun plugin;
 

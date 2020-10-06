@@ -39,8 +39,8 @@ public class ScoreboardHandler {
 
 	private final TNTRun plugin;
 	private Scoreboard scoreboard;
-	private Map<String, Scoreboard> scoreboardMap = new HashMap<String, Scoreboard>();
-	private Map<String, Scoreboard> prejoinScoreboards = new HashMap<String, Scoreboard>();
+	private Map<String, Scoreboard> scoreboardMap = new HashMap<>();
+	private Map<String, Scoreboard> prejoinScoreboards = new HashMap<>();
 	private int playingtask;
 	private Arena arena;
 

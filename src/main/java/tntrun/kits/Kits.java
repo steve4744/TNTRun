@@ -38,7 +38,7 @@ import tntrun.messages.Messages;
 
 public class Kits {
 
-	private HashMap<String, Kit> kits = new HashMap<String, Kit>();
+	private HashMap<String, Kit> kits = new HashMap<>();
 	
 	private File kitsconfig = new File(TNTRun.getInstance().getDataFolder(), "kits.yml");
 	private FileConfiguration config = YamlConfiguration.loadConfiguration(kitsconfig);

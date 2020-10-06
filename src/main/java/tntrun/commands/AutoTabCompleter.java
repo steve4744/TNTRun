@@ -37,8 +37,8 @@ public class AutoTabCompleter implements TabCompleter {
 				return null;
 			}
 
-			List<String> list = new ArrayList<String>();
-			List<String> auto = new ArrayList<String>();
+			List<String> list = new ArrayList<>();
+			List<String> auto = new ArrayList<>();
 
 			if (args.length == 1) {
 				list.add("help");

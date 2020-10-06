@@ -43,8 +43,8 @@ import tntrun.utils.FormattingCodesParser;
 public class SignEditor {
 
 	private TNTRun plugin;
-	private HashMap<String, HashSet<SignInfo>> signs = new HashMap<String, HashSet<SignInfo>>();
-	private List<SignInfo> lbsigns = new ArrayList<SignInfo>();
+	private HashMap<String, HashSet<SignInfo>> signs = new HashMap<>();
+	private List<SignInfo> lbsigns = new ArrayList<>();
 	private File configfile;
 	private int position;
 	private String lbentry;
@@ -162,7 +162,7 @@ public class SignEditor {
 	}
 
 	private HashSet<Block> getSignsBlocks(String arena) {
-		HashSet<Block> signs = new HashSet<Block>();
+		HashSet<Block> signs = new HashSet<>();
 		for (SignInfo signinfo : getSigns(arena)) {
 			Block block = signinfo.getBlock();
 			if (block != null) {

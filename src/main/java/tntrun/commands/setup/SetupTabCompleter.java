@@ -42,9 +42,9 @@ public class SetupTabCompleter implements TabCompleter {
 			return null;
 		}
 
-		List<String> list = new ArrayList<String>();
-		List<String> auto = new ArrayList<String>();
-		List<String> arenacommands = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
+		List<String> auto = new ArrayList<>();
+		List<String> arenacommands = new ArrayList<>();
 
 		arenacommands.add("setarena");
 		arenacommands.add("setloselevel");

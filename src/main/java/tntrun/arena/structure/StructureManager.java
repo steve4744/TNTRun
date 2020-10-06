@@ -64,8 +64,8 @@ public class StructureManager {
 	private String currency;
 	private double fee = 0;
 	private boolean finished = false;
-	private List<Vector> additionalSpawnPoints = new ArrayList<Vector>();
-	private List<Vector> tempList = new ArrayList<Vector>();;
+	private List<Vector> additionalSpawnPoints = new ArrayList<>();
+	private List<Vector> tempList = new ArrayList<>();
 
 	public String getWorldName() {
 		return world;

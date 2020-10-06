@@ -55,7 +55,7 @@ public class JoinMenu {
 
 		keyPos = 9;
 		arenas.forEach((arenaname, arena) -> {
-			List<String> lores = new ArrayList<String>();
+			List<String> lores = new ArrayList<>();
 			im.setDisplayName(FormattingCodesParser.parseFormattingCodes(Messages.menuarenaname).replace("{ARENA}", arena.getArenaName()));
 
 			lores.add(FormattingCodesParser.parseFormattingCodes(Messages.menutext) + " " + getArenaCount(arena));
@@ -152,7 +152,7 @@ public class JoinMenu {
 	 * @return Sorted map of arenas
 	 */
 	private TreeMap<String, Arena> getDisplayArenas() {
-		TreeMap<String, Arena> arenas = new TreeMap<String, Arena>(String.CASE_INSENSITIVE_ORDER);
+		TreeMap<String, Arena> arenas = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		for (Arena arena : plugin.amanager.getArenas()) {
 			if (!arena.getStatusManager().isArenaEnabled() && !plugin.getConfig().getBoolean("menu.includedisabled")) {
 				continue;

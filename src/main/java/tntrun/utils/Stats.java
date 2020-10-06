@@ -52,8 +52,8 @@ public class Stats {
 	private String lbplaceholdername;
 	private String lbplaceholdervalue;
 
-	private static Map<String, Integer> pmap = new HashMap<String, Integer>();
-	private static Map<String, Integer> wmap = new HashMap<String, Integer>();
+	private static Map<String, Integer> pmap = new HashMap<>();
+	private static Map<String, Integer> wmap = new HashMap<>();
 
 	public Stats(TNTRun plugin) {
 		this.plugin = plugin;
@@ -212,7 +212,7 @@ public class Stats {
 	 */
 	private void getStatsFromDB(String table) {
 		Stream.of("wins", "played").forEach(stat -> {
-			Map<String, Integer> workingMap = new HashMap<String, Integer>();
+			Map<String, Integer> workingMap = new HashMap<>();
 			try {
 				ResultSet rs;
 				rs = plugin.mysql.query("SELECT * FROM `" + table + "` ORDER BY " + stat + " DESC LIMIT 99999").getResultSet();
@@ -304,7 +304,7 @@ public class Stats {
 	 * @return
 	 */
 	public String getLeaderboardPosition(Integer rank, String type, String item) {
-		Map<String, Integer> workingMap = new HashMap<String, Integer>();
+		Map<String, Integer> workingMap = new HashMap<>();
 
 		switch(type.toLowerCase()) {
 		case "wins":
@@ -344,7 +344,7 @@ public class Stats {
 	 * @return
 	 */
 	private Map<String, Integer> getLossMap() {
-		Map<String, Integer> lmap = new HashMap<String, Integer>();
+		Map<String, Integer> lmap = new HashMap<>();
 		pmap.entrySet().forEach(e -> {
 			int wins = 0;
 			if (wmap.containsKey(e.getKey())) {

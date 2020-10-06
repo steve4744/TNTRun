@@ -57,17 +57,17 @@ public class ShopFiles {
 		cfg.addDefault("1.material", "FEATHER");
 		cfg.addDefault("1.amount", Integer.valueOf(1));
 		cfg.addDefault("1.permission", "tntrun.shop.1");
-		List<String> lore = new ArrayList<String>();
+		List<String> lore = new ArrayList<>();
 		lore.add("Double Jump");
 		lore.add("Cost&6 100 &5coins");
 		cfg.addDefault("1.lore", lore);
 		cfg.addDefault("1.items.1.material", "");
 		cfg.addDefault("1.items.1.amount", Integer.valueOf(1));
 		cfg.addDefault("1.items.1.displayname", "&cDouble jump");
-		List<String> iLore = new ArrayList<String>();
+		List<String> iLore = new ArrayList<>();
 		iLore.add("Basic kit - double jump");
 		cfg.addDefault("1.items.1.lore", iLore);
-		List<String> iEnch = new ArrayList<String>();
+		List<String> iEnch = new ArrayList<>();
 		iEnch.add("null");
 		cfg.addDefault("1.items.1.enchantments", iEnch);
 		/*

@@ -53,7 +53,7 @@ public class RestrictionHandler implements Listener {
 		this.plugin = plugin;
 	}
 
-	private HashSet<String> allowedcommands = new HashSet<String>(
+	private HashSet<String> allowedcommands = new HashSet<>(
 		Arrays.asList("/tntrun leave", "/tntrun vote", "/tr leave", "/tr vote", "/tr help", "/tr info", "/tr stats", "/tntrun stats", "/tr", "/tntrun"));
 
 	// player should not be able to issue any commands while in arena apart from the white list above
@@ -200,7 +200,7 @@ public class RestrictionHandler implements Listener {
 		}.runTaskLater(plugin, 40);
 	}
 
-	public ArrayList<Player> u = new ArrayList<Player>();
+	public ArrayList<Player> u = new ArrayList<>();
 
 	@EventHandler
 	public void onFly(PlayerToggleFlightEvent e) {

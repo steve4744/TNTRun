@@ -69,9 +69,9 @@ public class Shop implements Listener {
 
 	private void giveItem(int slot, Player player, String title) {
 		int kit = itemSlot.get(slot);		
-		ArrayList<ItemStack> item = new ArrayList<ItemStack>();
+		ArrayList<ItemStack> item = new ArrayList<>();
 		FileConfiguration cfg = ShopFiles.getShopConfiguration();
-		List<PotionEffect> pelist = new ArrayList<PotionEffect>();
+		List<PotionEffect> pelist = new ArrayList<>();
 
 		if (doublejumpPurchase) {
 			int quantity = cfg.getInt(kit + ".items." + kit + ".amount", 1);
@@ -298,7 +298,7 @@ public class Shop implements Listener {
 		int slot = 0;
 		for (String kitCounter : cfg.getConfigurationSection("").getKeys(false)) {
 			String title = FormattingCodesParser.parseFormattingCodes(cfg.getString(kitCounter + ".name"));
-			List<String> lore = new ArrayList<String>();
+			List<String> lore = new ArrayList<>();
 			for (String loreLines : cfg.getStringList(kitCounter + ".lore")) {
 				lore.add(FormattingCodesParser.parseFormattingCodes(loreLines));
 			}
@@ -320,7 +320,7 @@ public class Shop implements Listener {
 		Arena arena = plugin.amanager.getPlayerArena(player.getName());
 		Material material = Material.getMaterial(plugin.getConfig().getString("shop.showmoneyitem", "GOLD_INGOT"));
 		String title = FormattingCodesParser.parseFormattingCodes(Messages.shopmoneyheader);
-		List<String> lore = new ArrayList<String>();
+		List<String> lore = new ArrayList<>();
 		lore.add(FormattingCodesParser.parseFormattingCodes(Messages.shopmoneybalance).replace("{BAL}", String.format("%.2f", arena.getArenaEconomy().getPlayerBalance(player))));
 		return getShopItem(material, title, lore, 1);
 	}
