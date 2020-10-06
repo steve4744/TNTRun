@@ -97,6 +97,7 @@ public class Messages {
 	public static String kitnotexists = "&c The specified kit does not exist : &6{KIT}";
 
 	public static String statshead = "&7=========[&6TNTRun Stats&7]=========";
+	public static String rewardshead = "&7======[&6TNTRun Rewards&7 - &a{ARENA}&7]======";
 	public static String leaderhead = "&7======[&6TNTRun Leaderboard&7]======";
 	public static String gamesplayed = "&bGames played &f: ";
 	public static String gameswon = "&bWins &f: ";
@@ -120,6 +121,7 @@ public class Messages {
 	public static String helplb = "Display the TNTRun leaderboard";
 	public static String helpstart = "Force-start the arena";
 	public static String helplistkit = "List all kits OR List kit details";
+	public static String helplistrewards = "List the rewards for the arena";
 
 	public static String setuplobby = "Set the global lobby at your current location";
 	public static String setupdellobby = "Delete the global lobby";
@@ -241,6 +243,7 @@ public class Messages {
 		gameswon = config.getString("gameswon", gameswon);
 		gameslost = config.getString("gameslost", gameslost);
 		statshead = config.getString("statshead", statshead);
+		rewardshead = config.getString("rewardshead", rewardshead);
 		leaderhead = config.getString("leaderhead", leaderhead);
 		leaderboard = config.getString("leaderboard", leaderboard);
 		leadersign = config.getString("leadersign", leadersign);
@@ -250,6 +253,7 @@ public class Messages {
 		helplobby = config.getString("helplobby", helplobby);
 		helplist = config.getString("helplist", helplist);
 		helplistkit = config.getString("helplistkit", helplistkit);
+		helplistrewards = config.getString("helplistrewards", helplistrewards);
 		helpjoin = config.getString("helpjoin", helpjoin);
 		helpspectate = config.getString("helpspectate", helpspectate);
 		helpautojoin = config.getString("helpautojoin", helpautojoin);
@@ -371,6 +375,7 @@ public class Messages {
 		config.set("gameswon", gameswon);
 		config.set("gameslost", gameslost);
 		config.set("statshead", statshead);
+		config.set("rewardshead", rewardshead);
 		config.set("leaderhead", leaderhead);
 		config.set("leaderboard", leaderboard);
 		config.set("leadersign",  leadersign);
@@ -380,6 +385,7 @@ public class Messages {
 		config.set("helplobby", helplobby);
 		config.set("helplist", helplist);
 		config.set("helplistkit", helplistkit);
+		config.set("helplistrewards", helplistrewards);
 		config.set("helpjoin", helpjoin);
 		config.set("helpspectate", helpspectate);
 		config.set("helpautojoin", helpautojoin);

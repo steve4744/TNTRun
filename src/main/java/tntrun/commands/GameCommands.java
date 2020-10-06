@@ -55,7 +55,7 @@ public class GameCommands implements CommandExecutor {
 			player.spigot().sendMessage(Utils.getTextComponent("/tr lobby", true), Utils.getTextComponent(Messages.helplobby));
 			player.spigot().sendMessage(Utils.getTextComponent("/tr list [arena]", true), Utils.getTextComponent(Messages.helplist));
 			player.spigot().sendMessage(Utils.getTextComponent("/tr join [arena]", true), Utils.getTextComponent(Messages.helpjoin));
-			player.spigot().sendMessage(Utils.getTextComponent("/tr spectate [arena]", true), Utils.getTextComponent(Messages.helpspectate));
+			player.spigot().sendMessage(Utils.getTextComponent("/tr spectate {arena}", true), Utils.getTextComponent(Messages.helpspectate));
 			player.spigot().sendMessage(Utils.getTextComponent("/tr autojoin", true), Utils.getTextComponent(Messages.helpautojoin));
 			player.spigot().sendMessage(Utils.getTextComponent("/tr leave", true), Utils.getTextComponent(Messages.helpleave));
 			player.spigot().sendMessage(Utils.getTextComponent("/tr vote", true), Utils.getTextComponent(Messages.helpvote));
@@ -63,6 +63,7 @@ public class GameCommands implements CommandExecutor {
 			player.spigot().sendMessage(Utils.getTextComponent("/tr stats", true), Utils.getTextComponent(Messages.helpstats));
 			player.spigot().sendMessage(Utils.getTextComponent("/tr leaderboard [size]", true), Utils.getTextComponent(Messages.helplb));
 			player.spigot().sendMessage(Utils.getTextComponent("/tr listkit [kit]", true), Utils.getTextComponent(Messages.helplistkit));
+			player.spigot().sendMessage(Utils.getTextComponent("/tr listrewards {arena}", true), Utils.getTextComponent(Messages.helplistrewards));
 			player.spigot().sendMessage(Utils.getTextComponent("/tr start {arena}", true), Utils.getTextComponent(Messages.helpstart));
 			player.spigot().sendMessage(Utils.getTextComponent("/tr cmds", true), Utils.getTextComponent(Messages.helpcmds));
 
@@ -326,6 +327,24 @@ public class GameCommands implements CommandExecutor {
 			Messages.sendMessage(player, message.toString());
 		}
 
+		// listrewards
+		else if (args[0].equalsIgnoreCase("listrewards")) {
+			if (!player.hasPermission("tntrun.listrewards")) {
+				Messages.sendMessage(player, Messages.nopermission);
+				return true;
+			}
+			if (args.length != 2) {
+				Messages.sendMessage(player, Messages.trprefix + "&c Invalid number of arguments supplied");
+				return true;
+			}
+			Arena arena = plugin.amanager.getArenaByName(args[1]);
+			if (arena == null) {
+				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[1]));
+				return true;
+			}
+			arena.getStructureManager().getRewards().listRewards(player, args[1]);
+		}
+
 		// start
 		else if (args[0].equalsIgnoreCase("start")) {
 			if (!player.hasPermission("tntrun.start")) {
@@ -337,20 +356,19 @@ public class GameCommands implements CommandExecutor {
 				return true;
 			}
 			Arena arena = plugin.amanager.getArenaByName(args[1]);
-			if (arena != null) {
-				if (arena.getPlayersManager().getPlayersCount() <= 1) {
-					Messages.sendMessage(player, Messages.trprefix + Messages.playersrequiredtostart);
-					return true;
-				}
-				if (!arena.getStatusManager().isArenaStarting()) {
-					plugin.getServer().getConsoleSender().sendMessage("[TNTRun] Arena " + ChatColor.GOLD + arena.getArenaName() + ChatColor.WHITE + " force-started by " + ChatColor.AQUA + player.getName());
-					arena.getGameHandler().forceStartByCommand();
-				} else {
-					Messages.sendMessage(player, Messages.trprefix + Messages.arenastarting.replace("{ARENA}", args[1]));
-					return true;
-				}
-			} else {
+			if (arena == null) {
 				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[1]));
+				return true;
+			}
+			if (arena.getPlayersManager().getPlayersCount() <= 1) {
+				Messages.sendMessage(player, Messages.trprefix + Messages.playersrequiredtostart);
+				return true;
+			}
+			if (!arena.getStatusManager().isArenaStarting()) {
+				plugin.getServer().getConsoleSender().sendMessage("[TNTRun] Arena " + ChatColor.GOLD + arena.getArenaName() + ChatColor.WHITE + " force-started by " + ChatColor.AQUA + player.getName());
+				arena.getGameHandler().forceStartByCommand();
+			} else {
+				Messages.sendMessage(player, Messages.trprefix + Messages.arenastarting.replace("{ARENA}", args[1]));
 				return true;
 			}
 		}

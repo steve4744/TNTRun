@@ -18,10 +18,12 @@
 package tntrun.arena.structure;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import net.milkbowl.vault.economy.Economy;
@@ -217,5 +219,34 @@ public class Rewards {
 			return true;
 		}
 		return false;
+	}
+
+	public void listRewards(Player player, String arenaName) {
+		List<String> places = Arrays.asList(Messages.playerfirstplace, Messages.playersecondplace, Messages.playerthirdplace);
+		String pad = ChatColor.BOLD + "  ";
+		Messages.sendMessage(player, Messages.rewardshead.replace("{ARENA}", arenaName));
+		IntStream.range(1, 4).forEach(i -> {
+			StringBuilder sb = new StringBuilder(200);
+			if (getXPReward(i) != 0) {
+				sb.append("\n   " + ChatColor.GOLD + "XP :      " + pad + ChatColor.WHITE + getXPReward(i));
+			}
+			if (getMoneyReward(i) != 0) {
+				sb.append("\n   " + ChatColor.GOLD + "Money :    " + ChatColor.WHITE + getMoneyReward(i));
+			}
+			if (getCommandReward(i) != null) {
+				sb.append("\n   " + ChatColor.GOLD + "Command : " + ChatColor.WHITE + getCommandReward(i));
+			}
+			if (getMaterialReward(i) != null) {
+				sb.append("\n   " + ChatColor.GOLD + "Material :  ");
+				getMaterialReward(i).forEach(reward -> {
+					sb.append(ChatColor.WHITE.toString() + reward.getAmount() + ChatColor.GRAY + " x " + ChatColor.WHITE + reward.getType().toString() + ", ");
+				});
+				sb.setLength(sb.length() - 2);
+			}
+			if (sb.length() != 0) {
+				sb.insert(0, places.get(i-1).replace("{RANK}", ""));
+				Messages.sendMessage(player, sb.toString());
+			}
+		});
 	}
 }

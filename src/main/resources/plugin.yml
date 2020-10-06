@@ -39,3 +39,6 @@ permissions:
   tntrun.spectate:
     description: allow players to join the arena as a spectator
     default: op
+  tntrun.listrewards:
+    description: allow players to list the arena rewards
+    default: op
