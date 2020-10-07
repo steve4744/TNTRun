@@ -58,7 +58,10 @@ public class JoinMenu {
 			List<String> lores = new ArrayList<>();
 			im.setDisplayName(FormattingCodesParser.parseFormattingCodes(Messages.menuarenaname).replace("{ARENA}", arena.getArenaName()));
 
-			lores.add(FormattingCodesParser.parseFormattingCodes(Messages.menutext) + " " + getArenaCount(arena));
+			lores.add(FormattingCodesParser.parseFormattingCodes(Messages.menutext)
+					.replace("{PS}", String.valueOf(arena.getPlayersManager().getPlayersCount()))
+					.replace("{MPS}", String.valueOf(arena.getStructureManager().getMaxPlayers())));
+
 			if (arena.getStructureManager().hasFee()) {
 				lores.add(FormattingCodesParser.parseFormattingCodes(Messages.menufee.replace("{FEE}", arena.getStructureManager().getArenaCost(arena))));
 			}
@@ -105,12 +108,6 @@ public class JoinMenu {
 	private Material getMenuItem() {
 		String item = plugin.getConfig().getString("menu.item", "TNT").toUpperCase();
 		return Material.getMaterial(item) != null ? Material.getMaterial(item) : Material.TNT;
-	}
-
-	private String getArenaCount(Arena arena) {
-		int maxPlayers = arena.getStructureManager().getMaxPlayers();
-		int players = arena.getPlayersManager().getPlayersCount();
-		return players + " / " + maxPlayers;
 	}
 
 	public void autoJoin(Player player) {

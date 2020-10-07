@@ -33,7 +33,7 @@ public class Messages {
 	public static String trprefix = "&7[&6TNTRun_reloaded&7]";
 	public static String menutitle = "&1TNTRun_reloaded Arenas";
 	public static String menuarenaname = "&a{ARENA}";
-	public static String menutext = "&5Players:&6";
+	public static String menutext = "&5Players: &6{PS}/{MPS}";
 	public static String menufee = "&5Join Fee: &6{FEE}";
 	public static String nopermission = "&c You don't have permission to do this";
 	public static String nolobby = "&c Global lobby isn't set, run &6/trsetup setlobby";
