@@ -676,7 +676,7 @@ public class PlayerHandler {
 		}
 		String permissionPrefix = "tntrun.doublejumps.";
 		for (PermissionAttachmentInfo attachmentInfo : player.getEffectivePermissions()) {
-			if (attachmentInfo.getPermission().startsWith(permissionPrefix)) {
+			if (attachmentInfo.getPermission().startsWith(permissionPrefix) && attachmentInfo.getValue()) {
 				String permission = attachmentInfo.getPermission();
 				if (!Utils.isNumber(permission.substring(permission.lastIndexOf(".") + 1))) {
 					return 0;
