@@ -41,4 +41,4 @@ permissions:
     default: op
   tntrun.listrewards:
     description: allow players to list the arena rewards
-    default: op
+    default: true
