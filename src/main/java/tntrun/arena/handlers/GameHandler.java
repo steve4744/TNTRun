@@ -110,6 +110,7 @@ public class GameHandler {
 				if (count == 0) {
 					stopArenaCountdown();
 					startArena();
+					return;
 
 				} else if(count == 5) {
 					String message = Messages.arenacountdown;
@@ -150,8 +151,8 @@ public class GameHandler {
 
 	public void stopArenaCountdown() {
 		arena.getStatusManager().setStarting(false);
-		count = arena.getStructureManager().getCountdown();
 		Bukkit.getScheduler().cancelTask(runtaskid);
+		count = arena.getStructureManager().getCountdown();
 	}
 
 	// main arena handler
@@ -160,11 +161,18 @@ public class GameHandler {
 	private boolean forceStartByCmd;
 	private boolean hasTimeLimit;
 
+	/**
+	 * Start the arena, removing the waiting scoreboard from spectator-only players.
+	 */
 	public void startArena() {
 		arena.getStatusManager().setRunning(true);
 		if (Utils.debug() ) {
 			plugin.getLogger().info("Arena " + arena.getArenaName() + " started");
 			plugin.getLogger().info("Players in arena: " + arena.getPlayersManager().getPlayersCount());
+		}
+
+		for (Player player : arena.getPlayersManager().getSpectators()) {
+			arena.getScoreboardHandler().removeScoreboard(player);
 		}
 
 		arena.getStructureManager().getRewards().setActiveRewards(arena.getPlayersManager().getPlayersCount());
@@ -461,6 +469,7 @@ public class GameHandler {
 		plugin.getSound().NOTE_PLING(player, 1, 999);
 		if (!plugin.getConfig().getBoolean("special.UseTitle")) {
 			Messages.sendMessage(player, Messages.trprefix + message);
+			return;
 		} 
 		TitleMsg.sendFullTitle(player, TitleMsg.starting.replace("{COUNT}", count + ""), TitleMsg.substarting.replace("{COUNT}", count + ""), 0, 40, 20, plugin);
 	}

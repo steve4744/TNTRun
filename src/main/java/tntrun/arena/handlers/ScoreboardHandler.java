@@ -63,11 +63,15 @@ public class ScoreboardHandler {
 		return scoreboard;
 	}
 
+	/**
+	 * Create the waiting scoreboard for all players including spectator-only players.
+	 */
 	public void createWaitingScoreBoard() {
 		if (!plugin.getConfig().getBoolean("special.UseScoreboard")) {
 			return;
 		}
-		for (Player player : arena.getPlayersManager().getPlayers()) {
+
+		for (Player player : arena.getPlayersManager().getAllParticipantsCopy()) {
 			updateWaitingScoreboard(player);
 		}
 	}

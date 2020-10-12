@@ -280,6 +280,12 @@ public class PlayerHandler {
 			arena.getScoreboardHandler().removeScoreboard(player);
 		} else {
 			storePlayerData(player);
+			if (!arena.getStatusManager().isArenaStarting()) {
+				arena.getGameHandler().count = arena.getStructureManager().getCountdown();
+			}
+			if (!arena.getStatusManager().isArenaRunning() && !arena.getStatusManager().isArenaRegenerating()) {
+				arena.getScoreboardHandler().updateWaitingScoreboard(player);
+			}
 		}
 
 		player.getInventory().clear();
