@@ -19,6 +19,8 @@ package tntrun.messages;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -179,6 +181,15 @@ public class Messages {
 
 	public static void loadMessages(TNTRun plugin) {
 		File messageconfig = new File(plugin.getDataFolder(), "messages.yml");
+		String langISO = plugin.getConfig().getString("language", "default");
+		if (!messageconfig.exists() && (!langISO.equalsIgnoreCase("default") || !langISO.equalsIgnoreCase("en_GB"))) {
+			try {
+				Files.copy(plugin.getResource("lang/" + langISO + "/messages.yml"), new File(plugin.getDataFolder(), "messages.yml").toPath(), REPLACE_EXISTING);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		FileConfiguration config = YamlConfiguration.loadConfiguration(messageconfig);
 		trprefix = config.getString("trprefix", trprefix);
 		menutitle = config.getString("menutitle", menutitle);

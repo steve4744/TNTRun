@@ -136,4 +136,6 @@ bungeecord:
   hub: lobby
   useMOTD: true
   stopserver: false
+#language: default
+language: en_GB
 debug: false
