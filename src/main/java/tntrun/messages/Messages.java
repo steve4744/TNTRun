@@ -182,15 +182,18 @@ public class Messages {
 	public static void loadMessages(TNTRun plugin) {
 		File messageconfig = new File(plugin.getDataFolder(), "messages.yml");
 		String langISO = plugin.getConfig().getString("language", "default");
-		if (!messageconfig.exists() && (!langISO.equalsIgnoreCase("default") || !langISO.equalsIgnoreCase("en_GB"))) {
+
+		if (!messageconfig.exists()) {
 			try {
 				Files.copy(plugin.getResource("lang/" + langISO + "/messages.yml"), new File(plugin.getDataFolder(), "messages.yml").toPath(), REPLACE_EXISTING);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				plugin.getLogger().info("Error copying file " + messageconfig);
 				e.printStackTrace();
 			}
 		}
+
 		FileConfiguration config = YamlConfiguration.loadConfiguration(messageconfig);
+
 		trprefix = config.getString("trprefix", trprefix);
 		menutitle = config.getString("menutitle", menutitle);
 		menuarenaname = config.getString("menuarenaname", menuarenaname);
