@@ -19,9 +19,6 @@ package tntrun.messages;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -181,17 +178,7 @@ public class Messages {
 
 	public static void loadMessages(TNTRun plugin) {
 		File messageconfig = new File(plugin.getDataFolder(), "messages.yml");
-		String langISO = plugin.getConfig().getString("language", "default");
-
-		if (!messageconfig.exists()) {
-			try {
-				Files.copy(plugin.getResource("lang/" + langISO + "/messages.yml"), new File(plugin.getDataFolder(), "messages.yml").toPath(), REPLACE_EXISTING);
-			} catch (IOException e) {
-				plugin.getLogger().info("Error copying file " + messageconfig);
-				e.printStackTrace();
-			}
-		}
-
+		plugin.getLanguage().updateLangFile(messageconfig);
 		FileConfiguration config = YamlConfiguration.loadConfiguration(messageconfig);
 
 		trprefix = config.getString("trprefix", trprefix);

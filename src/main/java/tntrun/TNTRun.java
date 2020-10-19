@@ -55,6 +55,7 @@ import tntrun.eventhandler.PlayerStatusHandler;
 import tntrun.eventhandler.RestrictionHandler;
 import tntrun.kits.Kits;
 import tntrun.lobby.GlobalLobby;
+import tntrun.messages.Language;
 import tntrun.messages.Messages;
 import tntrun.signs.SignHandler;
 import tntrun.signs.editor.SignEditor;
@@ -76,6 +77,7 @@ public class TNTRun extends JavaPlugin {
 	private PlayerDataStore pdata;
 	private Kits kitmanager;
 	private Sounds sound;
+	private Language language;
 
 	public ArenasManager amanager;
 	public SignEditor signEditor;
@@ -93,6 +95,7 @@ public class TNTRun extends JavaPlugin {
 		signEditor = new SignEditor(this);
 		globallobby = new GlobalLobby(this);
 		kitmanager = new Kits();
+		language = new Language(this);
 		Messages.loadMessages(this);
 		Bars.loadBars(this);
 		TitleMsg.loadTitles(this);
@@ -368,6 +371,10 @@ public class TNTRun extends JavaPlugin {
 
 	public Sounds getSound() {
 		return sound;
+	}
+
+	public Language getLanguage() {
+		return language;
 	}
 
 	public void updateScoreboardList() {

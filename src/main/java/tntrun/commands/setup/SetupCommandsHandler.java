@@ -57,6 +57,7 @@ import tntrun.commands.setup.arena.SetVotePercent;
 import tntrun.commands.setup.arena.SetupHelp;
 import tntrun.commands.setup.kits.AddKit;
 import tntrun.commands.setup.kits.DeleteKit;
+import tntrun.commands.setup.language.SetLanguage;
 import tntrun.commands.setup.lobby.DeleteLobby;
 import tntrun.commands.setup.lobby.SetLobby;
 import tntrun.commands.setup.reload.Migrate;
@@ -117,6 +118,7 @@ public class SetupCommandsHandler implements CommandExecutor {
 		commandHandlers.put("setreward", new SetReward(plugin));
 		commandHandlers.put("setfee", new SetFee(plugin));
 		commandHandlers.put("setcurrency", new SetCurrency(plugin));
+		commandHandlers.put("setlanguage", new SetLanguage(plugin));
 		commandHandlers.put("migrate", new Migrate(plugin));
 		commandHandlers.put("help", new SetupHelp(plugin));
 	}
