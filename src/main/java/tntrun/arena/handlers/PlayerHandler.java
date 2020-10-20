@@ -101,12 +101,12 @@ public class PlayerHandler {
 			double fee = arena.getStructureManager().getFee();
 			if (!arena.getArenaEconomy().hasFunds(player, fee)) {
 				if (!silent) {
-					Messages.sendMessage(player, Messages.trprefix + Messages.arenanofee.replace("{FEE}", arena.getStructureManager().getArenaCost(arena)));
+					Messages.sendMessage(player, Messages.trprefix + Messages.arenanofee.replace("{FEE}", arena.getStructureManager().getArenaCost()));
 				}
 				return false;
 			}
 			if (!silent) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenafee.replace("{FEE}", arena.getStructureManager().getArenaCost(arena)));
+				Messages.sendMessage(player, Messages.trprefix + Messages.arenafee.replace("{FEE}", arena.getStructureManager().getArenaCost()));
 			}
 		}
 		return true;

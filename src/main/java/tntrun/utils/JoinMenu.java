@@ -63,7 +63,7 @@ public class JoinMenu {
 					.replace("{MPS}", String.valueOf(arena.getStructureManager().getMaxPlayers())));
 
 			if (arena.getStructureManager().hasFee()) {
-				lores.add(FormattingCodesParser.parseFormattingCodes(Messages.menufee.replace("{FEE}", arena.getStructureManager().getArenaCost(arena))));
+				lores.add(FormattingCodesParser.parseFormattingCodes(Messages.menufee.replace("{FEE}", arena.getStructureManager().getArenaCost())));
 			}
 			im.setLore(lores);
 			is.setItemMeta(im);
