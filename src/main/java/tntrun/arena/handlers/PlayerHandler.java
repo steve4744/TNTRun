@@ -424,6 +424,9 @@ public class PlayerHandler {
 		resetDoubleJumps(player);
 		arena.getPlayersManager().remove(player);
 		clearPotionEffects(player);
+		if (arena.getStructureManager().hasCommandOnStop()) {
+			arena.getGameHandler().executeCommandOnStop(player);
+		}
 		if (Utils.debug()) {
 			plugin.getLogger().info("Player " + player.getName() + " left arena " + arena.getArenaName());
 			plugin.getLogger().info("Players in arena: " + arena.getPlayersManager().getPlayersCount());

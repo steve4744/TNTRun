@@ -66,6 +66,8 @@ public class StructureManager {
 	private boolean finished = false;
 	private List<Vector> additionalSpawnPoints = new ArrayList<>();
 	private List<Vector> tempList = new ArrayList<>();
+	private String commandOnStart;
+	private String commandOnStop;
 
 	public String getWorldName() {
 		return world;
@@ -200,6 +202,22 @@ public class StructureManager {
 			return String.valueOf(fee);
 		}
 		return new StringBuilder().append((int) fee).append(" x ").append(currency).toString();
+	}
+
+	public String getCommandOnStart() {
+		return commandOnStart;
+	}
+
+	public String getCommandOnStop() {
+		return commandOnStop;
+	}
+
+	public boolean hasCommandOnStart() {
+		return commandOnStart.length() > 0;
+	}
+
+	public boolean hasCommandOnStop() {
+		return commandOnStop.length() > 0;
 	}
 
 	public boolean isInArenaBounds(Location loc) {
@@ -392,6 +410,8 @@ public class StructureManager {
 		config.set("currency", currency);
 		config.set("finished", finished);
 		config.set("spawnpoints", additionalSpawnPoints);
+		config.set("commandOnStart", commandOnStart);
+		config.set("commandOnStop", commandOnStop);
 		rewards.saveToConfig(config);
 		try {
 			config.save(arena.getArenaFile());
@@ -429,6 +449,8 @@ public class StructureManager {
 			finished = true;
 		}
 		additionalSpawnPoints = (List<Vector>) config.getList("spawnpoints");
+		commandOnStart = config.getString("commandOnStart", "");
+		commandOnStop = config.getString("commandOnStop", "");
 	}
 
 }
