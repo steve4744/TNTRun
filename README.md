@@ -1,5 +1,10 @@
 # TNTRun_reloaded
 
+[![Version](https://badge.fury.io/gh/tterb%2FHyde.svg)](https://badge.fury.io/gh/tterb%2FHyde)
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
+[![Discord Chat](https://img.shields.io/discord/308323056592486420.svg)](https://discord.gg/)
+[![PayPal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/paypalme/steve4744)
+
 TNTRun is a highly configurable, fully automated minigame for Minecraft servers. Traditionally players start on a layer of sand supported by TNT blocks, although any combination of blocks can be used, and every block that they step on disappears. If a player falls through a hole, he/she will continue to run on the layer below. Once a player falls through the final layer he/she loses the game and becomes a spectator for the remainder of the game. The last player remaining wins the game.
 
 This fork was created in 2016 from the unsupported TNTRun by Shevchik for Minecraft v1.10, and has been improved and updated as new versions of Minecraft have been released. The latest version of TNTRun_reloaded supports all Minecraft versions from 1.13 to 1.16.3, while the legacy version is supported for servers running Minecraft versions from 1.8 through to 1.12.2. 
@@ -64,7 +69,7 @@ Links to download each plugin are available on TNTRun_reloaded's Spigot page.
 
 The latest version of TNTRun_reloaded has been tested with the following versions of these plugins:
 
-    WorldEdit 7.1.0 (optional, internal commands setP1 and setP2 can be used to set arena bounds)
+    WorldEdit 7.2.0 (optional, internal commands setP1 and setP2 can be used to set arena bounds)
     Vault 1.7.2 (optional, required to use economy)
     HeadsPlus 6.10.9 (optional, allow players to buy and run around wearing different heads)
     mcMMO 2.1.145 (optional, will allow players in same mcMMO party to PVP in arena)
@@ -87,4 +92,4 @@ For legacy Minecraft 1.12.2 and below:
 <br />
 <br />
 <br />
-Updated steve4744 - 16th September 2020
+Updated steve4744 - 22nd October 2020
