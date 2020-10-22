@@ -139,8 +139,21 @@ public class PlayerDataStore {
 	}
 
 	public void saveDoubleJumpsToFile(OfflinePlayer player, int amount) {
-		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 		String uuid = Bukkit.getOnlineMode() ? player.getUniqueId().toString() : player.getName();
+		saveConfigFile(uuid, amount);
+	}
+
+	/**
+	 * This migrates players doublejumps when the server is in offline mode.
+	 * @param player name
+	 * @param amount of doublejumps
+	 */
+	public void saveDoubleJumpsToFile(String name, int amount) {
+		saveConfigFile(name, amount);
+	}
+
+	private void saveConfigFile(String uuid, int amount) {
+		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 		if (amount == 0) {
 			config.set(uuid, null);
 		} else {
@@ -154,8 +167,12 @@ public class PlayerDataStore {
 	}
 
 	public int getDoubleJumpsFromFile(OfflinePlayer player) {
-		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 		String uuid = Bukkit.getOnlineMode() ? player.getUniqueId().toString() : player.getName();
-		return config.getInt(uuid + ".doublejumps", 0);
+		return getDoubleJumpsFromFile(uuid);
+	}
+
+	public int getDoubleJumpsFromFile(String name) {
+		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+		return config.getInt(name + ".doublejumps", 0);
 	}
 }
