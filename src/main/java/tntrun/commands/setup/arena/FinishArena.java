@@ -40,6 +40,7 @@ public class FinishArena implements CommandHandlerInterface {
 			if (!arena.getStatusManager().isArenaEnabled()) {
 				if (arena.getStructureManager().isArenaConfigured()) {
 					arena.getStructureManager().setArenaFinished(true);
+					arena.getStructureManager().getRewards().initialiseRewards();
 					arena.getStructureManager().saveToConfig();
 					arena.getStatusManager().enableArena();
 					Bars.createBar(args[0]);

@@ -56,6 +56,14 @@ public class Rewards {
 	private Map<Integer, Integer> minplayersrequired = new HashMap<>();
 	private int index;
 
+	public void initialiseRewards() {
+		int value = 0;
+		for (int i = 1; i < 4; i++) {
+			setMinPlayersRequired(value, i);
+			setMoneyReward(value, i);
+			setXPReward(value, i);
+		}
+	}
 	public List<ItemStack> getMaterialReward(int place) {
 		return materialrewards.get(place);
 	}
@@ -73,7 +81,7 @@ public class Rewards {
 	}
 
 	public int getMinPlayersRequired(int place) {
-		return minplayersrequired .get(place);
+		return minplayersrequired.get(place);
 	}
 
 	public boolean isActiveReward(int place) {
