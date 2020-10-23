@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.steve4744</groupId>
   <artifactId>TNTRun_reloaded</artifactId>
-  <version>9.5</version>
+  <version>9.6-SNAPSHOT</version>
   <name>TNTRun_reloaded</name>
   <description>A Minecraft mini-game plugin</description>
   <packaging>jar</packaging>
@@ -155,10 +155,6 @@
                 <artifactSet>
 <!--                  <includes>-->
 <!--                      <include>org.bstats:*</include>-->
-<!--                      <include>pro.husk:*</include>-->
-<!--                      <include>com.zaxxer:*</include>-->
-<!--                      <include>org.slf4j:*</include>-->
-<!--                      <include>de.themoep:inventorygui:*</include>-->
 <!--                 </includes>-->
                 </artifactSet>
                 <filters>
