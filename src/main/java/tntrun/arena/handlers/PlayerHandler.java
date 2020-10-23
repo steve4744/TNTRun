@@ -101,12 +101,12 @@ public class PlayerHandler {
 			double fee = arena.getStructureManager().getFee();
 			if (!arena.getArenaEconomy().hasFunds(player, fee)) {
 				if (!silent) {
-					Messages.sendMessage(player, Messages.trprefix + Messages.arenanofee.replace("{FEE}", arena.getStructureManager().getArenaCost(arena)));
+					Messages.sendMessage(player, Messages.trprefix + Messages.arenanofee.replace("{FEE}", arena.getStructureManager().getArenaCost()));
 				}
 				return false;
 			}
 			if (!silent) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenafee.replace("{FEE}", arena.getStructureManager().getArenaCost(arena)));
+				Messages.sendMessage(player, Messages.trprefix + Messages.arenafee.replace("{FEE}", arena.getStructureManager().getArenaCost()));
 			}
 		}
 		return true;
@@ -424,6 +424,9 @@ public class PlayerHandler {
 		resetDoubleJumps(player);
 		arena.getPlayersManager().remove(player);
 		clearPotionEffects(player);
+		if (arena.getStructureManager().hasCommandOnStop()) {
+			arena.getGameHandler().executeCommandOnStop(player);
+		}
 		if (Utils.debug()) {
 			plugin.getLogger().info("Player " + player.getName() + " left arena " + arena.getArenaName());
 			plugin.getLogger().info("Players in arena: " + arena.getPlayersManager().getPlayersCount());

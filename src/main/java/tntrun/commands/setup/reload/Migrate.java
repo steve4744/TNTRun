@@ -29,10 +29,19 @@ public class Migrate implements CommandHandlerInterface {
 			if (amount <= 0) {
 				continue;
 			}
-			@SuppressWarnings("deprecation")
-			OfflinePlayer oplayer = Bukkit.getOfflinePlayer(name);
-			amount += plugin.getPData().getDoubleJumpsFromFile(oplayer);
-			plugin.getPData().saveDoubleJumpsToFile(oplayer, amount);
+
+			/* Check if anything already in players.yml */
+			if (Bukkit.getOnlineMode()) {
+				@SuppressWarnings("deprecation")
+				OfflinePlayer oplayer = Bukkit.getOfflinePlayer(name);
+
+				amount += plugin.getPData().getDoubleJumpsFromFile(oplayer);
+				plugin.getPData().saveDoubleJumpsToFile(oplayer, amount);
+
+			} else {
+				amount += plugin.getPData().getDoubleJumpsFromFile(name);
+				plugin.getPData().saveDoubleJumpsToFile(name, amount);
+			}
 		}
 
 		plugin.getConfig().set("doublejumps", null);

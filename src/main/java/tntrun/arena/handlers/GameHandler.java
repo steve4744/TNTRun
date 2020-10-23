@@ -200,6 +200,10 @@ public class GameHandler {
 			setGameInventory(player);
 
 			TitleMsg.sendFullTitle(player, TitleMsg.start, TitleMsg.substart, 20, 20, 20, plugin);
+
+			if (arena.getStructureManager().hasCommandOnStart()) {
+				executeCommandOnStart(player);
+			}
 		}
 
 		plugin.signEditor.modifySigns(arena.getArenaName());
@@ -421,12 +425,12 @@ public class GameHandler {
 
 					arena.getPlayerHandler().leaveWinner(player, Messages.playerwontoplayer);
 					stopArena();
-						
-					final ConsoleCommandSender console = Bukkit.getConsoleSender();
-						
+
 					if(plugin.getConfig().getStringList("commandsonwin") == null) {
 						return;
 					}
+
+					final ConsoleCommandSender console = Bukkit.getConsoleSender();
 					for(String commands : plugin.getConfig().getStringList("commandsonwin")) {
 						Bukkit.dispatchCommand(console, commands.replace("{PLAYER}", player.getName()));
 					}
@@ -590,5 +594,15 @@ public class GameHandler {
 		sb.append("\n============" + Messages.trprefix + "============");
 
 		return sb.toString();
+	}
+
+	private void executeCommandOnStart(Player player) {
+		Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(),
+				arena.getStructureManager().getCommandOnStart().replace("%PLAYER%", player.getName()));
+	}
+
+	public void executeCommandOnStop(Player player) {
+		Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(),
+				arena.getStructureManager().getCommandOnStop().replace("%PLAYER%", player.getName()));
 	}
 }
