@@ -229,7 +229,7 @@ public class Messages {
 		playerlosttoothers = config.getString("playerlosttoothers", playerlosttoothers);
 		playerfirstplace = config.getString("playerfirstplace", playerfirstplace);
 		playersecondplace = config.getString("playersecondplace", playersecondplace);
-		playerfirstplace = config.getString("playerfirstplace", playerfirstplace);
+		playerthirdplace = config.getString("playerthirdplace", playerthirdplace);
 		playerrewardmessage = config.getString("playerrewardmessage", playerrewardmessage);
 		playerboughtitem = config.getString("playerboughtitem", playerboughtitem);
 		playerboughtwait = config.getString("playerboughtwait", playerboughtwait);
