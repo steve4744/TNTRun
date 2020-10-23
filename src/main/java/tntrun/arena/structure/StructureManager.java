@@ -213,11 +213,11 @@ public class StructureManager {
 	}
 
 	public boolean hasCommandOnStart() {
-		return commandOnStart.length() > 0;
+		return commandOnStart != null && commandOnStart.length() > 0;
 	}
 
 	public boolean hasCommandOnStop() {
-		return commandOnStop.length() > 0;
+		return commandOnStop != null && commandOnStop.length() > 0;
 	}
 
 	public boolean isInArenaBounds(Location loc) {
