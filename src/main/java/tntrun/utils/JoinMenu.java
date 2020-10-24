@@ -65,6 +65,10 @@ public class JoinMenu {
 			if (arena.getStructureManager().hasFee()) {
 				lores.add(FormattingCodesParser.parseFormattingCodes(Messages.menufee.replace("{FEE}", arena.getStructureManager().getArenaCost())));
 			}
+
+			if (!arena.getStructureManager().getDamageEnabled().toString().equalsIgnoreCase("no") && Messages.menupvp.length() > 0) {
+				lores.add(FormattingCodesParser.parseFormattingCodes(Messages.menupvp));
+			}
 			im.setLore(lores);
 			is.setItemMeta(im);
 

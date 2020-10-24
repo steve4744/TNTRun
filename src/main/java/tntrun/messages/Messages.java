@@ -35,6 +35,7 @@ public class Messages {
 	public static String menuarenaname = "&a{ARENA}";
 	public static String menutext = "&5Players: &6{PS}/{MPS}";
 	public static String menufee = "&5Join Fee: &6{FEE}";
+	public static String menupvp = "&5PVP: &6Enabled";
 	public static String nopermission = "&c You don't have permission to do this";
 	public static String nolobby = "&c Global lobby isn't set, run &6/trsetup setlobby";
 	public static String lobbyunloaded = "&c Lobby world is unloaded or doesn't exist";
@@ -185,6 +186,7 @@ public class Messages {
 		menuarenaname = config.getString("menuarenaname", menuarenaname);
 		menutext = config.getString("menutext", menutext);
 		menufee = config.getString("menufee", menufee);
+		menupvp = config.getString("menupvp", menupvp);
 		nopermission = config.getString("nopermission", nopermission);
 		nolobby = config.getString("nolobby", nolobby);
 		lobbyunloaded = config.getString("lobbyunloaded", lobbyunloaded);
@@ -317,6 +319,7 @@ public class Messages {
 		config.set("menuarenaname", menuarenaname);
 		config.set("menutext",  menutext);
 		config.set("menufee",  menufee);
+		config.set("menupvp",  menupvp);
 		config.set("nopermission", nopermission);
 		config.set("nolobby", nolobby);
 		config.set("lobbyunloaded", lobbyunloaded);
