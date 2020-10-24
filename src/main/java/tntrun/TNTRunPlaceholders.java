@@ -20,6 +20,8 @@ package tntrun;
 import java.util.stream.Stream;
 
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
+
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import tntrun.arena.Arena;
 import tntrun.utils.Utils;
@@ -89,7 +91,18 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 			return arena != null ? String.valueOf(arena.getPlayersManager().getPlayersCount()) : null;
 
 		} else if (identifier.equals("doublejumps")) {
-			return String.valueOf(plugin.getPData().getDoubleJumpsFromFile(p));
+			int amount = 0;
+			Arena arena = plugin.amanager.getPlayerArena(p.getName());
+			if (arena == null) {
+				if (plugin.getConfig().getBoolean("freedoublejumps.enabled")) {
+					amount = plugin.shop.getAllowedDoubleJumps((Player) p, plugin.getConfig().getInt("freedoublejumps.amount", 0));
+				} else {
+					amount = plugin.getPData().getDoubleJumpsFromFile(p);
+				}
+			} else {
+				amount = arena.getPlayerHandler().getDoubleJumps((Player) p);
+			}
+			return String.valueOf(amount);
 
 		} else if (identifier.startsWith("joinfee") || identifier.startsWith("currency")) {
 			String[] temp = identifier.split("_");
