@@ -205,11 +205,11 @@ public class StructureManager {
 	}
 
 	public String getCommandOnStart() {
-		return commandOnStart;
+		return commandOnStart != null ? commandOnStart : "";
 	}
 
 	public String getCommandOnStop() {
-		return commandOnStop;
+		return commandOnStop != null ? commandOnStop : "";
 	}
 
 	public boolean hasCommandOnStart() {
@@ -410,8 +410,8 @@ public class StructureManager {
 		config.set("currency", currency);
 		config.set("finished", finished);
 		config.set("spawnpoints", additionalSpawnPoints);
-		config.set("commandOnStart", commandOnStart);
-		config.set("commandOnStop", commandOnStop);
+		config.set("commandOnStart", getCommandOnStart());
+		config.set("commandOnStop", getCommandOnStop());
 		rewards.saveToConfig(config);
 		try {
 			config.save(arena.getArenaFile());
