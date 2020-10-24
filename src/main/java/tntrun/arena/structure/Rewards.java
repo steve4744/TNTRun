@@ -56,20 +56,12 @@ public class Rewards {
 	private Map<Integer, Integer> minplayersrequired = new HashMap<>();
 	private int index;
 
-	public void initialiseRewards() {
-		int value = 0;
-		for (int i = 1; i < 4; i++) {
-			setMinPlayersRequired(value, i);
-			setMoneyReward(value, i);
-			setXPReward(value, i);
-		}
-	}
 	public List<ItemStack> getMaterialReward(int place) {
 		return materialrewards.get(place);
 	}
 
 	public int getMoneyReward(int place) {
-		return moneyreward.get(place);
+		return moneyreward.getOrDefault(place, 0);
 	}
 
 	public String getCommandReward(int place) {
@@ -77,11 +69,11 @@ public class Rewards {
 	}
 
 	public int getXPReward(int place) {
-		return xpreward.get(place);
+		return xpreward.getOrDefault(place, 0);
 	}
 
 	public int getMinPlayersRequired(int place) {
-		return minplayersrequired.get(place);
+		return minplayersrequired.getOrDefault(place, 0);
 	}
 
 	public boolean isActiveReward(int place) {
@@ -100,7 +92,7 @@ public class Rewards {
 		materialrewards.computeIfAbsent(place, k -> new ArrayList<>()).add(reward);
 
 		if (Utils.debug()) {
-			Bukkit.getLogger().info("[TNTRun] reward(\" + place + \") = " + materialrewards.toString());
+			Bukkit.getLogger().info("[TNTRun] reward(" + place + ") = " + materialrewards.toString());
 		}
 	}
 
