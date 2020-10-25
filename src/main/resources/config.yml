@@ -38,6 +38,7 @@ fireworksonwin:
 broadcastwinlevel: 2
 menu:
   item: TNT
+  pvpitem: IRON_BLOCK
   panecolor: LIGHT_BLUE
   includedisabled: false
 sounds:

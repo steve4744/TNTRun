@@ -45,17 +45,17 @@ public class JoinMenu {
 	}
 
 	public void buildMenu(Player player) {
-		ItemStack is = new ItemStack(getMenuItem());
-		ItemMeta im = is.getItemMeta();	
-
 		TreeMap<String, Arena> arenas = getDisplayArenas();
-
 		int size = getInventorySize(arenas.size());
 		Inventory inv = Bukkit.createInventory(player, size, FormattingCodesParser.parseFormattingCodes(Messages.menutitle));
 
 		keyPos = 9;
 		arenas.forEach((arenaname, arena) -> {
+			boolean isPvp = !arena.getStructureManager().getDamageEnabled().toString().equalsIgnoreCase("no");
 			List<String> lores = new ArrayList<>();
+			ItemStack is = new ItemStack(getMenuItem(isPvp));
+			ItemMeta im = is.getItemMeta();
+
 			im.setDisplayName(FormattingCodesParser.parseFormattingCodes(Messages.menuarenaname).replace("{ARENA}", arena.getArenaName()));
 
 			lores.add(FormattingCodesParser.parseFormattingCodes(Messages.menutext)
@@ -66,7 +66,7 @@ public class JoinMenu {
 				lores.add(FormattingCodesParser.parseFormattingCodes(Messages.menufee.replace("{FEE}", arena.getStructureManager().getArenaCost())));
 			}
 
-			if (!arena.getStructureManager().getDamageEnabled().toString().equalsIgnoreCase("no") && Messages.menupvp.length() > 0) {
+			if (isPvp && Messages.menupvp.length() > 0) {
 				lores.add(FormattingCodesParser.parseFormattingCodes(Messages.menupvp));
 			}
 			im.setLore(lores);
@@ -109,8 +109,10 @@ public class JoinMenu {
 		return Material.getMaterial(colour + "_STAINED_GLASS_PANE");
 	}
 
-	private Material getMenuItem() {
-		String item = plugin.getConfig().getString("menu.item", "TNT").toUpperCase();
+	private Material getMenuItem(boolean pvpEnabled) {
+		String path = pvpEnabled ? "menu.pvpitem" : "menu.item";
+		String item = plugin.getConfig().getString(path, "TNT").toUpperCase();
+
 		return Material.getMaterial(item) != null ? Material.getMaterial(item) : Material.TNT;
 	}
 
