@@ -311,7 +311,7 @@ public class StructureManager {
 	}
 
 	public void removeAdditionalSpawnPoints() {
-		additionalSpawnPoints = null;
+		additionalSpawnPoints.clear();
 	}
 
 	public void setMaxPlayers(int maxplayers) {
