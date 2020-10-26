@@ -363,7 +363,7 @@ public class StructureManager {
 	}
 
 	public boolean hasAdditionalSpawnPoints() {
-		return additionalSpawnPoints != null;
+		return additionalSpawnPoints != null && !additionalSpawnPoints.isEmpty();
 	}
 
 	private Vector nextSpawnPoint() {
