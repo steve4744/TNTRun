@@ -100,6 +100,7 @@ public class Messages {
 	public static String statshead = "&7=========[&6TNTRun Stats&7]=========";
 	public static String rewardshead = "&7======[&6TNTRun Rewards&7 - &a{ARENA}&7]======";
 	public static String leaderhead = "&7======[&6TNTRun Leaderboard&7]======";
+	public static String resultshead = "&7============[&6TNTRun&7]============";
 	public static String gamesplayed = "&bGames played &f: ";
 	public static String gameswon = "&bWins &f: ";
 	public static String gameslost = "&bLosses &f: ";
@@ -247,6 +248,7 @@ public class Messages {
 		statshead = config.getString("statshead", statshead);
 		rewardshead = config.getString("rewardshead", rewardshead);
 		leaderhead = config.getString("leaderhead", leaderhead);
+		resultshead = config.getString("resultshead", resultshead);
 		leaderboard = config.getString("leaderboard", leaderboard);
 		leadersign = config.getString("leadersign", leadersign);
 		shopmoneyheader = config.getString("shopmoneyheader", shopmoneyheader);
@@ -380,6 +382,7 @@ public class Messages {
 		config.set("statshead", statshead);
 		config.set("rewardshead", rewardshead);
 		config.set("leaderhead", leaderhead);
+		config.set("resultshead", resultshead);
 		config.set("leaderboard", leaderboard);
 		config.set("leadersign",  leadersign);
 		config.set("shopmoneyheader", shopmoneyheader);

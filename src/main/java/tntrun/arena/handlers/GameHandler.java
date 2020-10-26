@@ -571,7 +571,7 @@ public class GameHandler {
 	 */
 	private String getPodiumPlaces(Player winner) {
 		StringBuilder sb = new StringBuilder(200);
-		sb.append("\n============" + Messages.trprefix + "============");
+		sb.append("\n" + Messages.resultshead);
 		sb.append("\n ");
 		sb.append("\n                " + Messages.playerfirstplace.replace("{RANK}", arena.getPlayerHandler().getDisplayName(winner)) + winner.getName());
 
@@ -591,7 +591,7 @@ public class GameHandler {
 			sb.append("\n                " + Messages.playerthirdplace.replace("{RANK}", "") + "-");
 		}
 		sb.append("\n ");
-		sb.append("\n============" + Messages.trprefix + "============");
+		sb.append("\n" + Messages.resultshead);
 
 		return sb.toString();
 	}
