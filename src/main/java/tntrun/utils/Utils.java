@@ -52,7 +52,23 @@ public class Utils {
 	public static int playerCount() {
 		int pCount = 0;
 		for (Arena arena : TNTRun.getInstance().amanager.getArenas()) {
-			pCount += arena.getPlayersManager().getPlayersCount();			
+			pCount += arena.getPlayersManager().getPlayersCount();
+		}
+		return pCount;
+	}
+
+	public static int pvpPlayerCount() {
+		int pCount = 0;
+		for (Arena arena : TNTRun.getInstance().amanager.getPvpArenas()) {
+			pCount += arena.getPlayersManager().getPlayersCount();
+		}
+		return pCount;
+	}
+
+	public static int nonPvpPlayerCount() {
+		int pCount = 0;
+		for (Arena arena : TNTRun.getInstance().amanager.getNonPvpArenas()) {
+			pCount += arena.getPlayersManager().getPlayersCount();
 		}
 		return pCount;
 	}

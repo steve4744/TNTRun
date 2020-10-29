@@ -70,6 +70,12 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 		} else if (identifier.equals("arena_count")) {
 			return String.valueOf(plugin.amanager.getArenas().size());
 
+		} else if (identifier.equals("pvp_arena_count")) {
+			return String.valueOf(plugin.amanager.getPvpArenas().size());
+
+		} else if (identifier.equals("nopvp_arena_count")) {
+			return String.valueOf(plugin.amanager.getNonPvpArenas().size());
+
 		} else if (identifier.equals("played")) {
 			return String.valueOf(plugin.stats.getPlayedGames(p));
 
@@ -81,6 +87,12 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 
 		} else if (identifier.equals("player_count")) {
 			return String.valueOf(Utils.playerCount());
+
+		} else if (identifier.equals("pvp_player_count")) {
+			return String.valueOf(Utils.pvpPlayerCount());
+
+		} else if (identifier.equals("nopvp_player_count")) {
+			return String.valueOf(Utils.nonPvpPlayerCount());
 
 		} else if (identifier.startsWith("player_count")) {
 			String[] temp = identifier.split("_");
