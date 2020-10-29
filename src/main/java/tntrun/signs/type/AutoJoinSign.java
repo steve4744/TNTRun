@@ -41,7 +41,8 @@ public class AutoJoinSign implements SignType {
 
 	@Override
 	public void handleClick(PlayerInteractEvent e) {
-		plugin.getJoinMenu().autoJoin(e.getPlayer());
+		String type = "";
+		plugin.getJoinMenu().autoJoin(e.getPlayer(), type);
 		e.setCancelled(true);
 	}
 

@@ -62,7 +62,8 @@ public class MenuHandler implements Listener {
 			e.setCancelled(true);
 			return;
 		}
-		if (is.getType() != Material.getMaterial(plugin.getConfig().getString("menu.item"))) {
+		if (is.getType() != Material.getMaterial(plugin.getConfig().getString("menu.item")) &&
+				is.getType() != Material.getMaterial(plugin.getConfig().getString("menu.pvpitem"))) {
 			e.setCancelled(true);
 			return;
 		}

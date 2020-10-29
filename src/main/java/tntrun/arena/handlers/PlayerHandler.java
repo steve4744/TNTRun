@@ -31,7 +31,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -634,7 +633,7 @@ public class PlayerHandler {
 	private void cacheDoubleJumps(Player player) {
 		int amount = 0;
 		if (plugin.getConfig().getBoolean("freedoublejumps.enabled")) {
-			amount = getAllowedDoubleJumps(player, plugin.getConfig().getInt("freedoublejumps.amount", 0));
+			amount = plugin.shop.getAllowedDoubleJumps(player, plugin.getConfig().getInt("freedoublejumps.amount", 0));
 
 		} else {
 			if (plugin.shop.hasDoubleJumps(player)) {
@@ -669,31 +668,6 @@ public class PlayerHandler {
 			plugin.getPData().saveDoubleJumpsToFile(player, getDoubleJumps(player));
 		}
 		doublejumps.remove(player.getName());
-	}
-
-	/**
-	 * The maximum number of double jumps the player is allowed. If permissions are used,
-	 * return the lower number of the maximum and number allowed by the permission node.
-	 *
-	 * @param player
-	 * @param max allowed double jumps
-	 * @return integer representing the number of double jumps to give player
-	 */
-	public int getAllowedDoubleJumps(Player player, Integer max) {
-		if (!plugin.getConfig().getBoolean("special.UseDoubleJumpPermissions") || max <= 0) {
-			return max;
-		}
-		String permissionPrefix = "tntrun.doublejumps.";
-		for (PermissionAttachmentInfo attachmentInfo : player.getEffectivePermissions()) {
-			if (attachmentInfo.getPermission().startsWith(permissionPrefix) && attachmentInfo.getValue()) {
-				String permission = attachmentInfo.getPermission();
-				if (!Utils.isNumber(permission.substring(permission.lastIndexOf(".") + 1))) {
-					return 0;
-				}
-				return Math.min(Integer.parseInt(permission.substring(permission.lastIndexOf(".") + 1)), max);
-			}
-		}
-		return max;
 	}
 
 	/**

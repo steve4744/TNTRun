@@ -20,6 +20,8 @@ package tntrun;
 import java.util.stream.Stream;
 
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
+
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import tntrun.arena.Arena;
 import tntrun.utils.Utils;
@@ -68,6 +70,12 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 		} else if (identifier.equals("arena_count")) {
 			return String.valueOf(plugin.amanager.getArenas().size());
 
+		} else if (identifier.equals("pvp_arena_count")) {
+			return String.valueOf(plugin.amanager.getPvpArenas().size());
+
+		} else if (identifier.equals("nopvp_arena_count")) {
+			return String.valueOf(plugin.amanager.getNonPvpArenas().size());
+
 		} else if (identifier.equals("played")) {
 			return String.valueOf(plugin.stats.getPlayedGames(p));
 
@@ -80,6 +88,12 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 		} else if (identifier.equals("player_count")) {
 			return String.valueOf(Utils.playerCount());
 
+		} else if (identifier.equals("pvp_player_count")) {
+			return String.valueOf(Utils.pvpPlayerCount());
+
+		} else if (identifier.equals("nopvp_player_count")) {
+			return String.valueOf(Utils.nonPvpPlayerCount());
+
 		} else if (identifier.startsWith("player_count")) {
 			String[] temp = identifier.split("_");
 			if (temp.length != 3) {
@@ -89,7 +103,18 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 			return arena != null ? String.valueOf(arena.getPlayersManager().getPlayersCount()) : null;
 
 		} else if (identifier.equals("doublejumps")) {
-			return String.valueOf(plugin.getPData().getDoubleJumpsFromFile(p));
+			int amount = 0;
+			Arena arena = plugin.amanager.getPlayerArena(p.getName());
+			if (arena == null) {
+				if (plugin.getConfig().getBoolean("freedoublejumps.enabled")) {
+					amount = plugin.shop.getAllowedDoubleJumps((Player) p, plugin.getConfig().getInt("freedoublejumps.amount", 0));
+				} else {
+					amount = plugin.getPData().getDoubleJumpsFromFile(p);
+				}
+			} else {
+				amount = arena.getPlayerHandler().getDoubleJumps((Player) p);
+			}
+			return String.valueOf(amount);
 
 		} else if (identifier.startsWith("joinfee") || identifier.startsWith("currency")) {
 			String[] temp = identifier.split("_");

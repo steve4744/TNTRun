@@ -34,6 +34,7 @@ public class Messages {
 	public static String menuarenaname = "&a{ARENA}";
 	public static String menutext = "&5Players: &6{PS}/{MPS}";
 	public static String menufee = "&5Join Fee: &6{FEE}";
+	public static String menupvp = "&5PVP: &6Enabled";
 	public static String nopermission = "&c You don't have permission to do this";
 	public static String nolobby = "&c Global lobby isn't set, run &6/trsetup setlobby";
 	public static String lobbyunloaded = "&c Lobby world is unloaded or doesn't exist";
@@ -98,6 +99,7 @@ public class Messages {
 	public static String statshead = "&7=========[&6TNTRun Stats&7]=========";
 	public static String rewardshead = "&7======[&6TNTRun Rewards&7 - &a{ARENA}&7]======";
 	public static String leaderhead = "&7======[&6TNTRun Leaderboard&7]======";
+	public static String resultshead = "&7============[&6TNTRun&7]============";
 	public static String gamesplayed = "&bGames played &f: ";
 	public static String gameswon = "&bWins &f: ";
 	public static String gameslost = "&bLosses &f: ";
@@ -186,6 +188,7 @@ public class Messages {
 		menuarenaname = config.getString("menuarenaname", menuarenaname);
 		menutext = config.getString("menutext", menutext);
 		menufee = config.getString("menufee", menufee);
+		menupvp = config.getString("menupvp", menupvp);
 		nopermission = config.getString("nopermission", nopermission);
 		nolobby = config.getString("nolobby", nolobby);
 		lobbyunloaded = config.getString("lobbyunloaded", lobbyunloaded);
@@ -230,7 +233,7 @@ public class Messages {
 		playerlosttoothers = config.getString("playerlosttoothers", playerlosttoothers);
 		playerfirstplace = config.getString("playerfirstplace", playerfirstplace);
 		playersecondplace = config.getString("playersecondplace", playersecondplace);
-		playerfirstplace = config.getString("playerfirstplace", playerfirstplace);
+		playerthirdplace = config.getString("playerthirdplace", playerthirdplace);
 		playerrewardmessage = config.getString("playerrewardmessage", playerrewardmessage);
 		playerboughtitem = config.getString("playerboughtitem", playerboughtitem);
 		playerboughtwait = config.getString("playerboughtwait", playerboughtwait);
@@ -246,6 +249,7 @@ public class Messages {
 		statshead = config.getString("statshead", statshead);
 		rewardshead = config.getString("rewardshead", rewardshead);
 		leaderhead = config.getString("leaderhead", leaderhead);
+		resultshead = config.getString("resultshead", resultshead);
 		leaderboard = config.getString("leaderboard", leaderboard);
 		leadersign = config.getString("leadersign", leadersign);
 		shopmoneyheader = config.getString("shopmoneyheader", shopmoneyheader);
@@ -318,6 +322,7 @@ public class Messages {
 		config.set("menuarenaname", menuarenaname);
 		config.set("menutext",  menutext);
 		config.set("menufee",  menufee);
+		config.set("menupvp",  menupvp);
 		config.set("nopermission", nopermission);
 		config.set("nolobby", nolobby);
 		config.set("lobbyunloaded", lobbyunloaded);
@@ -378,6 +383,7 @@ public class Messages {
 		config.set("statshead", statshead);
 		config.set("rewardshead", rewardshead);
 		config.set("leaderhead", leaderhead);
+		config.set("resultshead", resultshead);
 		config.set("leaderboard", leaderboard);
 		config.set("leadersign",  leadersign);
 		config.set("shopmoneyheader", shopmoneyheader);

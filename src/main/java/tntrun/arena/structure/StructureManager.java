@@ -205,19 +205,19 @@ public class StructureManager {
 	}
 
 	public String getCommandOnStart() {
-		return commandOnStart;
+		return commandOnStart != null ? commandOnStart : "";
 	}
 
 	public String getCommandOnStop() {
-		return commandOnStop;
+		return commandOnStop != null ? commandOnStop : "";
 	}
 
 	public boolean hasCommandOnStart() {
-		return commandOnStart.length() > 0;
+		return commandOnStart != null && commandOnStart.length() > 0;
 	}
 
 	public boolean hasCommandOnStop() {
-		return commandOnStop.length() > 0;
+		return commandOnStop != null && commandOnStop.length() > 0;
 	}
 
 	public boolean isInArenaBounds(Location loc) {
@@ -311,7 +311,7 @@ public class StructureManager {
 	}
 
 	public void removeAdditionalSpawnPoints() {
-		additionalSpawnPoints = null;
+		additionalSpawnPoints.clear();
 	}
 
 	public void setMaxPlayers(int maxplayers) {
@@ -363,7 +363,7 @@ public class StructureManager {
 	}
 
 	public boolean hasAdditionalSpawnPoints() {
-		return additionalSpawnPoints != null;
+		return additionalSpawnPoints != null && !additionalSpawnPoints.isEmpty();
 	}
 
 	private Vector nextSpawnPoint() {
@@ -410,8 +410,8 @@ public class StructureManager {
 		config.set("currency", currency);
 		config.set("finished", finished);
 		config.set("spawnpoints", additionalSpawnPoints);
-		config.set("commandOnStart", commandOnStart);
-		config.set("commandOnStop", commandOnStop);
+		config.set("commandOnStart", getCommandOnStart());
+		config.set("commandOnStop", getCommandOnStop());
 		rewards.saveToConfig(config);
 		try {
 			config.save(arena.getArenaFile());

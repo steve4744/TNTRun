@@ -18,6 +18,8 @@
 package tntrun.utils;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.TreeMap;
 import org.bukkit.Bukkit;
@@ -45,17 +47,17 @@ public class JoinMenu {
 	}
 
 	public void buildMenu(Player player) {
-		ItemStack is = new ItemStack(getMenuItem());
-		ItemMeta im = is.getItemMeta();	
-
 		TreeMap<String, Arena> arenas = getDisplayArenas();
-
 		int size = getInventorySize(arenas.size());
 		Inventory inv = Bukkit.createInventory(player, size, FormattingCodesParser.parseFormattingCodes(Messages.menutitle));
 
 		keyPos = 9;
 		arenas.forEach((arenaname, arena) -> {
+			boolean isPvp = !arena.getStructureManager().getDamageEnabled().toString().equalsIgnoreCase("no");
 			List<String> lores = new ArrayList<>();
+			ItemStack is = new ItemStack(getMenuItem(isPvp));
+			ItemMeta im = is.getItemMeta();
+
 			im.setDisplayName(FormattingCodesParser.parseFormattingCodes(Messages.menuarenaname).replace("{ARENA}", arena.getArenaName()));
 
 			lores.add(FormattingCodesParser.parseFormattingCodes(Messages.menutext)
@@ -64,6 +66,10 @@ public class JoinMenu {
 
 			if (arena.getStructureManager().hasFee()) {
 				lores.add(FormattingCodesParser.parseFormattingCodes(Messages.menufee.replace("{FEE}", arena.getStructureManager().getArenaCost())));
+			}
+
+			if (isPvp && Messages.menupvp.length() > 0) {
+				lores.add(FormattingCodesParser.parseFormattingCodes(Messages.menupvp));
 			}
 			im.setLore(lores);
 			is.setItemMeta(im);
@@ -105,18 +111,20 @@ public class JoinMenu {
 		return Material.getMaterial(colour + "_STAINED_GLASS_PANE");
 	}
 
-	private Material getMenuItem() {
-		String item = plugin.getConfig().getString("menu.item", "TNT").toUpperCase();
+	private Material getMenuItem(boolean pvpEnabled) {
+		String path = pvpEnabled ? "menu.pvpitem" : "menu.item";
+		String item = plugin.getConfig().getString(path, "TNT").toUpperCase();
+
 		return Material.getMaterial(item) != null ? Material.getMaterial(item) : Material.TNT;
 	}
 
-	public void autoJoin(Player player) {
+	public void autoJoin(Player player, String type) {
 		if (plugin.amanager.getPlayerArena(player.getName()) != null) {
 			Messages.sendMessage(player, Messages.trprefix + Messages.arenajoined);
 			return;
 		}
 
-		Arena autoArena = getAutoArena(player);
+		Arena autoArena = getAutoArena(player, type);
 		if (autoArena == null) {
 			Messages.sendMessage(player, Messages.trprefix + Messages.noarenas);
 			return;
@@ -130,10 +138,23 @@ public class JoinMenu {
 	 * @param player
 	 * @return arena
 	 */
-	private Arena getAutoArena(Player player) {
+	private Arena getAutoArena(Player player, String type) {
+		Collection<Arena> arenas = new HashSet<>();
 		Arena autoarena = null;
 		int playercount = -1;
-		for (Arena arena : plugin.amanager.getArenas()) {
+
+		switch (type) {
+			case "pvp":
+				arenas = plugin.amanager.getPvpArenas();
+				break;
+			case "nopvp":
+				arenas = plugin.amanager.getNonPvpArenas();
+				break;
+			default:
+				arenas = plugin.amanager.getArenas();
+		}
+
+		for (Arena arena : arenas) {
 			if (arena.getPlayerHandler().checkJoin(player, true)) {
 				if (arena.getPlayersManager().getPlayersCount() > playercount) {
 					autoarena = arena;

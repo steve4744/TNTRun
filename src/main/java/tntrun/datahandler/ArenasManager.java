@@ -20,6 +20,7 @@ package tntrun.datahandler;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import tntrun.arena.Arena;
 
@@ -56,4 +57,17 @@ public class ArenasManager {
 		return null;
 	}
 
+	public Set<Arena> getPvpArenas() {
+		return arenanames.entrySet().stream()
+				.filter(e -> (!"no".equalsIgnoreCase(e.getValue().getStructureManager().getDamageEnabled().toString())))
+				.map(e -> e.getValue())
+				.collect(Collectors.toSet());
+	}
+
+	public Set<Arena> getNonPvpArenas() {
+		return arenanames.entrySet().stream()
+				.filter(e -> ("no".equalsIgnoreCase(e.getValue().getStructureManager().getDamageEnabled().toString())))
+				.map(e -> e.getValue())
+				.collect(Collectors.toSet());
+	}
 }
