@@ -182,7 +182,15 @@ public class GameCommands implements CommandExecutor {
 
 		// autojoin
 		else if (args[0].equalsIgnoreCase("autojoin")) {
-			plugin.getJoinMenu().autoJoin(player);
+			String arenatype = "";
+			if (args.length >= 2) {
+				if (!args[1].equalsIgnoreCase("pvp") && !args[1].equalsIgnoreCase("nopvp")) {
+					Messages.sendMessage(player, Messages.trprefix + "&c Invalid argument supplied");
+					return true;
+				}
+				arenatype = args[1];
+			}
+			plugin.getJoinMenu().autoJoin(player, arenatype);
 		}
 
 		// tntrun_reloaded info

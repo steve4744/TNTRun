@@ -18,6 +18,8 @@
 package tntrun.utils;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.TreeMap;
 import org.bukkit.Bukkit;
@@ -116,13 +118,13 @@ public class JoinMenu {
 		return Material.getMaterial(item) != null ? Material.getMaterial(item) : Material.TNT;
 	}
 
-	public void autoJoin(Player player) {
+	public void autoJoin(Player player, String type) {
 		if (plugin.amanager.getPlayerArena(player.getName()) != null) {
 			Messages.sendMessage(player, Messages.trprefix + Messages.arenajoined);
 			return;
 		}
 
-		Arena autoArena = getAutoArena(player);
+		Arena autoArena = getAutoArena(player, type);
 		if (autoArena == null) {
 			Messages.sendMessage(player, Messages.trprefix + Messages.noarenas);
 			return;
@@ -136,10 +138,23 @@ public class JoinMenu {
 	 * @param player
 	 * @return arena
 	 */
-	private Arena getAutoArena(Player player) {
+	private Arena getAutoArena(Player player, String type) {
+		Collection<Arena> arenas = new HashSet<>();
 		Arena autoarena = null;
 		int playercount = -1;
-		for (Arena arena : plugin.amanager.getArenas()) {
+
+		switch (type) {
+			case "pvp":
+				arenas = plugin.amanager.getPvpArenas();
+				break;
+			case "nopvp":
+				arenas = plugin.amanager.getNonPvpArenas();
+				break;
+			default:
+				arenas = plugin.amanager.getArenas();
+		}
+
+		for (Arena arena : arenas) {
 			if (arena.getPlayerHandler().checkJoin(player, true)) {
 				if (arena.getPlayersManager().getPlayersCount() > playercount) {
 					autoarena = arena;
