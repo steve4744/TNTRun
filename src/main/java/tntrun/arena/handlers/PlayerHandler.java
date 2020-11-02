@@ -274,15 +274,13 @@ public class PlayerHandler {
 					oplayer.showPlayer(plugin, player);
 				}
 			}
+		} else if(arena.getStatusManager().isArenaRunning()) {
+			arena.getGameHandler().lostPlayers++;
 		}
 		// disable flight for winner as well as spectators
 		player.setAllowFlight(false);
 		player.setFlying(false);
-		// check if arena is running
-		if(arena.getStatusManager().isArenaRunning()){
-			// add to lostPlayers
-			arena.getGameHandler().lostPlayers++;
-		}
+
 		// remove scoreboard
 		removeScoreboard(player);
 		// remove player from arena and restore his state

@@ -59,6 +59,7 @@ public class Messages {
 	public static String playervotedforstart = "&7[&6TNTRun&7] You voted for game start";
 	public static String playeralreadyvotedforstart = "&7[&6TNTRun&7] You already voted";
 	public static String arenastarted = "&7[&6TNTRun&7] Arena started. Time limit is {TIMELIMIT} seconds";
+	public static String arenanolimit = "&7[&6TNTRun&7] Arena started. No time limit";
 	public static String arenacountdown = "&7[&6TNTRun&7] Arena starts in {COUNTDOWN} seconds";
 	public static String arenatimeout = "&7[&6TNTRun&7] Time is up. Ending game";
 	public static String playerwontoplayer = "&7[&6TNTRun&7] You won the game!";
@@ -160,6 +161,7 @@ public class Messages {
 		playervotedforstart = config.getString("playervotedforstart", playervotedforstart);
 		playeralreadyvotedforstart = config.getString("playeralreadyvotedforstart", playeralreadyvotedforstart);
 		arenastarted = config.getString("arenastarted", arenastarted);
+		arenanolimit = config.getString("arenanolimit", arenanolimit);
 		arenacountdown = config.getString("arenacountdown", arenacountdown);
 		arenatimeout = config.getString("arenatimeout", arenatimeout);
 		playerwontoplayer = config.getString("playerwontoplayer", playerwontoplayer);
@@ -247,6 +249,7 @@ public class Messages {
 		config.set("playervotedforstart", playervotedforstart);
 		config.set("playeralreadyvotedforstart", playeralreadyvotedforstart);
 		config.set("arenastarted", arenastarted);
+		config.set("arenanolimit", arenanolimit);
 		config.set("arenacountdown", arenacountdown);
 		config.set("arenatimeout", arenatimeout);
 		config.set("playerwontoplayer", playerwontoplayer);

@@ -46,7 +46,11 @@ public class Bars {
 			}
 			if (Bukkit.getPluginManager().getPlugin("BarAPI") != null) {
 				if (!message.equals("")) {
-					BarAPI.setMessage(player, message, percent);
+					if (percent != 2.0) {
+						BarAPI.setMessage(player, message, percent);
+					} else {
+						BarAPI.setMessage(player, message);
+					}
 				}
 			}
 		} catch (Throwable t) {

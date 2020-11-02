@@ -179,9 +179,10 @@ public class GameHandler {
 	}
 
 	// main arena handler
-	private int timelimit;
+	private int timeremaining;
 	private int arenahandler;
 	private int playingtask;
+	private boolean hasTimeLimit;
 
 	Random rnd = new Random();
 	public void startArena() {
@@ -190,8 +191,16 @@ public class GameHandler {
 			plugin.getLogger().info("Arena " + arena.getArenaName() + " started");
 			plugin.getLogger().info("Players in arena: " + arena.getPlayersManager().getPlayersCount());
 		}
-		String message = Messages.arenastarted;
-		message = message.replace("{TIMELIMIT}", String.valueOf(arena.getStructureManager().getTimeLimit()));
+		String message = "";
+		int limit = arena.getStructureManager().getTimeLimit();
+		if (limit != 0) {
+			hasTimeLimit = true;
+			message = Messages.arenastarted.replace("{TIMELIMIT}", String.valueOf(limit));
+		} else {
+			hasTimeLimit = false;
+			message = Messages.arenanolimit;
+		}
+
 		for (Player player : arena.getPlayersManager().getPlayers()) {
 			player.closeInventory();
 			//Stats.addPlayedGames(player, 1);
@@ -231,7 +240,7 @@ public class GameHandler {
 		}
 		resetScoreboard();
 		createPlayingScoreBoard();
-		timelimit = arena.getStructureManager().getTimeLimit() * 20; // timelimit is in ticks
+		timeremaining = limit * 20;
 		arenahandler = Bukkit.getScheduler().scheduleSyncRepeatingTask(
 			plugin,
 			new Runnable() {
@@ -247,27 +256,32 @@ public class GameHandler {
 						return;
 					}
 					// kick all players if time is out
-					if (timelimit < 0) {
+					if (hasTimeLimit && timeremaining < 0) {
 						for (Player player : arena.getPlayersManager().getPlayersCopy()) {
 							arena.getPlayerHandler().leavePlayer(player,Messages.arenatimeout, "");
 						}
 						return;
 					}
 					// handle players
+					float percent = 2.0f;
+					int seconds = 0;
+					if (hasTimeLimit) {
+						percent = timeremaining * 5 / limit;
+						seconds = (int) Math.ceil((double)timeremaining / 20);
+					}
 					for (Player player : arena.getPlayersManager().getPlayersCopy()) {
 						// Xp level
-						player.setLevel(timelimit/20);
+						player.setLevel(seconds);
 						// update bar
-						Bars.setBar(player, Bars.playing, arena.getPlayersManager().getPlayersCount(), timelimit / 20, timelimit * 5 / arena.getStructureManager().getTimeLimit(), plugin);
+						Bars.setBar(player, Bars.playing, arena.getPlayersManager().getPlayersCount(), seconds, percent, plugin);
 						// handle player
 						handlePlayer(player);
 					}
 					// update bars for spectators too
 					for (Player player : arena.getPlayersManager().getSpectators()) {
-						Bars.setBar(player, Bars.playing, arena.getPlayersManager().getPlayersCount(), timelimit / 20, timelimit * 5 / arena.getStructureManager().getTimeLimit(), plugin);
+						Bars.setBar(player, Bars.playing, arena.getPlayersManager().getPlayersCount(), seconds, percent, plugin);
 					}
-					// decrease timelimit
-					timelimit--;
+					timeremaining--;
 				}
 			},
 			0, 1
@@ -385,7 +399,7 @@ public class GameHandler {
 					s = s.replace("{PS}", arena.getPlayersManager().getAllParticipantsCopy().size() + "");		
 					s = s.replace("{MPS}", arena.getStructureManager().getMaxPlayers() + "");
 					s = s.replace("{LOST}", lostPlayers + "");
-					s = s.replace("{LIMIT}", timelimit/20 + "");
+					s = s.replace("{LIMIT}", timeremaining/20 + "");
 					o.getScore(s).setScore(size);
 					size--;
 				}
