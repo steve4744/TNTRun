@@ -1,4 +1,4 @@
-package tntrun.commands.setup.language;
+package tntrun.commands.setup.other;
 
 import org.bukkit.entity.Player;
 

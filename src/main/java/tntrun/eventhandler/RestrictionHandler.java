@@ -68,7 +68,7 @@ public class RestrictionHandler implements Listener {
 		if (player.hasPermission("tntrun.cmdblockbypass")) {
 			return;
 		}
-		if (!allowedcommands.contains(e.getMessage().toLowerCase())) {
+		if (!allowedcommands.contains(e.getMessage().toLowerCase()) && !plugin.getConfig().getStringList("commandwhitelist").contains(e.getMessage().toLowerCase())) {
 			Messages.sendMessage(player, Messages.trprefix + Messages.nopermission);
 			e.setCancelled(true);
 		}
