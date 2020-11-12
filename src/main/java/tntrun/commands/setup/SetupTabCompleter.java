@@ -32,6 +32,18 @@ import tntrun.arena.Arena;
 
 public class SetupTabCompleter implements TabCompleter {
 
+	private static final List<String> COMMANDS = Arrays.asList("help", "create", "setlobby", "reloadbars", "reloadtitles", "reloadmsg",
+			"reloadconfig", "setbarcolor", "addkit", "deletekit", "deletelobby", "setp1", "setp2", "clear", "addtowhitelist", "setlanguage");
+
+	private static final List<String> ARENA_COMMANDS = Arrays.asList("setarena", "setloselevel", "setspawn", "addspawn", "setspectate", "finish",
+			"deletespectate", "deletespawnpoints", "setgameleveldestroydelay", "setregenerationdelay", "setmaxplayers", "setminplayers", "setvotepercent",
+			"settimelimit", "setcountdown", "setmoneyreward", "setteleport", "enable", "disable", "setreward", "enablekits", "disablekits",
+			"delete", "setdamage", "setfee", "setcurrency");
+
+	private static final List<String> TELEPORT_COMMANDS = Arrays.asList("lobby", "previous");
+
+	private static final List<String> DAMAGE_COMMANDS = Arrays.asList("yes", "no", "zero");
+
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args) {
 		if (!(sender instanceof Player)) {
@@ -44,75 +56,33 @@ public class SetupTabCompleter implements TabCompleter {
 
 		List<String> list = new ArrayList<>();
 		List<String> auto = new ArrayList<>();
-		List<String> arenacommands = new ArrayList<>();
-
-		arenacommands.add("setarena");
-		arenacommands.add("setloselevel");
-		arenacommands.add("setspawn");
-		arenacommands.add("addspawn");
-		arenacommands.add("setspectate");
-		arenacommands.add("finish");
-		arenacommands.add("deletespectate");
-		arenacommands.add("deletespawnpoints");
-		arenacommands.add("setgameleveldestroydelay");
-		arenacommands.add("setregenerationdelay");
-		arenacommands.add("setmaxplayers");
-		arenacommands.add("setminplayers");
-		arenacommands.add("setvotepercent");
-		arenacommands.add("settimelimit");
-		arenacommands.add("setcountdown");
-		arenacommands.add("setmoneyreward");
-		arenacommands.add("setteleport");
-		arenacommands.add("enable");
-		arenacommands.add("disable");
-		arenacommands.add("delete");
-		arenacommands.add("setreward");
-		arenacommands.add("enablekits");
-		arenacommands.add("disablekits");
-		arenacommands.add("setdamage");
-		arenacommands.add("setfee");
-		arenacommands.add("setcurrency");
 
 		if (args.length == 1) {
-			list.add("help");
-			list.add("create");  //because it doesn't take an existing arena name
-			list.add("setlobby");
-			list.add("reloadbars");
-			list.add("reloadtitles");
-			list.add("reloadmsg");
-			list.add("reloadconfig");
-			list.add("setbarcolor");
-			list.add("addkit");
-			list.add("deletekit");
-			list.add("deletelobby");
-			list.add("setp1");
-			list.add("setp2");
-			list.add("clear");
-
-			list.addAll(arenacommands);
+			list.addAll(COMMANDS);
+			list.addAll(ARENA_COMMANDS);
 
 		} else if (args.length == 2) {
-			if (arenacommands.contains(args[0])) {
+			if (ARENA_COMMANDS.contains(args[0])) {
 				for (Arena arena : TNTRun.getInstance().amanager.getArenas()) {
 					list.add(arena.getArenaName());
 				}
+
 			} else if (args[0].equalsIgnoreCase("setbarcolor") || args[0].equalsIgnoreCase("setbarcolour")) {
 				for (BarColor color : Arrays.asList(BarColor.class.getEnumConstants())) {
 					list.add(color.toString());
 				}
 				list.add("RANDOM");
+
 			} else if (args[0].equalsIgnoreCase("deletekit")) {
 				list.addAll(TNTRun.getInstance().getKitManager().getKits());
 			}
 
 		} else if (args.length == 3) {
 			if (args[0].equalsIgnoreCase("setteleport")) {
-				list.add("lobby");
-				list.add("previous");
+				list.addAll(TELEPORT_COMMANDS);
+
 			} else if (args[0].equalsIgnoreCase("setdamage")) {
-				list.add("yes");
-				list.add("no");
-				list.add("zero");
+				list.addAll(DAMAGE_COMMANDS);
 			}
 		}
 		for (String s : list) {
