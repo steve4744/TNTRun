@@ -120,14 +120,15 @@ public class GameCommands implements CommandExecutor {
 			}
 			int arenacount = plugin.amanager.getArenas().size();
 			Messages.sendMessage(player, Messages.trprefix + Messages.availablearenas.replace("{COUNT}", String.valueOf(arenacount)));
+			if (arenacount == 0) {
+				return false;
+			}
 			StringJoiner message = new StringJoiner(" : ");
-			if (arenacount != 0) {
-				for (Arena arena : plugin.amanager.getArenas()) {
-					if (arena.getStatusManager().isArenaEnabled()) {
-						message.add("&a" + arena.getArenaName());
-					} else {
-						message.add("&c" + arena.getArenaName() + "&a");
-					}
+			for (Arena arena : plugin.amanager.getArenas()) {
+				if (arena.getStatusManager().isArenaEnabled()) {
+					message.add("&a" + arena.getArenaName());
+				} else {
+					message.add("&c" + arena.getArenaName() + "&a");
 				}
 			}
 			Messages.sendMessage(player, message.toString());
@@ -309,11 +310,13 @@ public class GameCommands implements CommandExecutor {
 			}
 			int kitcount = plugin.getKitManager().getKits().size();
 			Messages.sendMessage(player, Messages.trprefix + Messages.availablekits.replace("{COUNT}", String.valueOf(kitcount)));
+			if (kitcount == 0) {
+				return false;
+			}
 			StringJoiner message = new StringJoiner(" : ");
-			if (kitcount != 0) {
-				for (String kit : plugin.getKitManager().getKits()) {
-					message.add("&a" + kit);
-				}
+
+			for (String kit : plugin.getKitManager().getKits()) {
+				message.add("&a" + kit);
 			}
 			Messages.sendMessage(player, message.toString());
 		}

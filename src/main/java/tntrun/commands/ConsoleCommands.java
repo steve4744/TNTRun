@@ -98,14 +98,15 @@ public class ConsoleCommands implements CommandExecutor {
 		else if (args[0].equalsIgnoreCase("list")) {
 			int arenacount = plugin.amanager.getArenas().size();
 			Messages.sendMessage(sender, Messages.trprefix + Messages.availablearenas.replace("{COUNT}", String.valueOf(arenacount)));
+			if (arenacount == 0) {
+				return true;
+			}
 			StringJoiner message = new StringJoiner(" : ");
-			if (arenacount != 0) {
-				for (Arena arena : plugin.amanager.getArenas()) {
-					if (arena.getStatusManager().isArenaEnabled()) {
-						message.add("&a" + arena.getArenaName());
-					} else {
-						message.add("&c" + arena.getArenaName() + "&a");
-					}
+			for (Arena arena : plugin.amanager.getArenas()) {
+				if (arena.getStatusManager().isArenaEnabled()) {
+					message.add("&a" + arena.getArenaName());
+				} else {
+					message.add("&c" + arena.getArenaName() + "&a");
 				}
 			}
 			Messages.sendMessage(sender, message.toString());
