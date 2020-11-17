@@ -40,12 +40,12 @@ public class Messages {
 	public static String lobbyunloaded = "&c Lobby world is unloaded or doesn't exist";
 	public static String teleporttolobby = "&7 Teleported to lobby";
 
-	public static String availablearenas = "&7 Available arenas:&r ";
+	public static String availablearenas = "&7 Available arenas: {COUNT}";
 	public static String arenanotexist = "&c Arena &6{ARENA}&c doesn't exist";
 	public static String noarenas = "&c There are no arenas available to join";
 	public static String arenanotdisabled = "&c Please disable arena: &6/trsetup disable {ARENA}";
 	public static String arenanospectatorspawn = "&c No spectator spawn set for arena &6{ARENA}";
-	public static String availablekits = "&7 Available kits:&r ";
+	public static String availablekits = "&7 Available kits: {COUNT}";
 	public static String arenawolrdna = "&7 Arena world is not loaded";
 	public static String arenanobounds = "&7 Arena bounds not set";
 	public static String arenadisabled = "&7 Arena is disabled";
