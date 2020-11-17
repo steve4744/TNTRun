@@ -75,6 +75,9 @@ public class SetupTabCompleter implements TabCompleter {
 
 			} else if (args[0].equalsIgnoreCase("deletekit")) {
 				list.addAll(TNTRun.getInstance().getKitManager().getKits());
+
+			} else if (args[0].equalsIgnoreCase("setlanguage")) {
+				list.addAll(TNTRun.getInstance().getLanguage().getTranslatedLanguages());
 			}
 
 		} else if (args.length == 3) {
