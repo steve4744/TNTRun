@@ -83,6 +83,10 @@ public class Messages {
 	public static String playersecondplace = "&a2nd place: &f{RANK}";
 	public static String playerthirdplace = "&a3rd place: &f{RANK}";
 	public static String playerrewardmessage = "&7 You have been rewarded: &6{REWARD}";
+	public static String playerrewardmaterial = "&6 Material :  &f";
+	public static String playerrewardcommand = "&6 Command : &f";
+	public static String playerrewardmoney = "&6 Money :    &f";
+	public static String playerrewardxp = "&6 XP :      &l  &f";
 	public static String playerboughtitem = "&7 You have bought item &6{ITEM} &7for &6{MONEY} &7coins";
 	public static String playerboughtwait = "&7 You will get your items when the game starts";
 	public static String notenoughtmoney = "&c You need {MONEY} coins to buy this item";
@@ -235,6 +239,10 @@ public class Messages {
 		playersecondplace = config.getString("playersecondplace", playersecondplace);
 		playerthirdplace = config.getString("playerthirdplace", playerthirdplace);
 		playerrewardmessage = config.getString("playerrewardmessage", playerrewardmessage);
+		playerrewardmaterial = config.getString("playerrewardmaterial", playerrewardmaterial);
+		playerrewardcommand = config.getString("playerrewardcommand", playerrewardcommand);
+		playerrewardmoney = config.getString("playerrewardmoney", playerrewardmoney);
+		playerrewardxp = config.getString("playerrewardxp", playerrewardxp);
 		playerboughtitem = config.getString("playerboughtitem", playerboughtitem);
 		playerboughtwait = config.getString("playerboughtwait", playerboughtwait);
 		playerkit = config.getString("playerkit", playerkit);
@@ -368,6 +376,10 @@ public class Messages {
 		config.set("playersecondplace", playersecondplace);
 		config.set("playerthirdplace", playerthirdplace);
 		config.set("playerrewardmessage", playerrewardmessage);
+		config.set("playerrewardmaterial", playerrewardmaterial);
+		config.set("playerrewardcommand", playerrewardcommand);
+		config.set("playerrewardmoney", playerrewardmoney);
+		config.set("playerrewardxp", playerrewardxp);
 		config.set("playerboughtitem", playerboughtitem);
 		config.set("playerboughtwait", playerboughtwait);
 		config.set("playerkit", playerkit);

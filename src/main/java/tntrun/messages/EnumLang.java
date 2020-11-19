@@ -6,7 +6,7 @@ public enum EnumLang {
 	Czech("cs", false),
 	Danish("da", false),
 	Dutch("nl", false),
-	Spanish("es", true),
+	Spanish("es", false),
 	Spanish_Spain("es-ES", false),
 	English("en-GB", true),
 	English_US("en-US", false);

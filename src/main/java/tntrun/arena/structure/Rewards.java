@@ -219,23 +219,23 @@ public class Rewards {
 
 	public void listRewards(Player player, String arenaName) {
 		List<String> places = Arrays.asList(Messages.playerfirstplace, Messages.playersecondplace, Messages.playerthirdplace);
-		String pad = ChatColor.BOLD + "  ";
 		Messages.sendMessage(player, Messages.rewardshead.replace("{ARENA}", arenaName));
+
 		IntStream.range(1, 4).forEach(i -> {
 			StringBuilder sb = new StringBuilder(200);
 			if (getXPReward(i) != 0) {
-				sb.append("\n   " + ChatColor.GOLD + "XP :      " + pad + ChatColor.WHITE + getXPReward(i));
+				sb.append("\n   " + Messages.playerrewardxp + getXPReward(i));
 			}
 			if (getMoneyReward(i) != 0) {
-				sb.append("\n   " + ChatColor.GOLD + "Money :    " + ChatColor.WHITE + getMoneyReward(i));
+				sb.append("\n   " + Messages.playerrewardmoney + getMoneyReward(i));
 			}
 			if (getCommandReward(i) != null) {
-				sb.append("\n   " + ChatColor.GOLD + "Command : " + ChatColor.WHITE + getCommandReward(i));
+				sb.append("\n   " + Messages.playerrewardcommand + getCommandReward(i));
 			}
 			if (getMaterialReward(i) != null) {
-				sb.append("\n   " + ChatColor.GOLD + "Material :  ");
+				sb.append("\n   " + Messages.playerrewardmaterial);
 				getMaterialReward(i).forEach(reward -> {
-					sb.append(ChatColor.WHITE.toString() + reward.getAmount() + ChatColor.GRAY + " x " + ChatColor.WHITE + reward.getType().toString() + ", ");
+					sb.append(String.valueOf(reward.getAmount()) + " x " + reward.getType().toString() + ", ");
 				});
 				sb.setLength(sb.length() - 2);
 			}
