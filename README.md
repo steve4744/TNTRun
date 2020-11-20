@@ -21,7 +21,7 @@ Optionally, a fee can be set to join each arena, which can be monetary or any mi
 
 If your server is running Minecraft 1.13 or later, then the latest version of TNTRun\_reloaded can be [downloaded from Spigot.](https://www.spigotmc.org/resources/tntrun_reloaded.53359/ "TNTRun_reloaded")
 
-For Minecraft versions from 1.8 through to 1.12.2, the legacy version of TNTRun\_reloaded (version 6.8.6) can be downloaded from the GitHub Releases tab above. It can be [downloaded here.](https://github.com/steve4744/TNTRun/releases/download/v6.8.6/TNTRun_reloaded_6.8.6.jar "v6.8.6")
+For Minecraft versions from 1.8 through to 1.12.2, the legacy version of TNTRun\_reloaded (version 6.8.6) can be downloaded from the GitHub Releases tab above. It can be [downloaded here.](https://github.com/steve4744/TNTRun/releases/download/v6.8.6/TNTRun_reloaded-6.8.6.jar "v6.8.6")
 
 
 ## Features
@@ -84,7 +84,7 @@ FAWE is also supported, and can be used in place of the WorldEdit on 1.13+ serve
 
 For legacy Minecraft 1.12.2 and below:
 
-    TNTRun_reloaded 6.8.5
+    TNTRun_reloaded 6.8.6
     WorldEdit 6
     Vault (optional)
 
