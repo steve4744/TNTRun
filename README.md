@@ -2,11 +2,13 @@
 
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
 [![Discord Chat](https://img.shields.io/discord/308323056592486420.svg)](https://discord.gg/wFYSAS4)
+[![bStats](https://img.shields.io/badge/statistics-bstats-brightgreen.svg)](https://bstats.org/plugin/bukkit/TNTRun_reloaded)
 [![PayPal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/paypalme/steve4744)
+[![gitlocalized ](https://gitlocalize.com/repo/5420/whole_project/badge.svg)](https://gitlocalize.com/repo/5420/whole_project?utm_source=badge)
 
 TNTRun is a highly configurable, fully automated minigame for Minecraft servers. Traditionally players start on a layer of sand supported by TNT blocks, although any combination of blocks can be used, and every block that they step on disappears. If a player falls through a hole, he/she will continue to run on the layer below. Once a player falls through the final layer he/she loses the game and becomes a spectator for the remainder of the game. The last player remaining wins the game.
 
-This fork was created in 2016 from the unsupported TNTRun by Shevchik for Minecraft v1.10, and has been improved and updated as new versions of Minecraft have been released. The latest version of TNTRun_reloaded supports all Minecraft versions from 1.13 to 1.16.3, while the legacy version is supported for servers running Minecraft versions from 1.8 through to 1.12.2. 
+This fork was created in 2016 from the unsupported TNTRun by Shevchik for Minecraft v1.10, and has been improved and updated as new versions of Minecraft have been released. The latest version of TNTRun_reloaded supports all Minecraft versions from 1.13 to 1.16.4, while the legacy version is supported for servers running Minecraft versions from 1.8 through to 1.12.2. 
 
 The following description and features apply to the latest release. Many of the features will not be present in the legacy version which is maintained and supported on an 'as is' basis, and will only be updated if a bug is reported or an existing feature breaks.
 
@@ -37,6 +39,7 @@ Note that there is a legacy bug fix release (version 6.8.5) only available from 
     Arena selection GUI
     Configurable anti-camping system
     Custom messages
+    Command whitelist
     Formatting codes support
     Full tab completion based on permissions
     Signs
@@ -54,7 +57,7 @@ Note that there is a legacy bug fix release (version 6.8.5) only available from 
     Kits - can be enabled per arena
     Heads - interfaces with HeadsPlus plugin by Thatsmusic99
     PVP can be enabled/disabled per arena
-    Player rewards
+    Configurable player rewards for 1st, 2nd and 3rd places
     Built-in placeholder support
     mcMMO support - allow players in same mcMMO party to PVP if enabled in arena
     MySQL support
@@ -91,4 +94,4 @@ For legacy Minecraft 1.12.2 and below:
 <br />
 <br />
 <br />
-Updated steve4744 - 22nd October 2020
+Updated steve4744 - 20th November 2020
