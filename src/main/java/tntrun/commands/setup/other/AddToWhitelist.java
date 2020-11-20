@@ -15,46 +15,43 @@
  *
  */
 
-package tntrun.commands.setup.arena;
+package tntrun.commands.setup.other;
+
+import java.util.List;
 
 import org.bukkit.entity.Player;
 
 import tntrun.TNTRun;
-import tntrun.arena.Arena;
 import tntrun.commands.setup.CommandHandlerInterface;
 import tntrun.messages.Messages;
-import tntrun.utils.Utils;
 
-public class SetMoneyRewards implements CommandHandlerInterface {
+public class AddToWhitelist implements CommandHandlerInterface {
 
 	private TNTRun plugin;
-	public SetMoneyRewards(TNTRun plugin) {
+
+	public AddToWhitelist(TNTRun plugin) {
 		this.plugin = plugin;
 	}
 
 	@Override
 	public boolean handleCommand(Player player, String[] args) {
-		Arena arena = plugin.amanager.getArenaByName(args[0]);
-		if (arena != null) {
-			if (arena.getStatusManager().isArenaEnabled()) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotdisabled.replace("{ARENA}", args[0]));
-				return true;
-			}
-			if (Utils.isNumber(args[1])) {
-				arena.getStructureManager().getRewards().setMoneyReward(Integer.parseInt(args[1]), 1);
-				Messages.sendMessage(player, Messages.trprefix + "&7 Arena &6" + args[0] + "&7 Money reward set to &6" + Utils.getFormattedCurrency(args[1]));
-
-			} else {
-				Messages.sendMessage(player, Messages.trprefix + "&c The reward amount must be an integer");
-			}
-		} else {
-			Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[0]));
+		List<String> whitelist = plugin.getConfig().getStringList("commandwhitelist");
+		String cmd = String.join(" ", args);
+		if (whitelist.contains(cmd)) {
+			Messages.sendMessage(player, Messages.trprefix + "&7 Command is already whitelisted: &6" + cmd);
+			return true;
 		}
+		whitelist.add(cmd);
+		plugin.getConfig().set("commandwhitelist", whitelist);
+		plugin.saveConfig();
+
+		Messages.sendMessage(player, Messages.trprefix + "&7 Command added to whitelist: &6" + cmd);
 		return true;
 	}
 
 	@Override
 	public int getMinArgsLength() {
-		return 2;
+		return 1;
 	}
+
 }

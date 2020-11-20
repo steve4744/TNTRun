@@ -19,7 +19,6 @@ package tntrun.messages;
 
 import java.io.File;
 import java.io.IOException;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -41,12 +40,12 @@ public class Messages {
 	public static String lobbyunloaded = "&c Lobby world is unloaded or doesn't exist";
 	public static String teleporttolobby = "&7 Teleported to lobby";
 
-	public static String availablearenas = "&7 Available arenas:&r ";
+	public static String availablearenas = "&7 Available arenas: {COUNT}";
 	public static String arenanotexist = "&c Arena &6{ARENA}&c doesn't exist";
 	public static String noarenas = "&c There are no arenas available to join";
 	public static String arenanotdisabled = "&c Please disable arena: &6/trsetup disable {ARENA}";
 	public static String arenanospectatorspawn = "&c No spectator spawn set for arena &6{ARENA}";
-	public static String availablekits = "&7 Available kits:&r ";
+	public static String availablekits = "&7 Available kits: {COUNT}";
 	public static String arenawolrdna = "&7 Arena world is not loaded";
 	public static String arenanobounds = "&7 Arena bounds not set";
 	public static String arenadisabled = "&7 Arena is disabled";
@@ -84,9 +83,13 @@ public class Messages {
 	public static String playersecondplace = "&a2nd place: &f{RANK}";
 	public static String playerthirdplace = "&a3rd place: &f{RANK}";
 	public static String playerrewardmessage = "&7 You have been rewarded: &6{REWARD}";
-	public static String playerboughtitem = "&7 You have bought item &6{ITEM} &7for &6{MONEY} &7coins";
+	public static String playerrewardmaterial = "&6 Material :  &f";
+	public static String playerrewardcommand = "&6 Command : &f";
+	public static String playerrewardmoney = "&6 Money :    &f";
+	public static String playerrewardxp = "&6 XP :      &l  &f";
+	public static String playerboughtitem = "&7 You have bought item &6{ITEM} &7for &6{MONEY}";
 	public static String playerboughtwait = "&7 You will get your items when the game starts";
-	public static String notenoughtmoney = "&c You need {MONEY} coins to buy this item";
+	public static String notenoughmoney = "&c You need {MONEY} to buy this item";
 	public static String alreadyboughtitem = "&c You have already bought a shop item";
 	public static String shopnostock = "&c This item is currently out of stock";
 	public static String maxdoublejumpsexceeded = "&c You cannot exceed the maximum doublejumps allowed ({MAXJUMPS})";
@@ -108,7 +111,7 @@ public class Messages {
 	public static String leaderboard = "{POSITION}) &b{PLAYER} &f: Wins &3{WINS}";
 	public static String leadersign = "&1{PLAYER} &4{WINS}";
 	public static String shopmoneyheader = "&fTNTRun Shop Account";
-	public static String shopmoneybalance = "&5Your balance is &6{BAL} &5coins";
+	public static String shopmoneybalance = "&5Your balance is &6{BAL}";
 
 	public static String helplobby = "Teleport to lobby";
 	public static String helplist = "List all arenas OR List arena details";
@@ -181,7 +184,9 @@ public class Messages {
 
 	public static void loadMessages(TNTRun plugin) {
 		File messageconfig = new File(plugin.getDataFolder(), "messages.yml");
+		plugin.getLanguage().updateLangFile(messageconfig);
 		FileConfiguration config = YamlConfiguration.loadConfiguration(messageconfig);
+
 		trprefix = config.getString("trprefix", trprefix);
 		menutitle = config.getString("menutitle", menutitle);
 		menuarenaname = config.getString("menuarenaname", menuarenaname);
@@ -234,10 +239,14 @@ public class Messages {
 		playersecondplace = config.getString("playersecondplace", playersecondplace);
 		playerthirdplace = config.getString("playerthirdplace", playerthirdplace);
 		playerrewardmessage = config.getString("playerrewardmessage", playerrewardmessage);
+		playerrewardmaterial = config.getString("playerrewardmaterial", playerrewardmaterial);
+		playerrewardcommand = config.getString("playerrewardcommand", playerrewardcommand);
+		playerrewardmoney = config.getString("playerrewardmoney", playerrewardmoney);
+		playerrewardxp = config.getString("playerrewardxp", playerrewardxp);
 		playerboughtitem = config.getString("playerboughtitem", playerboughtitem);
 		playerboughtwait = config.getString("playerboughtwait", playerboughtwait);
 		playerkit = config.getString("playerkit", playerkit);
-		notenoughtmoney = config.getString("notenoughtmoney", notenoughtmoney);
+		notenoughmoney = config.getString("notenoughmoney", notenoughmoney);
 		alreadyboughtitem = config.getString("alreadyboughtitem", alreadyboughtitem);
 		shopnostock = config.getString("shopnostock", shopnostock);
 		maxdoublejumpsexceeded = config.getString("maxdoublejumpsexceeded", maxdoublejumpsexceeded);
@@ -367,11 +376,15 @@ public class Messages {
 		config.set("playersecondplace", playersecondplace);
 		config.set("playerthirdplace", playerthirdplace);
 		config.set("playerrewardmessage", playerrewardmessage);
+		config.set("playerrewardmaterial", playerrewardmaterial);
+		config.set("playerrewardcommand", playerrewardcommand);
+		config.set("playerrewardmoney", playerrewardmoney);
+		config.set("playerrewardxp", playerrewardxp);
 		config.set("playerboughtitem", playerboughtitem);
 		config.set("playerboughtwait", playerboughtwait);
 		config.set("playerkit", playerkit);
 		config.set("playersrequiredtostart", playersrequiredtostart);
-		config.set("notenoughtmoney", notenoughtmoney);
+		config.set("notenoughmoney", notenoughmoney);
 		config.set("alreadyboughtitem", alreadyboughtitem);
 		config.set("shopnostock", shopnostock);
 		config.set("maxdoublejumpsexceeded", maxdoublejumpsexceeded);

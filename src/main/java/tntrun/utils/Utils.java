@@ -173,4 +173,7 @@ public class Utils {
 		return TNTRun.getInstance().getConfig().getBoolean("debug", false);
 	}
 
+	public static String getFormattedCurrency(String amount) {
+		return TNTRun.getInstance().getConfig().getString("currency.prefix") + amount + TNTRun.getInstance().getConfig().getString("currency.suffix");
+	}
 }

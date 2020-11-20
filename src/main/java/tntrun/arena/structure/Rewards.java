@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.StringJoiner;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -116,7 +117,7 @@ public class Rewards {
 		if (!isActiveReward(place)) {
 			return;
 		}
-		StringBuilder stringbuilder = new StringBuilder(32);
+		StringJoiner rewardmessage = new StringJoiner(", ");
 		final ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 
 		if (getMaterialReward(place) != null) {
@@ -125,9 +126,9 @@ public class Rewards {
 					player.getInventory().addItem(reward);
 					player.updateInventory();
 				} else {
-					player.getWorld().dropItemNaturally(player.getLocation(),reward);
+					player.getWorld().dropItemNaturally(player.getLocation(), reward);
 				}
-				stringbuilder.append(reward.getAmount() + " x " + reward.getType().toString() + ", ");
+				rewardmessage.add(reward.getAmount() + " x " + reward.getType().toString());
 			});
 		}
 
@@ -135,13 +136,13 @@ public class Rewards {
 		if (moneyreward != 0) {
 			OfflinePlayer offplayer = player.getPlayer();
 			rewardMoney(offplayer, moneyreward);
-			stringbuilder.append(moneyreward + " coins, ");
+			rewardmessage.add(Utils.getFormattedCurrency(String.valueOf(moneyreward)));
 		}
 
 		int xpreward = getXPReward(place);
 		if (xpreward > 0) {
 			player.giveExp(xpreward);
-			stringbuilder.append(xpreward + " XP");
+			rewardmessage.add(xpreward + " XP");
 		}
 
 		String commandreward = getCommandReward(place);
@@ -149,15 +150,10 @@ public class Rewards {
 			Bukkit.getServer().dispatchCommand(console, commandreward.replace("%PLAYER%", player.getName()));
 			console.sendMessage("[TNTRun_reloaded] Command " + ChatColor.GOLD + commandreward + ChatColor.WHITE + " has been executed for " + ChatColor.AQUA + player.getName());
 		}
-		
-		String rewardmessage = stringbuilder.toString();
-		if (rewardmessage.endsWith(", ")) {
-			rewardmessage = rewardmessage.substring(0, rewardmessage.length() - 2);
-		}
-		if (!rewardmessage.isEmpty()) {
-			console.sendMessage("[TNTRun_reloaded] " + ChatColor.AQUA + player.getName() + ChatColor.WHITE + " has been rewarded " + ChatColor.GOLD + rewardmessage);
-			rewardmessage = Messages.playerrewardmessage.replace("{REWARD}", rewardmessage);
-			Messages.sendMessage(player, Messages.trprefix + rewardmessage);
+
+		if (!rewardmessage.toString().isEmpty()) {
+			console.sendMessage("[TNTRun_reloaded] " + ChatColor.AQUA + player.getName() + ChatColor.WHITE + " has been rewarded " + ChatColor.GOLD + rewardmessage.toString());
+			Messages.sendMessage(player, Messages.trprefix + Messages.playerrewardmessage.replace("{REWARD}", rewardmessage.toString()));
 		}
 	}
 
@@ -223,23 +219,23 @@ public class Rewards {
 
 	public void listRewards(Player player, String arenaName) {
 		List<String> places = Arrays.asList(Messages.playerfirstplace, Messages.playersecondplace, Messages.playerthirdplace);
-		String pad = ChatColor.BOLD + "  ";
 		Messages.sendMessage(player, Messages.rewardshead.replace("{ARENA}", arenaName));
+
 		IntStream.range(1, 4).forEach(i -> {
 			StringBuilder sb = new StringBuilder(200);
 			if (getXPReward(i) != 0) {
-				sb.append("\n   " + ChatColor.GOLD + "XP :      " + pad + ChatColor.WHITE + getXPReward(i));
+				sb.append("\n   " + Messages.playerrewardxp + getXPReward(i));
 			}
 			if (getMoneyReward(i) != 0) {
-				sb.append("\n   " + ChatColor.GOLD + "Money :    " + ChatColor.WHITE + getMoneyReward(i));
+				sb.append("\n   " + Messages.playerrewardmoney + getMoneyReward(i));
 			}
 			if (getCommandReward(i) != null) {
-				sb.append("\n   " + ChatColor.GOLD + "Command : " + ChatColor.WHITE + getCommandReward(i));
+				sb.append("\n   " + Messages.playerrewardcommand + getCommandReward(i));
 			}
 			if (getMaterialReward(i) != null) {
-				sb.append("\n   " + ChatColor.GOLD + "Material :  ");
+				sb.append("\n   " + Messages.playerrewardmaterial);
 				getMaterialReward(i).forEach(reward -> {
-					sb.append(ChatColor.WHITE.toString() + reward.getAmount() + ChatColor.GRAY + " x " + ChatColor.WHITE + reward.getType().toString() + ", ");
+					sb.append(String.valueOf(reward.getAmount()) + " x " + reward.getType().toString() + ", ");
 				});
 				sb.setLength(sb.length() - 2);
 			}

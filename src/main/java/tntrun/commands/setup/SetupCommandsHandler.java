@@ -59,6 +59,8 @@ import tntrun.commands.setup.kits.AddKit;
 import tntrun.commands.setup.kits.DeleteKit;
 import tntrun.commands.setup.lobby.DeleteLobby;
 import tntrun.commands.setup.lobby.SetLobby;
+import tntrun.commands.setup.other.AddToWhitelist;
+import tntrun.commands.setup.other.SetLanguage;
 import tntrun.commands.setup.reload.Migrate;
 import tntrun.commands.setup.reload.ReloadBars;
 import tntrun.commands.setup.reload.ReloadConfig;
@@ -117,6 +119,8 @@ public class SetupCommandsHandler implements CommandExecutor {
 		commandHandlers.put("setreward", new SetReward(plugin));
 		commandHandlers.put("setfee", new SetFee(plugin));
 		commandHandlers.put("setcurrency", new SetCurrency(plugin));
+		commandHandlers.put("setlanguage", new SetLanguage(plugin));
+		commandHandlers.put("addtowhitelist", new AddToWhitelist(plugin));
 		commandHandlers.put("migrate", new Migrate(plugin));
 		commandHandlers.put("help", new SetupHelp(plugin));
 	}

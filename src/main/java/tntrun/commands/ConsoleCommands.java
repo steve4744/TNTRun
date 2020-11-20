@@ -17,6 +17,8 @@
 
 package tntrun.commands;
 
+import java.util.StringJoiner;
+
 import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -94,17 +96,18 @@ public class ConsoleCommands implements CommandExecutor {
 		}
 		// list
 		else if (args[0].equalsIgnoreCase("list")) {
-			StringBuilder message = new StringBuilder(200);
-			message.append(Messages.trprefix + Messages.availablearenas);
-			if (plugin.amanager.getArenas().size() != 0) {
-				for (Arena arena : plugin.amanager.getArenas()) {
-					if (arena.getStatusManager().isArenaEnabled()) {
-						message.append("&a" + arena.getArenaName() + " ; ");
-					} else {
-						message.append("&c" + arena.getArenaName() + " ; ");
-					}
+			int arenacount = plugin.amanager.getArenas().size();
+			Messages.sendMessage(sender, Messages.trprefix + Messages.availablearenas.replace("{COUNT}", String.valueOf(arenacount)));
+			if (arenacount == 0) {
+				return true;
+			}
+			StringJoiner message = new StringJoiner(" : ");
+			for (Arena arena : plugin.amanager.getArenas()) {
+				if (arena.getStatusManager().isArenaEnabled()) {
+					message.add("&a" + arena.getArenaName());
+				} else {
+					message.add("&c" + arena.getArenaName() + "&a");
 				}
-				message.setLength(message.length() - 2);
 			}
 			Messages.sendMessage(sender, message.toString());
 			return true;

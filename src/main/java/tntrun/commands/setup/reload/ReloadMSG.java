@@ -33,6 +33,7 @@ public class ReloadMSG implements CommandHandlerInterface {
 
 	@Override
 	public boolean handleCommand(Player player, String[] args) {
+		plugin.reloadConfig();
 		Messages.loadMessages(plugin);
 		player.sendMessage("Messages reloaded");
 		return true;
