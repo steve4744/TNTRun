@@ -136,7 +136,7 @@ public class Rewards {
 		if (moneyreward != 0) {
 			OfflinePlayer offplayer = player.getPlayer();
 			rewardMoney(offplayer, moneyreward);
-			rewardmessage.add(moneyreward + " coins");
+			rewardmessage.add(Utils.getFormattedCurrency(String.valueOf(moneyreward)));
 		}
 
 		int xpreward = getXPReward(place);

@@ -87,9 +87,9 @@ public class Messages {
 	public static String playerrewardcommand = "&6 Command : &f";
 	public static String playerrewardmoney = "&6 Money :    &f";
 	public static String playerrewardxp = "&6 XP :      &l  &f";
-	public static String playerboughtitem = "&7 You have bought item &6{ITEM} &7for &6{MONEY} &7coins";
+	public static String playerboughtitem = "&7 You have bought item &6{ITEM} &7for &6{MONEY}";
 	public static String playerboughtwait = "&7 You will get your items when the game starts";
-	public static String notenoughtmoney = "&c You need {MONEY} coins to buy this item";
+	public static String notenoughmoney = "&c You need {MONEY} to buy this item";
 	public static String alreadyboughtitem = "&c You have already bought a shop item";
 	public static String shopnostock = "&c This item is currently out of stock";
 	public static String maxdoublejumpsexceeded = "&c You cannot exceed the maximum doublejumps allowed ({MAXJUMPS})";
@@ -111,7 +111,7 @@ public class Messages {
 	public static String leaderboard = "{POSITION}) &b{PLAYER} &f: Wins &3{WINS}";
 	public static String leadersign = "&1{PLAYER} &4{WINS}";
 	public static String shopmoneyheader = "&fTNTRun Shop Account";
-	public static String shopmoneybalance = "&5Your balance is &6{BAL} &5coins";
+	public static String shopmoneybalance = "&5Your balance is &6{BAL}";
 
 	public static String helplobby = "Teleport to lobby";
 	public static String helplist = "List all arenas OR List arena details";
@@ -246,7 +246,7 @@ public class Messages {
 		playerboughtitem = config.getString("playerboughtitem", playerboughtitem);
 		playerboughtwait = config.getString("playerboughtwait", playerboughtwait);
 		playerkit = config.getString("playerkit", playerkit);
-		notenoughtmoney = config.getString("notenoughtmoney", notenoughtmoney);
+		notenoughmoney = config.getString("notenoughmoney", notenoughmoney);
 		alreadyboughtitem = config.getString("alreadyboughtitem", alreadyboughtitem);
 		shopnostock = config.getString("shopnostock", shopnostock);
 		maxdoublejumpsexceeded = config.getString("maxdoublejumpsexceeded", maxdoublejumpsexceeded);
@@ -384,7 +384,7 @@ public class Messages {
 		config.set("playerboughtwait", playerboughtwait);
 		config.set("playerkit", playerkit);
 		config.set("playersrequiredtostart", playersrequiredtostart);
-		config.set("notenoughtmoney", notenoughtmoney);
+		config.set("notenoughmoney", notenoughmoney);
 		config.set("alreadyboughtitem", alreadyboughtitem);
 		config.set("shopnostock", shopnostock);
 		config.set("maxdoublejumpsexceeded", maxdoublejumpsexceeded);

@@ -145,7 +145,8 @@ public class Shop implements Listener {
 	private void logPurchase(Player player, String item, int cost) {
 		if (plugin.getConfig().getBoolean("shop.logpurchases")) {
 			final ConsoleCommandSender console = plugin.getServer().getConsoleSender();
-			console.sendMessage("[TNTRun_reloaded] " + ChatColor.AQUA + player.getName() + ChatColor.WHITE + " has bought a " + ChatColor.RED + item + ChatColor.WHITE + " for " + ChatColor.RED + cost + ChatColor.WHITE + " coins");
+			console.sendMessage("[TNTRun_reloaded] " + ChatColor.AQUA + player.getName() + ChatColor.WHITE + " has bought a " + ChatColor.RED + item +
+					ChatColor.WHITE + " for " + ChatColor.RED + Utils.getFormattedCurrency(String.valueOf(cost)));
 		}
 	}
 
@@ -267,14 +268,15 @@ public class Shop implements Listener {
 				int cost = cfg.getInt(kit + ".cost");
 
 				if (arena.getArenaEconomy().hasMoney(cost, p)) {
-					Messages.sendMessage(p, Messages.trprefix + Messages.playerboughtitem.replace("{ITEM}", title).replace("{MONEY}", cost + ""));
+					Messages.sendMessage(p, Messages.trprefix +
+							Messages.playerboughtitem.replace("{ITEM}", title).replace("{MONEY}", Utils.getFormattedCurrency(String.valueOf(cost))));
 					logPurchase(p, title, cost);
 					if (!doublejumpPurchase) {
 						Messages.sendMessage(p, Messages.trprefix + Messages.playerboughtwait);
 					}
 					plugin.getSound().NOTE_PLING(p, 5, 10);
 				} else {
-					Messages.sendMessage(p, Messages.trprefix + Messages.notenoughtmoney.replace("{MONEY}", cost + ""));
+					Messages.sendMessage(p, Messages.trprefix + Messages.notenoughmoney.replace("{MONEY}", Utils.getFormattedCurrency(String.valueOf(cost))));
 					plugin.getSound().ITEM_SELECT(p);
 					return;
 				}
@@ -321,8 +323,9 @@ public class Shop implements Listener {
 		Arena arena = plugin.amanager.getPlayerArena(player.getName());
 		Material material = Material.getMaterial(plugin.getConfig().getString("shop.showmoneyitem", "GOLD_INGOT"));
 		String title = FormattingCodesParser.parseFormattingCodes(Messages.shopmoneyheader);
+		String balance = String.format("%.2f", arena.getArenaEconomy().getPlayerBalance(player));
 		List<String> lore = new ArrayList<>();
-		lore.add(FormattingCodesParser.parseFormattingCodes(Messages.shopmoneybalance).replace("{BAL}", String.format("%.2f", arena.getArenaEconomy().getPlayerBalance(player))));
+		lore.add(FormattingCodesParser.parseFormattingCodes(Messages.shopmoneybalance).replace("{BAL}", Utils.getFormattedCurrency(balance)));
 		return getShopItem(material, title, lore, 1);
 	}
 

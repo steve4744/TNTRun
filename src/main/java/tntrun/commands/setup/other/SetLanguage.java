@@ -16,8 +16,6 @@ public class SetLanguage implements CommandHandlerInterface {
 
 	@Override
 	public boolean handleCommand(Player player, String[] args) {
-		//debug
-		plugin.getLogger().info("Translated langs = " + plugin.getLanguage().getTranslatedLanguages().toString());
 		if (!plugin.getLanguage().getTranslatedLanguages().contains(args[0])) {
 			Messages.sendMessage(player, Messages.trprefix + "&7 Language not currently supported: " + args[0]);
 			return true;

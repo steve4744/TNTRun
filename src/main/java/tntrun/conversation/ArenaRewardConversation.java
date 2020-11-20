@@ -30,6 +30,7 @@ import org.bukkit.conversations.StringPrompt;
 
 import tntrun.arena.Arena;
 import tntrun.conversation.TNTRunConversation;
+import tntrun.utils.Utils;
 
 
 public class ArenaRewardConversation extends FixedSetPrompt {
@@ -291,7 +292,8 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 			arena.getStructureManager().getRewards().setMoneyReward(
 					Integer.parseInt(context.getSessionData("amount").toString()), place);
 
-			return PREFIX + podium + "money reward for " + GOLD + arena.getArenaName() + GRAY + " was set to " + GOLD + context.getSessionData("amount");
+			return PREFIX + podium + "money reward for " + GOLD + arena.getArenaName() + GRAY + " was set to " + GOLD +
+					Utils.getFormattedCurrency(context.getSessionData("amount").toString());
 		}
 
 		@Override

@@ -137,5 +137,8 @@ bungeecord:
   hub: lobby
   useMOTD: true
   stopserver: false
+currency:
+  prefix: ''
+  suffix: ' coins'
 language: en-GB
 debug: false
