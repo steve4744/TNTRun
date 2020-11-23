@@ -171,13 +171,21 @@ public class Messages {
 	
 	
 	public static void sendMessage(CommandSender sender, String message) {
-		if (!message.equals("")) {
-			sender.sendMessage(FormattingCodesParser.parseFormattingCodes(message));
+		sendMessage(sender, message, true);
+	}
+
+	public static void sendMessage(CommandSender sender, String message, boolean addPrefix) {
+		if (message.isEmpty()) {
+			return;
 		}
+		if (addPrefix) {
+			message = trprefix + message;
+		}
+		sender.sendMessage(FormattingCodesParser.parseFormattingCodes(message));
 	}
 
 	public static void broadcastMessage(String message) {
-		if (!message.equals("")) {
+		if (!message.isEmpty()) {
 			Bukkit.broadcastMessage(FormattingCodesParser.parseFormattingCodes(message));
 		}
 	}
