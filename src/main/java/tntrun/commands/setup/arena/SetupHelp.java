@@ -35,8 +35,8 @@ public class SetupHelp implements CommandHandlerInterface {
 	@Override
 	public boolean handleCommand(Player player, String[] args) {
 		
-		Messages.sendMessage(player, "&7============" + Messages.trprefix + "============");
-		Messages.sendMessage(player, Messages.setuphelp);
+		Messages.sendMessage(player, "&7============" + Messages.trprefix + "============", false);
+		Messages.sendMessage(player, Messages.setuphelp, false);
 		Utils.displayHelp(player);
 		player.sendMessage("Create a join sign for the arena to complete the setup.");
 		return true;		

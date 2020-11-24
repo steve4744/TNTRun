@@ -35,12 +35,12 @@ public class CreateArena implements CommandHandlerInterface {
 	public boolean handleCommand(Player player, String[] args) {
 		Arena arenac = plugin.amanager.getArenaByName(args[0]);
 		if (arenac != null) {
-			Messages.sendMessage(player, Messages.trprefix + "&c Arena &6" + args[0] + "&c already exists");
+			Messages.sendMessage(player, "&c Arena &6" + args[0] + "&c already exists");
 			return true;
 		}
 		Arena arena = new Arena(args[0], plugin);
 		plugin.amanager.registerArena(arena);
-		Messages.sendMessage(player, Messages.trprefix + "&7 Arena &6" + args[0] + "&7 created");
+		Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 created");
 		return true;
 	}
 

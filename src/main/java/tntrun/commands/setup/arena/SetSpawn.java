@@ -38,17 +38,17 @@ public class SetSpawn implements CommandHandlerInterface {
 		Arena arena = plugin.amanager.getArenaByName(args[0]);
 		if (arena != null) {
 			if (arena.getStatusManager().isArenaEnabled()) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotdisabled.replace("{ARENA}", args[0]));
+				Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", args[0]));
 				return true;
 			}
 			if (!arena.getStructureManager().isArenaBoundsSet()) {
-				Messages.sendMessage(player,  Messages.trprefix + Messages.arenanobounds);
+				Messages.sendMessage(player, Messages.arenanobounds);
 				return true;
 			}
 			if (arena.getStructureManager().setSpawnPoint(player.getLocation())) {
-				Messages.sendMessage(player, Messages.trprefix + "&7 Arena &6" + args[0] + "&7 spawn point set to &6X: &7" + Math.round(player.getLocation().getX()) + " &6Y: &7" + Math.round(player.getLocation().getY()) + " &6Z: &7" + Math.round(player.getLocation().getZ()));
+				Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 spawn point set to &6X: &7" + Math.round(player.getLocation().getX()) + " &6Y: &7" + Math.round(player.getLocation().getY()) + " &6Z: &7" + Math.round(player.getLocation().getZ()));
 			} else {
-				Messages.sendMessage(player, Messages.trprefix + "&c Arena &6" + args[0] + "&c spawn point must be in arena bounds");
+				Messages.sendMessage(player, "&c Arena &6" + args[0] + "&c spawn point must be in arena bounds");
 			}
 			if (Utils.debug()) {
 				plugin.getLogger().info("Arena " + arena.getArenaName() + " spawnpoint: " + player.getLocation().toVector().toString());
@@ -56,7 +56,7 @@ public class SetSpawn implements CommandHandlerInterface {
 				plugin.getLogger().info("Max point: " + arena.getStructureManager().getP2().toString());
 			}
 		} else {
-			Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[0]));
+			Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[0]));
 		}
 		return true;
 	}

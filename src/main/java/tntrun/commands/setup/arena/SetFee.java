@@ -21,17 +21,17 @@ public class SetFee implements CommandHandlerInterface {
 		Arena arena = plugin.amanager.getArenaByName(args[0]);
 		if (arena != null) {
 			if (arena.getStatusManager().isArenaEnabled()) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotdisabled.replace("{ARENA}", args[0]));
+				Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", args[0]));
 				return true;
 			}
 			if (!Utils.isDouble(args[1]) || Double.parseDouble(args[1]) < 0) {
-				Messages.sendMessage(player, Messages.trprefix + "&c The fee to join must be a positive");
+				Messages.sendMessage(player, "&c The fee to join must be a positive");
 				return true;
 			}
 			arena.getStructureManager().setFee(Double.parseDouble(args[1]));
-			Messages.sendMessage(player, Messages.trprefix + "&7 Arena &6" + args[0] + "&7 Join fee set to &6" + args[1]);
+			Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 Join fee set to &6" + args[1]);
 		} else {
-			Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[0]));
+			Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[0]));
 		}
 		return true;
 	}

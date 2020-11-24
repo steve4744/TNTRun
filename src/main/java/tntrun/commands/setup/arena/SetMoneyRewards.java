@@ -37,18 +37,18 @@ public class SetMoneyRewards implements CommandHandlerInterface {
 		Arena arena = plugin.amanager.getArenaByName(args[0]);
 		if (arena != null) {
 			if (arena.getStatusManager().isArenaEnabled()) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotdisabled.replace("{ARENA}", args[0]));
+				Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", args[0]));
 				return true;
 			}
 			if (Utils.isNumber(args[1])) {
 				arena.getStructureManager().getRewards().setMoneyReward(Integer.parseInt(args[1]), 1);
-				Messages.sendMessage(player, Messages.trprefix + "&7 Arena &6" + args[0] + "&7 Money reward set to &6" + Utils.getFormattedCurrency(args[1]));
+				Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 Money reward set to &6" + Utils.getFormattedCurrency(args[1]));
 
 			} else {
-				Messages.sendMessage(player, Messages.trprefix + "&c The reward amount must be an integer");
+				Messages.sendMessage(player, "&c The reward amount must be an integer");
 			}
 		} else {
-			Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[0]));
+			Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[0]));
 		}
 		return true;
 	}

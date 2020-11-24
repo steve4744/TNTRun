@@ -37,17 +37,17 @@ public class SetVotePercent implements CommandHandlerInterface {
 		Arena arena = plugin.amanager.getArenaByName(args[0]);
 		if (arena != null) {
 			if (arena.getStatusManager().isArenaEnabled()) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotdisabled.replace("{ARENA}", args[0]));
+				Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", args[0]));
 				return true;
 			}
 			if (Utils.isDouble(args[1]) && Double.valueOf(args[1]) > 0 && Double.valueOf(args[1]) < 1) {
 				arena.getStructureManager().setVotePercent(Double.valueOf(args[1]));
-				Messages.sendMessage(player, Messages.trprefix + "&7 Arena &6" + args[0] + "&7 VotePercent set to &6" + Double.valueOf(args[1]));
+				Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 VotePercent set to &6" + Double.valueOf(args[1]));
 			} else {
-				Messages.sendMessage(player, Messages.trprefix + "&c VotePercent amount must be an decimal between 0 and 1");
+				Messages.sendMessage(player, "&c VotePercent amount must be an decimal between 0 and 1");
 			}
 		} else {
-			Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[0]));
+			Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[0]));
 		}
 		return true;
 	}

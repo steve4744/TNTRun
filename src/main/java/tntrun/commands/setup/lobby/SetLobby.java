@@ -33,7 +33,7 @@ public class SetLobby implements CommandHandlerInterface {
 	@Override
 	public boolean handleCommand(Player player, String[] args) {
 		plugin.getGlobalLobby().setLobbyLocation(player.getLocation());
-		Messages.sendMessage(player, Messages.trprefix + "&7 Lobby set");
+		Messages.sendMessage(player, "&7 Lobby set");
 		return true;
 	}
 

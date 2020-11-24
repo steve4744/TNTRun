@@ -36,15 +36,15 @@ public class DeleteSpawnPoints implements CommandHandlerInterface {
 	public boolean handleCommand(Player player, String[] args) {
 		Arena arena = plugin.amanager.getArenaByName(args[0]);
 		if (arena == null) {
-			Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[0]));
+			Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[0]));
 			return true;
 		}
 		if (arena.getStatusManager().isArenaEnabled()) {
-			Messages.sendMessage(player, Messages.trprefix + Messages.arenanotdisabled.replace("{ARENA}", args[0]));
+			Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", args[0]));
 			return true;
 		}
 		arena.getStructureManager().removeAdditionalSpawnPoints();
-		Messages.sendMessage(player, Messages.trprefix + "&7 Arena &6" + args[0] + "&7 all additional spawn points have been deleted");
+		Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 all additional spawn points have been deleted");
 		return true;
 	}
 

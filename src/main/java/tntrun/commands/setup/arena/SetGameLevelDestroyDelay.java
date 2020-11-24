@@ -37,17 +37,17 @@ public class SetGameLevelDestroyDelay implements CommandHandlerInterface {
 		Arena arena = plugin.amanager.getArenaByName(args[0]);
 		if (arena != null) {
 			if (arena.getStatusManager().isArenaEnabled()) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotdisabled.replace("{ARENA}", args[0]));
+				Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", args[0]));
 				return true;
 			}
 			if (Utils.isNumber(args[1])) {
 				arena.getStructureManager().setGameLevelDestroyDelay(Integer.parseInt(args[1]));
-				Messages.sendMessage(player, Messages.trprefix + "&7 Arena &6" + args[0] + "&7 GameLevelDestroyDelay set to &6" + args[1] + "&7 ticks");
+				Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 GameLevelDestroyDelay set to &6" + args[1] + "&7 ticks");
 			} else {
-				Messages.sendMessage(player, Messages.trprefix + "&c DestroyDelay amount must be an integer");
+				Messages.sendMessage(player, "&c DestroyDelay amount must be an integer");
 			}
 		} else {
-			Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[0]));
+			Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[0]));
 		}
 		return true;
 	}

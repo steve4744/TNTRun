@@ -43,21 +43,21 @@ public class FinishArena implements CommandHandlerInterface {
 					arena.getStructureManager().saveToConfig();
 					arena.getStatusManager().enableArena();
 					Bars.createBar(args[0]);
-					Messages.sendMessage(player, Messages.trprefix + "&7 Arena &6" + args[0] + "&7 saved and enabled");
+					Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 saved and enabled");
 					if (Utils.debug()) {
 						plugin.getLogger().info("Arena " + args[0] + " finished successfully");
 					}
 				} else {
-					Messages.sendMessage(player, Messages.trprefix + "&c Arena &6" + args[0] + "&c isn't configured. Reason: &6" + arena.getStructureManager().isArenaConfiguredString());
+					Messages.sendMessage(player, "&c Arena &6" + args[0] + "&c isn't configured. Reason: &6" + arena.getStructureManager().isArenaConfiguredString());
 					if (Utils.debug()) {
 						plugin.getLogger().info("Arena " + args[0] + " finish failed: " + arena.getStructureManager().isArenaConfiguredString());
 					}
 				}
 			} else {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotdisabled.replace("{ARENA}", args[0]));
+				Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", args[0]));
 			}
 		} else {
-			Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[0]));
+			Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[0]));
 		}
 		return true;
 	}

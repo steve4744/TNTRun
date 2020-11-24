@@ -38,14 +38,14 @@ public class AddToWhitelist implements CommandHandlerInterface {
 		List<String> whitelist = plugin.getConfig().getStringList("commandwhitelist");
 		String cmd = String.join(" ", args);
 		if (whitelist.contains(cmd)) {
-			Messages.sendMessage(player, Messages.trprefix + "&7 Command is already whitelisted: &6" + cmd);
+			Messages.sendMessage(player, "&7 Command is already whitelisted: &6" + cmd);
 			return true;
 		}
 		whitelist.add(cmd);
 		plugin.getConfig().set("commandwhitelist", whitelist);
 		plugin.saveConfig();
 
-		Messages.sendMessage(player, Messages.trprefix + "&7 Command added to whitelist: &6" + cmd);
+		Messages.sendMessage(player, "&7 Command added to whitelist: &6" + cmd);
 		return true;
 	}
 

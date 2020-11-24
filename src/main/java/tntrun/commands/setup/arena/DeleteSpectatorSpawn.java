@@ -19,13 +19,13 @@ public class DeleteSpectatorSpawn implements CommandHandlerInterface {
 		Arena arena = plugin.amanager.getArenaByName(args[0]);
 		if (arena != null) {
 			if (arena.getStatusManager().isArenaEnabled()) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotdisabled.replace("{ARENA}", args[0]));
+				Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", args[0]));
 				return true;
 			}
 			arena.getStructureManager().removeSpectatorsSpawn();
-			Messages.sendMessage(player, Messages.trprefix + "&7 Spectator spawn for arena &6" + args[0] + "&7 deleted");
+			Messages.sendMessage(player, "&7 Spectator spawn for arena &6" + args[0] + "&7 deleted");
 		} else {
-			Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[0]));
+			Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[0]));
 		}
 		return true;
 	}

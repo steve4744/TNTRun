@@ -36,18 +36,18 @@ public class EnableKits implements CommandHandlerInterface {
 		Arena arena = plugin.amanager.getArenaByName(args[0]);
 		if (arena != null) {
 			if (arena.getStructureManager().isKitsEnabled()) {
-				Messages.sendMessage(player, Messages.trprefix + "&c Kits are already enabled for arena &6" + args[0]);
+				Messages.sendMessage(player, "&c Kits are already enabled for arena &6" + args[0]);
 				return true;
 			}
 			if (arena.getStatusManager().isArenaEnabled()) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotdisabled.replace("{ARENA}", args[0]));
+				Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", args[0]));
 				return true;
 			}
 			arena.getStructureManager().enableKits(true);
-			Messages.sendMessage(player, Messages.trprefix + "&7 Arena &6" + args[0] + "&7 Kits have been &6enabled");
+			Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 Kits have been &6enabled");
 			
 		} else {
-			Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[0]));
+			Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[0]));
 		}
 		return true;
 	}

@@ -20,7 +20,7 @@ public class SetDamage implements CommandHandlerInterface {
 		Arena arena = plugin.amanager.getArenaByName(args[0]);
 		if (arena != null) {
 			if (arena.getStatusManager().isArenaEnabled()) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotdisabled.replace("{ARENA}", args[0]));
+				Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", args[0]));
 				return true;
 			}
 			if (args[1].equalsIgnoreCase("yes")) {
@@ -30,12 +30,12 @@ public class SetDamage implements CommandHandlerInterface {
 			} else if (args[1].equalsIgnoreCase("zero")) {
 				arena.getStructureManager().setDamageEnabled(DamageEnabled.ZERO);
 			} else {
-				Messages.sendMessage(player, Messages.trprefix + "&c SetDamage must be &6YES, NO &cor &6ZERO");
+				Messages.sendMessage(player, "&c SetDamage must be &6YES, NO &cor &6ZERO");
 				return true;
 			}
-			Messages.sendMessage(player, Messages.trprefix + "&7 Arena &6" + args[0] + "&7 set damage to: &6" + args[1]);
+			Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 set damage to: &6" + args[1]);
 		} else {
-			Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[0]));
+			Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[0]));
 		}
 		return true;
 	}

@@ -41,10 +41,10 @@ public class SetBarColor implements CommandHandlerInterface {
 			plugin.getConfig().set("special.BossBarColor", colour);
 			plugin.saveConfig();
 		} else {
-			Messages.sendMessage(player, Messages.trprefix + "&c Invalid bar colour: &6" + args[0]);
+			Messages.sendMessage(player, "&c Invalid bar colour: &6" + args[0]);
 			return true;
 		}
-		Messages.sendMessage(player, Messages.trprefix + "&7 Bar colour set to: &6" + colour);
+		Messages.sendMessage(player, "&7 Bar colour set to: &6" + colour);
 
 		return true;
 	}

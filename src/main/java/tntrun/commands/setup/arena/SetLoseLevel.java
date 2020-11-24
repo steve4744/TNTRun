@@ -40,30 +40,30 @@ public class SetLoseLevel implements CommandHandlerInterface {
 	public boolean handleCommand(Player player, String[] args) {
 		Arena arena = plugin.amanager.getArenaByName(args[0]);
 		if (arena == null) {
-			Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[0]));
+			Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[0]));
 			return true;
 		}
 		if (arena.getStatusManager().isArenaEnabled()) {
-			Messages.sendMessage(player, Messages.trprefix + Messages.arenanotdisabled.replace("{ARENA}", args[0]));
+			Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", args[0]));
 			return true;
 		}
 		if (arena.getStructureManager().getWorldName() == null) {
-			Messages.sendMessage(player, Messages.trprefix + "&c Arena &6" + args[0] + "&c bounds are wrong");
+			Messages.sendMessage(player, "&c Arena &6" + args[0] + "&c bounds are wrong");
 			return true;
 		}
 		PlayerCuboidSelection sel = selection.getPlayerSelection(player);
 		if (sel != null) {
 			if (arena.getStructureManager().setLooseLevel(sel.getMinimumLocation(), sel.getMaximumLocation())) {
-				Messages.sendMessage(player, Messages.trprefix + "&7 Arena &6" + args[0] + "&7 Loselevel set");
+				Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 Loselevel set");
 			} else {
-				Messages.sendMessage(player, Messages.trprefix + "&c Arena &6" + args[0] + "&c Error: Loselevel is not within the bounds of the arena");
+				Messages.sendMessage(player, "&c Arena &6" + args[0] + "&c Error: Loselevel is not within the bounds of the arena");
 			}
 			if (Utils.debug()) {
 				plugin.getLogger().info("Arena " + arena.getArenaName() + " min loselevel: " + sel.getMinimumLocation().toVector().toString());
 				plugin.getLogger().info("Arena " + arena.getArenaName() + " max loselevel: " + sel.getMaximumLocation().toVector().toString());
 			}
 		} else {
-			Messages.sendMessage(player, Messages.trprefix + "&c Arena &6" + args[0] + "&c locations are wrong - retry or use WorldEdit to select the loselevel bounds");
+			Messages.sendMessage(player, "&c Arena &6" + args[0] + "&c locations are wrong - retry or use WorldEdit to select the loselevel bounds");
 		}
 		return true;
 	}

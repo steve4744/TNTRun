@@ -41,22 +41,22 @@ public class SetArena implements CommandHandlerInterface {
 		Arena arena = plugin.amanager.getArenaByName(args[0]);
 		if (arena != null) {
 			if (arena.getStatusManager().isArenaEnabled()) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotdisabled.replace("{ARENA}", args[0]));
+				Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", args[0]));
 				return true;
 			}
 			PlayerCuboidSelection sel = selection.getPlayerSelection(player);
 			if (sel != null) {
 				arena.getStructureManager().setArenaPoints(sel.getMinimumLocation(), sel.getMaximumLocation());
-				Messages.sendMessage(player, Messages.trprefix + "&7 Arena &6" + args[0] + "&7 set");
+				Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 set");
 				if (Utils.debug()) {
 					plugin.getLogger().info("Arena " + arena.getArenaName() + " min point: " + sel.getMinimumLocation().toVector().toString());
 					plugin.getLogger().info("Arena " + arena.getArenaName() + " max point: " + sel.getMaximumLocation().toVector().toString());
 				}
 			} else {
-				Messages.sendMessage(player, Messages.trprefix + "&c Arena &6" + args[0] + "&c locations are wrong - retry or use WorldEdit to select the arena bounds");
+				Messages.sendMessage(player, "&c Arena &6" + args[0] + "&c locations are wrong - retry or use WorldEdit to select the arena bounds");
 			}
 		} else {
-			Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[0]));
+			Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[0]));
 		}
 		return true;
 	}

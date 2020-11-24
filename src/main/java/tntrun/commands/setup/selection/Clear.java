@@ -33,7 +33,7 @@ public class Clear implements CommandHandlerInterface {
 	@Override
 	public boolean handleCommand(Player player, String[] args) {
 		selection.clearSelectionPoints(player);
-		Messages.sendMessage(player, Messages.trprefix + "&7 Points cleared");
+		Messages.sendMessage(player, "&7 Points cleared");
 		return true;
 	}
 

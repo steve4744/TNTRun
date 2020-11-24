@@ -37,7 +37,7 @@ public class SetTeleport implements CommandHandlerInterface {
 		Arena arena = plugin.amanager.getArenaByName(args[0]);
 		if (arena != null) {
 			if (arena.getStatusManager().isArenaEnabled()) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotdisabled.replace("{ARENA}", args[0]));
+				Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", args[0]));
 				return true;
 			}
 			if (args[1].equalsIgnoreCase("previous")) {
@@ -46,15 +46,15 @@ public class SetTeleport implements CommandHandlerInterface {
 				if (plugin.getGlobalLobby().isLobbyLocationSet()) {
 					arena.getStructureManager().setTeleportDestination(TeleportDestination.LOBBY);
 				} else {
-					Messages.sendMessage(player, Messages.trprefix + "&c Global lobby isn't set, run &6/trsetup setlobby");
+					Messages.sendMessage(player, "&c Global lobby isn't set, run &6/trsetup setlobby");
 				}
 			} else {
-				Messages.sendMessage(player, Messages.trprefix + "&c Teleport destination must be &6PREVIOUS &cor &6LOBBY");
+				Messages.sendMessage(player, "&c Teleport destination must be &6PREVIOUS &cor &6LOBBY");
 				return true;
 			}
-			Messages.sendMessage(player, Messages.trprefix + "&7 Arena &6" + args[0] + "&7 Teleport destination set to &6" + args[1].toUpperCase());
+			Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 Teleport destination set to &6" + args[1].toUpperCase());
 		} else {
-			Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[0]));
+			Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[0]));
 		}
 		return true;
 	}

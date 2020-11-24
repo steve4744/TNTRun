@@ -192,7 +192,7 @@ public class PlayerHandler {
 				.replace("{MPS}", String.valueOf(arena.getStructureManager().getMaxPlayers()));
 
 		for (Player oplayer : arena.getPlayersManager().getPlayers()) {
-			Messages.sendMessage(oplayer, Messages.trprefix + msgtoarenaplayers);
+			Messages.sendMessage(oplayer, msgtoarenaplayers);
 			TitleMsg.sendFullTitle(oplayer, TitleMsg.join.replace("{PLAYER}", player.getName()), TitleMsg.subjoin.replace("{PLAYER}", player.getName()), 10, 20, 20, plugin);
 		}
 

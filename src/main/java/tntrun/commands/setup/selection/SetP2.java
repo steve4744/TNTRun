@@ -34,7 +34,7 @@ public class SetP2 implements CommandHandlerInterface {
 	@Override
 	public boolean handleCommand(Player player, String[] args) {
 		selection.setSelectionPoint2(player);
-		Messages.sendMessage(player, Messages.trprefix + "&7 Point &62 &7has been set to &6X: &7" + Math.round(selection.getSelectionPoint2(player).getX()) +
+		Messages.sendMessage(player, "&7 Point &62 &7has been set to &6X: &7" + Math.round(selection.getSelectionPoint2(player).getX()) +
 				" &6Y: &7" + Math.round(selection.getSelectionPoint2(player).getY()) + " &6Z: &7" + Math.round(selection.getSelectionPoint2(player).getZ()));
 
 		return true;

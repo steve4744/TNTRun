@@ -33,7 +33,7 @@ public class DeleteLobby implements CommandHandlerInterface {
 	@Override
 	public boolean handleCommand(Player player, String[] args) {
 		plugin.getGlobalLobby().setLobbyLocation(null);
-		Messages.sendMessage(player, Messages.trprefix + "&7 Lobby deleted");
+		Messages.sendMessage(player, "&7 Lobby deleted");
 		return true;
 	}
 
