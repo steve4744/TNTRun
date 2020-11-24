@@ -120,13 +120,13 @@ public class JoinMenu {
 
 	public void autoJoin(Player player, String type) {
 		if (plugin.amanager.getPlayerArena(player.getName()) != null) {
-			Messages.sendMessage(player, Messages.trprefix + Messages.arenajoined);
+			Messages.sendMessage(player, Messages.arenajoined);
 			return;
 		}
 
 		Arena autoArena = getAutoArena(player, type);
 		if (autoArena == null) {
-			Messages.sendMessage(player, Messages.trprefix + Messages.noarenas);
+			Messages.sendMessage(player, Messages.noarenas);
 			return;
 		}
 

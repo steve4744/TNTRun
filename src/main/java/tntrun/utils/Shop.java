@@ -235,21 +235,21 @@ public class Shop implements Listener {
 
 				int kit = itemSlot.get(e.getSlot());
 				if (cfg.getInt(kit + ".items.1.amount") <= 0) {
-					Messages.sendMessage(p, Messages.trprefix + Messages.shopnostock);
+					Messages.sendMessage(p, Messages.shopnostock);
 					return;
 				}
 
 				String permission = cfg.getString(kit + ".permission");
 				if (!p.hasPermission(permission) && !p.hasPermission("tntrun.shop")) {
 					p.closeInventory();
-					Messages.sendMessage(p, Messages.trprefix + Messages.nopermission);
+					Messages.sendMessage(p, Messages.nopermission);
 					plugin.getSound().ITEM_SELECT(p);
 					return;
 				}
 
 				doublejumpPurchase = Material.getMaterial(cfg.getString(kit + ".material").toUpperCase()) == Material.FEATHER;
 				if (!doublejumpPurchase && buyers.contains(p.getName())) {
-					Messages.sendMessage(p, Messages.trprefix + Messages.alreadyboughtitem);
+					Messages.sendMessage(p, Messages.alreadyboughtitem);
 					plugin.getSound().ITEM_SELECT(p);
 					p.closeInventory();
 					return;
@@ -257,7 +257,7 @@ public class Shop implements Listener {
 
 				Arena arena = plugin.amanager.getPlayerArena(p.getName());
 				if (doublejumpPurchase && !canBuyDoubleJumps(cfg, p, kit)) {
-					Messages.sendMessage(p, Messages.trprefix + Messages.maxdoublejumpsexceeded.replace("{MAXJUMPS}",
+					Messages.sendMessage(p, Messages.maxdoublejumpsexceeded.replace("{MAXJUMPS}",
 							getAllowedDoubleJumps(p, plugin.getConfig().getInt("shop.doublejump.maxdoublejumps", 10)) + ""));
 					plugin.getSound().ITEM_SELECT(p);
 					p.closeInventory();
@@ -268,15 +268,14 @@ public class Shop implements Listener {
 				int cost = cfg.getInt(kit + ".cost");
 
 				if (arena.getArenaEconomy().hasMoney(cost, p)) {
-					Messages.sendMessage(p, Messages.trprefix +
-							Messages.playerboughtitem.replace("{ITEM}", title).replace("{MONEY}", Utils.getFormattedCurrency(String.valueOf(cost))));
+					Messages.sendMessage(p, Messages.playerboughtitem.replace("{ITEM}", title).replace("{MONEY}", Utils.getFormattedCurrency(String.valueOf(cost))));
 					logPurchase(p, title, cost);
 					if (!doublejumpPurchase) {
-						Messages.sendMessage(p, Messages.trprefix + Messages.playerboughtwait);
+						Messages.sendMessage(p, Messages.playerboughtwait);
 					}
 					plugin.getSound().NOTE_PLING(p, 5, 10);
 				} else {
-					Messages.sendMessage(p, Messages.trprefix + Messages.notenoughmoney.replace("{MONEY}", Utils.getFormattedCurrency(String.valueOf(cost))));
+					Messages.sendMessage(p, Messages.notenoughmoney.replace("{MONEY}", Utils.getFormattedCurrency(String.valueOf(cost))));
 					plugin.getSound().ITEM_SELECT(p);
 					return;
 				}

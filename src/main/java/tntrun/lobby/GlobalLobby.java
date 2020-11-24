@@ -53,12 +53,12 @@ public class GlobalLobby {
 		if (isLobbyLocationSet()) {
 			if (isLobbyLocationWorldAvailable()) {
 				player.teleport(getLobbyLocation());
-				Messages.sendMessage(player, Messages.trprefix + Messages.teleporttolobby);
+				Messages.sendMessage(player, Messages.teleporttolobby);
 			} else {
-				Messages.sendMessage(player, Messages.trprefix + Messages.lobbyunloaded);
+				Messages.sendMessage(player, Messages.lobbyunloaded);
 			}
 		} else {
-			Messages.sendMessage(player, Messages.trprefix + Messages.nolobby);
+			Messages.sendMessage(player, Messages.nolobby);
 		}
 	}
 

@@ -74,10 +74,10 @@ public class Utils {
 	}
 
 	public static void displayInfo(CommandSender sender) {
-		Messages.sendMessage(sender, "&7============" + Messages.trprefix + "============");
-		Messages.sendMessage(sender, "&bPlugin Version: &f" + TNTRun.getInstance().getDescription().getVersion());
-		Messages.sendMessage(sender, "&bWebsite: &fhttps://www.spigotmc.org/resources/tntrun_reloaded.53359/");
-		Messages.sendMessage(sender, "&bTNTRun_reloaded Author: &fsteve4744");
+		Messages.sendMessage(sender, "&7============" + Messages.trprefix + "============", false);
+		Messages.sendMessage(sender, "&bPlugin Version: &f" + TNTRun.getInstance().getDescription().getVersion(), false);
+		Messages.sendMessage(sender, "&bWebsite: &fhttps://www.spigotmc.org/resources/tntrun_reloaded.53359/", false);
+		Messages.sendMessage(sender, "&bTNTRun_reloaded Author: &fsteve4744", false);
 	}
 
 	public static void displayUpdate(Player player) {

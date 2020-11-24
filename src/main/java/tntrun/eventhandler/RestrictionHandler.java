@@ -69,7 +69,7 @@ public class RestrictionHandler implements Listener {
 			return;
 		}
 		if (!allowedcommands.contains(e.getMessage().toLowerCase()) && !plugin.getConfig().getStringList("commandwhitelist").contains(e.getMessage().toLowerCase())) {
-			Messages.sendMessage(player, Messages.trprefix + Messages.nopermission);
+			Messages.sendMessage(player, Messages.nopermission);
 			e.setCancelled(true);
 		}
 	}
@@ -154,13 +154,13 @@ public class RestrictionHandler implements Listener {
 			coolDown(player);
 
 			if (arena.getStatusManager().isArenaStarting()) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenastarting);
+				Messages.sendMessage(player, Messages.arenastarting);
 				return;
 			}
 			if (arena.getPlayerHandler().vote(player)) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.playervotedforstart);
+				Messages.sendMessage(player, Messages.playervotedforstart);
 			} else {
-				Messages.sendMessage(player, Messages.trprefix + Messages.playeralreadyvotedforstart);
+				Messages.sendMessage(player, Messages.playeralreadyvotedforstart);
 			}
 
 		} else if (e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.stats.material"))) {

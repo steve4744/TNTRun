@@ -153,7 +153,7 @@ public class Rewards {
 
 		if (!rewardmessage.toString().isEmpty()) {
 			console.sendMessage("[TNTRun_reloaded] " + ChatColor.AQUA + player.getName() + ChatColor.WHITE + " has been rewarded " + ChatColor.GOLD + rewardmessage.toString());
-			Messages.sendMessage(player, Messages.trprefix + Messages.playerrewardmessage.replace("{REWARD}", rewardmessage.toString()));
+			Messages.sendMessage(player, Messages.playerrewardmessage.replace("{REWARD}", rewardmessage.toString()));
 		}
 	}
 
@@ -219,7 +219,7 @@ public class Rewards {
 
 	public void listRewards(Player player, String arenaName) {
 		List<String> places = Arrays.asList(Messages.playerfirstplace, Messages.playersecondplace, Messages.playerthirdplace);
-		Messages.sendMessage(player, Messages.rewardshead.replace("{ARENA}", arenaName));
+		Messages.sendMessage(player, Messages.rewardshead.replace("{ARENA}", arenaName), false);
 
 		IntStream.range(1, 4).forEach(i -> {
 			StringBuilder sb = new StringBuilder(200);
@@ -241,7 +241,7 @@ public class Rewards {
 			}
 			if (sb.length() != 0) {
 				sb.insert(0, places.get(i-1).replace("{RANK}", ""));
-				Messages.sendMessage(player, sb.toString());
+				Messages.sendMessage(player, sb.toString(), false);
 			}
 		});
 	}

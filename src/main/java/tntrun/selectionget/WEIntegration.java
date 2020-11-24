@@ -58,7 +58,7 @@ public class WEIntegration {
 			locs[1] = new Location(player.getWorld(), v2.getX(), v2.getY(), v2.getZ());	
 			
 		} catch (IncompleteRegionException e1) {
-			Messages.sendMessage(player, Messages.trprefix + "&c Invalid WorldEdit selection");
+			Messages.sendMessage(player, "&c Invalid WorldEdit selection");
 			return null;
 		}
 

@@ -80,19 +80,19 @@ public class PlayerHandler {
 		}
 		if (arena.getStatusManager().isArenaRunning()) {
 			if (!silent) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenarunning);
+				Messages.sendMessage(player, Messages.arenarunning);
 			}
 			return false;
 		}
 		if (!player.hasPermission("tntrun.join")) {
 			if (!silent) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.nopermission);
+				Messages.sendMessage(player, Messages.nopermission);
 			}
 			return false;
 		}
 		if (arena.getPlayersManager().getPlayersCount() == arena.getStructureManager().getMaxPlayers()) {
 			if (!silent) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.limitreached);
+				Messages.sendMessage(player, Messages.limitreached);
 			}
 			return false;
 		}
@@ -100,12 +100,12 @@ public class PlayerHandler {
 			double fee = arena.getStructureManager().getFee();
 			if (!arena.getArenaEconomy().hasFunds(player, fee)) {
 				if (!silent) {
-					Messages.sendMessage(player, Messages.trprefix + Messages.arenanofee.replace("{FEE}", arena.getStructureManager().getArenaCost()));
+					Messages.sendMessage(player, Messages.arenanofee.replace("{FEE}", arena.getStructureManager().getArenaCost()));
 				}
 				return false;
 			}
 			if (!silent) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenafee.replace("{FEE}", arena.getStructureManager().getArenaCost()));
+				Messages.sendMessage(player, Messages.arenafee.replace("{FEE}", arena.getStructureManager().getArenaCost()));
 			}
 		}
 		return true;
@@ -121,31 +121,31 @@ public class PlayerHandler {
 	public boolean preJoinChecks(Player player, boolean silent) {
 		if (!arena.getStatusManager().isArenaEnabled()) {
 			if (!silent) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenadisabled);
+				Messages.sendMessage(player, Messages.arenadisabled);
 			}
 			return false;
 		}
 		if (arena.getStructureManager().getWorld() == null) {
 			if (!silent) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenawolrdna);
+				Messages.sendMessage(player, Messages.arenawolrdna);
 			}
 			return false;
 		}
 		if (arena.getStatusManager().isArenaRegenerating()) {
 			if (!silent) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenaregenerating);
+				Messages.sendMessage(player, Messages.arenaregenerating);
 			}
 			return false;
 		}
 		if (player.isInsideVehicle()) {
 			if (!silent) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenavehicle);
+				Messages.sendMessage(player, Messages.arenavehicle);
 			}
 			return false;
 		}
 		if (plugin.amanager.getPlayerArena(player.getName()) != null) {
 			if (!silent) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenajoined);
+				Messages.sendMessage(player, Messages.arenajoined);
 			}
 			return false;
 		}
@@ -182,7 +182,7 @@ public class PlayerHandler {
 		}
 
 		if (!plugin.getConfig().getBoolean("special.UseTitle")) {
-			Messages.sendMessage(player, Messages.trprefix + msgtoplayer);
+			Messages.sendMessage(player, msgtoplayer);
 		}
 
 		msgtoarenaplayers = FormattingCodesParser.parseFormattingCodes(msgtoarenaplayers)
@@ -227,7 +227,7 @@ public class PlayerHandler {
 		} else {
 			String message = Messages.playerscountinarena;
 			message = message.replace("{COUNT}", String.valueOf(arena.getPlayersManager().getPlayersCount()));
-			Messages.sendMessage(player, Messages.trprefix + message);
+			Messages.sendMessage(player, message);
 		}
 
 		plugin.signEditor.modifySigns(arena.getArenaName());
@@ -297,13 +297,13 @@ public class PlayerHandler {
 			oplayer.hidePlayer(plugin, player);
 		}
 
-		Messages.sendMessage(player, Messages.trprefix + msgtoplayer.replace("{ARENA}", arena.getArenaName()));
+		Messages.sendMessage(player, msgtoplayer.replace("{ARENA}", arena.getArenaName()));
 		plugin.signEditor.modifySigns(arena.getArenaName());
 
 		if (!isSpectatorOnly) {
 			msgtoarenaplayers = msgtoarenaplayers.replace("{PLAYER}", player.getName()).replace("{RANK}", getDisplayName(player));
 			for (Player oplayer : arena.getPlayersManager().getAllParticipantsCopy()) {
-				Messages.sendMessage(oplayer, Messages.trprefix + msgtoarenaplayers);
+				Messages.sendMessage(oplayer, msgtoarenaplayers);
 			}
 		}
 
@@ -374,7 +374,7 @@ public class PlayerHandler {
 		if (spectator) {
 			return;
 		}
-		Messages.sendMessage(player, Messages.trprefix + msgtoplayer);
+		Messages.sendMessage(player, msgtoplayer);
 		plugin.signEditor.modifySigns(arena.getArenaName());
 		if (!arena.getStatusManager().isArenaRunning()) {
 			arena.getScoreboardHandler().createWaitingScoreBoard();
@@ -387,7 +387,7 @@ public class PlayerHandler {
 				.replace("{MPS}", String.valueOf(arena.getStructureManager().getMaxPlayers()));
 
 		for (Player oplayer : arena.getPlayersManager().getAllParticipantsCopy()) {
-			Messages.sendMessage(oplayer, Messages.trprefix + msgtoarenaplayers);
+			Messages.sendMessage(oplayer, msgtoarenaplayers);
 			if (!arena.getStatusManager().isArenaStarting() && !arena.getStatusManager().isArenaRunning()) {
 				double progress = (double) arena.getPlayersManager().getPlayersCount() / arena.getStructureManager().getMinPlayers();
 				Bars.setBar(arena, Bars.waiting, arena.getPlayersManager().getPlayersCount(), 0, progress, plugin);
@@ -406,7 +406,7 @@ public class PlayerHandler {
 		arena.getScoreboardHandler().removeScoreboard(player);
 		player.setFlying(false);
 		removePlayerFromArenaAndRestoreState(player, true);
-		Messages.sendMessage(player, Messages.trprefix + msgtoplayer);
+		Messages.sendMessage(player, msgtoplayer);
 		plugin.signEditor.modifySigns(arena.getArenaName());
 		plugin.signEditor.refreshLeaderBoards();
 	}

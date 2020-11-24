@@ -63,7 +63,7 @@ public class SignHandler implements Listener {
 		Player player = e.getPlayer();
 		if (ChatColor.stripColor(e.getLine(0)).equalsIgnoreCase("[TNTRun]")) {
 			if (!player.hasPermission("tntrun.setup")) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.nopermission);
+				Messages.sendMessage(player, Messages.nopermission);
 				e.setCancelled(true);
 				e.getBlock().breakNaturally();
 				return;
@@ -104,7 +104,7 @@ public class SignHandler implements Listener {
 		Sign sign = (Sign) e.getBlock().getState();
 		if (sign.getLine(0).equalsIgnoreCase(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")))) {
 			if (!player.hasPermission("tntrun.setup")) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.nopermission);
+				Messages.sendMessage(player, Messages.nopermission);
 				e.setCancelled(true);
 				return;
 			}

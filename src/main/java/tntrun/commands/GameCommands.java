@@ -47,13 +47,13 @@ public class GameCommands implements CommandExecutor {
 		}
 		Player player = (Player) sender;
 		if (args.length < 1) {
-			Messages.sendMessage(player, "&7============" + Messages.trprefix + "============");
-			Messages.sendMessage(player, Messages.trprefix + "&c Please use &6/tr help");
+			Messages.sendMessage(player, "&7============" + Messages.trprefix + "============", false);
+			Messages.sendMessage(player, "&c Please use &6/tr help");
 			return true;
 		}
 		// help command
 		if (args[0].equalsIgnoreCase("help")) {
-			Messages.sendMessage(player, "&7============" + Messages.trprefix + "============");
+			Messages.sendMessage(player, "&7============" + Messages.trprefix + "============", false);
 			player.spigot().sendMessage(Utils.getTextComponent("/tr lobby", true), Utils.getTextComponent(Messages.helplobby));
 			player.spigot().sendMessage(Utils.getTextComponent("/tr list [arena]", true), Utils.getTextComponent(Messages.helplist));
 			player.spigot().sendMessage(Utils.getTextComponent("/tr join [arena]", true), Utils.getTextComponent(Messages.helpjoin));
@@ -78,12 +78,12 @@ public class GameCommands implements CommandExecutor {
 			if (args.length >= 2) {
 				Arena arena = plugin.amanager.getArenaByName(args[1]);
 				if (arena == null) {
-					Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[1]));
+					Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[1]));
 					return true;
 				}
 				//list arena details
-				Messages.sendMessage(player, "&7============" + Messages.trprefix + "============");
-				Messages.sendMessage(player, "&7Arena Details: &a" + arena.getArenaName());
+				Messages.sendMessage(player, "&7============" + Messages.trprefix + "============", false);
+				Messages.sendMessage(player, "&7Arena Details: &a" + arena.getArenaName(), false);
 
 				String arenaStatus = "Enabled";
 				if (!arena.getStatusManager().isArenaEnabled()) {
@@ -119,7 +119,7 @@ public class GameCommands implements CommandExecutor {
 				return false;
 			}
 			int arenacount = plugin.amanager.getArenas().size();
-			Messages.sendMessage(player, Messages.trprefix + Messages.availablearenas.replace("{COUNT}", String.valueOf(arenacount)));
+			Messages.sendMessage(player, Messages.availablearenas.replace("{COUNT}", String.valueOf(arenacount)));
 			if (arenacount == 0) {
 				return false;
 			}
@@ -131,7 +131,7 @@ public class GameCommands implements CommandExecutor {
 					message.add("&c" + arena.getArenaName() + "&a");
 				}
 			}
-			Messages.sendMessage(player, message.toString());
+			Messages.sendMessage(player, message.toString(), false);
 		}
 
 		// join arena
@@ -141,7 +141,7 @@ public class GameCommands implements CommandExecutor {
 				return false;
 			}
 			if (args.length != 2) {
-				Messages.sendMessage(player, Messages.trprefix + "&c Invalid number of arguments supplied");
+				Messages.sendMessage(player, "&c Invalid number of arguments supplied");
 				return false;
 			}
 			Arena arena = plugin.amanager.getArenaByName(args[1]);
@@ -150,7 +150,7 @@ public class GameCommands implements CommandExecutor {
 					arena.getPlayerHandler().spawnPlayer(player, Messages.playerjoinedtoplayer, Messages.playerjoinedtoothers);
 				}
 			} else {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[1]));
+				Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[1]));
 				return true;
 			}
 		}
@@ -158,20 +158,20 @@ public class GameCommands implements CommandExecutor {
 		// spectate arena
 		else if (args[0].equalsIgnoreCase("spectate")) {
 			if (!player.hasPermission("tntrun.spectate")) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.nopermission);
+				Messages.sendMessage(player, Messages.nopermission);
 				return true;
 			}
 			if (args.length != 2) {
-				Messages.sendMessage(player, Messages.trprefix + "&c Invalid number of arguments supplied");
+				Messages.sendMessage(player, "&c Invalid number of arguments supplied");
 				return false;
 			}
 			Arena arena = plugin.amanager.getArenaByName(args[1]);
 			if (arena == null) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[1]));
+				Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[1]));
 				return true;
 			}
 			if (arena.getStructureManager().getSpectatorSpawnVector() == null) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenanospectatorspawn.replace("{ARENA}", args[1]));
+				Messages.sendMessage(player, Messages.arenanospectatorspawn.replace("{ARENA}", args[1]));
 				return true;
 			}
 			if (!arena.getPlayerHandler().preJoinChecks(player, false)) {
@@ -188,7 +188,7 @@ public class GameCommands implements CommandExecutor {
 			String arenatype = "";
 			if (args.length >= 2) {
 				if (!args[1].equalsIgnoreCase("pvp") && !args[1].equalsIgnoreCase("nopvp")) {
-					Messages.sendMessage(player, Messages.trprefix + "&c Invalid argument supplied");
+					Messages.sendMessage(player, "&c Invalid argument supplied");
 					return true;
 				}
 				arenatype = args[1];
@@ -204,19 +204,19 @@ public class GameCommands implements CommandExecutor {
 		// player stats
 		else if (args[0].equalsIgnoreCase("stats")) {
 			if (!plugin.useStats()) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.statsdisabled);
+				Messages.sendMessage(player, Messages.statsdisabled);
 				return true;
 			}
-			Messages.sendMessage(player, Messages.statshead);
-			Messages.sendMessage(player, Messages.gamesplayed + plugin.stats.getPlayedGames(player));
-			Messages.sendMessage(player, Messages.gameswon + plugin.stats.getWins(player));
-			Messages.sendMessage(player, Messages.gameslost + plugin.stats.getLosses(player));
+			Messages.sendMessage(player, Messages.statshead, false);
+			Messages.sendMessage(player, Messages.gamesplayed + plugin.stats.getPlayedGames(player), false);
+			Messages.sendMessage(player, Messages.gameswon + plugin.stats.getWins(player), false);
+			Messages.sendMessage(player, Messages.gameslost + plugin.stats.getLosses(player), false);
 		}
 
 		// leaderboard
 		else if (args[0].equalsIgnoreCase("leaderboard")) {
 			if (!plugin.useStats()) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.statsdisabled);
+				Messages.sendMessage(player, Messages.statsdisabled);
 				return true;
 			}
 			int entries = plugin.getConfig().getInt("leaderboard.maxentries", 10);
@@ -225,7 +225,7 @@ public class GameCommands implements CommandExecutor {
 					entries = Integer.parseInt(args[1]);
 				}
 			}
-			Messages.sendMessage(player, Messages.leaderhead);
+			Messages.sendMessage(player, Messages.leaderhead, false);
 			plugin.stats.getLeaderboard(player, entries);
 		}
 
@@ -235,16 +235,16 @@ public class GameCommands implements CommandExecutor {
 			if (arena != null) {
 				arena.getPlayerHandler().leavePlayer(player, Messages.playerlefttoplayer, Messages.playerlefttoothers);
 			} else {
-				Messages.sendMessage(player, Messages.trprefix + Messages.playernotinarena);
+				Messages.sendMessage(player, Messages.playernotinarena);
 				return true;
 			}
 		}
 
 		// all commands
 		else if (args[0].equalsIgnoreCase("cmds")) {
-			Messages.sendMessage(player, "&7============" + Messages.trprefix + "============");
+			Messages.sendMessage(player, "&7============" + Messages.trprefix + "============", false);
 			Utils.displayHelp(player);
-			Messages.sendMessage(player, "&7============[&6Other commands&7]============");
+			Messages.sendMessage(player, "&7============[&6Other commands&7]============", false);
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup deletespectate {arena}", true), Utils.getTextComponent(Messages.setupdelspectate));
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup setgameleveldestroydelay {arena} {ticks}", true), Utils.getTextComponent(Messages.setupdelay));
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup setregenerationdelay {arena} {ticks}", true), Utils.getTextComponent(Messages.setupregendelay));
@@ -286,18 +286,18 @@ public class GameCommands implements CommandExecutor {
 			Arena arena = plugin.amanager.getPlayerArena(player.getName());
 			if (arena != null) {
 				if (!arena.getPlayersManager().getPlayers().contains(player)) {
-					Messages.sendMessage(player, Messages.trprefix + Messages.playercannotvote);
+					Messages.sendMessage(player, Messages.playercannotvote);
 					return true;
 				}
 				if (arena.getPlayerHandler().vote(player)) {
-					Messages.sendMessage(player, Messages.trprefix + Messages.playervotedforstart);
+					Messages.sendMessage(player, Messages.playervotedforstart);
 				} else {
-					Messages.sendMessage(player, Messages.trprefix + Messages.playeralreadyvotedforstart);
+					Messages.sendMessage(player, Messages.playeralreadyvotedforstart);
 					return true;
 				}
 
 			} else {
-				Messages.sendMessage(player, Messages.trprefix + Messages.playernotinarena);
+				Messages.sendMessage(player, Messages.playernotinarena);
 				return true;
 			}
 		}
@@ -309,7 +309,7 @@ public class GameCommands implements CommandExecutor {
 				return true;
 			}
 			int kitcount = plugin.getKitManager().getKits().size();
-			Messages.sendMessage(player, Messages.trprefix + Messages.availablekits.replace("{COUNT}", String.valueOf(kitcount)));
+			Messages.sendMessage(player, Messages.availablekits.replace("{COUNT}", String.valueOf(kitcount)));
 			if (kitcount == 0) {
 				return false;
 			}
@@ -318,7 +318,7 @@ public class GameCommands implements CommandExecutor {
 			for (String kit : plugin.getKitManager().getKits()) {
 				message.add("&a" + kit);
 			}
-			Messages.sendMessage(player, message.toString());
+			Messages.sendMessage(player, message.toString(), false);
 		}
 
 		// listrewards
@@ -328,12 +328,12 @@ public class GameCommands implements CommandExecutor {
 				return true;
 			}
 			if (args.length != 2) {
-				Messages.sendMessage(player, Messages.trprefix + "&c Invalid number of arguments supplied");
+				Messages.sendMessage(player, "&c Invalid number of arguments supplied");
 				return true;
 			}
 			Arena arena = plugin.amanager.getArenaByName(args[1]);
 			if (arena == null) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[1]));
+				Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[1]));
 				return true;
 			}
 			arena.getStructureManager().getRewards().listRewards(player, args[1]);
@@ -346,29 +346,29 @@ public class GameCommands implements CommandExecutor {
 				return true;
 			}
 			if (args.length != 2) {
-				Messages.sendMessage(player, Messages.trprefix + "&c Invalid number of arguments supplied");
+				Messages.sendMessage(player, "&c Invalid number of arguments supplied");
 				return true;
 			}
 			Arena arena = plugin.amanager.getArenaByName(args[1]);
 			if (arena == null) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[1]));
+				Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[1]));
 				return true;
 			}
 			if (arena.getPlayersManager().getPlayersCount() <= 1) {
-				Messages.sendMessage(player, Messages.trprefix + Messages.playersrequiredtostart);
+				Messages.sendMessage(player, Messages.playersrequiredtostart);
 				return true;
 			}
 			if (!arena.getStatusManager().isArenaStarting()) {
 				plugin.getServer().getConsoleSender().sendMessage("[TNTRun] Arena " + ChatColor.GOLD + arena.getArenaName() + ChatColor.WHITE + " force-started by " + ChatColor.AQUA + player.getName());
 				arena.getGameHandler().forceStartByCommand();
 			} else {
-				Messages.sendMessage(player, Messages.trprefix + Messages.arenastarting.replace("{ARENA}", args[1]));
+				Messages.sendMessage(player, Messages.arenastarting.replace("{ARENA}", args[1]));
 				return true;
 			}
 		}
 
 		else {
-			Messages.sendMessage(player, Messages.trprefix + "&c Invalid argument supplied, please use &6/tr help");
+			Messages.sendMessage(player, "&c Invalid argument supplied, please use &6/tr help");
 			return true;
 		}	
 		return false;

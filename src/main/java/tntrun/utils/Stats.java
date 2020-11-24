@@ -156,7 +156,7 @@ public class Stats {
 			Messages.sendMessage(sender, Messages.leaderboard
 					.replace("{POSITION}", String.valueOf(position))
 					.replace("{PLAYER}", lbentry)
-					.replace("{WINS}", String.valueOf(e.getValue())));
+					.replace("{WINS}", String.valueOf(e.getValue())), false);
 			});
 		return;
 	}

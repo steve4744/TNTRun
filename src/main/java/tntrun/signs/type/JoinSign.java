@@ -47,7 +47,7 @@ public class JoinSign implements SignType {
 			e.setLine(0, FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")));
 			e.setLine(1, FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.join")));
 			e.setLine(2, FormattingCodesParser.parseFormattingCodes(e.getLine(2)));
-			Messages.sendMessage(e.getPlayer(), Messages.trprefix + Messages.signcreate);
+			Messages.sendMessage(e.getPlayer(), Messages.signcreate);
 			plugin.signEditor.addSign(e.getBlock(), arenaname);
 			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin,
 				new Runnable() {
@@ -58,7 +58,7 @@ public class JoinSign implements SignType {
 				}
 			);
 		} else {
-			Messages.sendMessage(e.getPlayer(), Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", arenaname));
+			Messages.sendMessage(e.getPlayer(), Messages.arenanotexist.replace("{ARENA}", arenaname));
 			e.setCancelled(true);
 			e.getBlock().breakNaturally();
 		}
@@ -76,7 +76,7 @@ public class JoinSign implements SignType {
 			}
 			e.setCancelled(true);
 		} else {
-			Messages.sendMessage(player, Messages.trprefix + Messages.arenanotexist);
+			Messages.sendMessage(player, Messages.arenanotexist);
 			e.getClickedBlock().breakNaturally();
 		}
 	}
@@ -85,7 +85,7 @@ public class JoinSign implements SignType {
 	public void handleDestroy(BlockBreakEvent e) {
 		Block b = e.getBlock();
 		plugin.signEditor.removeSign(b, ChatColor.stripColor(((Sign) b.getState()).getLine(2)));
-		Messages.sendMessage(e.getPlayer(), Messages.trprefix + Messages.signremove);
+		Messages.sendMessage(e.getPlayer(), Messages.signremove);
 	}
 
 }

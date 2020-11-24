@@ -195,7 +195,7 @@ public class GameHandler {
 			}
 			player.setAllowFlight(true);
 
-			Messages.sendMessage(player, message);
+			Messages.sendMessage(player, message, false);
 			plugin.getSound().ARENA_START(player);
 			setGameInventory(player);
 
@@ -367,11 +367,11 @@ public class GameHandler {
 		/* Determine who should receive notification of win (0 suppresses broadcast) */
 		if (plugin.getConfig().getInt("broadcastwinlevel") == 1) {
 			for (Player all : arena.getPlayersManager().getAllParticipantsCopy()) {
-				Messages.sendMessage(all, message);
+				Messages.sendMessage(all, message, false);
 			}
 		} else if (plugin.getConfig().getInt("broadcastwinlevel") >= 2) {
 			for (Player all : Bukkit.getOnlinePlayers()) {
-				Messages.sendMessage(all, message);
+				Messages.sendMessage(all, message, false);
 			}
 		}
 
@@ -472,7 +472,7 @@ public class GameHandler {
 	private void displayCountdown(Player player, int count, String message) {
 		plugin.getSound().NOTE_PLING(player, 1, 999);
 		if (!plugin.getConfig().getBoolean("special.UseTitle")) {
-			Messages.sendMessage(player, Messages.trprefix + message);
+			Messages.sendMessage(player, message);
 			return;
 		} 
 		TitleMsg.sendFullTitle(player, TitleMsg.starting.replace("{COUNT}", count + ""), TitleMsg.substarting.replace("{COUNT}", count + ""), 0, 40, 20, plugin);

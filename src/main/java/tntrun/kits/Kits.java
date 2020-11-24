@@ -53,12 +53,12 @@ public class Kits {
 	
 	public void registerKit(String name, Player player) {
 		if (kitExists(name)) {
-			Messages.sendMessage(player, Messages.trprefix + Messages.kitexists.replace("{KIT}", name));
+			Messages.sendMessage(player, Messages.kitexists.replace("{KIT}", name));
 			return;
 		}
 		Kit kit = new Kit(player.getInventory().getContents(), player.getActivePotionEffects());
 		registerKit(name, kit);
-		Messages.sendMessage(player, Messages.trprefix + Messages.kitadd.replace("{KIT}", name));
+		Messages.sendMessage(player, Messages.kitadd.replace("{KIT}", name));
 	}
 
 	private void registerKit(String name, Kit kit) {
@@ -67,19 +67,19 @@ public class Kits {
 
 	public void unregisterKit(String name, Player player) {
 		if (! kitExists(name)) {
-			Messages.sendMessage(player, Messages.trprefix + Messages.kitnotexists.replace("{KIT}", name));
+			Messages.sendMessage(player, Messages.kitnotexists.replace("{KIT}", name));
 			return;
 		}
 		kits.remove(name);
 		config.set("kits." + name, null);
 		saveKits();
-		Messages.sendMessage(player, Messages.trprefix + Messages.kitdel.replace("{KIT}", name));
+		Messages.sendMessage(player, Messages.kitdel.replace("{KIT}", name));
 	}
 
 	public void giveKit(String name, Player player) {
 		try {
 			kits.get(name).giveKit(player);
-			Messages.sendMessage(player, Messages.trprefix + Messages.playerkit.replace("{KIT}", name));
+			Messages.sendMessage(player, Messages.playerkit.replace("{KIT}", name));
 		} catch (Exception e) {
 		}
 	}
@@ -149,11 +149,11 @@ public class Kits {
 	
 	public void listKit(String name, Player player) {
 		if (!kitExists(name)) {
-			Messages.sendMessage(player, Messages.trprefix + Messages.kitnotexists.replace("{KIT}", name));
+			Messages.sendMessage(player, Messages.kitnotexists.replace("{KIT}", name));
 			return;
 		}
-		Messages.sendMessage(player, "&7============" + Messages.trprefix + "============");
-		Messages.sendMessage(player, "&7Kit Details: &a" + name);
+		Messages.sendMessage(player, "&7============" + Messages.trprefix + "============", false);
+		Messages.sendMessage(player, "&7Kit Details: &a" + name, false);
 
 		for (ItemStack is : kits.get(name).items) {
 			if (is == null || is.getType() == Material.AIR) {
@@ -164,14 +164,14 @@ public class Kits {
 			if (is.getAmount() > 1) {
 				message.append("&7 x " + "&c" + is.getAmount());
 			}
-			Messages.sendMessage(player, message.toString());
+			Messages.sendMessage(player, message.toString(), false);
 		}
 
 		for (PotionEffect pe : kits.get(name).effects) {
 			if (pe == null) {
 				continue;
 			}
-			Messages.sendMessage(player, "&6Potion Effect&7 : &c" + pe.getType().getName());
+			Messages.sendMessage(player, "&6Potion Effect&7 : &c" + pe.getType().getName(), false);
 		}
 	}
 

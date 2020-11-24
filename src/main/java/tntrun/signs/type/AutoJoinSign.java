@@ -36,7 +36,7 @@ public class AutoJoinSign implements SignType {
 	@Override
 	public void handleCreation(SignChangeEvent e) {
 		e.setLine(0, FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")));
-		Messages.sendMessage(e.getPlayer(), Messages.trprefix + Messages.signcreate);
+		Messages.sendMessage(e.getPlayer(), Messages.signcreate);
 	}
 
 	@Override
@@ -48,6 +48,6 @@ public class AutoJoinSign implements SignType {
 
 	@Override
 	public void handleDestroy(BlockBreakEvent e) {
-		Messages.sendMessage(e.getPlayer(), Messages.trprefix + Messages.signremove);
+		Messages.sendMessage(e.getPlayer(), Messages.signremove);
 	}
 }

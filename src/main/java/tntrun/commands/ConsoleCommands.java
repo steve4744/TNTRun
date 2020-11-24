@@ -41,7 +41,7 @@ public class ConsoleCommands implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if (!(sender instanceof ConsoleCommandSender || sender instanceof RemoteConsoleCommandSender  || sender instanceof BlockCommandSender)) {
+		if (!(sender instanceof ConsoleCommandSender || sender instanceof RemoteConsoleCommandSender || sender instanceof BlockCommandSender)) {
 			sender.sendMessage("Console is expected");
 			return true;
 		}
@@ -56,7 +56,7 @@ public class ConsoleCommands implements CommandExecutor {
 				arena.getStatusManager().disableArena();
 				sender.sendMessage("Arena disabled");
 			} else {
-				Messages.sendMessage(sender, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[1]));
+				Messages.sendMessage(sender, Messages.arenanotexist.replace("{ARENA}", args[1]));
 			}
 			return true;
 		}
@@ -74,14 +74,14 @@ public class ConsoleCommands implements CommandExecutor {
 					}
 				}
 			} else {
-				Messages.sendMessage(sender, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[1]));
+				Messages.sendMessage(sender, Messages.arenanotexist.replace("{ARENA}", args[1]));
 			}
 			return true;
 		}
 		// leader board
 		else if (args.length >= 1 && args[0].equalsIgnoreCase("leaderboard")) {
 			if (!plugin.useStats()) {
-				Messages.sendMessage(sender, Messages.trprefix + Messages.statsdisabled);
+				Messages.sendMessage(sender, Messages.statsdisabled);
 				return true;
 			}
 			int entries = plugin.getConfig().getInt("leaderboard.maxentries", 10);
@@ -90,14 +90,14 @@ public class ConsoleCommands implements CommandExecutor {
 					entries = Integer.parseInt(args[1]);
 				}
 			}
-			Messages.sendMessage(sender, Messages.leaderhead);
+			Messages.sendMessage(sender, Messages.leaderhead, false);
 			plugin.stats.getLeaderboard(sender, entries);
 			return true;
 		}
 		// list
 		else if (args[0].equalsIgnoreCase("list")) {
 			int arenacount = plugin.amanager.getArenas().size();
-			Messages.sendMessage(sender, Messages.trprefix + Messages.availablearenas.replace("{COUNT}", String.valueOf(arenacount)));
+			Messages.sendMessage(sender, Messages.availablearenas.replace("{COUNT}", String.valueOf(arenacount)));
 			if (arenacount == 0) {
 				return true;
 			}
@@ -109,7 +109,7 @@ public class ConsoleCommands implements CommandExecutor {
 					message.add("&c" + arena.getArenaName() + "&a");
 				}
 			}
-			Messages.sendMessage(sender, message.toString());
+			Messages.sendMessage(sender, message.toString(), false);
 			return true;
 		}
 		// start
@@ -117,16 +117,16 @@ public class ConsoleCommands implements CommandExecutor {
 			Arena arena = plugin.amanager.getArenaByName(args[1]);
 			if (arena != null) {
 				if (arena.getPlayersManager().getPlayersCount() <= 1) {
-					Messages.sendMessage(sender, Messages.trprefix + Messages.playersrequiredtostart);
+					Messages.sendMessage(sender, Messages.playersrequiredtostart);
 					return true;
 				}
 				if (!arena.getStatusManager().isArenaStarting()) {
-					Messages.sendMessage(sender, Messages.trprefix + "Arena " + arena.getArenaName() + " force-started by console");
+					Messages.sendMessage(sender, "Arena " + arena.getArenaName() + " force-started by console");
 					arena.getGameHandler().forceStartByCommand();
 					return true;
 				}
 			} else {
-				Messages.sendMessage(sender, Messages.trprefix + Messages.arenanotexist.replace("{ARENA}", args[1]));
+				Messages.sendMessage(sender, Messages.arenanotexist.replace("{ARENA}", args[1]));
 				return true;
 			}
 		}
@@ -157,16 +157,16 @@ public class ConsoleCommands implements CommandExecutor {
 		return false;
 	}
 	private void displayConsoleCommands(CommandSender sender) {
-		Messages.sendMessage(sender, Messages.trprefix + "trconsole help");
-		Messages.sendMessage(sender, Messages.trprefix + "trconsole list");
-		Messages.sendMessage(sender, Messages.trprefix + "trconsole info");
-		Messages.sendMessage(sender, Messages.trprefix + "trconsole enable {arena}");
-		Messages.sendMessage(sender, Messages.trprefix + "trconsole disable {arena}");
-		Messages.sendMessage(sender, Messages.trprefix + "trconsole start {arena}");
-		Messages.sendMessage(sender, Messages.trprefix + "trconsole reloadconfig");
-		Messages.sendMessage(sender, Messages.trprefix + "trconsole reloadmessages");
-		Messages.sendMessage(sender, Messages.trprefix + "trconsole reloadbars");
-		Messages.sendMessage(sender, Messages.trprefix + "trconsole leaderboard");
+		Messages.sendMessage(sender, "trconsole help");
+		Messages.sendMessage(sender, "trconsole list");
+		Messages.sendMessage(sender, "trconsole info");
+		Messages.sendMessage(sender, "trconsole enable {arena}");
+		Messages.sendMessage(sender, "trconsole disable {arena}");
+		Messages.sendMessage(sender, "trconsole start {arena}");
+		Messages.sendMessage(sender, "trconsole reloadconfig");
+		Messages.sendMessage(sender, "trconsole reloadmessages");
+		Messages.sendMessage(sender, "trconsole reloadbars");
+		Messages.sendMessage(sender, "trconsole leaderboard");
 	}
 
 }
