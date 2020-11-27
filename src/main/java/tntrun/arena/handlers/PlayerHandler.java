@@ -306,7 +306,6 @@ public class PlayerHandler {
 				Messages.sendMessage(oplayer, msgtoarenaplayers);
 			}
 		}
-
 		arena.getPlayersManager().addSpectator(player);
 
 		new BukkitRunnable() {
@@ -449,13 +448,13 @@ public class PlayerHandler {
 		// reward players before restoring gamemode
 		if (winner) {
 			arena.getStructureManager().getRewards().rewardPlayer(player, 1);
-		}
-		if (arena.getGameHandler().getPlaces().containsValue(player.getName())) {
-			int position = 3;
-			if (arena.getGameHandler().getPlaces().get(2).equalsIgnoreCase(player.getName())) {
-				position = 2;
-			}
-			arena.getStructureManager().getRewards().rewardPlayer(player, position);
+
+		} else if (arena.getGameHandler().getPlaces().containsValue(player.getName())) {
+			arena.getGameHandler().getPlaces().entrySet().forEach(e -> {
+				if (e.getValue().equalsIgnoreCase(player.getName())) {
+					arena.getStructureManager().getRewards().rewardPlayer(player, e.getKey());
+				}
+			});
 		}
 
 		plugin.getPData().restorePlayerGameMode(player);

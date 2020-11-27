@@ -44,6 +44,7 @@ public class PlayerLeaveArenaChecker implements Listener {
 		if (arena == null) {
 			return;
 		}
+		arena.getGameHandler().setPlaces(player.getName());
 		arena.getPlayerHandler().leavePlayer(player, "", Messages.playerlefttoothers);
 		
 		if (arena.getPlayersManager().getPlayersCount() == 0) {
@@ -59,6 +60,7 @@ public class PlayerLeaveArenaChecker implements Listener {
 		if (arena == null) {
 			return;
 		}
+		arena.getGameHandler().setPlaces(player.getName());
 		arena.getPlayerHandler().dispatchPlayer(player);
 	}
 

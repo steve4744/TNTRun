@@ -306,10 +306,15 @@ public class GameHandler {
 	/**
 	 * Store the names of the players finishing in places 2 and 3.
 	 * The players can be at the lose level or can have quit the game.
+	 * Exit if the map already contains the player - 3rd placed spectator could
+	 * subsequently quit and be rewarded multiple prizes.
 	 *
 	 * @param playerName
 	 */
 	public void setPlaces(String playerName) {
+		if (places.containsValue(playerName)) {
+			return;
+		}
 		int remainingPlayers = arena.getPlayersManager().getPlayersCount();
 		if (remainingPlayers < 4 && remainingPlayers > 1) {
 			places.put(remainingPlayers, playerName);
