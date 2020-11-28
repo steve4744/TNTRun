@@ -164,7 +164,7 @@ public class GameHandler {
 	/**
 	 * Start the arena, removing the waiting scoreboard from spectator-only players.
 	 */
-	public void startArena() {
+	private void startArena() {
 		arena.getStatusManager().setRunning(true);
 		if (Utils.debug() ) {
 			plugin.getLogger().info("Arena " + arena.getArenaName() + " started");
@@ -244,6 +244,9 @@ public class GameHandler {
 		}, 0, 1);
 	}
 
+	/**
+	 * Stop the arena, removing any remaining players/spectators.
+	 */
 	public void stopArena() {
 		if (!arena.getStatusManager().isArenaRunning()) {
 			if (Utils.debug()) {
@@ -270,22 +273,25 @@ public class GameHandler {
 		}
 	}
 
-	// player handlers
-	public void handlePlayer(final Player player) {
+	/**
+	 * Remove the block under the player's feet, monitor player's position for lose.
+	 * Check for winner, i.e. last player remaining, and for 2nd and 3rd places.
+	 * @param player
+	 */
+	private void handlePlayer(final Player player) {
 		Location plloc = player.getLocation();
 		Location plufloc = plloc.clone().add(0, -1, 0);
-		// remove block under player feet
+
 		arena.getStructureManager().getGameZone().destroyBlock(plufloc);
-		// check for win
+
 		if (arena.getPlayersManager().getPlayersCount() == 1  && !arena.getStructureManager().isTestMode()) {
-			// last player wins
 			startEnding(player);
 			return;
 		}
-		// check for lose
+
 		if (arena.getStructureManager().getLoseLevel().isLooseLocation(plloc)) {
 			if (arena.getPlayersManager().getPlayersCount() == 1) {
-				// must be test mode
+				// arena must be in test mode
 				startEnding(player);
 				return;
 			}
@@ -361,7 +367,7 @@ public class GameHandler {
 	 *
 	 * @param player
 	 */
-	public void startEnding(final Player player) {
+	private void startEnding(final Player player) {
 		if (plugin.useStats()) {
 			plugin.stats.addWins(player, 1);
 		}
