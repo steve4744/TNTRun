@@ -223,6 +223,7 @@ public class GameHandler {
 				}
 				// kick all players if time is out
 				if (hasTimeLimit && timeremaining < 0) {
+					places.clear();
 					for (Player player : arena.getPlayersManager().getPlayersCopy()) {
 						arena.getPlayerHandler().leavePlayer(player,Messages.arenatimeout, "");
 					}
