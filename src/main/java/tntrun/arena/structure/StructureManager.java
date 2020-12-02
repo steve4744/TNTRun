@@ -65,7 +65,7 @@ public class StructureManager {
 	private double fee = 0;
 	private boolean finished = false;
 	private List<Vector> additionalSpawnPoints = new ArrayList<>();
-	private List<Vector> tempList = new ArrayList<>();
+	private List<Vector> freeSpawnList = new ArrayList<>();
 	private String commandOnStart;
 	private String commandOnStop;
 
@@ -119,6 +119,10 @@ public class StructureManager {
 			v = nextSpawnPoint();
 		}
 		return new Location(getWorld(), v.getX(), v.getY(), v.getZ());
+	}
+
+	public Location getPrimarySpawnPoint() {
+		return new Location(getWorld(), spawnpoint.getX(), spawnpoint.getY(), spawnpoint.getZ());
 	}
 
 	public List<Vector> getAdditionalSpawnPoints() {
@@ -367,11 +371,15 @@ public class StructureManager {
 	}
 
 	private Vector nextSpawnPoint() {
-		if (tempList.isEmpty()) {
-			tempList.add(spawnpoint);
-			tempList.addAll(additionalSpawnPoints);
+		if (freeSpawnList.isEmpty()) {
+			freeSpawnList.add(spawnpoint);
+			freeSpawnList.addAll(additionalSpawnPoints);
 		}
-		return tempList.remove(0);
+		return freeSpawnList.remove(0);
+	}
+
+	public List<Vector> getFreeSpawnList() {
+		return freeSpawnList;
 	}
 
 	public void saveToConfig() {
@@ -448,7 +456,7 @@ public class StructureManager {
 		if (!finished && arena.getStructureManager().isArenaConfigured()) {
 			finished = true;
 		}
-		additionalSpawnPoints = (List<Vector>) config.getList("spawnpoints");
+		additionalSpawnPoints = (List<Vector>) config.getList("spawnpoints", new ArrayList<>());
 		commandOnStart = config.getString("commandOnStart", "");
 		commandOnStop = config.getString("commandOnStop", "");
 	}

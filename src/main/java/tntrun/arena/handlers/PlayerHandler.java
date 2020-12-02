@@ -23,9 +23,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -57,6 +57,7 @@ public class PlayerHandler {
 	private Map<String, Integer> doublejumps = new HashMap<>();   // playername -> doublejumps
 	private List<String> pparty = new ArrayList<>();
 	private HashSet<String> votes = new HashSet<>();
+	private Map<String, Location> spawnmap = new HashMap<>();
 
 	public PlayerHandler(TNTRun plugin, Arena arena) {
 		this.plugin = plugin;
@@ -153,15 +154,41 @@ public class PlayerHandler {
 	}
 
 	/**
-	 * Teleport the player to the arena spawn. Store the player data and put the arena items into the hotbar.
+	 * In a standard, single spawnpoint arena this method will simply return the arena spawnpoint location.
+	 * In a multi-spawnpoint arena, the next available spawnpoint is allocated to the player and cached. If a player
+	 * leaves the arena and then rejoins, he will be given his cached spawnpoint. If the cached spawnpoint has since
+	 * been allocated to another player, then he will be given the next available spawnpoint.
+	 *
+	 * @param playerName
+	 * @return the spawnpoint location
+	 */
+	private Location getSpawnPoint(String playerName) {
+		Location loc = null;
+		if (spawnmap.containsKey(playerName) && (arena.getStructureManager().getFreeSpawnList().contains(spawnmap.get(playerName).toVector()))) {
+			loc = spawnmap.get(playerName);
+			arena.getStructureManager().getFreeSpawnList().remove(loc.toVector());
+		} else {
+			loc = arena.getStructureManager().getSpawnPoint();
+			if (arena.getStructureManager().hasAdditionalSpawnPoints()) {
+				spawnmap.put(playerName, loc);
+			}
+		}
+		return loc != null ? loc : arena.getStructureManager().getPrimarySpawnPoint();
+	}
+
+	/**
+	 * Teleport the player to an arena spawn point.
+	 * Store the player data and put the arena items into the hotbar.
 	 *
 	 * @param player
-	 * @param msgtoplayer Join message sent to player.
-	 * @param msgtoarenaplayers Player join message sent to players in the arena.
+	 * @param msgtoplayer Join message sent to player
+	 * @param msgtoarenaplayers Player join message sent to players in the arena
 	 */
 	public void spawnPlayer(final Player player, String msgtoplayer, String msgtoarenaplayers) {
 		plugin.getPData().storePlayerLocation(player);
-		player.teleport(arena.getStructureManager().getSpawnPoint());
+
+		player.teleport(getSpawnPoint(player.getName()));
+
 		for (Player aplayer : Bukkit.getOnlinePlayers()) {
 			aplayer.showPlayer(plugin, player);
 		}
@@ -347,6 +374,8 @@ public class PlayerHandler {
 
 	/**
 	 * Remove the player from the arena. All players will be processed here except the winner.
+	 * In a multi-spawnpoint arena, if a player leaves before the game starts return the allocated
+	 * spawnpoint to the free list.
 	 *
 	 * @param player
 	 * @param msgtoplayer
@@ -373,10 +402,15 @@ public class PlayerHandler {
 		if (spectator) {
 			return;
 		}
+
 		Messages.sendMessage(player, msgtoplayer);
 		plugin.signEditor.modifySigns(arena.getArenaName());
+
 		if (!arena.getStatusManager().isArenaRunning()) {
 			arena.getScoreboardHandler().createWaitingScoreBoard();
+			if (spawnmap.containsKey(player.getName())) {
+				arena.getStructureManager().getFreeSpawnList().add(spawnmap.get(player.getName()).toVector());
+			}
 		}
 
 		msgtoarenaplayers = msgtoarenaplayers
@@ -408,6 +442,8 @@ public class PlayerHandler {
 		Messages.sendMessage(player, msgtoplayer);
 		plugin.signEditor.modifySigns(arena.getArenaName());
 		plugin.signEditor.refreshLeaderBoards();
+		arena.getStructureManager().getFreeSpawnList().clear();
+		spawnmap.clear();
 	}
 
 	/**
