@@ -6,7 +6,7 @@ menutext: "&5Jugadores: &6{PS}/{MPS}"
 menufee: "&5Cuota de inscripción: &6{FEE}"
 menupvp: "&5PVP: &6Habilitado"
 nopermission: "&c No tienes permisos para hacer esto"
-nolobby: "&c No existe un lobby global, escribe &6/trsetup setlobby &c para colocar
+nolobby: "&c No existe un lobby global, escribe &6/trsetup setlobby &cpara colocar
   uno"
 lobbyunloaded: "&c El mundo del lobby está sin cargar o no existe"
 teleporttolobby: "&7 Teletransportado al lobby"
