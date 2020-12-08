@@ -43,6 +43,7 @@ import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.messages.Messages;
 import tntrun.utils.Heads;
+import tntrun.utils.Stats;
 import tntrun.utils.Utils;
 
 public class RestrictionHandler implements Listener {
@@ -260,10 +261,10 @@ public class RestrictionHandler implements Listener {
 				}.runTaskLaterAsynchronously(plugin, 30L);
 			}
 		}
-		if (!plugin.useStats()) {
+		if (!plugin.useStats() || plugin.isFile()) {
 			return;
 		}
-		if (plugin.isFile()) {
+		if (plugin.stats.hasDatabaseEntry(player)) {
 			return;
 		}
 		final String table = plugin.getConfig().getString("MySQL.table", "stats");

@@ -354,4 +354,8 @@ public class Stats {
 		});
 		return lmap;
 	}
+
+	public boolean hasDatabaseEntry(OfflinePlayer player) {
+		return pmap.containsKey(getPlayerUUID(player));
+	}
 }
