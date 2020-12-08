@@ -43,7 +43,6 @@ import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.messages.Messages;
 import tntrun.utils.Heads;
-import tntrun.utils.Stats;
 import tntrun.utils.Utils;
 
 public class RestrictionHandler implements Listener {

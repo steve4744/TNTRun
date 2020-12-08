@@ -6,10 +6,21 @@ public enum EnumLang {
 	Czech("cs", false),
 	Danish("da", false),
 	Dutch("nl", false),
-	Spanish("es", false),
-	Spanish_Spain("es-ES", false),
 	English("en-GB", true),
-	English_US("en-US", false);
+	English_US("en-US", false),
+	Finnish("fi", false),
+	French("fr", false),
+	German("de", false),
+	Italian("it", false),
+	Japanese("ja", false),
+	Korean("ko", false),
+	Norwegian("no", false),
+	Polish("pl", false),
+	Portugese("pt", false),
+	Russian("ru", false),
+	Spanish("es", true),
+	Swedish("sv", false),
+	Welsh("cy", true);
 	
 	private final String name;
 	private final boolean supported;
