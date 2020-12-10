@@ -146,7 +146,7 @@ public class JoinMenu {
 		Arena autoarena = null;
 		int playercount = -1;
 
-		switch (type) {
+		switch (type.toLowerCase()) {
 			case "pvp":
 				arenas = plugin.amanager.getPvpArenas();
 				break;

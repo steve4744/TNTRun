@@ -17,6 +17,8 @@
 
 package tntrun.signs.type;
 
+import org.bukkit.ChatColor;
+import org.bukkit.block.Sign;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -41,7 +43,7 @@ public class AutoJoinSign implements SignType {
 
 	@Override
 	public void handleClick(PlayerInteractEvent e) {
-		String type = "";
+		String type = ChatColor.stripColor(((Sign) e.getClickedBlock().getState()).getLine(2));
 		plugin.getJoinMenu().autoJoin(e.getPlayer(), type);
 		e.setCancelled(true);
 	}
