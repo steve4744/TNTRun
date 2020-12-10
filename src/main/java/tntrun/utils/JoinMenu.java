@@ -19,6 +19,7 @@ package tntrun.utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.TreeMap;
@@ -135,6 +136,8 @@ public class JoinMenu {
 
 	/**
 	 * Select the arena to auto join. This will be the arena with the most players waiting to start.
+	 * If all arenas are empty, then an arena is selected at random.
+	 *
 	 * @param player
 	 * @return arena
 	 */
@@ -154,7 +157,9 @@ public class JoinMenu {
 				arenas = plugin.amanager.getArenas();
 		}
 
-		for (Arena arena : arenas) {
+		List<Arena> arenalist = new ArrayList<>(arenas);
+		Collections.shuffle(arenalist);
+		for (Arena arena : arenalist) {
 			if (arena.getPlayerHandler().checkJoin(player, true)) {
 				if (arena.getPlayersManager().getPlayersCount() > playercount) {
 					autoarena = arena;
