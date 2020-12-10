@@ -63,18 +63,18 @@ public class ConsoleCommands implements CommandExecutor {
 		// enable arena
 		else if (args.length == 2 && args[0].equalsIgnoreCase("enable")) {
 			Arena arena = plugin.amanager.getArenaByName(args[1]);
-			if (arena != null) {
-				if (arena.getStatusManager().isArenaEnabled()) {
-					sender.sendMessage("Arena already enabled.");
-				} else {
-					if (arena.getStatusManager().enableArena()) {
-						sender.sendMessage("Arena enabled");
-					} else {
-						sender.sendMessage("Arena is not configured. Reason: "+ arena.getStructureManager().isArenaConfigured());
-					}
-				}
-			} else {
+			if (arena == null) {
 				Messages.sendMessage(sender, Messages.arenanotexist.replace("{ARENA}", args[1]));
+				return true;
+			}
+			if (arena.getStatusManager().isArenaEnabled()) {
+				sender.sendMessage("Arena already enabled.");
+			} else {
+				if (arena.getStatusManager().enableArena()) {
+					sender.sendMessage("Arena enabled");
+				} else {
+					sender.sendMessage("Arena is not configured. Reason: "+ arena.getStructureManager().isArenaConfigured());
+				}
 			}
 			return true;
 		}
@@ -115,18 +115,17 @@ public class ConsoleCommands implements CommandExecutor {
 		// start
 		else if (args.length == 2 && args[0].equalsIgnoreCase("start")) {
 			Arena arena = plugin.amanager.getArenaByName(args[1]);
-			if (arena != null) {
-				if (arena.getPlayersManager().getPlayersCount() <= 1) {
-					Messages.sendMessage(sender, Messages.playersrequiredtostart);
-					return true;
-				}
-				if (!arena.getStatusManager().isArenaStarting()) {
-					Messages.sendMessage(sender, "Arena " + arena.getArenaName() + " force-started by console");
-					arena.getGameHandler().forceStartByCommand();
-					return true;
-				}
-			} else {
+			if (arena == null) {
 				Messages.sendMessage(sender, Messages.arenanotexist.replace("{ARENA}", args[1]));
+				return true;
+			}
+			if (arena.getPlayersManager().getPlayersCount() <= 1) {
+				Messages.sendMessage(sender, Messages.playersrequiredtostart);
+				return true;
+			}
+			if (!arena.getStatusManager().isArenaStarting()) {
+				Messages.sendMessage(sender, "Arena " + arena.getArenaName() + " force-started by console");
+				arena.getGameHandler().forceStartByCommand();
 				return true;
 			}
 		}

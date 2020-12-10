@@ -85,36 +85,30 @@ public class GameCommands implements CommandExecutor {
 				Messages.sendMessage(player, "&7============" + Messages.trprefix + "============", false);
 				Messages.sendMessage(player, "&7Arena Details: &a" + arena.getArenaName(), false);
 
-				String arenaStatus = "Enabled";
-				if (!arena.getStatusManager().isArenaEnabled()) {
-					arenaStatus = "Disabled";
-				}
-				player.sendMessage(ChatColor.GOLD + "Status " + ChatColor.WHITE + "- " + ChatColor.RED + arenaStatus);
-				player.sendMessage(ChatColor.GOLD + "Min Players " + ChatColor.WHITE + "- " + ChatColor.RED + + arena.getStructureManager().getMinPlayers());
-				player.sendMessage(ChatColor.GOLD + "Max Players " + ChatColor.WHITE + "- " + ChatColor.RED + arena.getStructureManager().getMaxPlayers());
-				player.sendMessage(ChatColor.GOLD + "Time Limit " + ChatColor.WHITE + "- " + ChatColor.RED + arena.getStructureManager().getTimeLimit() + " seconds");
-				player.sendMessage(ChatColor.GOLD + "Countdown " + ChatColor.WHITE + "- " + ChatColor.RED + arena.getStructureManager().getCountdown() + " seconds");
-				player.sendMessage(ChatColor.GOLD + "Teleport to " + ChatColor.WHITE + "- " + ChatColor.RED + Utils.getTitleCase(arena.getStructureManager().getTeleportDestination().toString()));
-				player.sendMessage(ChatColor.GOLD + "Player Count " + ChatColor.WHITE + "- " + ChatColor.RED + arena.getPlayersManager().getPlayersCount());
-				player.sendMessage(ChatColor.GOLD + "Vote Percent " + ChatColor.WHITE + "- " + ChatColor.RED + arena.getStructureManager().getVotePercent());
-				player.sendMessage(ChatColor.GOLD + "PVP Damage Enabled " + ChatColor.WHITE + "- " + ChatColor.RED + Utils.getTitleCase(arena.getStructureManager().getDamageEnabled().toString()));
-				if (arena.getStructureManager().isKitsEnabled()) {
-					player.sendMessage(ChatColor.GOLD + "Kits Enabled " + ChatColor.WHITE +"- " + ChatColor.RED + "Yes");
-				} else {
-					player.sendMessage(ChatColor.GOLD + "Kits Enabled " + ChatColor.WHITE + "- " + ChatColor.RED + "No");
-				}
+				String arenaStatus = arena.getStatusManager().isArenaEnabled() ? "Enabled" : "Disabled";
+				player.sendMessage(ChatColor.GOLD + "Status " + ChatColor.DARK_GRAY + "........................ " + ChatColor.RED + arenaStatus);
+				player.sendMessage(ChatColor.GOLD + "Min Players " + ChatColor.DARK_GRAY + "........... " + ChatColor.RED + + arena.getStructureManager().getMinPlayers());
+				player.sendMessage(ChatColor.GOLD + "Max Players " + ChatColor.DARK_GRAY + "......... " + ChatColor.RED + arena.getStructureManager().getMaxPlayers());
+				player.sendMessage(ChatColor.GOLD + "Time Limit " + ChatColor.DARK_GRAY + ".................. " + ChatColor.RED + arena.getStructureManager().getTimeLimit() + " seconds");
+				player.sendMessage(ChatColor.GOLD + "Countdown " + ChatColor.DARK_GRAY + ".............. " + ChatColor.RED + arena.getStructureManager().getCountdown() + " seconds");
+				player.sendMessage(ChatColor.GOLD + "Teleport to " + ChatColor.DARK_GRAY + "............ " + ChatColor.RED + Utils.getTitleCase(arena.getStructureManager().getTeleportDestination().toString()));
+				player.sendMessage(ChatColor.GOLD + "Player Count " + ChatColor.DARK_GRAY + "........ " + ChatColor.RED + arena.getPlayersManager().getPlayersCount());
+				player.sendMessage(ChatColor.GOLD + "Vote Percent " + ChatColor.DARK_GRAY + "....... " + ChatColor.RED + arena.getStructureManager().getVotePercent());
+				player.sendMessage(ChatColor.GOLD + "PVP Damage " + ChatColor.DARK_GRAY + "........... " + ChatColor.RED + Utils.getTitleCase(arena.getStructureManager().getDamageEnabled().toString()));
 
-				player.sendMessage(ChatColor.GOLD + "Rewards " + ChatColor.WHITE + "- " + ChatColor.RED + "Use command '/tr listrewards {arena}'");
+				String result = arena.getStructureManager().isKitsEnabled() ? "Yes" : "No";
+				player.sendMessage(ChatColor.GOLD + "Kits Enabled " + ChatColor.DARK_GRAY + ".......... " + ChatColor.RED + result);
+				player.sendMessage(ChatColor.GOLD + "Rewards " + ChatColor.DARK_GRAY + "................... " + ChatColor.RED + "Use command '/tr listrewards {arena}'");
 
 				if (arena.getStructureManager().getFee() > 0) {
-					player.sendMessage(ChatColor.GOLD + "Join Fee " + ChatColor.WHITE + "- " + ChatColor.RED + arena.getStructureManager().getFee());
+					player.sendMessage(ChatColor.GOLD + "Join Fee " + ChatColor.DARK_GRAY + "................... " + ChatColor.RED + arena.getStructureManager().getFee());
 					if (arena.getStructureManager().isCurrencyEnabled()) {
-						player.sendMessage(ChatColor.GOLD + "Item Currency " + ChatColor.WHITE + "- " + ChatColor.RED + arena.getStructureManager().getCurrency().toString());
+						player.sendMessage(ChatColor.GOLD + "Item Currency " + ChatColor.DARK_GRAY + ".... " + ChatColor.RED + arena.getStructureManager().getCurrency().toString());
 					}
 				}
 
 				if (arena.getStructureManager().isTestMode()) {
-					player.sendMessage(ChatColor.GOLD + "Test Mode " + ChatColor.WHITE + "- " + ChatColor.RED + "Enabled");
+					player.sendMessage(ChatColor.GOLD + "Test Mode " + ChatColor.DARK_GRAY + "............... " + ChatColor.RED + "Enabled");
 				}
 				return false;
 			}
@@ -285,20 +279,18 @@ public class GameCommands implements CommandExecutor {
 		// vote
 		else if (args[0].equalsIgnoreCase("vote")) {
 			Arena arena = plugin.amanager.getPlayerArena(player.getName());
-			if (arena != null) {
-				if (!arena.getPlayersManager().getPlayers().contains(player)) {
-					Messages.sendMessage(player, Messages.playercannotvote);
-					return true;
-				}
-				if (arena.getPlayerHandler().vote(player)) {
-					Messages.sendMessage(player, Messages.playervotedforstart);
-				} else {
-					Messages.sendMessage(player, Messages.playeralreadyvotedforstart);
-					return true;
-				}
-
-			} else {
+			if (arena == null) {
 				Messages.sendMessage(player, Messages.playernotinarena);
+				return true;
+			}
+			if (!arena.getPlayersManager().getPlayers().contains(player)) {
+				Messages.sendMessage(player, Messages.playercannotvote);
+				return true;
+			}
+			if (arena.getPlayerHandler().vote(player)) {
+				Messages.sendMessage(player, Messages.playervotedforstart);
+			} else {
+				Messages.sendMessage(player, Messages.playeralreadyvotedforstart);
 				return true;
 			}
 		}
