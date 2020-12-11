@@ -97,9 +97,24 @@ public class PlayerHandler {
 			}
 			return false;
 		}
+
+		return processFee(player, silent);
+	}
+
+	/**
+	 * Returns whether the player has the funds to pay the arena entry fee, if one exists.
+	 * If silent is true, the fee is only checked but not taken from the player.
+	 * If silent is false then the fee will be charged and removed from the player's balance
+	 * or inventory.
+	 *
+	 * @param player
+	 * @param silent
+	 * @return
+	 */
+	public boolean processFee(Player player, boolean silent) {
 		if (arena.getStructureManager().hasFee()) {
 			double fee = arena.getStructureManager().getFee();
-			if (!arena.getArenaEconomy().hasFunds(player, fee)) {
+			if (!arena.getArenaEconomy().hasFunds(player, fee, silent)) {
 				if (!silent) {
 					Messages.sendMessage(player, Messages.arenanofee.replace("{FEE}", arena.getStructureManager().getArenaCost()));
 				}
