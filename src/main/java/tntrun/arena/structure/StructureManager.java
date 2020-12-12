@@ -203,7 +203,7 @@ public class StructureManager {
 
 	public String getArenaCost() {
 		if (!isCurrencyEnabled()) {
-			return String.valueOf(fee);
+			return Utils.getFormattedCurrency(String.valueOf(fee));
 		}
 		return new StringBuilder().append((int) fee).append(" x ").append(currency).toString();
 	}
