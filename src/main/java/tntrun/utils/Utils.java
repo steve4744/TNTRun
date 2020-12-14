@@ -17,6 +17,8 @@
 
 package tntrun.utils;
 
+import java.text.DecimalFormat;
+
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -174,6 +176,9 @@ public class Utils {
 	}
 
 	public static String getFormattedCurrency(String amount) {
-		return TNTRun.getInstance().getConfig().getString("currency.prefix") + amount + TNTRun.getInstance().getConfig().getString("currency.suffix");
+		DecimalFormat df = new DecimalFormat("0.00");
+		String formattedAmount = (amount.endsWith(".00") || amount.endsWith(".0")) ? amount.split("\\.")[0] : df.format(Double.valueOf(amount));
+
+		return TNTRun.getInstance().getConfig().getString("currency.prefix") + formattedAmount + TNTRun.getInstance().getConfig().getString("currency.suffix");
 	}
 }
