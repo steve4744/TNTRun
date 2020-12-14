@@ -53,7 +53,10 @@ public class JoinMenu {
 		Inventory inv = Bukkit.createInventory(player, size, FormattingCodesParser.parseFormattingCodes(Messages.menutitle));
 
 		keyPos = 9;
-		arenas.forEach((arenaname, arena) -> {
+		//TODO provide permanent fix for > 28 arenas
+		//arenas.forEach((arenaname, arena) -> {
+		arenas.entrySet().stream().limit(28).forEach(e -> {
+			Arena arena = e.getValue();
 			boolean isPvp = !arena.getStructureManager().getDamageEnabled().toString().equalsIgnoreCase("no");
 			List<String> lores = new ArrayList<>();
 			ItemStack is = new ItemStack(getMenuItem(isPvp));
@@ -195,7 +198,8 @@ public class JoinMenu {
 			invsize = 36;
 		} else if (size < 22) {
 			invsize = 45;
-		} else if (size < 29) {
+		//} else if (size < 29) {
+		} else {
 			invsize = 54;
 		}
 		return invsize;
