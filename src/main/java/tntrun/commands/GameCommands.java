@@ -101,10 +101,7 @@ public class GameCommands implements CommandExecutor {
 				player.sendMessage(ChatColor.GOLD + "Rewards " + ChatColor.DARK_GRAY + "................... " + ChatColor.RED + "Use command '/tr listrewards {arena}'");
 
 				if (arena.getStructureManager().getFee() > 0) {
-					player.sendMessage(ChatColor.GOLD + "Join Fee " + ChatColor.DARK_GRAY + "................... " + ChatColor.RED + arena.getStructureManager().getFee());
-					if (arena.getStructureManager().isCurrencyEnabled()) {
-						player.sendMessage(ChatColor.GOLD + "Item Currency " + ChatColor.DARK_GRAY + ".... " + ChatColor.RED + arena.getStructureManager().getCurrency().toString());
-					}
+					player.sendMessage(ChatColor.GOLD + "Join Fee " + ChatColor.DARK_GRAY + "................... " + ChatColor.RED + arena.getStructureManager().getArenaCost());
 				}
 
 				if (arena.getStructureManager().isTestMode()) {
