@@ -39,6 +39,10 @@ public class LinkKit implements CommandHandlerInterface {
 			Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[0]));
 			return true;
 		}
+		if (arena.getStatusManager().isArenaEnabled()) {
+			Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", args[0]));
+			return true;
+		}
 		if (!plugin.getKitManager().kitExists(args[1])) {
 			Messages.sendMessage(player, Messages.kitnotexists.replace("{KIT}", args[1]));
 			return true;

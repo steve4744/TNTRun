@@ -98,6 +98,12 @@ public class GameCommands implements CommandExecutor {
 
 				String result = arena.getStructureManager().isKitsEnabled() ? "Yes" : "No";
 				player.sendMessage(ChatColor.GOLD + "Kits Enabled " + ChatColor.DARK_GRAY + ".......... " + ChatColor.RED + result);
+
+				String kitname = arena.getStructureManager().getLinkedKit();
+				if (kitname != null) {
+					player.sendMessage(ChatColor.GOLD + "Linked Kit " + ChatColor.DARK_GRAY + "................. " + ChatColor.RED + kitname);
+				}
+
 				player.sendMessage(ChatColor.GOLD + "Rewards " + ChatColor.DARK_GRAY + "................... " + ChatColor.RED + "Use command '/tr listrewards {arena}'");
 
 				if (arena.getStructureManager().getFee() > 0) {

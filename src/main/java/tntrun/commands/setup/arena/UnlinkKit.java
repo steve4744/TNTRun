@@ -39,6 +39,10 @@ public class UnlinkKit implements CommandHandlerInterface {
 			Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[0]));
 			return true;
 		}
+		if (arena.getStatusManager().isArenaEnabled()) {
+			Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", args[0]));
+			return true;
+		}
 		arena.getStructureManager().unlinkKit();
 		Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 is no longer linked to a kit");
 		return true;
