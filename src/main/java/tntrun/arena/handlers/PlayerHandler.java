@@ -653,30 +653,44 @@ public class PlayerHandler {
 	}
 
 	/**
-	 * Allocate a random kit preserving any purchased head the player may have, and
-	 * re-adding the leave item.
+	 * Allocate a kit to the player. If the arena has a linked kit, all players will
+	 * receive that kit. If the arena has no linked kit, each player will receive
+	 * a random kit. If the player has purchased a head, then this is preserved.
+	 * The leave item is re-added to the inventory according to the config setting.
 	 *
 	 * @param player
 	 */
 	public void allocateKits(Player player) {
+		String kitname = arena.getStructureManager().getLinkedKit();
+		if (kitname != null) {
+			if (plugin.getKitManager().kitExists(kitname)) {
+				giveKitToPlayer(kitname, player);
+			} else {
+				Messages.sendMessage(player, Messages.kitnotexists.replace("{KIT}", kitname));
+			}
+			return;
+		}
 		HashSet<String> kits = plugin.getKitManager().getKits();
 		if (kits.size() > 0) {
 			Random rnd = new Random();
-			ItemStack purchasedHead = null;
-
-			if (player.getInventory().getHelmet() != null) {
-				purchasedHead = new ItemStack(player.getInventory().getHelmet());
-			}
-
 			String[] kitnames = kits.toArray(new String[kits.size()]);
-			plugin.getKitManager().giveKit(kitnames[rnd.nextInt(kitnames.length)], player);
+			giveKitToPlayer(kitnames[rnd.nextInt(kitnames.length)], player);
+		}
+	}
 
-			if (plugin.getConfig().getBoolean("items.leave.use")) {
-				addLeaveItem(player);
-			}
-			if (purchasedHead != null && purchasedHead.getType() == Material.PLAYER_HEAD) {
-				player.getInventory().setHelmet(purchasedHead);
-			}
+	private void giveKitToPlayer(String kitname, Player player) {
+		ItemStack purchasedHead = null;
+		if (player.getInventory().getHelmet() != null) {
+			purchasedHead = new ItemStack(player.getInventory().getHelmet());
+		}
+
+		plugin.getKitManager().giveKit(kitname, player);
+
+		if (plugin.getConfig().getBoolean("items.leave.use")) {
+			addLeaveItem(player);
+		}
+		if (purchasedHead != null && purchasedHead.getType() == Material.PLAYER_HEAD) {
+			player.getInventory().setHelmet(purchasedHead);
 		}
 	}
 

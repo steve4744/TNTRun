@@ -59,6 +59,7 @@ public class StructureManager {
 	private DamageEnabled damageEnabled = DamageEnabled.NO;
 	private boolean punchDamage = true;
 	private boolean kitsEnabled = false;
+	private String linkedKit;
 	private boolean testmode = false;
 	private int regenerationdelay = 60;
 	private String currency;
@@ -350,6 +351,18 @@ public class StructureManager {
 		this.kitsEnabled = kitsEnabled;
 	}
 
+	public void linkKit(String kitName) {
+		linkedKit = kitName;
+	}
+
+	public void unlinkKit() {
+		linkedKit = null;
+	}
+
+	public String getLinkedKit() {
+		return linkedKit;
+	}
+
 	public void setRegenerationDelay(int regendelay) {
 		this.regenerationdelay = regendelay;
 	}
@@ -411,6 +424,7 @@ public class StructureManager {
 		config.set("teleportto", teleportDest.toString());
 		config.set("damageenabled", damageEnabled.toString());
 		config.set("enableKits", kitsEnabled);
+		config.set("linkedKit", linkedKit);
 		config.set("punchDamage", punchDamage);
 		config.set("testmode", testmode);
 		config.set("regenerationdelay", regenerationdelay);
@@ -447,6 +461,7 @@ public class StructureManager {
 		damageEnabled = DamageEnabled.valueOf(config.getString("damageenabled", DamageEnabled.NO.toString()));
 		rewards.loadFromConfig(config);
 		kitsEnabled = config.getBoolean("enableKits");
+		linkedKit = config.getString("linkedKit", linkedKit);
 		punchDamage = config.getBoolean("punchDamage", true);
 		testmode = config.getBoolean("testmode");
 		regenerationdelay = config.getInt("regenerationdelay", regenerationdelay);

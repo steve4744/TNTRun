@@ -35,6 +35,7 @@ import org.bukkit.potion.PotionEffect;
 
 import tntrun.TNTRun;
 import tntrun.messages.Messages;
+import tntrun.utils.Utils;
 
 public class Kits {
 
@@ -43,7 +44,7 @@ public class Kits {
 	private File kitsconfig = new File(TNTRun.getInstance().getDataFolder(), "kits.yml");
 	private FileConfiguration config = YamlConfiguration.loadConfiguration(kitsconfig);
 
-	private boolean kitExists(String name) {
+	public boolean kitExists(String name) {
 		return kits.containsKey(name);
 	}
 
@@ -80,7 +81,11 @@ public class Kits {
 		try {
 			kits.get(name).giveKit(player);
 			Messages.sendMessage(player, Messages.playerkit.replace("{KIT}", name));
+			if (Utils.debug()) {
+				TNTRun.getInstance().getLogger().info(player.getName() + " has received kit " + name);
+			}
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -99,7 +104,9 @@ public class Kits {
 
 		public void giveKit(Player player) {
 			player.getInventory().setContents(items);
-			player.addPotionEffects(effects);
+			if (!effects.contains(null)) {
+				player.addPotionEffects(effects);
+			}
 		}
 
 		public void loadFromConfig(FileConfiguration config, String path) {
