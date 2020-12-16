@@ -102,13 +102,13 @@ public class ConsoleCommands implements CommandExecutor {
 				return true;
 			}
 			StringJoiner message = new StringJoiner(" : ");
-			for (Arena arena : plugin.amanager.getArenas()) {
-				if (arena.getStatusManager().isArenaEnabled()) {
-					message.add("&a" + arena.getArenaName());
+			plugin.amanager.getArenasNames().stream().sorted().forEach(arenaname -> {
+				if (plugin.amanager.getArenaByName(arenaname).getStatusManager().isArenaEnabled()) {
+					message.add("&a" + arenaname);
 				} else {
-					message.add("&c" + arena.getArenaName() + "&a");
+					message.add("&c" + arenaname + "&a");
 				}
-			}
+			});
 			Messages.sendMessage(sender, message.toString(), false);
 			return true;
 		}

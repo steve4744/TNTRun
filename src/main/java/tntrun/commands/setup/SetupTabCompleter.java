@@ -28,7 +28,6 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import tntrun.TNTRun;
-import tntrun.arena.Arena;
 
 public class SetupTabCompleter implements TabCompleter {
 
@@ -37,8 +36,8 @@ public class SetupTabCompleter implements TabCompleter {
 
 	private static final List<String> ARENA_COMMANDS = Arrays.asList("setarena", "setloselevel", "setspawn", "addspawn", "setspectate", "finish",
 			"deletespectate", "deletespawnpoints", "setgameleveldestroydelay", "setregenerationdelay", "setmaxplayers", "setminplayers", "setvotepercent",
-			"settimelimit", "setcountdown", "setmoneyreward", "setteleport", "enable", "disable", "setreward", "enablekits", "disablekits",
-			"delete", "setdamage", "setfee", "setcurrency");
+			"settimelimit", "setcountdown", "setmoneyreward", "setteleport", "enable", "disable", "setreward", "enablekits", "disablekits", "linkkit",
+			"unlinkkit", "delete", "setdamage", "setfee", "setcurrency");
 
 	private static final List<String> TELEPORT_COMMANDS = Arrays.asList("lobby", "previous");
 
@@ -63,9 +62,7 @@ public class SetupTabCompleter implements TabCompleter {
 
 		} else if (args.length == 2) {
 			if (ARENA_COMMANDS.contains(args[0])) {
-				for (Arena arena : TNTRun.getInstance().amanager.getArenas()) {
-					list.add(arena.getArenaName());
-				}
+				list.addAll(TNTRun.getInstance().amanager.getArenasNames());
 
 			} else if (args[0].equalsIgnoreCase("setbarcolor") || args[0].equalsIgnoreCase("setbarcolour")) {
 				for (BarColor color : Arrays.asList(BarColor.class.getEnumConstants())) {
@@ -86,6 +83,9 @@ public class SetupTabCompleter implements TabCompleter {
 
 			} else if (args[0].equalsIgnoreCase("setdamage")) {
 				list.addAll(DAMAGE_COMMANDS);
+
+			} else if (args[0].equalsIgnoreCase("linkkit")) {
+				list.addAll(TNTRun.getInstance().getKitManager().getKits());
 			}
 		}
 		for (String s : list) {

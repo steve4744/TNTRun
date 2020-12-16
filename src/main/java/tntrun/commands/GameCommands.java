@@ -97,7 +97,7 @@ public class GameCommands implements CommandExecutor {
 				player.sendMessage(ChatColor.GOLD + "PVP Damage " + ChatColor.DARK_GRAY + "........... " + ChatColor.RED + Utils.getTitleCase(arena.getStructureManager().getDamageEnabled().toString()));
 
 				String result = arena.getStructureManager().isKitsEnabled() ? "Yes" : "No";
-				player.sendMessage(ChatColor.GOLD + "Kits Enabled " + ChatColor.DARK_GRAY + ".......... " + ChatColor.RED + result);
+				player.sendMessage(ChatColor.GOLD + "Kits Enabled " + ChatColor.DARK_GRAY + "......... " + ChatColor.RED + result);
 
 				String kitname = arena.getStructureManager().getLinkedKit();
 				if (kitname != null) {
