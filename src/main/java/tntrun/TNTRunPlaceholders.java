@@ -17,6 +17,8 @@
 
 package tntrun;
 
+import java.util.HashSet;
+import java.util.StringJoiner;
 import java.util.stream.Stream;
 
 import org.bukkit.OfflinePlayer;
@@ -24,6 +26,8 @@ import org.bukkit.entity.Player;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import tntrun.arena.Arena;
+import tntrun.messages.Messages;
+import tntrun.utils.FormattingCodesParser;
 import tntrun.utils.Utils;
 
 public class TNTRunPlaceholders extends PlaceholderExpansion {
@@ -85,6 +89,10 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 		} else if (identifier.equals("losses")) {
 			return String.valueOf(plugin.stats.getLosses(p));
 
+		} else if (identifier.equals("current_arena")) {
+			Arena arena = plugin.amanager.getPlayerArena(p.getName());
+			return arena != null ? arena.getArenaName() : FormattingCodesParser.parseFormattingCodes(Messages.playernotinarena);
+
 		} else if (identifier.equals("player_count")) {
 			return String.valueOf(Utils.playerCount());
 
@@ -93,6 +101,39 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 
 		} else if (identifier.equals("nopvp_player_count")) {
 			return String.valueOf(Utils.nonPvpPlayerCount());
+
+		} else if (identifier.startsWith("allplayers")) {
+			String[] temp = identifier.split("_");
+			if (temp.length != 2) {
+				return null;
+			}
+			Arena arena = plugin.amanager.getArenaByName(temp[1]);
+			if (arena == null) {
+				return null;
+			}
+			return getNames(arena.getPlayersManager().getAllParticipantsCopy());
+
+		} else if (identifier.startsWith("players")) {
+			String[] temp = identifier.split("_");
+			if (temp.length != 2) {
+				return null;
+			}
+			Arena arena = plugin.amanager.getArenaByName(temp[1]);
+			if (arena == null) {
+				return null;
+			}
+			return getNames(arena.getPlayersManager().getPlayersCopy());
+
+		} else if (identifier.startsWith("spectators")) {
+			String[] temp = identifier.split("_");
+			if (temp.length != 2) {
+				return null;
+			}
+			Arena arena = plugin.amanager.getArenaByName(temp[1]);
+			if (arena == null) {
+				return null;
+			}
+			return getNames(arena.getPlayersManager().getSpectatorsCopy());
 
 		} else if (identifier.startsWith("player_count")) {
 			String[] temp = identifier.split("_");
@@ -167,5 +208,13 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 			return false;
 		}
 		return true;
+	}
+
+	private String getNames(HashSet<Player> playerSet) {
+		StringJoiner names = new StringJoiner(", ");
+		playerSet.stream().forEach(player -> {
+			names.add(player.getName());
+		});
+		return names.toString();
 	}
 }
