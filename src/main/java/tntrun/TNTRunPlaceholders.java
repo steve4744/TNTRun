@@ -103,76 +103,39 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 			return String.valueOf(Utils.nonPvpPlayerCount());
 
 		} else if (identifier.startsWith("allplayers")) {
-			String[] temp = identifier.split("_");
-			if (temp.length != 2) {
-				return null;
-			}
-			Arena arena = plugin.amanager.getArenaByName(temp[1]);
-			if (arena == null) {
-				return null;
-			}
-			return getNames(arena.getPlayersManager().getAllParticipantsCopy());
+			Arena arena = getArenaFromPlaceholder(identifier, 2);
+			return arena != null ? getNames(arena.getPlayersManager().getAllParticipantsCopy()) : null;
 
 		} else if (identifier.startsWith("players")) {
-			String[] temp = identifier.split("_");
-			if (temp.length != 2) {
-				return null;
-			}
-			Arena arena = plugin.amanager.getArenaByName(temp[1]);
-			if (arena == null) {
-				return null;
-			}
-			return getNames(arena.getPlayersManager().getPlayersCopy());
+			Arena arena = getArenaFromPlaceholder(identifier, 2);
+			return arena != null ? getNames(arena.getPlayersManager().getPlayersCopy()) : null;
 
 		} else if (identifier.startsWith("spectators")) {
-			String[] temp = identifier.split("_");
-			if (temp.length != 2) {
-				return null;
-			}
-			Arena arena = plugin.amanager.getArenaByName(temp[1]);
-			if (arena == null) {
-				return null;
-			}
-			return getNames(arena.getPlayersManager().getSpectatorsCopy());
+			Arena arena = getArenaFromPlaceholder(identifier, 2);
+			return arena != null ? getNames(arena.getPlayersManager().getSpectatorsCopy()) : null;
 
 		} else if (identifier.startsWith("player_count")) {
-			String[] temp = identifier.split("_");
-			if (temp.length != 3) {
-				return null;
-			}
-			Arena arena = plugin.amanager.getArenaByName(temp[2]);
+			Arena arena = getArenaFromPlaceholder(identifier, 3);
 			return arena != null ? String.valueOf(arena.getPlayersManager().getPlayersCount()) : null;
 
-		} else if (identifier.equals("doublejumps")) {
-			int amount = 0;
-			Arena arena = plugin.amanager.getPlayerArena(p.getName());
-			if (arena == null) {
-				if (plugin.getConfig().getBoolean("freedoublejumps.enabled")) {
-					amount = plugin.shop.getAllowedDoubleJumps((Player) p, plugin.getConfig().getInt("freedoublejumps.amount", 0));
-				} else {
-					amount = plugin.getPData().getDoubleJumpsFromFile(p);
-				}
-			} else {
-				amount = arena.getPlayerHandler().getDoubleJumps((Player) p);
-			}
-			return String.valueOf(amount);
+		} else if (identifier.startsWith("status")) {
+			Arena arena = getArenaFromPlaceholder(identifier, 2);
+			return arena != null ? arena.getStatusManager().getArenaStatus() : null;
 
-		} else if (identifier.startsWith("joinfee") || identifier.startsWith("currency")) {
-			String[] temp = identifier.split("_");
-			if (temp.length != 2) {
-				return null;
-			}
-			Arena arena = plugin.amanager.getArenaByName(temp[1]);
-			if (arena == null) {
-				return null;
-			}
-			if (identifier.startsWith("joinfee")) {
-				return arena.getStructureManager().hasFee() ? String.valueOf(arena.getStructureManager().getFee()) : "0";
-			}
-			return arena.getStructureManager().isCurrencyEnabled() ? arena.getStructureManager().getCurrency().toString() : null;
+		} else if (identifier.equals("doublejumps")) {
+			Arena arena = plugin.amanager.getPlayerArena(p.getName());
+			return arena != null ? String.valueOf(arena.getPlayerHandler().getDoubleJumps((Player) p)) : String.valueOf(getUncachedDoubleJumps(p));
+
+		} else if (identifier.startsWith("joinfee")) {
+			Arena arena = getArenaFromPlaceholder(identifier, 2);
+			return arena != null ? String.valueOf(arena.getStructureManager().getFee()) : null;
+
+		} else if (identifier.startsWith("currency")) {
+			Arena arena = getArenaFromPlaceholder(identifier, 2);
+			return arena != null && arena.getStructureManager().isCurrencyEnabled() ? arena.getStructureManager().getCurrency().toString() : null;
 
 		} else if (identifier.startsWith("leaderboard")) {
-			if (!isValidIdentifier(identifier)) {
+			if (!isValidLeaderboardIdentifier(identifier)) {
 				return null;
 			}
 			String[] temp = identifier.split("_");
@@ -181,19 +144,28 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 			int pos = Integer.parseInt(temp[3]);
 
 			return plugin.stats.getLeaderboardPosition(pos, type, entry);
-
-		} else if (identifier.startsWith("status")) {
-			String[] temp = identifier.split("_");
-			if (temp.length != 2) {
-				return null;
-			}
-			Arena arena = plugin.amanager.getArenaByName(temp[1]);
-			return arena != null ? arena.getStatusManager().getArenaStatus() : null;
 		}
 		return null;
 	}
 
-	private boolean isValidIdentifier(String identifier) {
+	/**
+	 * Returns the arena from the placeholder. The arena name should be
+	 * at the end of each placeholder. If the placeholder is invalid or
+	 * the arena does not exist then null is returned.
+	 *
+	 * @param identifier
+	 * @param length
+	 * @return arena
+	 */
+	private Arena getArenaFromPlaceholder(String identifier, int length) {
+		String[] temp = identifier.split("_");
+		if (temp.length != length) {
+			return null;
+		}
+		return plugin.amanager.getArenaByName(temp[length - 1]);
+	}
+
+	private boolean isValidLeaderboardIdentifier(String identifier) {
 		String[] temp = identifier.split("_");
 		if (temp.length != 4) {
 			return false;
@@ -216,5 +188,16 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 			names.add(player.getName());
 		});
 		return names.toString();
+	}
+
+	/**
+	 * Returns the number of doublejumps for a player that is not in an arena.
+	 *
+	 * @param player
+	 * @return number of doublejumps
+	 */
+	private int getUncachedDoubleJumps(OfflinePlayer p) {
+		boolean free = plugin.getConfig().getBoolean("freedoublejumps.enabled");
+		return free ? plugin.shop.getAllowedDoubleJumps((Player) p, plugin.getConfig().getInt("freedoublejumps.amount", 0)) : plugin.getPData().getDoubleJumpsFromFile(p);
 	}
 }
