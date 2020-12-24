@@ -128,5 +128,6 @@ setupdelkit: Create a TNTRun kit
 setupp1: Set targeted block as first selection point
 setupp2: Set targeted block as second selection point
 setupclear: Clear selection points
+setupwhitelist: Whitelist a command for use in-game
 kitexists: '&c The specified kit already exists : &6{KIT}'
 kitnotexists: '&c The specified kit does not exist : &6{KIT}'
