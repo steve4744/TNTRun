@@ -135,5 +135,6 @@ setupdelkit: Elimina un kit TNTRun
 setupp1: Establecer bloque de destino como primer punto de selección
 setupp2: Establecer bloque de destino como segundo punto de selección
 setupclear: Quitar puntos de selección
+setupwhitelist: Whitelist a command for use in-game
 kitexists: "&c El kit especificado ya existe : &6{KIT}"
 kitnotexists: "&c El kit especificado no existe : &6{KIT}"
