@@ -28,9 +28,14 @@ import java.util.UUID;
 import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Directional;
+import org.bukkit.block.data.type.WallSign;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -199,22 +204,31 @@ public class SignEditor {
 			}
 
 			String text = null;
+			String colour = null;
 			int players = arena.getPlayersManager().getPlayersCount();
 			int maxPlayers = arena.getStructureManager().getMaxPlayers();
+			String status = (players == maxPlayers) ? "Running" : arena.getStatusManager().getArenaStatus();
 
-			if (!arena.getStatusManager().isArenaEnabled()) {
-				text = FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.status.disabled"));
-			} else
-				if (arena.getStatusManager().isArenaRunning()) {
+			switch (status) {
+				case "Disabled":
+					text = FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.status.disabled"));
+					colour = plugin.getConfig().getString("signs.blockcolour.disabled");
+					break;
+				case "Running":
 					text = FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.status.ingame")).replace("{MPS}", maxPlayers + "").replace("{PS}", players + "");
-			} else
-				if (arena.getStatusManager().isArenaRegenerating()) {
+					colour = plugin.getConfig().getString("signs.blockcolour.ingame");
+					break;
+				case "Regenerating":
 					text = FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.status.regenerating"));
-			} else 
-				if (players == maxPlayers) {
-					text = FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.status.ingame")).replace("{MPS}", maxPlayers + "").replace("{PS}", players + "");
-			} else {
-				text = FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.status.waiting")).replace("{MPS}", maxPlayers + "").replace("{PS}", players + "");					
+					colour = plugin.getConfig().getString("signs.blockcolour.ingame");
+					break;
+				case "Starting":
+					text = FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.status.waiting")).replace("{MPS}", maxPlayers + "").replace("{PS}", players + "");
+					colour = plugin.getConfig().getString("signs.blockcolour.starting");
+					break;
+				default:
+					text = FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.status.waiting")).replace("{MPS}", maxPlayers + "").replace("{PS}", players + "");
+					colour = plugin.getConfig().getString("signs.blockcolour.waiting");
 			}
 
 			for (Block block : getSignsBlocks(arenaname)) {
@@ -223,12 +237,31 @@ public class SignEditor {
 					sign.setLine(0, FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")));
 					sign.setLine(3, text);
 					sign.update();
+					setBlockColour(block, colour);
 				} else {
 					removeSign(block, arenaname);
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	private void setBlockColour(Block block, String colour) {
+		if (colour == null || colour.isEmpty()) {
+			return;
+		}
+		BlockData data = block.getBlockData();
+		if (!(data instanceof WallSign) && !(data instanceof Directional)) {
+			return;
+		}
+		Directional directional = (Directional) data;
+		Block blockBehind = block.getRelative(directional.getFacing().getOppositeFace());
+		if (Tag.IMPERMEABLE.isTagged(blockBehind.getType()) && blockBehind.getType() != Material.GLASS) {
+			Material material = Material.getMaterial(colour.toUpperCase() + "_STAINED_GLASS");
+			if (material != null) {
+				blockBehind.setType(material);
+			}
 		}
 	}
 

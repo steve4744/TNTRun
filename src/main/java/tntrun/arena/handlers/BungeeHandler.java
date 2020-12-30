@@ -48,7 +48,7 @@ public class BungeeHandler implements Listener {
 		if (arena.getStatusManager().isArenaStarting() && (arena.getGameHandler().count <= 3)) {
 			return Messages.arenarunning;
 		}
-		return arena.getStatusManager().getArenaStatus();
+		return arena.getStatusManager().getArenaStatusMesssage();
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)

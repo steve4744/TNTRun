@@ -132,6 +132,11 @@ signs:
     ingame: '&c&l{PS}&8/&c&l{MPS}'
     regenerating: '&6&lRegen...'
     waiting: '&a&l{PS}&8/&a&l{MPS}'
+  blockcolour:
+    disabled: ''
+    ingame: ''
+    starting: ''
+    waiting: ''
 bungeecord:
   enabled: false
   hub: lobby

@@ -93,9 +93,15 @@ public class GameHandler {
 	int runtaskid;
 	public int count;
 
+	/**
+	 * Set the arena status to "starting", change colour of glass block behind sign, and start
+	 * the countdown. The countdown will stop if the number of players drops below the minimum required
+	 * to start the game, unless the arena has been force started.
+	 */
 	public void runArenaCountdown() {
 		count = arena.getStructureManager().getCountdown();
 		arena.getStatusManager().setStarting(true);
+		plugin.signEditor.modifySigns(arena.getArenaName());
 		runtaskid = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 			@Override
 			public void run() {
@@ -149,8 +155,12 @@ public class GameHandler {
 		}, 0, 20);
 	}
 
+	/**
+	 * Stop the arena countdown updating the arena status and join signs.
+	 */
 	public void stopArenaCountdown() {
 		arena.getStatusManager().setStarting(false);
+		plugin.signEditor.modifySigns(arena.getArenaName());
 		Bukkit.getScheduler().cancelTask(runtaskid);
 		count = arena.getStructureManager().getCountdown();
 	}

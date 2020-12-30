@@ -89,7 +89,7 @@ public class StatusManager {
 		this.regenerating = regenerating;
 	}
 
-	public String getArenaStatus() {
+	public String getArenaStatusMesssage() {
 		if (isArenaRunning()) {
 			return Messages.arenarunning;
 		} else if (isArenaRegenerating()) {
@@ -100,5 +100,18 @@ public class StatusManager {
 			return Messages.arenadisabled;
 		}
 		return Messages.arenawaiting;
+	}
+
+	public String getArenaStatus() {
+		if (isArenaRunning()) {
+			return "Running";
+		} else if (isArenaRegenerating()) {
+			return "Regenerating";
+		} else if (isArenaStarting()) {
+			return "Starting";
+		} else if(!isArenaEnabled()) {
+			return "Disabled";
+		}
+		return "Waiting";
 	}
 }
