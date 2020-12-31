@@ -227,14 +227,17 @@ public class PlayerHandler {
 			Messages.sendMessage(player, msgtoplayer);
 		}
 
-		msgtoarenaplayers = FormattingCodesParser.parseFormattingCodes(msgtoarenaplayers)
-				.replace("{PLAYER}", player.getName())
-				.replace("{RANK}", getDisplayName(player))
-				.replace("{PS}", String.valueOf(arena.getPlayersManager().getPlayersCount()))
-				.replace("{MPS}", String.valueOf(arena.getStructureManager().getMaxPlayers()));
+		if (arena.getPlayersManager().getPlayersCount() == 1 && plugin.getConfig().getBoolean("invitationmessage.enabled")) {
+			String welcomeJoinMessage = getFormattedMessage(player, Messages.playerjoininvite);
+
+			for (Player aplayer : Bukkit.getOnlinePlayers()) {
+				Utils.displayJoinMessage(aplayer, arena.getArenaName(), welcomeJoinMessage);
+			}
+		}
+		String joinMessage = getFormattedMessage(player, msgtoarenaplayers);
 
 		for (Player oplayer : arena.getPlayersManager().getPlayers()) {
-			Messages.sendMessage(oplayer, msgtoarenaplayers);
+			Messages.sendMessage(oplayer, joinMessage);
 			TitleMsg.sendFullTitle(oplayer, TitleMsg.join.replace("{PLAYER}", player.getName()), TitleMsg.subjoin.replace("{PLAYER}", player.getName()), 10, 20, 20, plugin);
 		}
 
@@ -839,5 +842,14 @@ public class PlayerHandler {
 		player.updateInventory();
 
 		arena.getScoreboardHandler().storePrejoinScoreboard(player);
+	}
+
+	private String getFormattedMessage(Player player, String message) {
+		return FormattingCodesParser.parseFormattingCodes(message)
+				.replace("{PLAYER}", player.getName())
+				.replace("{RANK}", getDisplayName(player))
+				.replace("{ARENA}", arena.getArenaName())
+				.replace("{PS}", String.valueOf(arena.getPlayersManager().getPlayersCount()))
+				.replace("{MPS}", String.valueOf(arena.getStructureManager().getMaxPlayers()));
 	}
 }

@@ -122,13 +122,23 @@ public class Utils {
 	}
 
 	public static void displayHelp(Player player) {
-		player.spigot().sendMessage(Utils.getTextComponent("/trsetup setlobby", true), Utils.getTextComponent(Messages.setuplobby));
-		player.spigot().sendMessage(Utils.getTextComponent("/trsetup create {arena}", true), Utils.getTextComponent(Messages.setupcreate));
-		player.spigot().sendMessage(Utils.getTextComponent("/trsetup setarena {arena}", true), Utils.getTextComponent(Messages.setupbounds));
-		player.spigot().sendMessage(Utils.getTextComponent("/trsetup setloselevel {arena}", true), Utils.getTextComponent(Messages.setuploselevel));
-		player.spigot().sendMessage(Utils.getTextComponent("/trsetup setspawn {arena}", true), Utils.getTextComponent(Messages.setupspawn));
-		player.spigot().sendMessage(Utils.getTextComponent("/trsetup setspectate {arena}", true), Utils.getTextComponent(Messages.setupspectate));
-		player.spigot().sendMessage(Utils.getTextComponent("/trsetup finish {arena}", true), Utils.getTextComponent(Messages.setupfinish));
+		player.spigot().sendMessage(getTextComponent("/trsetup setlobby", true), getTextComponent(Messages.setuplobby));
+		player.spigot().sendMessage(getTextComponent("/trsetup create {arena}", true), getTextComponent(Messages.setupcreate));
+		player.spigot().sendMessage(getTextComponent("/trsetup setarena {arena}", true), getTextComponent(Messages.setupbounds));
+		player.spigot().sendMessage(getTextComponent("/trsetup setloselevel {arena}", true), getTextComponent(Messages.setuploselevel));
+		player.spigot().sendMessage(getTextComponent("/trsetup setspawn {arena}", true), getTextComponent(Messages.setupspawn));
+		player.spigot().sendMessage(getTextComponent("/trsetup setspectate {arena}", true), getTextComponent(Messages.setupspectate));
+		player.spigot().sendMessage(getTextComponent("/trsetup finish {arena}", true), getTextComponent(Messages.setupfinish));
+	}
+
+	public static void displayJoinMessage(Player player, String arenaname, String joinMessage) {
+		player.spigot().sendMessage(getJoinTextComponent(joinMessage, arenaname));
+	}
+
+	private static TextComponent getJoinTextComponent(String text, String arenaname) {
+		TextComponent component = new TextComponent(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', text)));
+		component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tntrun join " + arenaname));
+		return component;
 	}
 
 	public static String getTitleCase(String input) {
@@ -177,7 +187,7 @@ public class Utils {
 
 	public static String getFormattedCurrency(String amount) {
 		String formattedAmount = amount;
-		if (!Utils.isNumber(amount)) {
+		if (!isNumber(amount)) {
 			DecimalFormat df = new DecimalFormat("0.00");
 			formattedAmount = (amount.endsWith(".00") || amount.endsWith(".0")) ? amount.split("\\.")[0] : df.format(Double.valueOf(amount));
 		}
