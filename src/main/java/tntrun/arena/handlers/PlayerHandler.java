@@ -227,17 +227,20 @@ public class PlayerHandler {
 			Messages.sendMessage(player, msgtoplayer);
 		}
 
-		if (arena.getPlayersManager().getPlayersCount() == 1 && plugin.getConfig().getBoolean("invitationmessage.enabled")) {
+		int playerCount = arena.getPlayersManager().getPlayersCount();
+		if (playerCount == 1 && plugin.getConfig().getBoolean("invitationmessage.enabled")) {
 			String welcomeJoinMessage = getFormattedMessage(player, Messages.playerjoininvite);
 
 			for (Player aplayer : Bukkit.getOnlinePlayers()) {
 				Utils.displayJoinMessage(aplayer, arena.getArenaName(), welcomeJoinMessage);
 			}
 		}
-		String joinMessage = getFormattedMessage(player, msgtoarenaplayers);
 
+		String joinMessage = getFormattedMessage(player, msgtoarenaplayers);
 		for (Player oplayer : arena.getPlayersManager().getPlayers()) {
-			Messages.sendMessage(oplayer, joinMessage);
+			if (playerCount != 1) {
+				Messages.sendMessage(oplayer, joinMessage);
+			}
 			TitleMsg.sendFullTitle(oplayer, TitleMsg.join.replace("{PLAYER}", player.getName()), TitleMsg.subjoin.replace("{PLAYER}", player.getName()), 10, 20, 20, plugin);
 		}
 

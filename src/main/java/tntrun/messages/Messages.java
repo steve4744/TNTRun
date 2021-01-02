@@ -66,7 +66,8 @@ public class Messages {
 	public static String limitreached = "&7 Arena is full.";
 	public static String playerjoinedtoplayer = "&7 You joined the arena";
 	public static String playerjoinedtoothers = "&c {RANK}&6{PLAYER} &7joined the arena (&6{PS}&7/&6{MPS}&7)";
-	public static String playerjoininvite = "&c{RANK}&6{PLAYER} &7has joined TNTRun arena &6{ARENA}&7, click this message to play";
+	public static String playerjoininvite = "&c{RANK}&6{PLAYER} &7has joined TNTRun arena &6{ARENA}&7, click here to play";
+	public static String playerclickinvite = "Click to join {ARENA}";
 	public static String playerjoinedasspectator = "&7 You joined arena &6{ARENA} &7as a spectator";
 	public static String playerlefttoplayer = "&7 You left the arena";
 	public static String playerlefttoothers = "&c {RANK}&6{PLAYER} &7left the game (&6{PS}&7/&6{MPS}&7)";
@@ -232,6 +233,7 @@ public class Messages {
 		playerjoinedtoplayer = config.getString("playerjoinedtoplayer", playerjoinedtoplayer);
 		playerjoinedtoothers = config.getString("playerjoinedtoothers", playerjoinedtoothers);
 		playerjoininvite = config.getString("playerjoininvite", playerjoininvite);
+		playerclickinvite = config.getString("playerclickinvite", playerclickinvite);
 		playerjoinedasspectator = config.getString("playerjoinedasspectator", playerjoinedasspectator);
 		playerlefttoplayer = config.getString("playerlefttoplayer", playerlefttoplayer);
 		playerlefttoothers = config.getString("playerlefttoothers", playerlefttoothers);
@@ -372,6 +374,7 @@ public class Messages {
 		config.set("playerjoinedtoplayer", playerjoinedtoplayer);
 		config.set("playerjoinedtoothers", playerjoinedtoothers);
 		config.set("playerjoininvite", playerjoininvite);
+		config.set("playerclickinvite", playerclickinvite);
 		config.set("playerjoinedasspectator", playerjoinedasspectator);
 		config.set("playerlefttoplayer", playerlefttoplayer);
 		config.set("playerlefttoothers", playerlefttoothers);
