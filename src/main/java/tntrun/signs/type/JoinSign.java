@@ -70,7 +70,7 @@ public class JoinSign implements SignType {
 		Arena arena = plugin.amanager.getArenaByName(ChatColor.stripColor(((Sign) e.getClickedBlock().getState()).getLine(2)));
 		if (arena != null) {
 			if (arena.getPlayerHandler().checkJoin(player)) {
-				arena.getPlayerHandler().spawnPlayer(player, Messages.playerjoinedtoplayer, Messages.playerjoinedtoothers);
+				arena.getPlayerHandler().spawnPlayer(player, Messages.playerjoinedtoothers);
 				//attempt to cache the sign location as a fix for lost signinfo
 				plugin.signEditor.addSign(e.getClickedBlock(), arena.getArenaName());
 			}

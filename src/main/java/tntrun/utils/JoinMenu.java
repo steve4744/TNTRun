@@ -135,7 +135,7 @@ public class JoinMenu {
 		}
 
 		if (autoArena.getPlayerHandler().processFee(player, false)) {
-			autoArena.getPlayerHandler().spawnPlayer(player, Messages.playerjoinedtoplayer, Messages.playerjoinedtoothers);
+			autoArena.getPlayerHandler().spawnPlayer(player, Messages.playerjoinedtoothers);
 		}
 	}
 

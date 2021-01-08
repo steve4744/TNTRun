@@ -145,7 +145,7 @@ public class GameCommands implements CommandExecutor {
 			Arena arena = plugin.amanager.getArenaByName(args[1]);
 			if (arena != null) {
 				if (arena.getPlayerHandler().checkJoin(player)) {
-					arena.getPlayerHandler().spawnPlayer(player, Messages.playerjoinedtoplayer, Messages.playerjoinedtoothers);
+					arena.getPlayerHandler().spawnPlayer(player, Messages.playerjoinedtoothers);
 				}
 			} else {
 				Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[1]));

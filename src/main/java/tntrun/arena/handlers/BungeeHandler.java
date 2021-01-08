@@ -79,7 +79,7 @@ public class BungeeHandler implements Listener {
 			if (arena == null) {
 				return;
 			}
-			arena.getPlayerHandler().spawnPlayer(event.getPlayer(), Messages.playerjoinedtoplayer, Messages.playerjoinedtoothers);
+			arena.getPlayerHandler().spawnPlayer(event.getPlayer(), Messages.playerjoinedtoothers);
 		}
 	}
 }

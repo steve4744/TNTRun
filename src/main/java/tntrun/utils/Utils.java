@@ -132,7 +132,11 @@ public class Utils {
 	}
 
 	public static void displayJoinMessage(Player player, String arenaname, String joinMessage) {
-		player.spigot().sendMessage(getJoinTextComponent(joinMessage, arenaname));
+		final String border = FormattingCodesParser.parseFormattingCodes(Messages.playerborderinvite);
+		TextComponent jointc = new TextComponent(TextComponent.fromLegacyText(border + "\n"));
+		jointc.addExtra(getJoinTextComponent(joinMessage, arenaname));
+		jointc.addExtra("\n" + border);
+		player.spigot().sendMessage(jointc);
 	}
 
 	private static TextComponent getJoinTextComponent(String text, String arenaname) {

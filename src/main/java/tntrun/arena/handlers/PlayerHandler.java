@@ -196,10 +196,9 @@ public class PlayerHandler {
 	 * Store the player data and put the arena items into the hotbar.
 	 *
 	 * @param player
-	 * @param msgtoplayer Join message sent to player
 	 * @param msgtoarenaplayers Player join message sent to players in the arena
 	 */
-	public void spawnPlayer(final Player player, String msgtoplayer, String msgtoarenaplayers) {
+	public void spawnPlayer(final Player player, String msgtoarenaplayers) {
 		plugin.getPData().storePlayerLocation(player);
 
 		player.teleport(getSpawnPoint(player.getName()));
@@ -223,10 +222,6 @@ public class PlayerHandler {
 			arena.getGameHandler().count = arena.getStructureManager().getCountdown();
 		}
 
-		if (!plugin.getConfig().getBoolean("special.UseTitle")) {
-			Messages.sendMessage(player, msgtoplayer);
-		}
-
 		int playerCount = arena.getPlayersManager().getPlayersCount();
 		if (playerCount == 1 && plugin.getConfig().getBoolean("invitationmessage.enabled")) {
 			String welcomeJoinMessage = getFormattedMessage(player, Messages.playerjoininvite);
@@ -236,12 +231,11 @@ public class PlayerHandler {
 			}
 		}
 
-		String joinMessage = getFormattedMessage(player, msgtoarenaplayers);
 		for (Player oplayer : arena.getPlayersManager().getPlayers()) {
-			if (playerCount != 1) {
-				Messages.sendMessage(oplayer, joinMessage);
-			}
 			TitleMsg.sendFullTitle(oplayer, TitleMsg.join.replace("{PLAYER}", player.getName()), TitleMsg.subjoin.replace("{PLAYER}", player.getName()), 10, 20, 20, plugin);
+			if (playerCount != 1 || !plugin.getConfig().getBoolean("invitationmessage.enabled")) {
+				Messages.sendMessage(oplayer, getFormattedMessage(player, msgtoarenaplayers));
+			}
 		}
 
 		new BukkitRunnable() {
