@@ -15,7 +15,7 @@
  *
  */
 
-package tntrun.commands.setup.arena;
+package tntrun.commands.setup.kits;
 
 import org.bukkit.entity.Player;
 
