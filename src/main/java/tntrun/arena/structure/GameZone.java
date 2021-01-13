@@ -4,7 +4,6 @@ import java.util.ConcurrentModificationException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -23,12 +22,12 @@ public class GameZone {
 	private LinkedList<BlockState> blocks = new LinkedList<>();
 
 	public Arena arena;
+	private final int SCAN_DEPTH = 1;
 
 	public GameZone(Arena arena){
 		this.arena = arena;
 	}
 
-	private final int SCAN_DEPTH = 1;
 	public void destroyBlock(Location loc) {
 		int y = loc.getBlockY() + 1;
 		Block block = null;
@@ -43,19 +42,16 @@ public class GameZone {
 			final Block fblock = block;
 			if (!blockstodestroy.contains(fblock)) {
 				blockstodestroy.add(fblock);
-				Bukkit.getScheduler().scheduleSyncDelayedTask(
-					TNTRun.getInstance(),
-					new Runnable() {
-						@Override
-						public void run() {
-							if (arena.getStatusManager().isArenaRunning()) {
-								blockstodestroy.remove(fblock);
-								TNTRun.getInstance().getSound().BLOCK_BREAK(fblock);
-								removeGLBlocks(fblock);
-							}
+				new BukkitRunnable() {
+					@Override
+					public void run() {
+						if (arena.getStatusManager().isArenaRunning()) {
+							blockstodestroy.remove(fblock);
+							TNTRun.getInstance().getSound().BLOCK_BREAK(fblock);
+							removeGLBlocks(fblock);
 						}
-					}, arena.getStructureManager().getGameLevelDestroyDelay()
-				);
+					}
+				}.runTaskLater(TNTRun.getInstance(), arena.getStructureManager().getGameLevelDestroyDelay());
 			}
 		}
 	}
@@ -106,26 +102,35 @@ public class GameZone {
 		b.setType(Material.AIR);
 	}
 
+	/**
+	 * Regenerate the broken blocks in the arena. Clear the map containing
+	 * the 'blocks to destroy' as this can potentially have residual blocks if
+	 * a player quits during a game.
+	 *
+	 * @return delay in ticks before arena regeneration begins.
+	 */
 	public int regen() {
 		final Iterator<BlockState> bsit = blocks.iterator();
 		new BukkitRunnable() {
-            @Override
-            public void run() {
-            	for(int i = MAX_BLOCKS_PER_TICK; i >= 0;i--){
-            		if(bsit.hasNext()){
-            			try {
-            				BlockState bs = bsit.next();
-                			bs.update(true);
-                			bsit.remove();
-            			} catch(ConcurrentModificationException ex) {
-            				
-            			}
-            		} else {
-            			cancel();
-            		}
-            	}
-            }
-        }.runTaskTimer(TNTRun.getInstance(), 0L, 1L);
+			@Override
+			public void run() {
+				for(int i = MAX_BLOCKS_PER_TICK; i >= 0;i--){
+					if(bsit.hasNext()){
+						try {
+							BlockState bs = bsit.next();
+							bs.update(true);
+							bsit.remove();
+						} catch(ConcurrentModificationException ex) {
+
+						}
+					} else {
+						cancel();
+					}
+				}
+			}
+		}.runTaskTimer(TNTRun.getInstance(), 0L, 1L);
+		blockstodestroy.clear();
+
 		return arena.getStructureManager().getRegenerationDelay();
 	}
 
