@@ -59,7 +59,8 @@ public class StructureManager {
 	private DamageEnabled damageEnabled = DamageEnabled.NO;
 	private boolean punchDamage = true;
 	private boolean kitsEnabled = false;
-	private String linkedKit;
+	private boolean linkedRandom = false;
+	private List<String> linkedKits = new ArrayList<>();
 	private boolean testmode = false;
 	private int regenerationdelay = 60;
 	private String currency;
@@ -352,15 +353,23 @@ public class StructureManager {
 	}
 
 	public void linkKit(String kitName) {
-		linkedKit = kitName;
+		linkedKits.add(kitName);
 	}
 
-	public void unlinkKit() {
-		linkedKit = null;
+	public void unlinkKit(String kitName) {
+		linkedKits.remove(kitName);
 	}
 
-	public String getLinkedKit() {
-		return linkedKit;
+	public List<String> getLinkedKits() {
+		return linkedKits;
+	}
+
+	public boolean hasLinkedKits() {
+		return linkedKits.size() > 0;
+	}
+
+	public boolean isRandomKit() {
+		return linkedRandom;
 	}
 
 	public void setRegenerationDelay(int regendelay) {
@@ -423,8 +432,9 @@ public class StructureManager {
 		config.set("countdown", countdown);
 		config.set("teleportto", teleportDest.toString());
 		config.set("damageenabled", damageEnabled.toString());
-		config.set("enableKits", kitsEnabled);
-		config.set("linkedKit", linkedKit);
+		config.set("kits.enabled", kitsEnabled);
+		config.set("kits.linked", linkedKits);
+		config.set("kits.random", linkedRandom);
 		config.set("punchDamage", punchDamage);
 		config.set("testmode", testmode);
 		config.set("regenerationdelay", regenerationdelay);
@@ -460,8 +470,9 @@ public class StructureManager {
 		teleportDest = TeleportDestination.valueOf(config.getString("teleportto", TeleportDestination.PREVIOUS.toString()));
 		damageEnabled = DamageEnabled.valueOf(config.getString("damageenabled", DamageEnabled.NO.toString()));
 		rewards.loadFromConfig(config);
-		kitsEnabled = config.getBoolean("enableKits");
-		linkedKit = config.getString("linkedKit", linkedKit);
+		kitsEnabled = config.getBoolean("kits.enabled");
+		linkedKits = config.getStringList("kits.linked");
+		linkedRandom = config.getBoolean("kits.random");
 		punchDamage = config.getBoolean("punchDamage", true);
 		testmode = config.getBoolean("testmode");
 		regenerationdelay = config.getInt("regenerationdelay", regenerationdelay);

@@ -17,6 +17,7 @@
 
 package tntrun.commands;
 
+import java.util.List;
 import java.util.StringJoiner;
 
 import org.bukkit.ChatColor;
@@ -99,9 +100,9 @@ public class GameCommands implements CommandExecutor {
 				String result = arena.getStructureManager().isKitsEnabled() ? "Yes" : "No";
 				player.sendMessage(ChatColor.GOLD + "Kits Enabled " + ChatColor.DARK_GRAY + "......... " + ChatColor.RED + result);
 
-				String kitname = arena.getStructureManager().getLinkedKit();
-				if (kitname != null) {
-					player.sendMessage(ChatColor.GOLD + "Linked Kit " + ChatColor.DARK_GRAY + "................. " + ChatColor.RED + kitname);
+				List<String> kitnames = arena.getStructureManager().getLinkedKits();
+				if (kitnames.size() > 0) {
+					player.sendMessage(ChatColor.GOLD + "Linked Kits " + ChatColor.DARK_GRAY + ".............. " + ChatColor.RED + String.join(", ", kitnames));
 				}
 
 				player.sendMessage(ChatColor.GOLD + "Rewards " + ChatColor.DARK_GRAY + "................... " + ChatColor.RED + "Use command '/tr listrewards {arena}'");

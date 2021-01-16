@@ -58,6 +58,7 @@ public class PlayerHandler {
 	private List<String> pparty = new ArrayList<>();
 	private HashSet<String> votes = new HashSet<>();
 	private Map<String, Location> spawnmap = new HashMap<>();
+	private String linkedKitName;
 
 	public PlayerHandler(TNTRun plugin, Arena arena) {
 		this.plugin = plugin;
@@ -389,7 +390,7 @@ public class PlayerHandler {
 
 	/**
 	 * Remove the player from the arena. All players will be processed here except the winner.
-	 * In a multi-spawnpoint arena, if a player leaves before the game starts return the allocated
+	 * In a multi-spawnpoint arena, if a player leaves before the game starts, return the allocated
 	 * spawnpoint to the free list.
 	 *
 	 * @param player
@@ -459,6 +460,7 @@ public class PlayerHandler {
 		plugin.signEditor.refreshLeaderBoards();
 		arena.getStructureManager().getFreeSpawnList().clear();
 		spawnmap.clear();
+		setLinkedKitName(null);
 	}
 
 	/**
@@ -654,28 +656,57 @@ public class PlayerHandler {
 
 	/**
 	 * Allocate a kit to the player. If the arena has a linked kit, all players will
-	 * receive that kit. If the arena has no linked kit, each player will receive
-	 * a random kit. If the player has purchased a head, then this is preserved.
+	 * receive that kit. If there a more than 1 linked kits then players will either
+	 * receive the same linked kit or a random kit from the linked kit list, depending
+	 * on whether "random" is true or false in the arena config file.
+	 * If the arena has no linked kits, each player will receive a random kit.
+	 * If the player has purchased a head, then this is preserved.
 	 * The leave item is re-added to the inventory according to the config setting.
 	 *
 	 * @param player
 	 */
 	public void allocateKits(Player player) {
-		String kitname = arena.getStructureManager().getLinkedKit();
-		if (kitname != null) {
-			if (plugin.getKitManager().kitExists(kitname)) {
-				giveKitToPlayer(kitname, player);
+		String kit = null;
+		List<String> kitnames = new ArrayList<>();
+		if (arena.getStructureManager().hasLinkedKits()) {
+			if (arena.getStructureManager().isRandomKit() || getLinkedKitName() == null) {
+				kitnames = arena.getStructureManager().getLinkedKits();
 			} else {
-				Messages.sendMessage(player, Messages.kitnotexists.replace("{KIT}", kitname));
+				kitnames.add(getLinkedKitName());
 			}
-			return;
+		} else {
+			kitnames.addAll(plugin.getKitManager().getKits());
 		}
-		HashSet<String> kits = plugin.getKitManager().getKits();
-		if (kits.size() > 0) {
-			Random rnd = new Random();
-			String[] kitnames = kits.toArray(new String[kits.size()]);
-			giveKitToPlayer(kitnames[rnd.nextInt(kitnames.length)], player);
+		if (Utils.debug()) {
+			plugin.getLogger().info("kitnames = " + kitnames.toString());
 		}
+
+		kit = kitnames.size() > 1 ? getRandomKitName(kitnames) : kitnames.get(0);
+		if (plugin.getKitManager().kitExists(kit)) {
+			giveKitToPlayer(kit, player);
+		} else {
+			Messages.sendMessage(player, Messages.kitnotexists.replace("{KIT}", kit));
+		}
+
+		if (arena.getStructureManager().hasLinkedKits() && !arena.getStructureManager().isRandomKit()) {
+			if (getLinkedKitName() == null) {
+				setLinkedKitName(kit);
+			}
+		}
+	}
+
+	private String getRandomKitName(List<String> kits) {
+		String[] kitnames = kits.toArray(new String[kits.size()]);
+		Random rnd = new Random();
+		return kitnames[rnd.nextInt(kitnames.length)];
+	}
+
+	private String getLinkedKitName() {
+		return linkedKitName;
+	}
+
+	private void setLinkedKitName(String kitname) {
+		linkedKitName = kitname;
 	}
 
 	private void giveKitToPlayer(String kitname, Player player) {

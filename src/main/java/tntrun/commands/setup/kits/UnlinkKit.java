@@ -43,13 +43,17 @@ public class UnlinkKit implements CommandHandlerInterface {
 			Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", args[0]));
 			return true;
 		}
-		arena.getStructureManager().unlinkKit();
-		Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 is no longer linked to a kit");
+		if (!plugin.getKitManager().kitExists(args[1])) {
+			Messages.sendMessage(player, Messages.kitnotexists.replace("{KIT}", args[1]));
+			return true;
+		}
+		arena.getStructureManager().unlinkKit(args[1]);
+		Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 is no longer linked to kit &6" + args[1]);
 		return true;
 	}
 
 	@Override
 	public int getMinArgsLength() {
-		return 1;
+		return 2;
 	}
 }
