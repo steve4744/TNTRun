@@ -43,7 +43,7 @@ public class UnlinkKit implements CommandHandlerInterface {
 			Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", args[0]));
 			return true;
 		}
-		if (!plugin.getKitManager().kitExists(args[1])) {
+		if (!plugin.getKitManager().kitExists(args[1]) && !arena.getStructureManager().getLinkedKits().contains(args[1])) {
 			Messages.sendMessage(player, Messages.kitnotexists.replace("{KIT}", args[1]));
 			return true;
 		}

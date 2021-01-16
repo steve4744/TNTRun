@@ -67,7 +67,7 @@ public class Kits {
 	}
 
 	public void unregisterKit(String name, Player player) {
-		if (! kitExists(name)) {
+		if (!kitExists(name)) {
 			Messages.sendMessage(player, Messages.kitnotexists.replace("{KIT}", name));
 			return;
 		}

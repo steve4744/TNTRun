@@ -59,7 +59,7 @@ public class StructureManager {
 	private DamageEnabled damageEnabled = DamageEnabled.NO;
 	private boolean punchDamage = true;
 	private boolean kitsEnabled = false;
-	private boolean linkedRandom = false;
+	private boolean linkedRandom = true;
 	private List<String> linkedKits = new ArrayList<>();
 	private boolean testmode = false;
 	private int regenerationdelay = 60;
@@ -434,7 +434,7 @@ public class StructureManager {
 		config.set("damageenabled", damageEnabled.toString());
 		config.set("kits.enabled", kitsEnabled);
 		config.set("kits.linked", linkedKits);
-		config.set("kits.random", linkedRandom);
+		config.set("kits.randomLinkedKit", linkedRandom);
 		config.set("punchDamage", punchDamage);
 		config.set("testmode", testmode);
 		config.set("regenerationdelay", regenerationdelay);
@@ -472,7 +472,7 @@ public class StructureManager {
 		rewards.loadFromConfig(config);
 		kitsEnabled = config.getBoolean("kits.enabled");
 		linkedKits = config.getStringList("kits.linked");
-		linkedRandom = config.getBoolean("kits.random");
+		linkedRandom = config.getBoolean("kits.randomLinkedKit", true);
 		punchDamage = config.getBoolean("punchDamage", true);
 		testmode = config.getBoolean("testmode");
 		regenerationdelay = config.getInt("regenerationdelay", regenerationdelay);

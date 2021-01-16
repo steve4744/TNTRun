@@ -513,7 +513,7 @@ public class GameHandler {
 		player.getInventory().remove(Material.getMaterial(plugin.getConfig().getString("items.heads.material")));
 		player.getInventory().setItemInOffHand(null);
 
-		if (arena.getStructureManager().isKitsEnabled()) {
+		if (arena.getStructureManager().isKitsEnabled() && plugin.getKitManager().getKits().size() > 0) {
 			arena.getPlayerHandler().allocateKits(player);
 		}
 
