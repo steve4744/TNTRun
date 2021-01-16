@@ -102,7 +102,7 @@ public class GameCommands implements CommandExecutor {
 
 				List<String> kitnames = arena.getStructureManager().getLinkedKits();
 				if (kitnames.size() > 0) {
-					player.sendMessage(ChatColor.GOLD + "Linked Kits " + ChatColor.DARK_GRAY + ".............. " + ChatColor.RED + String.join(", ", kitnames));
+					player.sendMessage(ChatColor.GOLD + "Linked Kits " + ChatColor.DARK_GRAY + "............. " + ChatColor.RED + String.join(", ", kitnames));
 				}
 
 				player.sendMessage(ChatColor.GOLD + "Rewards " + ChatColor.DARK_GRAY + "................... " + ChatColor.RED + "Use command '/tr listrewards {arena}'");

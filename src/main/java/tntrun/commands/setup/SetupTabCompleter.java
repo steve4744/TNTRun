@@ -86,6 +86,9 @@ public class SetupTabCompleter implements TabCompleter {
 
 			} else if (args[0].equalsIgnoreCase("linkkit")) {
 				list.addAll(TNTRun.getInstance().getKitManager().getKits());
+
+			} else if (args[0].equalsIgnoreCase("unlinkkit")) {
+				list.addAll(TNTRun.getInstance().amanager.getArenaByName(args[1]).getStructureManager().getLinkedKits());
 			}
 		}
 		for (String s : list) {
