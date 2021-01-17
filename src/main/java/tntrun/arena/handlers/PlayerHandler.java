@@ -805,7 +805,7 @@ public class PlayerHandler {
 	 * @return rank
 	 */
 	private String getRank(Player player) {
-		if (!plugin.getConfig().getBoolean("UseRankInChat.enabled")) {
+		if (player == null || !plugin.getConfig().getBoolean("UseRankInChat.enabled")) {
 			return null;
 		}
 		String rank = null;
@@ -848,7 +848,8 @@ public class PlayerHandler {
 	 * @return
 	 */
 	public String getDisplayName(Player player) {
-		return getRank(player) == null ? "" : getRank(player);
+		String rank = getRank(player);
+		return rank == null ? "" : rank;
 	}
 
 	/**
