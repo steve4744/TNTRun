@@ -33,7 +33,6 @@ arenanofee: "&c Debes pagar una tarifa de &6{FEE} &cpara entrar a la arena"
 arenawaiting: "&6 Partida esperando"
 playerscountinarena: "&6 Cantidad de jugadores en la partida: {COUNT} jugadores"
 limitreached: "&7 La partida está llena"
-playerjoinedtoplayer: "&7 Te uniste a la partida"
 playerjoinedtoothers: "&c {RANK}&6{PLAYER} &7se unió a la partida (&6{PS}&7/&6{MPS}&7)"
 playerjoinedasspectator: "&7 Te uniste a la partida &6{ARENA} &7como espectador"
 playerlefttoplayer: "&7 Saliste de esta partida"
@@ -135,6 +134,11 @@ setupdelkit: Elimina un kit TNTRun
 setupp1: Establecer bloque de destino como primer punto de selección
 setupp2: Establecer bloque de destino como segundo punto de selección
 setupclear: Quitar puntos de selección
-setupwhitelist: Whitelist a command for use in-game
 kitexists: "&c El kit especificado ya existe : &6{KIT}"
 kitnotexists: "&c El kit especificado no existe : &6{KIT}"
+setupwhitelist: Whitelist a command for use in-game
+playerjoinedtoplayer: "&7 Te uniste a la partida"
+playerjoininvite: "&c{RANK}&6{PLAYER} &7se ha unido a la arena TNTRun &6{ARENA}&7,
+  haz clic para unirse"
+playerborderinvite: "&b---------------------------------------"
+playerclickinvite: Haz clic para unirse a {ARENA}
