@@ -21,10 +21,18 @@ public class Language {
 		this.plugin = plugin;
 	}
 
+	/**
+	 * If no messages.yml file exists, then install the appropriate language version as specified in the config file.
+	 *
+	 * @param messageconfig
+	 */
 	public void updateLangFile(File messageconfig) {
 		if (!messageconfig.exists()) {
 			if (plugin.getResource(PATH + getLang() + MSGFILE) == null) {
 				plugin.getLogger().info("Requested resource is not present: " + getLang());
+				return;
+			}
+			if (!Files.isDirectory(plugin.getDataFolder().toPath())) {  // || getLang().equalsIgnoreCase("en-GB")
 				return;
 			}
 			try {
