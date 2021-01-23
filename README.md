@@ -8,7 +8,7 @@
 
 TNTRun is a highly configurable, fully automated minigame for Minecraft servers. Traditionally players start on a layer of sand supported by TNT blocks, although any combination of blocks can be used, and every block that they step on disappears. If a player falls through a hole, he/she will continue to run on the layer below. Once a player falls through the final layer he/she loses the game and becomes a spectator for the remainder of the game. The last player remaining wins the game.
 
-This fork was created in 2016 from the unsupported TNTRun by Shevchik for Minecraft v1.10, and has been improved and updated as new versions of Minecraft have been released. The latest version of TNTRun_reloaded supports all Minecraft versions from 1.13 to 1.16.4, while the legacy version is supported for servers running Minecraft versions from 1.8 through to 1.12.2. 
+This fork was created in 2016 from the unsupported TNTRun by Shevchik for Minecraft v1.10, and has been improved and updated as new versions of Minecraft have been released. The latest version of TNTRun_reloaded supports all Minecraft versions from 1.13 to 1.16.5, while the legacy version is supported for servers running Minecraft versions from 1.8 through to 1.12.2.
 
 The following description and features apply to the latest release. Many of the features will not be present in the legacy version which is maintained and supported on an 'as is' basis, and will only be updated if a bug is reported or an existing feature breaks.
 
@@ -36,7 +36,7 @@ For Minecraft versions from 1.8 through to 1.12.2, the legacy version of TNTRun\
     Arena currency (money or any Minecraft material)
     Arena selection GUI
     Configurable anti-camping system
-    Custom messages
+    Translatable messages
     Command whitelist
     Formatting codes support
     Full tab completion based on permissions
@@ -60,7 +60,7 @@ For Minecraft versions from 1.8 through to 1.12.2, the legacy version of TNTRun\
     mcMMO support - allow players in same mcMMO party to PVP if enabled in arena
     MySQL support
     Bungeecord support
-    Legacy version placeholder support - https://www.spigotmc.org/resources/tntrun_reloaded-expansion.53945/
+
 
 ## Dependencies
 
@@ -92,4 +92,4 @@ For legacy Minecraft 1.12.2 and below:
 <br />
 <br />
 <br />
-Updated steve4744 - 20th November 2020
+Updated steve4744 - 23rd January 2021

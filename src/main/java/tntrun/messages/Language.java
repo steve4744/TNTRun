@@ -32,7 +32,7 @@ public class Language {
 				plugin.getLogger().info("Requested resource is not present: " + getLang());
 				return;
 			}
-			if (!Files.isDirectory(plugin.getDataFolder().toPath())) {  // || getLang().equalsIgnoreCase("en-GB")
+			if (!Files.isDirectory(plugin.getDataFolder().toPath())) {
 				return;
 			}
 			try {
