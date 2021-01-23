@@ -322,8 +322,9 @@ public class Shop implements Listener {
 		Arena arena = plugin.amanager.getPlayerArena(player.getName());
 		Material material = Material.getMaterial(plugin.getConfig().getString("shop.showmoneyitem", "GOLD_INGOT"));
 		String title = FormattingCodesParser.parseFormattingCodes(Messages.shopmoneyheader);
-		String balance = String.format("%.2f", arena.getArenaEconomy().getPlayerBalance(player));
+		String balance = String.valueOf(arena.getArenaEconomy().getPlayerBalance(player));
 		List<String> lore = new ArrayList<>();
+
 		lore.add(FormattingCodesParser.parseFormattingCodes(Messages.shopmoneybalance).replace("{BAL}", Utils.getFormattedCurrency(balance)));
 		return getShopItem(material, title, lore, 1);
 	}
