@@ -30,8 +30,11 @@ arenanofee: '&c You require a fee of &6{FEE} &cto enter the arena'
 arenawaiting: '&6 Arena is waiting'
 playerscountinarena: '&6 Current number of players in arena: {COUNT} players'
 limitreached: '&7 Arena is full.'
-playerjoinedtoplayer: '&7 You joined the arena'
 playerjoinedtoothers: '&c {RANK}&6{PLAYER} &7joined the arena (&6{PS}&7/&6{MPS}&7)'
+playerjoininvite: '&c{RANK}&6{PLAYER} &7has joined TNTRun arena &6{ARENA}&7, click
+  to play'
+playerborderinvite: '&b---------------------------------------'
+playerclickinvite: Click to join {ARENA}
 playerjoinedasspectator: '&7 You joined arena &6{ARENA} &7as a spectator'
 playerlefttoplayer: '&7 You left the arena'
 playerlefttoothers: '&c {RANK}&6{PLAYER} &7left the game (&6{PS}&7/&6{MPS}&7)'
