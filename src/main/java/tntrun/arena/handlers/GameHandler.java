@@ -216,7 +216,11 @@ public class GameHandler {
  
                 if(items != null){
                     for (ItemStack item : items) {
-                        player.getInventory().addItem(item);
+                    	if (isArmor(item)) {
+    						setArmorItem(player,item);
+    					} else {
+    						player.getInventory().addItem(item);
+    					}
                     }	
                 }
                 player.updateInventory();
@@ -516,5 +520,39 @@ public class GameHandler {
 			}
 			
 		}.runTaskLater(plugin, 120);
+	}
+
+	/**
+	 * Validate ItemStack is an item of armour.
+	 *
+	 * @param item
+	 * @return boolean
+	 */
+	private boolean isArmor(ItemStack item) {
+		String[] armor = new String[] {"HELMET", "CHESTPLATE", "LEGGINGS", "BOOTS"};
+		for (String s : armor) {
+			if (item.toString().contains(s)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Equip the armour item.
+	 *
+	 * @param player
+	 * @param item
+	 */
+	private void setArmorItem(Player player, ItemStack item) {
+		if (item.toString().contains("BOOTS")) {
+			player.getInventory().setBoots(item);
+		} else if (item.toString().contains("LEGGINGS")) {
+			player.getInventory().setLeggings(item);
+		} else if (item.toString().contains("CHESTPLATE")) {
+			player.getInventory().setChestplate(item);
+		} else if (item.toString().contains("HELMET")) {
+			player.getInventory().setHelmet(item);
+		}
 	}
 }
