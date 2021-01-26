@@ -122,7 +122,7 @@ public class RestrictionHandler implements Listener {
 		if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK){
 	        if (e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.leave.material"))) {
 				if (arena != null) {
-					TNTRun.getInstance().sound.WITHER_HURT(player, 5, 999);
+					plugin.getSoundHandler().playSound(player, "itemselect");
 					e.setCancelled(true);
 					arena.getPlayerHandler().leavePlayer(player, Messages.playerlefttoplayer, Messages.playerlefttoothers);
 				}
@@ -130,17 +130,17 @@ public class RestrictionHandler implements Listener {
 		}
         if(e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.shop.material"))){
     		if (arena != null) {
-    			TNTRun.getInstance().sound.WITHER_HURT(player, 5, 999);
+    			plugin.getSoundHandler().playSound(player, "itemselect");
     			Inventory inv = Bukkit.createInventory(null, Shop.invsize, Shop.invname);
     			Shop.setItems(inv);
     			player.openInventory(inv);
         	}
 		}
-		
+
         if(e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.info.material"))){
             if (arena != null) {
        			if(u.contains(player)){
-    				TNTRun.getInstance().sound.NOTE_PLING(player, 5, 999);
+       				plugin.getSoundHandler().playPlingSound(player, 5, 2);
     				return;
     			}
        			u.add(player);
@@ -149,18 +149,18 @@ public class RestrictionHandler implements Listener {
 			    		u.remove(player);
 			    	}
 			    }, 40);
-            	TNTRun.getInstance().sound.WITHER_HURT(player, 5, 999);
+  			    plugin.getSoundHandler().playSound(player, "itemselect");
             	Utils.displayInfo(player);
         	}
         }
-        
+
         if(e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.vote.material"))){
             if (arena != null) {
     			if(u.contains(player)){
-    				TNTRun.getInstance().sound.NOTE_PLING(player, 5, 999);
+    				plugin.getSoundHandler().playPlingSound(player, 5, 2);
     				return;
     			}
-            	TNTRun.getInstance().sound.WITHER_HURT(player, 5, 999);
+    			plugin.getSoundHandler().playSound(player, "itemselect");
             	u.add(player);
   			    Bukkit.getScheduler().runTaskLater(plugin, new Runnable(){
 			    	public void run(){
@@ -183,7 +183,7 @@ public class RestrictionHandler implements Listener {
             if (arena != null) {
             	e.setCancelled(true);
        			if(u.contains(player)){
-    				TNTRun.getInstance().sound.NOTE_PLING(player, 5, 999);
+       				plugin.getSoundHandler().playPlingSound(player, 5, 2);
     				return;
     			}
        			u.add(player);
@@ -192,14 +192,14 @@ public class RestrictionHandler implements Listener {
   			    		u.remove(player);
   			    	}
 			    }, 40);
-            	TNTRun.getInstance().sound.WITHER_HURT(player, 5, 999);
+  			    plugin.getSoundHandler().playSound(player, "itemselect");
          	   	player.chat("/tntrun stats");
         	}
         }
         if(e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.effects.material"))){
             if (arena != null) {
        			if(u.contains(player)){
-    				TNTRun.getInstance().sound.NOTE_PLING(player, 5, 999);
+       				plugin.getSoundHandler().playPlingSound(player, 5, 2);
     				return;
     			}
        			u.add(player);
@@ -208,12 +208,12 @@ public class RestrictionHandler implements Listener {
 			    		  u.remove(player);
 			    	  }
 			      	}, 40);
-            	TNTRun.getInstance().sound.WITHER_HURT(player, 5, 999);
+  			    plugin.getSoundHandler().playSound(player, "itemselect");
          	   	player.chat("/treffects");
         	}
         }
 	}
-	
+
 	public ArrayList<Player> u = new ArrayList<Player>();
 	
 	@EventHandler
@@ -250,7 +250,7 @@ public class RestrictionHandler implements Listener {
 			e.setCancelled(true);
 			p.setFlying(false);
 			p.setVelocity(p.getLocation().getDirection().multiply(1.5D).setY(0.7D));
-			TNTRun.getInstance().sound.NOTE_PLING(p, 5, 999);
+			plugin.getSoundHandler().playPlingSound(p, 5, 2);
 			plugin.saveConfig();
 			u.add(p);
 			      

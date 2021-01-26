@@ -26,12 +26,10 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import tntrun.arena.Arena;
+import tntrun.arena.handlers.SoundHandler;
 import tntrun.utils.Bars;
 import tntrun.utils.JoinMenu;
 import tntrun.utils.Shop;
-import tntrun.utils.Sounds;
-import tntrun.utils.Sounds_1_8;
-import tntrun.utils.Sounds_1_9;
 import tntrun.utils.Stats;
 import tntrun.utils.TitleMsg;
 import tntrun.commands.ConsoleCommands;
@@ -61,9 +59,9 @@ public class TNTRun extends JavaPlugin {
 	private boolean placeholderapi = false;
 	public boolean needUpdate = false;
 	public String[] version = {"Nothing", "Nothing"};
-	public Sounds sound;
 	public Stats stats;
 	private JoinMenu joinMenu;
+	private SoundHandler soundHandler;
 
 	public static TNTRun instance;
 
@@ -79,6 +77,7 @@ public class TNTRun extends JavaPlugin {
 		pdata = new PlayerDataStore();
 		amanager = new ArenasManager();
 		joinMenu = new JoinMenu(this);
+		soundHandler = new SoundHandler(this);
 		getCommand("tntrunsetup").setExecutor(new SetupCommandsHandler(this));
 		getCommand("tntrun").setExecutor(new GameCommands(this));
 		getCommand("tntrunconsole").setExecutor(new ConsoleCommands(this));
@@ -125,14 +124,6 @@ public class TNTRun extends JavaPlugin {
 		);
 
 		checkUpdate();
-
-		/* Version 1.9 and above should use new_Sounds_1_9 */
-		String version = Bukkit.getBukkitVersion().split("-")[0];
-		if(version.contains("1.8") || version.contains("1.7")){
-			sound = new Sounds_1_8();
-		}else{
-			sound = new Sounds_1_9();
-		}
 
 	    log.info("Starting Metrics...");
 	    new Metrics(this);
@@ -194,6 +185,10 @@ public class TNTRun extends JavaPlugin {
 
 	public JoinMenu getJoinMenu() {
 		return joinMenu;
+	}
+
+	public SoundHandler getSoundHandler() {
+		return soundHandler;
 	}
 
 	private void checkUpdate(){

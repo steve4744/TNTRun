@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -52,9 +51,9 @@ public class GameZone {
 						public void run() {
 							if (arena.getStatusManager().isArenaRunning()) {
 								blockstodestroy.remove(fblock);
-								if(TNTRun.getInstance().getConfig().getBoolean("special.FancyBlockBreak")){
+								if (TNTRun.getInstance().getSoundHandler().isSoundEnabled("blockbreak")) {
 									if (!version.contains("1.8") && !version.contains("1.7")) {
-										fblock.getWorld().playSound(fblock.getLocation(), Sound.BLOCK_SAND_BREAK, 5.0F, 1.0F);
+										TNTRun.getInstance().getSoundHandler().playBlockSound(fblock, "blockbreak");
 									}
 								}
 								removeGLBlocks(fblock);

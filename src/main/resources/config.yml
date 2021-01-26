@@ -83,4 +83,20 @@ signs:
       ingame: '&c&l{PS}&8/&c&l{MPS}'
       regenerating: '&6&lRegen...'
       waiting: '&a&l{PS}&8/&a&l{MPS}'
+sounds:
+  arenastart:
+     enabled: true
+     sound: ENTITY_PLAYER_LEVELUP
+     volume: 10
+     pitch: 1.0
+  itemselect:
+     enabled: true
+     sound: UI_BUTTON_CLICK
+     volume: 1
+     pitch: 1.0
+  blockbreak:
+     enabled: true
+     sound: BLOCK_SAND_BREAK
+     volume: 5
+     pitch: 1.0
 debug: false

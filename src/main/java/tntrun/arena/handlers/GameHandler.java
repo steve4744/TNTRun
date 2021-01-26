@@ -125,7 +125,7 @@ public class GameHandler {
 						message = message.replace("{COUNTDOWN}", String.valueOf(count));
 						for (Player player : arena.getPlayersManager().getPlayers()) {
 							player.teleport(arena.getStructureManager().getSpawnPoint());
-							TNTRun.getInstance().sound.NOTE_PLING(player, 1, 999);
+							plugin.getSoundHandler().playPlingSound(player, 1, 2);
 							if(plugin.getConfig().getBoolean("special.UseTitle") == false){
 								Messages.sendMessage(player, message);
 							} 
@@ -135,7 +135,7 @@ public class GameHandler {
 						String message = Messages.arenacountdown;
 						message = message.replace("{COUNTDOWN}", String.valueOf(count));
 						for (Player player : arena.getPlayersManager().getPlayers()) {
-							TNTRun.getInstance().sound.NOTE_PLING(player, 1, 999);
+							plugin.getSoundHandler().playPlingSound(player, 1, 2);
 							if(plugin.getConfig().getBoolean("special.UseTitle") == false){
 								Messages.sendMessage(player, message);
 							} 
@@ -145,20 +145,13 @@ public class GameHandler {
 						String message = Messages.arenacountdown;
 						message = message.replace("{COUNTDOWN}", String.valueOf(count));
 				        for (Player all : arena.getPlayersManager().getPlayers()) {
-				        	TNTRun.getInstance().sound.NOTE_PLING(all, 1, 999);
+				            plugin.getSoundHandler().playPlingSound(all, 1, 2);
 				        	if(plugin.getConfig().getBoolean("special.UseTitle") == false){
 				        		Messages.sendMessage(all, message);
 				        	} 
 				        	TitleMsg.sendFullTitle(all, TitleMsg.starting.replace("{COUNT}", count + ""), TitleMsg.substarting.replace("{COUNT}", count + ""), 0, 40, 20, plugin);
 				        }
 				    }
-					if(count == 5) {
-						for (Player player : arena.getPlayersManager().getPlayers()) {
-							player.teleport(arena.getStructureManager().getSpawnPoint());
-							TNTRun.getInstance().sound.NOTE_PLING(player, 1, 999);
-						}
-					}
-					// scoreboard
 					createWaitingScoreBoard();
 					// sending bars
 					for (Player player : arena.getPlayersManager().getPlayers()) {
@@ -209,13 +202,13 @@ public class GameHandler {
 			}
 			player.setAllowFlight(true);
 			Messages.sendMessage(player, message);
-			TNTRun.getInstance().sound.ENDER_DRAGON(player, 1, 999);
-			
+			plugin.getSoundHandler().playSound(player, "arenastart");
+
 			player.getInventory().remove(Material.getMaterial(plugin.getConfig().getString("items.shop.material")));
 			player.getInventory().remove(Material.getMaterial(plugin.getConfig().getString("items.vote.material")));
 			player.getInventory().remove(Material.getMaterial(plugin.getConfig().getString("items.info.material")));
 			player.getInventory().remove(Material.getMaterial(plugin.getConfig().getString("items.stats.material")));
-			
+
             if (Shop.pitems.containsKey(player)) {
             	ArrayList<ItemStack> items = Shop.pitems.get(player);
                 Shop.pitems.remove(player);
@@ -469,7 +462,7 @@ public class GameHandler {
 		player.setFlying(true);
 		// teleport winner and spectators to arena spawn
 		for(Player p : arena.getPlayersManager().getAllParticipantsCopy()) {
-			TNTRun.getInstance().sound.ENDER_DRAGON(p, 5, 999);
+			plugin.getSoundHandler().playSound(player, "arenastart");
 			p.teleport(arena.getStructureManager().getSpawnPoint());
 			p.getInventory().clear();
 		}

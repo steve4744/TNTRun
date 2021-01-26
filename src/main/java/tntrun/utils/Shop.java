@@ -125,7 +125,7 @@ public class Shop implements Listener{
 	    			
 	    			if(bought.contains(p)){
 	    				p.sendMessage(Messages.alreadyboughtitem.replace("&", "§"));
-	    				TNTRun.getInstance().sound.WITHER_HURT(p, 5, 999);
+	    				pl.getSoundHandler().playSound(p, "itemselect");
 	    				return;
 	    			}
 	    			if (p.hasPermission(permission)) {
@@ -135,7 +135,7 @@ public class Shop implements Listener{
 	    				if (Material.getMaterial(cfg.getString(kit + ".material").toUpperCase()) == Material.FEATHER) {
 	    					if((pl.getConfig().getInt("shop.doublejump.maxdoublejumps") <= pl.getConfig().getInt("doublejumps." + p.getName()))){
 	    						p.sendMessage(Messages.alreadyboughtitem.replace("&", "§"));
-	    						TNTRun.getInstance().sound.WITHER_HURT(p, 5, 999);
+	    						pl.getSoundHandler().playSound(p, "itemselect");
 	    						return;
 	    					}
 	    				}
@@ -143,10 +143,10 @@ public class Shop implements Listener{
 	    				if(hasMoney(cost, p)) {
 	    					p.sendMessage(Messages.playerboughtitem.replace("&", "§").replace("{ITEM}", title).replace("{MONEY}", cost + ""));
 	    					p.sendMessage(Messages.playerboughtwait.replace("&", "§"));
-	    					TNTRun.getInstance().sound.NOTE_PLING(p, 5, 10);
+	    					pl.getSoundHandler().playPlingSound(p, 5, 2);
 	    				}else{
 	    					p.sendMessage(Messages.notenoughtmoney.replace("&", "§").replace("{MONEY}", cost + ""));
-	    					TNTRun.getInstance().sound.WITHER_HURT(p, 5, 999);
+	    					pl.getSoundHandler().playSound(p, "itemselect");
 	    					return;
 	    				}
 	    				if (Material.getMaterial(cfg.getString(kit + ".material").toUpperCase()) == Material.FEATHER) {
@@ -162,15 +162,15 @@ public class Shop implements Listener{
 	    			} else {
 	    				p.closeInventory();
 	    				p.sendMessage(Messages.nopermission.replace("&", "§"));
-	    				TNTRun.getInstance().sound.WITHER_HURT(p, 5, 999);
+	    				pl.getSoundHandler().playSound(p, "itemselect");
 	    			}
 	    		}
 	    	}
 	    }
 	}
-	  
+
 	private Object economy = null;
-		
+
 	private boolean hasMoney(int moneyneed, Player player) {
 		if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
 			RegisteredServiceProvider<Economy> economyProvider = Bukkit.getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
