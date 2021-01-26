@@ -6,7 +6,6 @@
 # TNTRun_reloaded author steve4744       #
 #                                        #
 special:
-   FancyBlockBreak: true
    UseBarApi: true
    UseTitle: true
    UseScoreboard: true
@@ -47,7 +46,7 @@ items:
       material: BED
       name: '&cLEAVE'
    effects:
-      use: true
+      use: false
       material: GLOWSTONE_DUST
       name: '&cEFFECTS'
 scoreboard:
