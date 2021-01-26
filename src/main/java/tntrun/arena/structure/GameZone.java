@@ -137,6 +137,7 @@ public class GameZone {
             	}
             }
         }.runTaskTimer(TNTRun.getInstance(), 0L, 1L);
+        blockstodestroy.clear();
 		return 60;
 	}
 	
