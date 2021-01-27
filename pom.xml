@@ -91,12 +91,12 @@
         <scope>provided</scope>
     </dependency>
     <!-- bStats -->
-<!--     <dependency>-->
-<!--         <groupId>org.bstats</groupId>-->
-<!--         <artifactId>bstats-bukkit</artifactId>-->
-<!--         <version>1.7</version>-->
-<!--         <scope>compile</scope>-->
-<!--     </dependency>-->
+    <dependency>
+        <groupId>org.bstats</groupId>
+        <artifactId>bstats-bukkit</artifactId>
+        <version>1.8</version>
+        <scope>compile</scope>
+    </dependency>
     <!-- WorldEdit -->
     <dependency>
         <groupId>com.sk89q.worldedit</groupId>
@@ -157,7 +157,7 @@
               <createDependencyReducedPom>false</createDependencyReducedPom>
                 <artifactSet>
                   <includes>
-<!--                  <include>org.bstats:*</include>-->
+                      <include>org.bstats:*</include>
                       <include>com.google.guava:*</include>
                   </includes>
                 </artifactSet>
@@ -181,10 +181,10 @@
                   </filter>
                 </filters>
                 <relocations>
-<!--                 <relocation>-->
-<!--                      <pattern>org.bstats</pattern>-->
-<!--                      <shadedPattern>io.github.steve4744.tntrun</shadedPattern>-->
-<!--                  </relocation>-->
+                    <relocation>
+                        <pattern>org.bstats</pattern>
+                        <shadedPattern>tntrun</shadedPattern>
+                    </relocation>
                 </relocations>
             </configuration>
             <executions>

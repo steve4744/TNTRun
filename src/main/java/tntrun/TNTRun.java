@@ -20,6 +20,7 @@ package tntrun;
 import java.io.File;
 import java.util.logging.Logger;
 
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -129,11 +130,10 @@ public class TNTRun extends JavaPlugin {
 
 		checkUpdate();
 
-	    log.info("Starting Metrics...");
-	    new Metrics(this);
-	    log.info("Metrics started!");
+		log.info("Attempting to start metrics (bStats)...");
+		new Metrics(this, 2192);
 
-	    setStorage();
+		setStorage();
 		if (usestats) {
 			stats = new Stats(this);
 		}
