@@ -53,9 +53,9 @@ public class Messages {
 	public static String playerscountinarena = "&7[&6TNTRun&7] &6Current number of players in arena: {COUNT} players";
 	public static String limitreached = "&7[&6TNTRun&7] Arena is full.";
 	public static String playerjoinedtoplayer = "&7[&6TNTRun&7] You joined the arena";
-	public static String playerjoinedtoothers = "&7[&6TNTRun&7] Player &6{PLAYER} &7joined the arena";
+	public static String playerjoinedtoothers = "&7[&6TNTRun&7] &c{RANK}&6{PLAYER} &7joined the arena";
 	public static String playerlefttoplayer = "&7[&6TNTRun&7] You left the arena";
-	public static String playerlefttoothers = "&7[&6TNTRun&7] Player &6{PLAYER} &7left the game";
+	public static String playerlefttoothers = "&7[&6TNTRun&7] &c{RANK}&6{PLAYER} &7left the game";
 	public static String playervotedforstart = "&7[&6TNTRun&7] You voted for game start";
 	public static String playeralreadyvotedforstart = "&7[&6TNTRun&7] You already voted";
 	public static String arenastarted = "&7[&6TNTRun&7] Arena started. Time limit is {TIMELIMIT} seconds";
@@ -64,8 +64,8 @@ public class Messages {
 	public static String arenatimeout = "&7[&6TNTRun&7] Time is up. Ending game";
 	public static String playerwontoplayer = "&7[&6TNTRun&7] You won the game!";
 	public static String playerlosttoplayer = "&7[&6TNTRun&7] You lost the game";
-	public static String playerlosttoothers = "&7[&6TNTRun&7] Player &6{PLAYER} &7lost the game";
-	public static String playerwonbroadcast = "&7[&6TNTRun&7] &6{PLAYER}&7 won the game on arena &6{ARENA}";
+	public static String playerlosttoothers = "&7[&6TNTRun&7] &c{RANK}&6{PLAYER} &7lost the game";
+	public static String playerwonbroadcast = "&7[&6TNTRun&7] &c{RANK}&6{PLAYER}&7 won the game on arena &6{ARENA}";
 	public static String playerrewardmessage = "&7[&6TNTRun&7] You have been rewarded: &6{REWARD}";
 	public static String playerboughtitem = "&7[&6TNTRun&7] You have bought item &6{ITEM} &7for &6{MONEY} &7coins";
 	public static String playerboughtwait = "&7[&6TNTRun&7] You will get your items when the game starts";

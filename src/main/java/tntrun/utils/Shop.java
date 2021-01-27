@@ -169,19 +169,19 @@ public class Shop implements Listener{
 	    }
 	}
 
-	private Object economy = null;
+	//private Object economy = null;
 
 	private boolean hasMoney(int moneyneed, Player player) {
-		if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
+		/*if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
 			RegisteredServiceProvider<Economy> economyProvider = Bukkit.getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
 			if (economyProvider != null) {
 				economy = economyProvider.getProvider();
 			}
-		}
-			 
-		if (economy != null) {
+		}*/
+		Economy econ = pl.getVaultHandler().getEconomy();	 
+		//if (economy != null) {
+		if (econ != null) {
 			OfflinePlayer offplayer = player.getPlayer();
-			Economy econ = (Economy) economy;
 			double pmoney = econ.getBalance(offplayer);
 			if(pmoney >= moneyneed){
 				econ.withdrawPlayer(offplayer, moneyneed);

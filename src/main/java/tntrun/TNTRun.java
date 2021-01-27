@@ -27,6 +27,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import tntrun.arena.Arena;
 import tntrun.arena.handlers.SoundHandler;
+import tntrun.arena.handlers.VaultHandler;
 import tntrun.utils.Bars;
 import tntrun.utils.JoinMenu;
 import tntrun.utils.Shop;
@@ -62,6 +63,7 @@ public class TNTRun extends JavaPlugin {
 	public Stats stats;
 	private JoinMenu joinMenu;
 	private SoundHandler soundHandler;
+	private VaultHandler vaultHandler;
 
 	public static TNTRun instance;
 
@@ -94,6 +96,8 @@ public class TNTRun extends JavaPlugin {
 			log.info("Successfully linked with PlaceholderAPI, version " + PlaceholderAPI.getDescription().getVersion());
 			new TNTRunPlaceholders(this).register();
 		}
+
+		vaultHandler = new VaultHandler(this);
 
 		// config
 	    saveDefaultConfig();
@@ -169,6 +173,10 @@ public class TNTRun extends JavaPlugin {
 
 	public boolean isPlaceholderAPI() {
 		return placeholderapi;
+	}
+
+	public VaultHandler getVaultHandler() {
+		return vaultHandler;
 	}
 
 	public boolean useStats() {

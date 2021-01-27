@@ -31,21 +31,15 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.RegisteredServiceProvider;
-
+import tntrun.TNTRun;
 import tntrun.messages.Messages;
 
 public class Rewards {
 
-	private Object economy = null;
+	private Economy econ = null;
 
 	public Rewards() {
-		if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
-			RegisteredServiceProvider<Economy> economyProvider = Bukkit.getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
-			if (economyProvider != null) {
-				economy = economyProvider.getProvider();
-			}
-		}
+		econ = TNTRun.getInstance().getVaultHandler().getEconomy();
 	}
 
 	private List<String> materialrewards = new ArrayList<String>();
@@ -137,8 +131,7 @@ public class Rewards {
 	}
 
 	private void rewardMoney(OfflinePlayer offplayer, int money) {
-		if (economy != null) {
-			Economy econ = (Economy) economy;
+		if (econ != null) {
 			econ.depositPlayer(offplayer, money);
 		}
 	}

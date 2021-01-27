@@ -128,7 +128,7 @@ public class PlayerHandler {
 		//arena.getPlayersManager().add(player);
 		// send message to other players
 		for (Player oplayer : arena.getPlayersManager().getPlayers()) {
-			msgtoarenaplayers = msgtoarenaplayers.replace("{PLAYER}", player.getName());
+			msgtoarenaplayers = msgtoarenaplayers.replace("{PLAYER}", player.getName()).replace("{RANK}", getDisplayName(player));
 			Messages.sendMessage(oplayer, msgtoarenaplayers);
 			// send title for players
 			TitleMsg.sendFullTitle(oplayer, TitleMsg.join.replace("{PLAYER}", player.getName()), TitleMsg.subjoin.replace("{PLAYER}", player.getName()), 10, 20, 20, plugin);
@@ -136,27 +136,23 @@ public class PlayerHandler {
 		// start cooldown and add leave item
 		Bukkit.getScheduler().runTaskLater(plugin, new Runnable(){
 			public void run(){
-				ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.leave.material")));
-				ItemMeta im = item.getItemMeta();
-				im.setDisplayName(plugin.getConfig().getString("items.leave.name").replace("&", "§"));
-				item.setItemMeta(im);
-				
-				player.getInventory().setItem(8, item);
-				
-				if(plugin.getConfig().getBoolean("items.vote.use")){
+				if (plugin.getConfig().getBoolean("items.leave.use")) {
+					addLeaveItem(player);
+				}
+				if (plugin.getConfig().getBoolean("items.vote.use")) {
 					addVoteDiamond(player);
 				}
-				if(plugin.getConfig().getBoolean("items.shop.use")){
+				if (plugin.getConfig().getBoolean("items.shop.use")) {
 					addShop(player);
 				}
-				if(plugin.getConfig().getBoolean("items.info.use")){
+				if (plugin.getConfig().getBoolean("items.info.use")) {
 					addInfo(player);
 				}
-				if(plugin.getConfig().getBoolean("items.stats.use")){
+				if (plugin.getConfig().getBoolean("items.stats.use")) {
 					addStats(player);
 				}
-				if(plugin.getConfig().getBoolean("items.effects.use")){
-					if(Bukkit.getPluginManager().getPlugin("TNTRun-Effects") != null){
+				if (plugin.getConfig().getBoolean("items.effects.use")) {
+					if (Bukkit.getPluginManager().getPlugin("TNTRun-Effects") != null) {
 						addEffects(player);
 					}
 				}
@@ -220,7 +216,7 @@ public class PlayerHandler {
 		plugin.signEditor.modifySigns(arena.getArenaName());
 		// send message to other players and update bars
 		for (Player oplayer : arena.getPlayersManager().getAllParticipantsCopy()) {
-			msgtoarenaplayers = msgtoarenaplayers.replace("{PLAYER}", player.getName());
+			msgtoarenaplayers = msgtoarenaplayers.replace("{PLAYER}", player.getName()).replace("{RANK}", getDisplayName(player));
 			Messages.sendMessage(oplayer, msgtoarenaplayers);
 		}
 		// add to spectators
@@ -392,7 +388,7 @@ public class PlayerHandler {
 		return false;
 	}
 	
-	public void addInfo(Player p){
+	private void addInfo(Player p){
 		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.info.material")));	     
 	    ItemMeta meta = item.getItemMeta();
 	    meta.setDisplayName(plugin.getConfig().getString("items.info.name").replace("&", "§"));
@@ -402,7 +398,7 @@ public class PlayerHandler {
 	    
 	}
 	
-	public void addVoteDiamond(Player p){
+	private void addVoteDiamond(Player p){
 		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.vote.material")));     
 	    ItemMeta meta = item.getItemMeta();
 	    meta.setDisplayName(plugin.getConfig().getString("items.vote.name").replace("&", "§"));
@@ -411,7 +407,7 @@ public class PlayerHandler {
 	    p.getInventory().addItem(item);
 	}
 	
-	public void addShop(Player p){
+	private void addShop(Player p){
 		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.shop.material"))); 
 	    ItemMeta meta = item.getItemMeta();
 	    meta.setDisplayName(plugin.getConfig().getString("items.shop.name").replace("&", "§"));
@@ -420,7 +416,7 @@ public class PlayerHandler {
 	    p.getInventory().addItem(item);
 	}
 	
-	public void addStats(Player p){
+	private void addStats(Player p){
 		Material statsMaterial = Material.getMaterial(plugin.getConfig().getString("items.stats.material"));
 		ItemStack item = null;
 
@@ -438,8 +434,8 @@ public class PlayerHandler {
 
 		p.getInventory().addItem(item);
 	}
-	
-	public void addEffects(Player p){
+
+	private void addEffects(Player p){
 		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.effects.material")));
 	    ItemMeta meta = item.getItemMeta();
 	    meta.setDisplayName(plugin.getConfig().getString("items.effects.name").replace("&", "§"));
@@ -447,9 +443,48 @@ public class PlayerHandler {
 	    
 	    p.getInventory().addItem(item);
 	}
+
+	private void addLeaveItem(Player player) {
+		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.leave.material")));
+		ItemMeta im = item.getItemMeta();
+		im.setDisplayName(plugin.getConfig().getString("items.leave.name").replace("&", "§"));
+		item.setItemMeta(im);
 	
+		player.getInventory().setItem(8, item);
+	}
+
 	private void removeScoreboard(Player player) {
 		player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 	}
 
+	/**
+	 * Attempt to get a player's rank. This can be either the player's prefix or primary group.
+	 * @param player
+	 * @return rank
+	 */
+	private String getRank(Player player) {
+		if (player == null || !plugin.getConfig().getBoolean("UseRankInChat.enabled")) {
+			return null;
+		}
+		String rank = null;
+		if (plugin.getVaultHandler().isPermissions()) {
+			if (plugin.getConfig().getBoolean("UseRankInChat.usegroup")) {
+				rank = plugin.getVaultHandler().getPermissions().getPrimaryGroup(player);
+				if (rank != null) {
+					rank = "[" + rank + "]";
+				}
+			}
+		}
+		if (plugin.getVaultHandler().isChat()) {
+			if (plugin.getConfig().getBoolean("UseRankInChat.useprefix")) {
+				rank = plugin.getVaultHandler().getChat().getPlayerPrefix(player);
+			}
+		}
+		return rank;
+	}
+
+	public String getDisplayName(Player player) {
+		String rank = getRank(player);
+		return rank == null ? "" : rank;
+	}
 }

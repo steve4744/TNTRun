@@ -15,6 +15,10 @@ shop:
    size: 27
    doublejump:
       maxdoublejumps: 10
+UseRankInChat:
+  enabled: false
+  usegroup: true
+  useprefix: false
 menu:
   item: TNT
   includedisabled: false
@@ -43,6 +47,7 @@ items:
       material: SKULL_ITEM
       name: '&cSTATS'
    leave:
+      use: true
       material: BED
       name: '&cLEAVE'
    effects:
