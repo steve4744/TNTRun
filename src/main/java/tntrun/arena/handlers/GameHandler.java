@@ -450,7 +450,7 @@ public class GameHandler {
 		String message = Messages.playerwonbroadcast;
 		message = message.replace("{PLAYER}", player.getName());
 		message = message.replace("{ARENA}", arena.getArenaName());
-		message = message.replace("{RANK}", arena.getPlayerHandler().getDisplayName(player));
+		message = message.replace("{RANK}", Utils.getRank(player));
 		
 		/* Determine who should receive notification of win (0 suppresses broadcast) */
 		if (plugin.getConfig().getInt("broadcastwinlevel") == 1) {

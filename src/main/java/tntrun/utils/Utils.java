@@ -17,6 +17,8 @@
 
 package tntrun.utils;
 
+import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import tntrun.TNTRun;
@@ -55,6 +57,34 @@ public class Utils {
 		player.sendMessage("§cOriginal TNTRun Author> §6Shevchikden");
 		player.sendMessage("§cTNTRun_reloaded Author> §6steve4744");
 		player.sendMessage("§7============[§6TNTRun§7]§7============");
+	}
+
+	/**
+	 * Attempt to get a player's rank. This can be either the player's prefix or primary group.
+	 *
+	 * @param player
+	 * @return Player's rank.
+	 */
+	public static String getRank(OfflinePlayer player) {
+		FileConfiguration config = TNTRun.getInstance().getConfig();
+		if (player == null || !config.getBoolean("UseRankInChat.enabled")) {
+			return "";
+		}
+		String rank = null;
+		if (TNTRun.getInstance().getVaultHandler().isPermissions()) {
+			if (config.getBoolean("UseRankInChat.usegroup")) {
+				rank = TNTRun.getInstance().getVaultHandler().getPermissions().getPrimaryGroup(null, player);
+				if (rank != null) {
+					rank = "[" + rank + "]";
+				}
+			}
+		}
+		if (TNTRun.getInstance().getVaultHandler().isChat()) {
+			if (config.getBoolean("UseRankInChat.useprefix")) {
+				rank = TNTRun.getInstance().getVaultHandler().getChat().getPlayerPrefix(null, player);
+			}
+		}
+		return rank == null ? "" : rank;
 	}
 
 	public static boolean debug() {

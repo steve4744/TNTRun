@@ -105,7 +105,7 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 			}
 			return arena.getStructureManager().isCurrencyEnabled() ? arena.getStructureManager().getCurrency().toString() : null;*/
 
-		} else if (identifier.startsWith("leaderboard")) {
+		} else if (identifier.startsWith("leaderboard") || identifier.startsWith("lb")) {
 			if (!isValidIdentifier(identifier)) {
 				return null;
 			}
@@ -135,7 +135,7 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 		if (!Utils.isNumber(temp[3]) || Integer.parseInt(temp[3]) < 1) {
 			return false;
 		}
-		if (!temp[2].equalsIgnoreCase("player") && !temp[2].equalsIgnoreCase("score")) {
+		if (!Stream.of("player", "score", "rank").anyMatch(temp[2]::equalsIgnoreCase)) {
 			return false;
 		}
 		if (!Stream.of("wins", "played", "losses").anyMatch(temp[1]::equalsIgnoreCase)) {

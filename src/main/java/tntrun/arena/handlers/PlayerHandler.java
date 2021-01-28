@@ -124,11 +124,9 @@ public class PlayerHandler {
 		if(plugin.getConfig().getBoolean("special.UseTitle") == false){
 			Messages.sendMessage(player, msgtoplayer);
 		}	
-		// set player on arena data
-		//arena.getPlayersManager().add(player);
 		// send message to other players
 		for (Player oplayer : arena.getPlayersManager().getPlayers()) {
-			msgtoarenaplayers = msgtoarenaplayers.replace("{PLAYER}", player.getName()).replace("{RANK}", getDisplayName(player));
+			msgtoarenaplayers = msgtoarenaplayers.replace("{PLAYER}", player.getName()).replace("{RANK}", Utils.getRank(player));
 			Messages.sendMessage(oplayer, msgtoarenaplayers);
 			// send title for players
 			TitleMsg.sendFullTitle(oplayer, TitleMsg.join.replace("{PLAYER}", player.getName()), TitleMsg.subjoin.replace("{PLAYER}", player.getName()), 10, 20, 20, plugin);
@@ -216,7 +214,7 @@ public class PlayerHandler {
 		plugin.signEditor.modifySigns(arena.getArenaName());
 		// send message to other players and update bars
 		for (Player oplayer : arena.getPlayersManager().getAllParticipantsCopy()) {
-			msgtoarenaplayers = msgtoarenaplayers.replace("{PLAYER}", player.getName()).replace("{RANK}", getDisplayName(player));
+			msgtoarenaplayers = msgtoarenaplayers.replace("{PLAYER}", player.getName()).replace("{RANK}", Utils.getRank(player));
 			Messages.sendMessage(oplayer, msgtoarenaplayers);
 		}
 		// add to spectators
@@ -455,36 +453,5 @@ public class PlayerHandler {
 
 	private void removeScoreboard(Player player) {
 		player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
-	}
-
-	/**
-	 * Attempt to get a player's rank. This can be either the player's prefix or primary group.
-	 * @param player
-	 * @return rank
-	 */
-	private String getRank(Player player) {
-		if (player == null || !plugin.getConfig().getBoolean("UseRankInChat.enabled")) {
-			return null;
-		}
-		String rank = null;
-		if (plugin.getVaultHandler().isPermissions()) {
-			if (plugin.getConfig().getBoolean("UseRankInChat.usegroup")) {
-				rank = plugin.getVaultHandler().getPermissions().getPrimaryGroup(player);
-				if (rank != null) {
-					rank = "[" + rank + "]";
-				}
-			}
-		}
-		if (plugin.getVaultHandler().isChat()) {
-			if (plugin.getConfig().getBoolean("UseRankInChat.useprefix")) {
-				rank = plugin.getVaultHandler().getChat().getPlayerPrefix(player);
-			}
-		}
-		return rank;
-	}
-
-	public String getDisplayName(Player player) {
-		String rank = getRank(player);
-		return rank == null ? "" : rank;
 	}
 }
