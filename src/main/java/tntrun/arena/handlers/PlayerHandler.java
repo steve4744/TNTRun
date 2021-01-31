@@ -344,7 +344,7 @@ public class PlayerHandler {
 		plugin.signEditor.modifySigns(arena.getArenaName());
 
 		if (!isSpectatorOnly) {
-			msgtoarenaplayers = msgtoarenaplayers.replace("{PLAYER}", player.getName()).replace("{RANK}", getDisplayName(player));
+			msgtoarenaplayers = msgtoarenaplayers.replace("{PLAYER}", player.getName()).replace("{RANK}", Utils.getRank(player));
 			for (Player oplayer : arena.getPlayersManager().getAllParticipantsCopy()) {
 				Messages.sendMessage(oplayer, msgtoarenaplayers);
 			}
@@ -431,7 +431,7 @@ public class PlayerHandler {
 
 		msgtoarenaplayers = msgtoarenaplayers
 				.replace("{PLAYER}", player.getName())
-				.replace("{RANK}", getDisplayName(player))
+				.replace("{RANK}", Utils.getRank(player))
 				.replace("{PS}", String.valueOf(arena.getPlayersManager().getPlayersCount()))
 				.replace("{MPS}", String.valueOf(arena.getStructureManager().getMaxPlayers()));
 
@@ -799,33 +799,6 @@ public class PlayerHandler {
 	}
 
 	/**
-	 * Attempt to get a player's rank. This can be either the player's prefix or primary group.
-	 *
-	 * @param player
-	 * @return rank
-	 */
-	private String getRank(Player player) {
-		if (player == null || !plugin.getConfig().getBoolean("UseRankInChat.enabled")) {
-			return null;
-		}
-		String rank = null;
-		if (plugin.getVaultHandler().isPermissions()) {
-			if (plugin.getConfig().getBoolean("UseRankInChat.usegroup")) {
-				rank = plugin.getVaultHandler().getPermissions().getPrimaryGroup(player);
-				if (rank != null) {
-					rank = "[" + rank + "]";
-				}
-			}
-		}
-		if (plugin.getVaultHandler().isChat()) {
-			if (plugin.getConfig().getBoolean("UseRankInChat.useprefix")) {
-				rank = plugin.getVaultHandler().getChat().getPlayerPrefix(player);
-			}
-		}
-		return rank;
-	}
-
-	/**
 	 * Remove the cached purchase for the player. This can be when the game starts and the
 	 * player receives the item, or if the player leaves the arena before the game starts.
 	 *
@@ -839,17 +812,6 @@ public class PlayerHandler {
 		if (plugin.shop.getPotionEffects(player) != null) {
 			plugin.shop.removePotionEffects(player);
 		}
-	}
-
-	/**
-	 * Return the player's rank or an empty string for display purposes.
-	 *
-	 * @param player
-	 * @return
-	 */
-	public String getDisplayName(Player player) {
-		String rank = getRank(player);
-		return rank == null ? "" : rank;
 	}
 
 	/**
@@ -876,7 +838,7 @@ public class PlayerHandler {
 	private String getFormattedMessage(Player player, String message) {
 		return FormattingCodesParser.parseFormattingCodes(message)
 				.replace("{PLAYER}", player.getName())
-				.replace("{RANK}", getDisplayName(player))
+				.replace("{RANK}", Utils.getRank(player))
 				.replace("{ARENA}", arena.getArenaName())
 				.replace("{PS}", String.valueOf(arena.getPlayersManager().getPlayersCount()))
 				.replace("{MPS}", String.valueOf(arena.getStructureManager().getMaxPlayers()));

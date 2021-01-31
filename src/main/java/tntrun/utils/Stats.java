@@ -49,7 +49,6 @@ public class Stats {
 	private File file;
 	private int position;
 	private String lbentry;
-	private String lbplaceholdername;
 	private String lbplaceholdervalue;
 
 	private static Map<String, Integer> pmap = new HashMap<>();
@@ -296,12 +295,12 @@ public class Stats {
 	}
 
 	/**
-	 * Returns the player name or score occupying the requested leader board position for the given type.
+	 * Returns the player name, score or rank of the player occupying the requested leader board position for the given type.
 	 * Type can be 'wins', 'played' or 'losses'.
 	 * @param rank
 	 * @param type
 	 * @param item
-	 * @return
+	 * @return the requested placeholder value.
 	 */
 	public String getLeaderboardPosition(Integer rank, String type, String item) {
 		Map<String, Integer> workingMap = new HashMap<>();
@@ -323,19 +322,28 @@ public class Stats {
 		if (rank > workingMap.size()) {
 			return "";
 		}
+
+		return getResult(workingMap, item, rank);
+	}
+
+	private String getResult(Map<String, Integer> workingMap, String item, int rank) {
 		Optional<Entry<String, Integer>> opt = Streams.findLast(
 				workingMap.entrySet().stream()
 				.sorted(Entry.comparingByValue(Comparator.reverseOrder()))
 				.limit(rank));
 		opt.ifPresent(x -> {
-			lbplaceholdername = opt.get().getKey();
-			if (Bukkit.getOnlineMode()) {
+			if (item.equalsIgnoreCase("score")) {
+				lbplaceholdervalue = String.valueOf(opt.get().getValue());
+
+			} else if (Bukkit.getOnlineMode()) {
 				OfflinePlayer p = Bukkit.getOfflinePlayer(UUID.fromString(opt.get().getKey()));
-				lbplaceholdername = p.getName();
+				lbplaceholdervalue = item.equalsIgnoreCase("player") ? p.getName() : Utils.getRank(p);
+
+			} else {
+				lbplaceholdervalue = item.equalsIgnoreCase("player") ? opt.get().getKey() : Utils.getRank(Bukkit.getPlayer(opt.get().getKey()));
 			}
-			lbplaceholdervalue = String.valueOf(opt.get().getValue());
 		});
-		return item.equalsIgnoreCase("player") ? lbplaceholdername : lbplaceholdervalue;
+		return lbplaceholdervalue != null ? lbplaceholdervalue : "";
 	}
 
 	/**

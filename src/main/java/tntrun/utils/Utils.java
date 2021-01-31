@@ -21,7 +21,9 @@ import java.text.DecimalFormat;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
@@ -198,5 +200,33 @@ public class Utils {
 			formattedAmount = (amount.endsWith(".00") || amount.endsWith(".0")) ? amount.split("\\.")[0] : df.format(Double.valueOf(amount));
 		}
 		return TNTRun.getInstance().getConfig().getString("currency.prefix") + formattedAmount + TNTRun.getInstance().getConfig().getString("currency.suffix");
+	}
+
+	/**
+	 * Attempt to get a player's rank. This can be either the player's prefix or primary group.
+	 *
+	 * @param player
+	 * @return Player's rank.
+	 */
+	public static String getRank(OfflinePlayer player) {
+		FileConfiguration config = TNTRun.getInstance().getConfig();
+		if (player == null || !config.getBoolean("UseRankInChat.enabled")) {
+			return "";
+		}
+		String rank = null;
+		if (TNTRun.getInstance().getVaultHandler().isPermissions()) {
+			if (config.getBoolean("UseRankInChat.usegroup")) {
+				rank = TNTRun.getInstance().getVaultHandler().getPermissions().getPrimaryGroup(null, player);
+				if (rank != null) {
+					rank = "[" + rank + "]";
+				}
+			}
+		}
+		if (TNTRun.getInstance().getVaultHandler().isChat()) {
+			if (config.getBoolean("UseRankInChat.useprefix")) {
+				rank = TNTRun.getInstance().getVaultHandler().getChat().getPlayerPrefix(null, player);
+			}
+		}
+		return rank == null ? "" : rank;
 	}
 }
