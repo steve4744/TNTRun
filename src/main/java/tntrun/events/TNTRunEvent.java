@@ -35,6 +35,10 @@ public abstract class TNTRunEvent extends Event implements Cancellable {
 		this.arena = arena;
 	}
 
+	public TNTRunEvent(final Arena arena) {
+		this.arena = arena;
+	}
+
 	public static HandlerList getHandlerList() {
 		return handlers;
 	}

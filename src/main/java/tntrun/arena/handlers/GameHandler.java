@@ -20,7 +20,6 @@ package tntrun.arena.handlers;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -36,6 +35,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
+import tntrun.events.ArenaStartEvent;
 import tntrun.events.PlayerWinArenaEvent;
 import tntrun.utils.Bars;
 import tntrun.utils.TitleMsg;
@@ -180,6 +180,8 @@ public class GameHandler {
 			plugin.getLogger().info("Arena " + arena.getArenaName() + " started");
 			plugin.getLogger().info("Players in arena: " + arena.getPlayersManager().getPlayersCount());
 		}
+
+		plugin.getServer().getPluginManager().callEvent(new ArenaStartEvent(arena));
 
 		for (Player player : arena.getPlayersManager().getSpectators()) {
 			arena.getScoreboardHandler().removeScoreboard(player);
