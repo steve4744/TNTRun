@@ -1,5 +1,7 @@
 # TNTRun_reloaded
 
+[![Resource](https://img.shields.io/badge/SpigotMC-Resource-orange.svg)](https://www.spigotmc.org/resources/tntrun_reloaded-tntrun-for-1-13-1-16.53359/)
+[![Java CI with Maven](https://github.com/steve4744/TNTRun/workflows/Java%20CI%20with%20Maven/badge.svg)]()
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
 [![Discord Chat](https://img.shields.io/discord/308323056592486420.svg)](https://discord.gg/wFYSAS4)
 [![bStats](https://img.shields.io/badge/statistics-bstats-brightgreen.svg)](https://bstats.org/plugin/bukkit/TNTRun_reloaded)
