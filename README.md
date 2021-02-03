@@ -2,13 +2,14 @@
 
 [![Resource](https://img.shields.io/badge/SpigotMC-Resource-orange.svg)](https://www.spigotmc.org/resources/tntrun_reloaded-tntrun-for-1-13-1-16.53359/)
 [![Java CI with Maven](https://github.com/steve4744/TNTRun/workflows/Java%20CI%20with%20Maven/badge.svg)](https://github.com/steve4744/TNTRun/actions?query=workflow%3A%22Java+CI+with+Maven%22)
+[![Dev Build](https://img.shields.io/badge/Dev%20Build-Latest-orange.svg)](https://github.com/steve4744/TNTRun/releases)
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
+[![Legacy Release](https://img.shields.io/badge/Legacy%20Release-v6.8.7-blue.svg)](https://github.com/steve4744/TNTRun/releases/tag/v6.8.7)
 [![Discord Chat](https://img.shields.io/discord/308323056592486420?logo=discord)](https://discord.gg/wFYSAS4)
 [![bStats](https://img.shields.io/badge/statistics-bstats-brightgreen.svg)](https://bstats.org/plugin/bukkit/TNTRun_reloaded)
 [![PayPal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/paypalme/steve4744)
 [![gitlocalized ](https://gitlocalize.com/repo/5420/whole_project/badge.svg)](https://gitlocalize.com/repo/5420/whole_project?utm_source=badge)
-[![Legacy Release](https://img.shields.io/badge/Legacy%20Release-v6.8.7-blue.svg)](https://github.com/steve4744/TNTRun/releases/tag/v6.8.7)
-[![Dev Build](https://img.shields.io/badge/Dev%20Build-Latest-orange.svg)](https://github.com/steve4744/TNTRun/releases)
+<br>
 
 TNTRun is a highly configurable, fully automated minigame for Minecraft servers. Traditionally players start on a layer of sand supported by TNT blocks, although any combination of blocks can be used, and every block that they step on disappears. If a player falls through a hole, he/she will continue to run on the layer below. Once a player falls through the final layer he/she loses the game and becomes a spectator for the remainder of the game. The last player remaining wins the game.
 
