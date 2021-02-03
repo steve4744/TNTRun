@@ -9,9 +9,11 @@
 
 [![Discord Chat](https://img.shields.io/discord/308323056592486420?logo=discord)](https://discord.gg/wFYSAS4)
 [![bStats](https://img.shields.io/badge/statistics-bstats-brightgreen.svg)](https://bstats.org/plugin/bukkit/TNTRun_reloaded)
-[![PayPal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/paypalme/steve4744)
 [![gitlocalized ](https://gitlocalize.com/repo/5420/whole_project/badge.svg)](https://gitlocalize.com/repo/5420/whole_project?utm_source=badge)
-<br>
+[![PayPal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/paypalme/steve4744)
+
+
+## Description
 
 TNTRun is a highly configurable, fully automated minigame for Minecraft servers. Traditionally players start on a layer of sand supported by TNT blocks, although any combination of blocks can be used, and every block that they step on disappears. If a player falls through a hole, he/she will continue to run on the layer below. Once a player falls through the final layer he/she loses the game and becomes a spectator for the remainder of the game. The last player remaining wins the game.
 
@@ -28,7 +30,7 @@ Optionally, a fee can be set to join each arena, which can be monetary or any mi
 
 If your server is running Minecraft 1.13 or later, then the latest version of TNTRun\_reloaded can be [downloaded from Spigot.](https://www.spigotmc.org/resources/tntrun_reloaded.53359/ "TNTRun_reloaded")
 
-For Minecraft versions from 1.8 through to 1.12.2, the legacy version of TNTRun\_reloaded (version 6.8.6) can be downloaded from the GitHub Releases tab above. It can be [downloaded here.](https://github.com/steve4744/TNTRun/releases/download/v6.8.6/TNTRun_reloaded-6.8.6.jar "v6.8.6")
+For Minecraft versions from 1.8 through to 1.12.2, the legacy version of TNTRun\_reloaded (version 6.8.7) can be downloaded from the GitHub Releases tab above. It can be [downloaded here.](https://github.com/steve4744/TNTRun/releases/download/v6.8.6/TNTRun_reloaded-6.8.7.jar "v6.8.7")
 
 
 ## Features
@@ -76,10 +78,10 @@ Links to download each plugin are available on TNTRun_reloaded's Spigot page.
 
 The latest version of TNTRun_reloaded has been tested with the following versions of these plugins:
 
-    WorldEdit 7.2.0 (optional, internal commands setP1 and setP2 can be used to set arena bounds)
+    WorldEdit 7.2.2 (optional, internal commands setP1 and setP2 can be used to set arena bounds)
     Vault 1.7.2 (optional, required to use economy)
     HeadsPlus 6.10.9 (optional, allow players to buy and run around wearing different heads)
-    mcMMO 2.1.145 (optional, will allow players in same mcMMO party to PVP in arena)
+    mcMMO 2.1.173 (optional, will allow players in same mcMMO party to PVP in arena)
     PlaceholderAPI 2.10.9 (optional, needed to use placeholders)
     
 Although not required to compile the plugin, the following plugins (or similar) are required to create Holographic Leaderboards for TNTRun_reloaded.
@@ -91,7 +93,7 @@ FAWE is also supported, and can be used in place of the WorldEdit on 1.13+ serve
 
 For legacy Minecraft 1.12.2 and below:
 
-    TNTRun_reloaded 6.8.6
+    TNTRun_reloaded 6.8.7
     WorldEdit 6
     Vault (optional)
 
@@ -99,4 +101,4 @@ For legacy Minecraft 1.12.2 and below:
 <br />
 <br />
 <br />
-Updated steve4744 - 23rd January 2021
+Updated steve4744 - 3rd February 2021
