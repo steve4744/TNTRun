@@ -5,6 +5,8 @@
 [![Dev Build](https://img.shields.io/badge/Dev%20Build-Latest-orange.svg)](https://github.com/steve4744/TNTRun/releases)
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
 [![Legacy Release](https://img.shields.io/badge/Legacy%20Release-v6.8.7-blue.svg)](https://github.com/steve4744/TNTRun/releases/tag/v6.8.7)
+
+
 [![Discord Chat](https://img.shields.io/discord/308323056592486420?logo=discord)](https://discord.gg/wFYSAS4)
 [![bStats](https://img.shields.io/badge/statistics-bstats-brightgreen.svg)](https://bstats.org/plugin/bukkit/TNTRun_reloaded)
 [![PayPal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/paypalme/steve4744)
