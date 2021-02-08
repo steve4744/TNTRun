@@ -62,6 +62,7 @@ public class StructureManager {
 	private boolean linkedRandom = true;
 	private List<String> linkedKits = new ArrayList<>();
 	private boolean testmode = false;
+	private boolean excludeStats = false;
 	private int regenerationdelay = 60;
 	private String currency;
 	private double fee = 0;
@@ -181,6 +182,10 @@ public class StructureManager {
 
 	public boolean isTestMode() {
 		return testmode;
+	}
+
+	public boolean isExcludeStats() {
+		return excludeStats;
 	}
 
 	public int getRegenerationDelay() {
@@ -437,6 +442,7 @@ public class StructureManager {
 		config.set("kits.randomLinkedKit", linkedRandom);
 		config.set("punchDamage", punchDamage);
 		config.set("testmode", testmode);
+		config.set("excludeStats", excludeStats);
 		config.set("regenerationdelay", regenerationdelay);
 		config.set("joinfee", fee);
 		config.set("currency", currency);
@@ -475,6 +481,7 @@ public class StructureManager {
 		linkedRandom = config.getBoolean("kits.randomLinkedKit", true);
 		punchDamage = config.getBoolean("punchDamage", true);
 		testmode = config.getBoolean("testmode");
+		excludeStats = config.getBoolean("excludeStats");
 		regenerationdelay = config.getInt("regenerationdelay", regenerationdelay);
 		fee = config.getDouble("joinfee", fee);
 		currency = config.getString("currency", null);

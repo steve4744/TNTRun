@@ -87,13 +87,14 @@ public class GameCommands implements CommandExecutor {
 				Messages.sendMessage(player, "&7Arena Details: &a" + arena.getArenaName(), false);
 
 				String arenaStatus = arena.getStatusManager().isArenaEnabled() ? "Enabled" : "Disabled";
+				String bigspace = ChatColor.BOLD + " ";
 				player.sendMessage(ChatColor.GOLD + "Status " + ChatColor.DARK_GRAY + "........................ " + ChatColor.RED + arenaStatus);
 				player.sendMessage(ChatColor.GOLD + "Min Players " + ChatColor.DARK_GRAY + "........... " + ChatColor.RED + arena.getStructureManager().getMinPlayers());
 				player.sendMessage(ChatColor.GOLD + "Max Players " + ChatColor.DARK_GRAY + "......... " + ChatColor.RED + arena.getStructureManager().getMaxPlayers());
 				player.sendMessage(ChatColor.GOLD + "Time Limit " + ChatColor.DARK_GRAY + ".................. " + ChatColor.RED + arena.getStructureManager().getTimeLimit() + " seconds");
 				player.sendMessage(ChatColor.GOLD + "Countdown " + ChatColor.DARK_GRAY + ".............. " + ChatColor.RED + arena.getStructureManager().getCountdown() + " seconds");
 				player.sendMessage(ChatColor.GOLD + "Teleport to " + ChatColor.DARK_GRAY + "............ " + ChatColor.RED + Utils.getTitleCase(arena.getStructureManager().getTeleportDestination().toString()));
-				player.sendMessage(ChatColor.GOLD + "Player Count " + ChatColor.DARK_GRAY + "........ " + ChatColor.RED + arena.getPlayersManager().getPlayersCount());
+				player.sendMessage(ChatColor.GOLD + "Player Count " + ChatColor.DARK_GRAY + "......." + bigspace + ChatColor.RED + arena.getPlayersManager().getPlayersCount());
 				player.sendMessage(ChatColor.GOLD + "Vote Percent " + ChatColor.DARK_GRAY + "....... " + ChatColor.RED + arena.getStructureManager().getVotePercent());
 				player.sendMessage(ChatColor.GOLD + "PVP Damage " + ChatColor.DARK_GRAY + "........... " + ChatColor.RED + Utils.getTitleCase(arena.getStructureManager().getDamageEnabled().toString()));
 
@@ -102,7 +103,7 @@ public class GameCommands implements CommandExecutor {
 
 				List<String> kitnames = arena.getStructureManager().getLinkedKits();
 				if (kitnames.size() > 0) {
-					player.sendMessage(ChatColor.GOLD + "Linked Kits " + ChatColor.DARK_GRAY + "............. " + ChatColor.RED + String.join(", ", kitnames));
+					player.sendMessage(ChatColor.GOLD + "Linked Kits " + ChatColor.DARK_GRAY + "............." + bigspace + ChatColor.RED + String.join(", ", kitnames));
 				}
 
 				player.sendMessage(ChatColor.GOLD + "Rewards " + ChatColor.DARK_GRAY + "................... " + ChatColor.RED + "Use command '/tr listrewards {arena}'");
@@ -112,7 +113,10 @@ public class GameCommands implements CommandExecutor {
 				}
 
 				if (arena.getStructureManager().isTestMode()) {
-					player.sendMessage(ChatColor.GOLD + "Test Mode " + ChatColor.DARK_GRAY + "............... " + ChatColor.RED + "Enabled");
+					player.sendMessage(ChatColor.GOLD + "Test Mode " + ChatColor.DARK_GRAY + "..............." + bigspace + ChatColor.RED + "Enabled");
+				}
+				if (arena.getStructureManager().isExcludeStats()) {
+					player.sendMessage(ChatColor.GOLD + "Exclude Stats " + ChatColor.DARK_GRAY + "...... " + ChatColor.RED + "True");
 				}
 				return false;
 			}

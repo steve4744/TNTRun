@@ -202,7 +202,7 @@ public class GameHandler {
 
 		for (Player player : arena.getPlayersManager().getPlayers()) {
 			player.closeInventory();
-			if (plugin.useStats()) {
+			if (plugin.useStats() && !arena.getStructureManager().isExcludeStats()) {
 				plugin.stats.addPlayedGames(player, 1);
 			}
 			player.setAllowFlight(true);
@@ -381,7 +381,7 @@ public class GameHandler {
 	 * @param player
 	 */
 	private void startEnding(final Player player) {
-		if (plugin.useStats()) {
+		if (plugin.useStats() && !arena.getStructureManager().isExcludeStats()) {
 			plugin.stats.addWins(player, 1);
 		}
 		TitleMsg.sendFullTitle(player, TitleMsg.win, TitleMsg.subwin, 20, 60, 20, plugin);
