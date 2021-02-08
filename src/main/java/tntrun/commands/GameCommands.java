@@ -88,7 +88,7 @@ public class GameCommands implements CommandExecutor {
 
 				String arenaStatus = arena.getStatusManager().isArenaEnabled() ? "Enabled" : "Disabled";
 				player.sendMessage(ChatColor.GOLD + "Status " + ChatColor.DARK_GRAY + "........................ " + ChatColor.RED + arenaStatus);
-				player.sendMessage(ChatColor.GOLD + "Min Players " + ChatColor.DARK_GRAY + "........... " + ChatColor.RED + + arena.getStructureManager().getMinPlayers());
+				player.sendMessage(ChatColor.GOLD + "Min Players " + ChatColor.DARK_GRAY + "........... " + ChatColor.RED + arena.getStructureManager().getMinPlayers());
 				player.sendMessage(ChatColor.GOLD + "Max Players " + ChatColor.DARK_GRAY + "......... " + ChatColor.RED + arena.getStructureManager().getMaxPlayers());
 				player.sendMessage(ChatColor.GOLD + "Time Limit " + ChatColor.DARK_GRAY + ".................. " + ChatColor.RED + arena.getStructureManager().getTimeLimit() + " seconds");
 				player.sendMessage(ChatColor.GOLD + "Countdown " + ChatColor.DARK_GRAY + ".............. " + ChatColor.RED + arena.getStructureManager().getCountdown() + " seconds");

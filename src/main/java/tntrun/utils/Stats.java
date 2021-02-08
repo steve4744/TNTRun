@@ -49,6 +49,7 @@ public class Stats {
 	private File file;
 	private int position;
 	private String lbentry;
+	private String lbrank;
 	private String lbplaceholdervalue;
 
 	private static Map<String, Integer> pmap = new HashMap<>();
@@ -139,6 +140,12 @@ public class Stats {
 		return wmap.containsKey(uuid) ? wmap.get(uuid) : 0;
 	}
 
+	/**
+	 * Displays the leader board in chat. The number of entries is set in the configuration file.
+	 *
+	 * @param sender
+	 * @param entries
+	 */
 	public void getLeaderboard(CommandSender sender, int entries) {
 		position = 0;
 		wmap.entrySet().stream()
@@ -148,13 +155,16 @@ public class Stats {
 			if (Bukkit.getOnlineMode()) {
 				OfflinePlayer p = Bukkit.getOfflinePlayer(UUID.fromString(e.getKey()));
 				lbentry = p.getName();
+				lbrank = Utils.getRank(p);
 			} else {
 				lbentry = e.getKey();
+				lbrank = Utils.getRank(Bukkit.getPlayer(e.getKey()));
 			}
 			position++;
 			Messages.sendMessage(sender, Messages.leaderboard
 					.replace("{POSITION}", String.valueOf(position))
 					.replace("{PLAYER}", lbentry)
+					.replace("{RANK}", lbrank)
 					.replace("{WINS}", String.valueOf(e.getValue())), false);
 			});
 		return;
@@ -296,13 +306,13 @@ public class Stats {
 
 	/**
 	 * Returns the player name, score or rank of the player occupying the requested leader board position for the given type.
-	 * Type can be 'wins', 'played' or 'losses'.
-	 * @param rank
-	 * @param type
-	 * @param item
+	 *
+	 * @param position leader board position
+	 * @param type type can be 'wins', 'played' or 'losses'.
+	 * @param item item can be 'score', 'player' or 'rank'.
 	 * @return the requested placeholder value.
 	 */
-	public String getLeaderboardPosition(Integer rank, String type, String item) {
+	public String getLeaderboardPosition(int position, String type, String item) {
 		Map<String, Integer> workingMap = new HashMap<>();
 
 		switch(type.toLowerCase()) {
@@ -319,18 +329,18 @@ public class Stats {
 			return null;
 		}
 
-		if (rank > workingMap.size()) {
+		if (position > workingMap.size()) {
 			return "";
 		}
 
-		return getResult(workingMap, item, rank);
+		return getResult(workingMap, item, position);
 	}
 
-	private String getResult(Map<String, Integer> workingMap, String item, int rank) {
+	private String getResult(Map<String, Integer> workingMap, String item, int position) {
 		Optional<Entry<String, Integer>> opt = Streams.findLast(
 				workingMap.entrySet().stream()
 				.sorted(Entry.comparingByValue(Comparator.reverseOrder()))
-				.limit(rank));
+				.limit(position));
 		opt.ifPresent(x -> {
 			if (item.equalsIgnoreCase("score")) {
 				lbplaceholdervalue = String.valueOf(opt.get().getValue());

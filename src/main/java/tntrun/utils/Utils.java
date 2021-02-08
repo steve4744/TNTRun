@@ -18,6 +18,8 @@
 package tntrun.utils;
 
 import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Material;
@@ -25,6 +27,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -36,6 +39,8 @@ import tntrun.arena.Arena;
 import tntrun.messages.Messages;
 
 public class Utils {
+
+	private static Map<String, String> ranks = new HashMap<>();
 
 	public static boolean isNumber(String text) {
         try {
@@ -203,7 +208,8 @@ public class Utils {
 	}
 
 	/**
-	 * Attempt to get a player's rank. This can be either the player's prefix or primary group.
+	 * Attempt to get a player's cached rank. This can be either the player's prefix or primary group.
+	 * If the rank is not cached, retrieve it asynchronously and cache it.
 	 *
 	 * @param player
 	 * @return Player's rank.
@@ -214,19 +220,47 @@ public class Utils {
 			return "";
 		}
 		String rank = null;
+		if (ranks.containsKey(player.getName())) {
+			rank = ranks.get(player.getName());
+			return rank != null ? rank : "";
+		}
 		if (TNTRun.getInstance().getVaultHandler().isPermissions()) {
 			if (config.getBoolean("UseRankInChat.usegroup")) {
-				rank = TNTRun.getInstance().getVaultHandler().getPermissions().getPrimaryGroup(null, player);
-				if (rank != null) {
-					rank = "[" + rank + "]";
-				}
+				fetchRank(player, true);
 			}
-		}
-		if (TNTRun.getInstance().getVaultHandler().isChat()) {
+		} else if (TNTRun.getInstance().getVaultHandler().isChat()) {
 			if (config.getBoolean("UseRankInChat.useprefix")) {
-				rank = TNTRun.getInstance().getVaultHandler().getChat().getPlayerPrefix(null, player);
+				fetchRank(player, false);
 			}
 		}
 		return rank == null ? "" : rank;
+	}
+
+	/**
+	 * Fetch the offline player's rank asynchronously.
+	 * Cache the player name with the rank or empty string.
+	 *
+	 * @param player
+	 * @param isGroup
+	 */
+	private static void fetchRank(OfflinePlayer player, boolean isGroup) {
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				String rank = "";
+				if (isGroup) {
+					rank = TNTRun.getInstance().getVaultHandler().getPermissions().getPrimaryGroup(null, player);
+					if (rank != null && !rank.isEmpty()) {
+						rank = "[" + rank + "]";
+					}
+				} else {
+					rank = TNTRun.getInstance().getVaultHandler().getChat().getPlayerPrefix(null, player);
+				}
+				if (rank == null) {
+					rank = "";
+				}
+				ranks.put(player.getName(), rank);
+			}
+		}.runTaskAsynchronously(TNTRun.getInstance());
 	}
 }

@@ -110,7 +110,7 @@ public class Messages {
 	public static String gameswon = "&bWins &f: ";
 	public static String gameslost = "&bLosses &f: ";
 	public static String statsdisabled = "&c Stats are currently disabled";
-	public static String leaderboard = "{POSITION}) &b{PLAYER} &f: Wins &3{WINS}";
+	public static String leaderboard = "{POSITION}) &c{RANK}&b{PLAYER} &f: Wins &3{WINS}";
 	public static String leadersign = "&1{PLAYER} &4{WINS}";
 	public static String shopmoneyheader = "&fTNTRun Shop Account";
 	public static String shopmoneybalance = "&5Your balance is &6{BAL}";
