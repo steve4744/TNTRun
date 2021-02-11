@@ -234,7 +234,7 @@ public class GameHandler {
 					return;
 				}
 				// kick all players if time is out
-				if (hasTimeLimit && timeremaining < 0) {
+				if (isTimedOut()) {
 					places.clear();
 					for (Player player : arena.getPlayersManager().getPlayersCopy()) {
 						arena.getPlayerHandler().leavePlayer(player,Messages.arenatimeout, "");
@@ -375,8 +375,8 @@ public class GameHandler {
 
 	/**
 	 * Called when there is only 1 player left, to update winner stats and
-	 * teleport winner and spectators to the arena spawn point. It then
-	 * stops the arena.
+	 * teleport winner and spectators to the arena spawn point. It determines who
+	 * should receive the broadcast results and then stops the arena.
 	 *
 	 * @param player
 	 */
@@ -388,7 +388,6 @@ public class GameHandler {
 		arena.getPlayerHandler().clearPotionEffects(player);
 
 		String message = getPodiumPlaces(player);
-		/* Determine who should receive notification of win (0 suppresses broadcast) */
 		if (plugin.getConfig().getInt("broadcastwinlevel") == 1) {
 			for (Player all : arena.getPlayersManager().getAllParticipantsCopy()) {
 				Messages.sendMessage(all, message, false);
@@ -424,7 +423,7 @@ public class GameHandler {
 				@Override
 				public void run() {
 					//cancel on duration -1 to avoid firework overrun
-					if (i >= (getFireworkDuration() - 1)) {
+					if (i >= (getFireworkDuration() - 1) || arena.getPlayersManager().getPlayersCount() == 0) {
 						this.cancel();
 					}
 					Firework f = player.getWorld().spawn(arena.getStructureManager().getSpawnPoint(), Firework.class);
@@ -446,8 +445,13 @@ public class GameHandler {
 			@Override
 			public void run() {
 				try {
-
-					arena.getPlayerHandler().leaveWinner(player, Messages.playerwontoplayer);
+					//check if winner has already left
+					if (arena.getPlayersManager().getPlayersCount() == 1) {
+						arena.getPlayerHandler().leaveWinner(player, Messages.playerwontoplayer);
+					}
+					if (Utils.debug()) {
+						plugin.getLogger().info("GH StartEnding calling stopArena...");
+					}
 					stopArena();
 
 					if(plugin.getConfig().getStringList("commandsonwin") == null) {
@@ -462,7 +466,7 @@ public class GameHandler {
 		
 				}
 			}
-		}.runTaskLater(plugin, 120);
+		}.runTaskLater(plugin, 40 + (getFireworkDuration()/2) * 20);
 	}
 
 	/**
@@ -474,7 +478,7 @@ public class GameHandler {
 	 */
 	private int getFireworkDuration() {
 		int duration = plugin.getConfig().getInt("fireworksonwin.duration", 4);
-		return (duration > 0 && duration < 5) ? duration * 2 : 8;
+		return duration * 2;
 	}
 
 	/**
@@ -585,6 +589,10 @@ public class GameHandler {
 
 	public int getTimeRemaining() {
 		return hasTimeLimit ? timeremaining : 0;
+	}
+
+	public boolean isTimedOut() {
+		return hasTimeLimit && timeremaining < 0;
 	}
 
 	/**

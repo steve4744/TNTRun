@@ -398,12 +398,16 @@ public class PlayerHandler {
 	 * @param msgtoarenaplayers
 	 */
 	public void leavePlayer(Player player, String msgtoplayer, String msgtoarenaplayers) {
-		// reset spectators
 		boolean spectator = arena.getPlayersManager().isSpectator(player.getName());
 		if (spectator) {
 			arena.getPlayersManager().removeSpecator(player.getName());
 			for (Player oplayer : Bukkit.getOnlinePlayers()) {
 				oplayer.showPlayer(plugin, player);
+			}
+		} else if (arena.getPlayersManager().getPlayersCount() == 1 && arena.getStatusManager().isArenaRunning() && !arena.getGameHandler().isTimedOut()) {
+			// prevent winner leaving during fireworks
+			if (!arena.getStructureManager().isTestMode()) {
+				return;
 			}
 		} else if (arena.getStatusManager().isArenaRunning()) {
 			arena.getGameHandler().lostPlayers++;
