@@ -423,7 +423,7 @@ public class GameHandler {
 				@Override
 				public void run() {
 					//cancel on duration -1 to avoid firework overrun
-					if (i >= (getFireworkDuration() - 1) || arena.getPlayersManager().getPlayersCount() == 0) {
+					if (i >= ((getFireworkDuration() * 2) - 1) || arena.getPlayersManager().getPlayersCount() == 0) {
 						this.cancel();
 					}
 					Firework f = player.getWorld().spawn(arena.getStructureManager().getSpawnPoint(), Firework.class);
@@ -445,7 +445,7 @@ public class GameHandler {
 			@Override
 			public void run() {
 				try {
-					//check if winner has already left
+					//check if winner is has not left the arena
 					if (arena.getPlayersManager().getPlayersCount() == 1) {
 						arena.getPlayerHandler().leaveWinner(player, Messages.playerwontoplayer);
 					}
@@ -466,19 +466,17 @@ public class GameHandler {
 		
 				}
 			}
-		}.runTaskLater(plugin, 40 + (getFireworkDuration()/2) * 20);
+		}.runTaskLater(plugin, 40 + (getFireworkDuration() * 20));
 	}
 
 	/**
-	 * Get the number of seconds to run the fireworks for from config.
-	 * The fireworks task repeats every 10 ticks so return double this number.
+	 * Get the number of seconds to run the fireworks task for.
 	 * Default is 4 seconds.
 	 *
-	 * @return number of half seconds
+	 * @return number of seconds
 	 */
 	private int getFireworkDuration() {
-		int duration = plugin.getConfig().getInt("fireworksonwin.duration", 4);
-		return duration * 2;
+		return plugin.getConfig().getInt("fireworksonwin.duration", 4);
 	}
 
 	/**
