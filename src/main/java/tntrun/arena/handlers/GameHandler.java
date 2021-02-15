@@ -445,7 +445,7 @@ public class GameHandler {
 			@Override
 			public void run() {
 				try {
-					//check if winner is has not left the arena
+					//check if winner has not left the arena
 					if (arena.getPlayersManager().getPlayersCount() == 1) {
 						arena.getPlayerHandler().leaveWinner(player, Messages.playerwontoplayer);
 					}
