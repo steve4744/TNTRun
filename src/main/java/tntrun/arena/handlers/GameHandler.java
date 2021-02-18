@@ -36,6 +36,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.events.ArenaStartEvent;
+import tntrun.events.ArenaTimeoutEvent;
 import tntrun.events.PlayerWinArenaEvent;
 import tntrun.utils.Bars;
 import tntrun.utils.TitleMsg;
@@ -235,9 +236,10 @@ public class GameHandler {
 				}
 				// kick all players if time is out
 				if (isTimedOut()) {
+					plugin.getServer().getPluginManager().callEvent(new ArenaTimeoutEvent(arena));
 					places.clear();
 					for (Player player : arena.getPlayersManager().getPlayersCopy()) {
-						arena.getPlayerHandler().leavePlayer(player,Messages.arenatimeout, "");
+						arena.getPlayerHandler().leavePlayer(player, Messages.arenatimeout, "");
 					}
 					return;
 				}
