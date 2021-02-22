@@ -319,7 +319,9 @@ public class PlayerHandler {
 		if (!isSpectatorOnly) {
 			arena.getPlayersManager().remove(player);
 			arena.getGameHandler().lostPlayers++;
-			arena.getScoreboardHandler().removeScoreboard(player);
+			if (plugin.getConfig().getBoolean("scoreboard.removefromspectators")) {
+				arena.getScoreboardHandler().removeScoreboard(player);
+			}
 		} else {
 			storePlayerData(player);
 			if (!arena.getStatusManager().isArenaStarting()) {

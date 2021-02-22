@@ -97,6 +97,7 @@ items:
 scoreboard:
   header: '&6&lTNTRUN'
   displaydoublejumps: false
+  removefromspectators: true
   waiting:
   - '&fWelcome to TNTRun'
   - '&a '

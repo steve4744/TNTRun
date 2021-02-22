@@ -148,6 +148,11 @@ public class ScoreboardHandler {
 				for (Player player : arena.getPlayersManager().getPlayers()) {
 					updatePlayingScoreboard(player);
 				}
+				if (!plugin.getConfig().getBoolean("scoreboard.removefromspectators")) {
+					for (Player player : arena.getPlayersManager().getSpectators()) {
+						updatePlayingScoreboard(player);
+					}
+				}
 			}
 		}, 0, 20);
 	}
