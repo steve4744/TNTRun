@@ -1,0 +1,136 @@
+---
+trprefix: "&7[&6TNTRun_重製&7]"
+menutitle: "&1TNTRun 地圖"
+menuarenaname: "&a{ARENA}"
+menutext: "&5玩家: &6{PS}/{MPS}"
+menufee: "&5入場費: &6{FEE}"
+menupvp: "&5PVP: &6啟用"
+nopermission: "&c 你沒有權限這樣做"
+nolobby: "&c 主大廳尚未設置，請輸入 &6/trsetup setlobby &c來設置"
+lobbyunloaded: "&c 大廳所位於的世界未載入或是它不存在"
+teleporttolobby: "&7 傳送至大廳"
+arenanotexist: "&c 地圖 &6{ARENA}&c 不存在"
+noarenas: "&c 目前沒有其他地圖可供加入"
+arenanotdisabled: "&c 請先關閉此地圖，使用： &6/trsetup disable {ARENA}"
+arenanospectatorspawn: "&6 {ARENA} &c地圖未設置旁觀者重生點"
+availablearenas: "&7 可用的地圖： {COUNT}"
+availablekits: "&7 可用的職業： {COUNT}"
+arenawolrdna: "&7 地圖位於的世界未載入"
+arenanobounds: "&7 地圖的大小未設置"
+arenadisabled: "&7 地圖已禁用"
+arenarunning: "&7 地圖正在遊玩中"
+arenaregenerating: "&7 地圖正在重建中"
+arenavehicle: "&c 你無法加入遊戲，因為你乘坐在一個載具上"
+arenajoined: "&c 你已經加入了一場遊戲"
+arenadisabling: "&6 遊戲正在禁用"
+arenastarting: "&6 遊戲正在開始"
+signcreate: "&7 告示牌成功建立"
+signremove: "&7 告示牌成功移除"
+arenafee: "&7 你需要支付入場費 &6{FEE} &7才能進入此遊戲"
+arenanofee: "&c 你需要足夠的入場費 &6{FEE} &c來進入此遊戲"
+arenawaiting: "&6 等候中"
+playerscountinarena: "&6 目前有 {COUNT} 名玩家在地圖內"
+limitreached: "&7 地圖人數已滿"
+playerjoinedtoothers: "&c {RANK}&6{PLAYER} &7加入了遊戲 (&6{PS}&7/&6{MPS}&7)"
+playerjoinedasspectator: "&7 你以旁觀者加入了 &6{ARENA} &7地圖"
+playerlefttoplayer: "&7 你離開了遊戲"
+playerlefttoothers: "&c {RANK}&6{PLAYER} &7離開了遊戲 (&6{PS}&7/&6{MPS}&7)"
+playervotedforstart: "&f 你成功準備。當準備人數足夠，遊戲將會馬上開始。"
+playeralreadyvotedforstart: "&c 你已經成功準備了"
+playercannotvote: "&c 你不能準備"
+arenastarted: "&7 遊戲開始。時限： {TIMELIMIT} 秒"
+arenanolimit: "&7 遊戲開始。"
+arenacountdown: "&7 開始於 {COUNTDOWN} 秒"
+arenatimeout: "&7 時間到，結算中。"
+playerwontoplayer: "&7 你贏了！"
+playerlosttoplayer: "&7 你輸了。"
+playerlosttoothers: "&c {RANK}&6{PLAYER} &7輸了"
+playerfirstplace: "&a第一名： &f{RANK}"
+playersecondplace: "&a第二名： &f{RANK}"
+playerthirdplace: "&a第三名： &f{RANK}"
+playerrewardmessage: "&7 獎勵： &6{REWARD}"
+playerrewardmaterial: "&6 獎勵物品： &f"
+playerrewardcommand: "&6 獎勵操作： &f"
+playerrewardmoney: "&6 獎金：    &f"
+playerrewardxp: "&6 獎勵經驗：      &l  &f"
+playerboughtitem: "&7 你以 &6{MONEY} &7購買了&6{ITEM}"
+playerboughtwait: "&7 遊戲開始後，你會拿到該物品"
+playerkit: "&7 你已被給予職業道具： &6{KIT}"
+playersrequiredtostart: "&c 必須要有兩個人以上才能開始"
+notenoughmoney: "&c 你需要 {MONEY} 元才能購買該物品"
+alreadyboughtitem: "&c 你已經購買了該物品"
+shopnostock: "&c 本物品缺貨"
+maxdoublejumpsexceeded: "&c 你不能買超過限制的雙重跳躍。 (最多：{MAXJUMPS})"
+playernotinarena: "&c 你不在 TNTRun 遊戲內"
+gamesplayed: "&b遊玩場次 &f: "
+gameswon: "&b獲勝場次 &f: "
+gameslost: "&b失敗場次 &f: "
+statshead: "&7=========[&6TNTRun 統計&7]========="
+rewardshead: "&7======[&6TNTRun 獎賞&7 - &a{ARENA}&7]======"
+leaderhead: "&7======[&6TNTRun 排行榜&7]======"
+resultshead: "&7============[&6TNTRun&7]============"
+leaderboard: "{POSITION}) &b{PLAYER} &f: 勝場 &3{WINS}"
+leadersign: "&1{PLAYER} &4{WINS}"
+shopmoneyheader: "&fTNTRun 商店帳戶"
+shopmoneybalance: "&5餘額 &6{BAL}"
+statsdisabled: "&c 統計已被禁用"
+helplobby: 傳送到大廳
+helplist: 列出所有地圖或是詳細資料
+helplistkit: 列出所有職業或是詳細資料
+helplistrewards: 列出該地圖的獎賞
+helpjoin: 打開選單或是加入遊戲
+helpspectate: 以旁觀者加入遊戲
+helpautojoin: 自動加入遊戲
+helpleave: 離開目前遊戲
+helpvote: 準備，以讓遊戲快速開始
+helpcmds: 列出所有指令
+helpinfo: 瀏覽插件資訊
+helpstats: 瀏覽玩家統計
+helplb: 顯示 TNTRun 排行榜
+helpstart: 強制開始遊戲
+setuplobby: 將你所在的位置設為大廳
+setupdellobby: 刪除大廳
+setupcreate: 建立新場地
+setupbounds: 設置場地大小
+setuploselevel: 設置失敗的位置
+setupspawn: 設置該地圖的重生點於你的腳下
+setupspectate: 設置旁觀者重生點
+setupaddspawn: 設置一個額外的重生點於你的腳下
+setupdelspawns: 刪除所有額外的重生點
+setupfinish: 完成地圖的編輯並儲存
+setupdelspectate: 刪除該地圖的旁觀者重生點
+setupdelay: 設置當玩家踩上方塊後，方塊消失的延遲
+setupregendelay: 設置玩家可加回去該地圖的延遲（預設為 60 刻）
+setupmax: 設置地圖的人數上限（預設為 15人）
+setupmin: 設置地圖的人數下限（預設為 2人）
+setupvote: 設置強制開始的標準（預設為 75% 的人皆準備）
+setuptimelimit: 設置時間限制（預設為 300 秒）
+setupcountdown: 設置開始的倒數（預設為 15 秒）
+setupmoney: 設置贏家獎金
+setupteleport: 設置獲勝或失敗所要傳送的點
+setupdamage: 開啟或關閉該地圖的 PVP
+setupbarcolor: 設置王顯示條的顏色
+setupreloadbars: 重載王顯示條的訊息檔案
+setupreloadtitles: 重載標題的訊息檔案
+setupreloadmsg: 重載地圖的訊息檔案
+setupreloadconfig: 重載設置檔案
+setupenable: 啟用地圖
+setupdisable: 關閉地圖
+setupdelete: 刪除地圖
+setupreward: 設置地圖獎賞
+setupfee: 設置地圖入場費
+setupcurrency: 設置進入地圖的貨幣
+setuphelp: 顯示新建地圖需要用到的指令
+setupenablekits: 為此地圖啟用職業
+setupdisablekits: 為此地圖禁用職業
+setupaddkit: 創建職業
+setupdelkit: 創建職業
+setupp1: 設定正在觀看的方塊為第一個選取點
+setupp2: 設定正在觀看的方塊為第二個選取點
+setupclear: 清除選取點
+kitexists: "&c 指定的職業已存在 : &6{KIT}"
+kitnotexists: "&c 指定的職業不存在 : &6{KIT}"
+setupwhitelist: 可在遊戲內使用的指令
+playerjoininvite: "&c{RANK}&6{PLAYER} &7加入了 TNTRun 於 &6{ARENA}&7, 點擊遊玩"
+playerborderinvite: "&b---------------------------------------"
+playerclickinvite: 點擊加入 {ARENA}
