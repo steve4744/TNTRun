@@ -44,13 +44,13 @@ public class GameCommands implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof Player)) {
 			sender.sendMessage(FormattingCodesParser.parseFormattingCodes(Messages.trprefix + "&c You must be a player"));
-			return true;
+			return false;
 		}
 		Player player = (Player) sender;
 		if (args.length < 1) {
 			Messages.sendMessage(player, "&7============" + Messages.trprefix + "============", false);
 			Messages.sendMessage(player, "&c Please use &6/tr help");
-			return true;
+			return false;
 		}
 		// help command
 		if (args[0].equalsIgnoreCase("help")) {
@@ -80,7 +80,7 @@ public class GameCommands implements CommandExecutor {
 				Arena arena = plugin.amanager.getArenaByName(args[1]);
 				if (arena == null) {
 					Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[1]));
-					return true;
+					return false;
 				}
 				//list arena details
 				Messages.sendMessage(player, "&7============" + Messages.trprefix + "============", false);
@@ -118,7 +118,7 @@ public class GameCommands implements CommandExecutor {
 				if (arena.getStructureManager().isExcludeStats()) {
 					player.sendMessage(ChatColor.GOLD + "Exclude Stats " + ChatColor.DARK_GRAY + "........." + bigspace + ChatColor.RED + "True");
 				}
-				return false;
+				return true;
 			}
 
 			int arenacount = plugin.amanager.getArenas().size();
@@ -141,27 +141,6 @@ public class GameCommands implements CommandExecutor {
 		else if (args[0].equalsIgnoreCase("join")) {
 			if (args.length == 1 && player.hasPermission("tntrun.joinmenu")) {
 				plugin.getJoinMenu().buildMenu(player);
-				return false;
-			}
-			if (args.length != 2) {
-				Messages.sendMessage(player, "&c Invalid number of arguments supplied");
-				return false;
-			}
-			Arena arena = plugin.amanager.getArenaByName(args[1]);
-			if (arena != null) {
-				if (arena.getPlayerHandler().checkJoin(player)) {
-					arena.getPlayerHandler().spawnPlayer(player, Messages.playerjoinedtoothers);
-				}
-			} else {
-				Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[1]));
-				return true;
-			}
-		}
-
-		// spectate arena
-		else if (args[0].equalsIgnoreCase("spectate")) {
-			if (!player.hasPermission("tntrun.spectate")) {
-				Messages.sendMessage(player, Messages.nopermission);
 				return true;
 			}
 			if (args.length != 2) {
@@ -171,14 +150,54 @@ public class GameCommands implements CommandExecutor {
 			Arena arena = plugin.amanager.getArenaByName(args[1]);
 			if (arena == null) {
 				Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[1]));
-				return true;
+				return false;
 			}
-			if (arena.getStructureManager().getSpectatorSpawnVector() == null) {
-				Messages.sendMessage(player, Messages.arenanospectatorspawn.replace("{ARENA}", args[1]));
-				return true;
+			if (arena.getPlayerHandler().checkJoin(player)) {
+				arena.getPlayerHandler().spawnPlayer(player, Messages.playerjoinedtoothers);
 			}
-			if (!arena.getPlayerHandler().preJoinChecks(player, false)) {
-				return true;
+		}
+
+		// join or spectate called from invitation message
+		else if (args[0].equalsIgnoreCase("joinorspectate")) {
+			if (args.length != 2) {
+				return false;
+			}
+			Arena arena = plugin.amanager.getArenaByName(args[1]);
+			if (arena == null) {
+				return false;
+			}
+			if (!arena.getStatusManager().isArenaRunning()) {
+				if (arena.getPlayerHandler().checkJoin(player)) {
+					arena.getPlayerHandler().spawnPlayer(player, Messages.playerjoinedtoothers);
+				}
+			} else {
+				if (!plugin.getConfig().getBoolean("invitationmessage.allowspectate")) {
+					Messages.sendMessage(player, Messages.arenarunning);
+					return false;
+				}
+				if (!arena.getPlayerHandler().canSpectate(player)) {
+					return false;
+				}
+				arena.getPlayerHandler().spectatePlayer(player, Messages.playerjoinedasspectator, "");
+				if (Utils.debug()) {
+					plugin.getLogger().info("Player " + player.getName() + " joined arena " + arena.getArenaName() + " as a spectator");
+				}
+			}
+		}
+
+		// spectate arena
+		else if (args[0].equalsIgnoreCase("spectate")) {
+			if (args.length != 2) {
+				Messages.sendMessage(player, "&c Invalid number of arguments supplied");
+				return false;
+			}
+			Arena arena = plugin.amanager.getArenaByName(args[1]);
+			if (arena == null) {
+				Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[1]));
+				return false;
+			}
+			if (!arena.getPlayerHandler().canSpectate(player)) {
+				return false;
 			}
 			arena.getPlayerHandler().spectatePlayer(player, Messages.playerjoinedasspectator, "");
 			if (Utils.debug()) {
@@ -192,7 +211,7 @@ public class GameCommands implements CommandExecutor {
 			if (args.length >= 2) {
 				if (!args[1].equalsIgnoreCase("pvp") && !args[1].equalsIgnoreCase("nopvp")) {
 					Messages.sendMessage(player, "&c Invalid argument supplied");
-					return true;
+					return false;
 				}
 				arenatype = args[1];
 			}
@@ -208,7 +227,7 @@ public class GameCommands implements CommandExecutor {
 		else if (args[0].equalsIgnoreCase("stats")) {
 			if (!plugin.useStats()) {
 				Messages.sendMessage(player, Messages.statsdisabled);
-				return true;
+				return false;
 			}
 			Messages.sendMessage(player, Messages.statshead, false);
 			Messages.sendMessage(player, Messages.gamesplayed + plugin.stats.getPlayedGames(player), false);
@@ -220,7 +239,7 @@ public class GameCommands implements CommandExecutor {
 		else if (args[0].equalsIgnoreCase("leaderboard")) {
 			if (!plugin.useStats()) {
 				Messages.sendMessage(player, Messages.statsdisabled);
-				return true;
+				return false;
 			}
 			int entries = plugin.getConfig().getInt("leaderboard.maxentries", 10);
 			if (args.length > 1) {
@@ -239,7 +258,7 @@ public class GameCommands implements CommandExecutor {
 				arena.getPlayerHandler().leavePlayer(player, Messages.playerlefttoplayer, Messages.playerlefttoothers);
 			} else {
 				Messages.sendMessage(player, Messages.playernotinarena);
-				return true;
+				return false;
 			}
 		}
 
@@ -290,17 +309,17 @@ public class GameCommands implements CommandExecutor {
 			Arena arena = plugin.amanager.getPlayerArena(player.getName());
 			if (arena == null) {
 				Messages.sendMessage(player, Messages.playernotinarena);
-				return true;
+				return false;
 			}
 			if (!arena.getPlayersManager().getPlayers().contains(player)) {
 				Messages.sendMessage(player, Messages.playercannotvote);
-				return true;
+				return false;
 			}
 			if (arena.getPlayerHandler().vote(player)) {
 				Messages.sendMessage(player, Messages.playervotedforstart);
 			} else {
 				Messages.sendMessage(player, Messages.playeralreadyvotedforstart);
-				return true;
+				return false;
 			}
 		}
 
@@ -327,16 +346,16 @@ public class GameCommands implements CommandExecutor {
 		else if (args[0].equalsIgnoreCase("listrewards")) {
 			if (!player.hasPermission("tntrun.listrewards")) {
 				Messages.sendMessage(player, Messages.nopermission);
-				return true;
+				return false;
 			}
 			if (args.length != 2) {
 				Messages.sendMessage(player, "&c Invalid number of arguments supplied");
-				return true;
+				return false;
 			}
 			Arena arena = plugin.amanager.getArenaByName(args[1]);
 			if (arena == null) {
 				Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[1]));
-				return true;
+				return false;
 			}
 			arena.getStructureManager().getRewards().listRewards(player, args[1]);
 		}
@@ -345,35 +364,35 @@ public class GameCommands implements CommandExecutor {
 		else if (args[0].equalsIgnoreCase("start")) {
 			if (!player.hasPermission("tntrun.start")) {
 				Messages.sendMessage(player, Messages.nopermission);
-				return true;
+				return false;
 			}
 			if (args.length != 2) {
 				Messages.sendMessage(player, "&c Invalid number of arguments supplied");
-				return true;
+				return false;
 			}
 			Arena arena = plugin.amanager.getArenaByName(args[1]);
 			if (arena == null) {
 				Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[1]));
-				return true;
+				return false;
 			}
 			if (arena.getPlayersManager().getPlayersCount() <= 1) {
 				Messages.sendMessage(player, Messages.playersrequiredtostart);
-				return true;
+				return false;
 			}
 			if (!arena.getStatusManager().isArenaStarting()) {
 				plugin.getServer().getConsoleSender().sendMessage("[TNTRun] Arena " + ChatColor.GOLD + arena.getArenaName() + ChatColor.WHITE + " force-started by " + ChatColor.AQUA + player.getName());
 				arena.getGameHandler().forceStartByCommand();
 			} else {
 				Messages.sendMessage(player, Messages.arenastarting.replace("{ARENA}", args[1]));
-				return true;
+				return false;
 			}
 		}
 
 		else {
 			Messages.sendMessage(player, "&c Invalid argument supplied, please use &6/tr help");
-			return true;
+			return false;
 		}	
-		return false;
+		return true;
 	}
 
 }

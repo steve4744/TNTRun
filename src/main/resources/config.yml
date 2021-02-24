@@ -38,6 +38,7 @@ fireworksonwin:
 broadcastwinlevel: 2
 invitationmessage:
   enabled: false
+  allowspectate: false
 menu:
   item: TNT
   pvpitem: IRON_BLOCK

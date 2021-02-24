@@ -56,7 +56,6 @@ public class GameHandler {
 		count = arena.getStructureManager().getCountdown();
 	}
 
-	// arena leave handler
 	private int leavetaskid;
 
 	public void startArenaAntiLeaveHandler() {
@@ -157,7 +156,7 @@ public class GameHandler {
 	}
 
 	/**
-	 * Stop the arena countdown updating the arena status and join signs.
+	 * Stop the arena countdown, updating the arena status and join signs.
 	 */
 	public void stopArenaCountdown() {
 		arena.getStatusManager().setStarting(false);
@@ -405,7 +404,7 @@ public class GameHandler {
 		// allow winner to fly at arena spawn
 		player.setAllowFlight(true);
 		player.setFlying(true);
-		// teleport winner and spectators to arena spawn
+
 		for(Player p : arena.getPlayersManager().getAllParticipantsCopy()) {
 			plugin.getSound().ARENA_START(p);
 			p.teleport(arena.getStructureManager().getSpawnPoint());
@@ -419,7 +418,6 @@ public class GameHandler {
 		plugin.getServer().getPluginManager().callEvent(new PlayerWinArenaEvent(player, arena));
 
 		if (plugin.getConfig().getBoolean("fireworksonwin.enabled")) {
-	
 			new BukkitRunnable() {
 				int i = 0;
 				@Override
@@ -465,7 +463,7 @@ public class GameHandler {
 						Bukkit.dispatchCommand(console, commands.replace("{PLAYER}", player.getName()));
 					}
 				} catch (NullPointerException ex) {
-		
+
 				}
 			}
 		}.runTaskLater(plugin, 40 + (getFireworkDuration() * 20));

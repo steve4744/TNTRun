@@ -77,12 +77,6 @@ public class ScoreboardHandler {
 	}
 
 	public void updateWaitingScoreboard(Player player) {
-		if (scoreboardMap.containsKey(player.getName())) {
-			scoreboard = scoreboardMap.get(player.getName());
-		} else {
-			scoreboard = buildScoreboard();
-			scoreboardMap.put(player.getName(), scoreboard);
-		}
 		resetScoreboard(player);
 		Objective o = scoreboard.getObjective(DisplaySlot.SIDEBAR);
 
@@ -107,6 +101,16 @@ public class ScoreboardHandler {
 		}
 	}
 
+	private void getPlayerScoreboard(Player player) {
+		if (scoreboardMap.containsKey(player.getName())) {
+			scoreboard = scoreboardMap.get(player.getName());
+		} else {
+			scoreboard = buildScoreboard();
+			scoreboardMap.put(player.getName(), scoreboard);
+			player.setScoreboard(scoreboard);
+		}
+	}
+
 	private boolean isPlaceholderString(String s) {
 		return StringUtils.substringBetween(s, "%") != null && !StringUtils.substringBetween(s, "%").isEmpty();
 	}
@@ -120,13 +124,14 @@ public class ScoreboardHandler {
 	}
 
 	private void resetScoreboard(Player player) {
+		getPlayerScoreboard(player);
 		scoreboard = scoreboardMap.get(player.getName());
 		for (String entry : new ArrayList<String>(scoreboard.getEntries())) {
 			scoreboard.resetScores(entry);
 		}
 	}
 
-	private Integer getVotesRequired(Arena arena) {
+	private int getVotesRequired(Arena arena) {
 		int minPlayers = arena.getStructureManager().getMinPlayers();
 		double votePercent = arena.getStructureManager().getVotePercent();
 		int votesCast = arena.getPlayerHandler().getVotesCast();

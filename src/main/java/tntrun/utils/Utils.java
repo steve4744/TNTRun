@@ -149,7 +149,7 @@ public class Utils {
 	private static TextComponent getJoinTextComponent(String text, String arenaname) {
 		String hoverMessage = FormattingCodesParser.parseFormattingCodes(Messages.playerclickinvite.replace("{ARENA}", arenaname));
 		TextComponent component = new TextComponent(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', text)));
-		component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tntrun join " + arenaname));
+		component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tntrun joinorspectate " + arenaname));
 		component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(hoverMessage).create()));
 		return component;
 	}

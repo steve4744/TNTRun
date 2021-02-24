@@ -170,6 +170,27 @@ public class PlayerHandler {
 	}
 
 	/**
+	 * Returns whether a player is able to join the arena as a spectator.
+	 *
+	 * @param player
+	 * @return
+	 */
+	public boolean canSpectate(Player player) {
+		if (!player.hasPermission("tntrun.spectate")) {
+			Messages.sendMessage(player, Messages.nopermission);
+			return false;
+		}
+		if (arena.getStructureManager().getSpectatorSpawnVector() == null) {
+			Messages.sendMessage(player, Messages.arenanospectatorspawn.replace("{ARENA}", arena.getArenaName()));
+			return false;
+		}
+		if (!preJoinChecks(player, false)) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
 	 * In a standard, single spawnpoint arena this method will simply return the arena spawnpoint location.
 	 * In a multi-spawnpoint arena, the next available spawnpoint is allocated to the player and cached. If a player
 	 * leaves the arena and then rejoins, he will be given his cached spawnpoint. If the cached spawnpoint has since
