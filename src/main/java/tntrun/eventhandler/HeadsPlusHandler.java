@@ -17,15 +17,18 @@
 
 package tntrun.eventhandler;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import io.github.thatsmusic99.headsplus.api.events.HeadPurchaseEvent;
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
+import tntrun.utils.FormattingCodesParser;
 
 public class HeadsPlusHandler implements Listener {
 	
@@ -57,14 +60,31 @@ public class HeadsPlusHandler implements Listener {
 						continue;
 					}
 					if (player.getInventory().getItem(i).getType() == itemStack.getType()) {
-						player.getInventory().setHelmet(player.getInventory().getItem(i));
-						player.getInventory().setItem(i, null);
-						break;
+						if (!isStatsItem(player.getInventory().getItem(i))) {
+							player.getInventory().setHelmet(player.getInventory().getItem(i));
+							player.getInventory().setItem(i, null);
+							break;
+						}
 					}
 				}
 				player.updateInventory();
 			}
 		}.runTaskLater(plugin, 2L);
+	}
+
+	/**
+	 * The stats item can be a player head so we want to avoid equipping the wrong head.
+	 *
+	 * @param invItem
+	 * @return true if the head selected is the stats item
+	 */
+	private boolean isStatsItem(ItemStack invItem) {
+		ItemMeta meta = invItem.getItemMeta();
+		if (meta.hasDisplayName()) {
+			String name = ChatColor.stripColor(meta.getDisplayName());
+			return name.equalsIgnoreCase(ChatColor.stripColor(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.stats.name"))));
+		}
+		return false;
 	}
 
 }

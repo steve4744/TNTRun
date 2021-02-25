@@ -18,11 +18,18 @@
 package tntrun.utils;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -34,6 +41,8 @@ import tntrun.arena.Arena;
 import tntrun.messages.Messages;
 
 public class Utils {
+
+	private static Map<String, String> ranks = new HashMap<>();
 
 	public static boolean isNumber(String text) {
         try {
@@ -73,6 +82,16 @@ public class Utils {
 			pCount += arena.getPlayersManager().getPlayersCount();
 		}
 		return pCount;
+	}
+
+	public static List<String> getTNTRunPlayers() {
+		List<String> names = new ArrayList<>();
+		TNTRun.getInstance().amanager.getArenas().stream().forEach(arena -> {
+			arena.getPlayersManager().getAllParticipantsCopy().stream().forEach(player -> {
+				names.add(player.getName());
+			});
+		});
+		return names;
 	}
 
 	public static void displayInfo(CommandSender sender) {
@@ -142,7 +161,7 @@ public class Utils {
 	private static TextComponent getJoinTextComponent(String text, String arenaname) {
 		String hoverMessage = FormattingCodesParser.parseFormattingCodes(Messages.playerclickinvite.replace("{ARENA}", arenaname));
 		TextComponent component = new TextComponent(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', text)));
-		component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tntrun join " + arenaname));
+		component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tntrun joinorspectate " + arenaname));
 		component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(hoverMessage).create()));
 		return component;
 	}
@@ -198,5 +217,62 @@ public class Utils {
 			formattedAmount = (amount.endsWith(".00") || amount.endsWith(".0")) ? amount.split("\\.")[0] : df.format(Double.valueOf(amount));
 		}
 		return TNTRun.getInstance().getConfig().getString("currency.prefix") + formattedAmount + TNTRun.getInstance().getConfig().getString("currency.suffix");
+	}
+
+	/**
+	 * Attempt to get a player's cached rank. This can be either the player's prefix or primary group.
+	 * If the rank is not cached, retrieve it asynchronously and cache it.
+	 *
+	 * @param player
+	 * @return Player's rank.
+	 */
+	public static String getRank(OfflinePlayer player) {
+		FileConfiguration config = TNTRun.getInstance().getConfig();
+		if (player == null || !config.getBoolean("UseRankInChat.enabled")) {
+			return "";
+		}
+		String rank = null;
+		if (ranks.containsKey(player.getName())) {
+			rank = ranks.get(player.getName());
+			return rank != null ? rank : "";
+		}
+		if (TNTRun.getInstance().getVaultHandler().isPermissions()) {
+			if (config.getBoolean("UseRankInChat.usegroup")) {
+				fetchRank(player, true);
+			}
+		} else if (TNTRun.getInstance().getVaultHandler().isChat()) {
+			if (config.getBoolean("UseRankInChat.useprefix")) {
+				fetchRank(player, false);
+			}
+		}
+		return rank == null ? "" : rank;
+	}
+
+	/**
+	 * Fetch the offline player's rank asynchronously.
+	 * Cache the player name with the rank or empty string.
+	 *
+	 * @param player
+	 * @param isGroup
+	 */
+	private static void fetchRank(OfflinePlayer player, boolean isGroup) {
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				String rank = "";
+				if (isGroup) {
+					rank = TNTRun.getInstance().getVaultHandler().getPermissions().getPrimaryGroup(null, player);
+					if (rank != null && !rank.isEmpty()) {
+						rank = "[" + rank + "]";
+					}
+				} else {
+					rank = TNTRun.getInstance().getVaultHandler().getChat().getPlayerPrefix(null, player);
+				}
+				if (rank == null) {
+					rank = "";
+				}
+				ranks.put(player.getName(), rank);
+			}
+		}.runTaskAsynchronously(TNTRun.getInstance());
 	}
 }

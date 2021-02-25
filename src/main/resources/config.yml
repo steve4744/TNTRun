@@ -38,6 +38,8 @@ fireworksonwin:
 broadcastwinlevel: 2
 invitationmessage:
   enabled: false
+  allowspectate: false
+  excludeplayers: false
 menu:
   item: TNT
   pvpitem: IRON_BLOCK
@@ -97,6 +99,7 @@ items:
 scoreboard:
   header: '&6&lTNTRUN'
   displaydoublejumps: false
+  removefromspectators: true
   waiting:
   - '&fWelcome to TNTRun'
   - '&a '

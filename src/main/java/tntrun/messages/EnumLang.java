@@ -3,6 +3,8 @@ package tntrun.messages;
 public enum EnumLang {
 
 	Arabic("ar", false),
+	Chinese_CN("zh-CN", true),
+	Chinese_TZ("zh-TZ", true),
 	Czech("cs", false),
 	Danish("da", false),
 	Dutch("nl", false),

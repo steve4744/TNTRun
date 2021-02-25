@@ -20,7 +20,6 @@ package tntrun.arena.handlers;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -36,6 +35,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
+import tntrun.events.ArenaStartEvent;
+import tntrun.events.ArenaTimeoutEvent;
 import tntrun.events.PlayerWinArenaEvent;
 import tntrun.utils.Bars;
 import tntrun.utils.TitleMsg;
@@ -55,7 +56,6 @@ public class GameHandler {
 		count = arena.getStructureManager().getCountdown();
 	}
 
-	// arena leave handler
 	private int leavetaskid;
 
 	public void startArenaAntiLeaveHandler() {
@@ -156,7 +156,7 @@ public class GameHandler {
 	}
 
 	/**
-	 * Stop the arena countdown updating the arena status and join signs.
+	 * Stop the arena countdown, updating the arena status and join signs.
 	 */
 	public void stopArenaCountdown() {
 		arena.getStatusManager().setStarting(false);
@@ -181,6 +181,8 @@ public class GameHandler {
 			plugin.getLogger().info("Players in arena: " + arena.getPlayersManager().getPlayersCount());
 		}
 
+		plugin.getServer().getPluginManager().callEvent(new ArenaStartEvent(arena));
+
 		for (Player player : arena.getPlayersManager().getSpectators()) {
 			arena.getScoreboardHandler().removeScoreboard(player);
 		}
@@ -200,7 +202,7 @@ public class GameHandler {
 
 		for (Player player : arena.getPlayersManager().getPlayers()) {
 			player.closeInventory();
-			if (plugin.useStats()) {
+			if (plugin.useStats() && !arena.getStructureManager().isExcludeStats()) {
 				plugin.stats.addPlayedGames(player, 1);
 			}
 			player.setAllowFlight(true);
@@ -232,10 +234,11 @@ public class GameHandler {
 					return;
 				}
 				// kick all players if time is out
-				if (hasTimeLimit && timeremaining < 0) {
+				if (isTimedOut()) {
+					plugin.getServer().getPluginManager().callEvent(new ArenaTimeoutEvent(arena));
 					places.clear();
 					for (Player player : arena.getPlayersManager().getPlayersCopy()) {
-						arena.getPlayerHandler().leavePlayer(player,Messages.arenatimeout, "");
+						arena.getPlayerHandler().leavePlayer(player, Messages.arenatimeout, "");
 					}
 					return;
 				}
@@ -373,20 +376,19 @@ public class GameHandler {
 
 	/**
 	 * Called when there is only 1 player left, to update winner stats and
-	 * teleport winner and spectators to the arena spawn point. It then
-	 * stops the arena.
+	 * teleport winner and spectators to the arena spawn point. It determines who
+	 * should receive the broadcast results and then stops the arena.
 	 *
 	 * @param player
 	 */
 	private void startEnding(final Player player) {
-		if (plugin.useStats()) {
+		if (plugin.useStats() && !arena.getStructureManager().isExcludeStats()) {
 			plugin.stats.addWins(player, 1);
 		}
 		TitleMsg.sendFullTitle(player, TitleMsg.win, TitleMsg.subwin, 20, 60, 20, plugin);
 		arena.getPlayerHandler().clearPotionEffects(player);
 
 		String message = getPodiumPlaces(player);
-		/* Determine who should receive notification of win (0 suppresses broadcast) */
 		if (plugin.getConfig().getInt("broadcastwinlevel") == 1) {
 			for (Player all : arena.getPlayersManager().getAllParticipantsCopy()) {
 				Messages.sendMessage(all, message, false);
@@ -402,7 +404,7 @@ public class GameHandler {
 		// allow winner to fly at arena spawn
 		player.setAllowFlight(true);
 		player.setFlying(true);
-		// teleport winner and spectators to arena spawn
+
 		for(Player p : arena.getPlayersManager().getAllParticipantsCopy()) {
 			plugin.getSound().ARENA_START(p);
 			p.teleport(arena.getStructureManager().getSpawnPoint());
@@ -416,13 +418,12 @@ public class GameHandler {
 		plugin.getServer().getPluginManager().callEvent(new PlayerWinArenaEvent(player, arena));
 
 		if (plugin.getConfig().getBoolean("fireworksonwin.enabled")) {
-	
 			new BukkitRunnable() {
 				int i = 0;
 				@Override
 				public void run() {
 					//cancel on duration -1 to avoid firework overrun
-					if (i >= (getFireworkDuration() - 1)) {
+					if (i >= ((getFireworkDuration() * 2) - 1) || arena.getPlayersManager().getPlayersCount() == 0) {
 						this.cancel();
 					}
 					Firework f = player.getWorld().spawn(arena.getStructureManager().getSpawnPoint(), Firework.class);
@@ -444,8 +445,13 @@ public class GameHandler {
 			@Override
 			public void run() {
 				try {
-
-					arena.getPlayerHandler().leaveWinner(player, Messages.playerwontoplayer);
+					//check if winner has not left the arena
+					if (arena.getPlayersManager().getPlayersCount() == 1) {
+						arena.getPlayerHandler().leaveWinner(player, Messages.playerwontoplayer);
+					}
+					if (Utils.debug()) {
+						plugin.getLogger().info("GH StartEnding calling stopArena...");
+					}
 					stopArena();
 
 					if(plugin.getConfig().getStringList("commandsonwin") == null) {
@@ -457,22 +463,20 @@ public class GameHandler {
 						Bukkit.dispatchCommand(console, commands.replace("{PLAYER}", player.getName()));
 					}
 				} catch (NullPointerException ex) {
-		
+
 				}
 			}
-		}.runTaskLater(plugin, 120);
+		}.runTaskLater(plugin, 40 + (getFireworkDuration() * 20));
 	}
 
 	/**
-	 * Get the number of seconds to run the fireworks for from config.
-	 * The fireworks task repeats every 10 ticks so return double this number.
+	 * Get the number of seconds to run the fireworks task for.
 	 * Default is 4 seconds.
 	 *
-	 * @return number of half seconds
+	 * @return number of seconds
 	 */
 	private int getFireworkDuration() {
-		int duration = plugin.getConfig().getInt("fireworksonwin.duration", 4);
-		return (duration > 0 && duration < 5) ? duration * 2 : 8;
+		return plugin.getConfig().getInt("fireworksonwin.duration", 4);
 	}
 
 	/**
@@ -585,6 +589,10 @@ public class GameHandler {
 		return hasTimeLimit ? timeremaining : 0;
 	}
 
+	public boolean isTimedOut() {
+		return hasTimeLimit && timeremaining < 0;
+	}
+
 	/**
 	 * Gets the players in the first 3 positions at the end of the game.
 	 *
@@ -595,11 +603,11 @@ public class GameHandler {
 		StringBuilder sb = new StringBuilder(200);
 		sb.append("\n" + Messages.resultshead);
 		sb.append("\n ");
-		sb.append("\n                " + Messages.playerfirstplace.replace("{RANK}", arena.getPlayerHandler().getDisplayName(winner)) + winner.getName());
+		sb.append("\n                " + Messages.playerfirstplace.replace("{RANK}", Utils.getRank(winner)) + winner.getName());
 
 		if (places.get(2) != null) {
 			String playerName = places.get(2);
-			String message = Messages.playersecondplace.replace("{RANK}", arena.getPlayerHandler().getDisplayName(Bukkit.getPlayer(playerName)));
+			String message = Messages.playersecondplace.replace("{RANK}", Utils.getRank(Bukkit.getPlayer(playerName)));
 			sb.append("\n                " + message + playerName);
 		} else {
 			sb.append("\n                " + Messages.playersecondplace.replace("{RANK}", "") + "-");
@@ -607,7 +615,7 @@ public class GameHandler {
 
 		if (places.get(3) != null) {
 			String playerName = places.get(3);
-			String message = Messages.playerthirdplace.replace("{RANK}", arena.getPlayerHandler().getDisplayName(Bukkit.getPlayer(playerName)));
+			String message = Messages.playerthirdplace.replace("{RANK}", Utils.getRank(Bukkit.getPlayer(playerName)));
 			sb.append("\n                " + message + playerName);
 		} else {
 			sb.append("\n                " + Messages.playerthirdplace.replace("{RANK}", "") + "-");
