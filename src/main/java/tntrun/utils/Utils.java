@@ -18,7 +18,9 @@
 package tntrun.utils;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -80,6 +82,16 @@ public class Utils {
 			pCount += arena.getPlayersManager().getPlayersCount();
 		}
 		return pCount;
+	}
+
+	public static List<String> getTNTRunPlayers() {
+		List<String> names = new ArrayList<>();
+		TNTRun.getInstance().amanager.getArenas().stream().forEach(arena -> {
+			arena.getPlayersManager().getAllParticipantsCopy().stream().forEach(player -> {
+				names.add(player.getName());
+			});
+		});
+		return names;
 	}
 
 	public static void displayInfo(CommandSender sender) {

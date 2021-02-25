@@ -39,6 +39,7 @@ broadcastwinlevel: 2
 invitationmessage:
   enabled: false
   allowspectate: false
+  excludeplayers: false
 menu:
   item: TNT
   pvpitem: IRON_BLOCK

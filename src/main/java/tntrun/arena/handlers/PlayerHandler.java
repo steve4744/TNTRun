@@ -245,14 +245,9 @@ public class PlayerHandler {
 		}
 
 		int playerCount = arena.getPlayersManager().getPlayersCount();
-		if (playerCount == 1 && plugin.getConfig().getBoolean("invitationmessage.enabled")) {
-			String welcomeJoinMessage = getFormattedMessage(player, Messages.playerjoininvite);
-
-			for (Player aplayer : Bukkit.getOnlinePlayers()) {
-				Utils.displayJoinMessage(aplayer, arena.getArenaName(), welcomeJoinMessage);
-			}
+		if (playerCount == 1) {
+			sendInvitationMessage(player);
 		}
-
 		for (Player oplayer : arena.getPlayersManager().getPlayers()) {
 			TitleMsg.sendFullTitle(oplayer, TitleMsg.join.replace("{PLAYER}", player.getName()), TitleMsg.subjoin.replace("{PLAYER}", player.getName()), 10, 20, 20, plugin);
 			if (playerCount != 1 || !plugin.getConfig().getBoolean("invitationmessage.enabled")) {
@@ -869,5 +864,21 @@ public class PlayerHandler {
 				.replace("{ARENA}", arena.getArenaName())
 				.replace("{PS}", String.valueOf(arena.getPlayersManager().getPlayersCount()))
 				.replace("{MPS}", String.valueOf(arena.getStructureManager().getMaxPlayers()));
+	}
+
+	private void sendInvitationMessage(Player player) {
+		if (plugin.getConfig().getBoolean("invitationmessage.enabled")) {
+			String welcomeJoinMessage = getFormattedMessage(player, Messages.playerjoininvite);
+
+			List<String> activePlayers = new ArrayList<>();
+			if (plugin.getConfig().getBoolean("invitationmessage.excludeplayers")) {
+				activePlayers = Utils.getTNTRunPlayers();
+			}
+			for (Player aplayer : Bukkit.getOnlinePlayers()) {
+				if (aplayer.getName().equalsIgnoreCase(player.getName()) || !activePlayers.contains(aplayer.getName())) {
+					Utils.displayJoinMessage(aplayer, arena.getArenaName(), welcomeJoinMessage);
+				}
+			}
+		}
 	}
 }
