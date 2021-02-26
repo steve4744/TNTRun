@@ -141,4 +141,3 @@ playerjoininvite: "&c{RANK}&6{PLAYER} &7se ha unido a la arena TNTRun &6{ARENA}&
   haz clic para unirse"
 playerborderinvite: "&b---------------------------------------"
 playerclickinvite: Haz clic para unirse a {ARENA}
-playerjoinedtoplayer: "&7 Te uniste a la partida"
