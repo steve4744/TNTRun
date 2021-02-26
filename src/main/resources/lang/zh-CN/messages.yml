@@ -124,7 +124,7 @@ setuphelp: 显示新建地图需要用到的指令
 setupenablekits: 为此地图启用职业
 setupdisablekits: 为此地图禁用职业
 setupaddkit: 创建职业
-setupdelkit: 创建职业
+setupdelkit: 删除职业
 setupp1: 设定正在观看的方块为第一个选取点
 setupp2: 设定正在观看的方块为第二个选取点
 setupclear: 清除选取点
