@@ -72,7 +72,7 @@ statshead: '&7=========[&6TNTRun Stats&7]========='
 rewardshead: '&7======[&6TNTRun Rewards&7 - &a{ARENA}&7]======'
 leaderhead: '&7======[&6TNTRun Leaderboard&7]======'
 resultshead: '&7============[&6TNTRun&7]============'
-leaderboard: '{POSITION}) &b{PLAYER} &f: Wins &3{WINS}'
+leaderboard: '{POSITION}) &c{RANK}&b{PLAYER} &f: Wins &3{WINS}'
 leadersign: '&1{PLAYER} &4{WINS}'
 shopmoneyheader: '&fTNTRun Shop Account'
 shopmoneybalance: '&5Your balance is &6{BAL}'
@@ -127,7 +127,7 @@ setuphelp: Commands required to setup a new arena
 setupenablekits: Enable kits for the arena
 setupdisablekits: Disable kits for the arena
 setupaddkit: Create a TNTRun kit
-setupdelkit: Create a TNTRun kit
+setupdelkit: Delete a TNTRun kit
 setupp1: Set targeted block as first selection point
 setupp2: Set targeted block as second selection point
 setupclear: Clear selection points

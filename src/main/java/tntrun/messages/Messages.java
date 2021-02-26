@@ -326,7 +326,7 @@ public class Messages {
 		setupenablekits = config.getString("setupenablekits", setupenablekits);
 		setupdisablekits = config.getString("setupdisablekits", setupdisablekits);
 		setupaddkit = config.getString("setupaddkit", setupaddkit);
-		setupdelkit = config.getString("setupdelkit", setupaddkit);
+		setupdelkit = config.getString("setupdelkit", setupdelkit);
 		setupp1 = config.getString("setupp1", setupp1);
 		setupp2 = config.getString("setupp2", setupp2);
 		setupclear = config.getString("setupclear", setupclear);
