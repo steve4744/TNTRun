@@ -124,7 +124,7 @@ setuphelp: 顯示新建地圖需要用到的指令
 setupenablekits: 為此地圖啟用職業
 setupdisablekits: 為此地圖禁用職業
 setupaddkit: 創建職業
-setupdelkit: 創建職業
+setupdelkit: 刪除職業
 setupp1: 設定正在觀看的方塊為第一個選取點
 setupp2: 設定正在觀看的方塊為第二個選取點
 setupclear: 清除選取點
