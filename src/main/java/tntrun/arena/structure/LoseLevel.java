@@ -24,38 +24,52 @@ import org.bukkit.util.Vector;
 public class LoseLevel {
 
 	private Vector p1 = null;
+	private Vector p2 = null;
 
 	public Vector getP1() {
 		return p1;
 	}
-
-	private Vector p2 = null;
 
 	public Vector getP2() {
 		return p2;
 	}
 
 	public boolean isConfigured() {
-		return (p1 != null && p2 != null);
+		return p1 != null;
 	}
 
 	public boolean isLooseLocation(Location loc) {
-		return loc.getY() < Math.max(p2.getBlockY(), p1.getBlockY()) + 1;
+		return loc.getY() < p1.getBlockY() + 1;
 	}
 
-	public void setLooseLocation(Location p1, Location p2) {
+	public void setLooseLocation(Location p1) {
 		this.p1 = p1.toVector();
-		this.p2 = p2.toVector();
 	}
 
+	/**
+	 * Save the lose level vector. P2 is now redundant, so remove from config.
+	 *
+	 * @param config
+	 */
 	public void saveToConfig(FileConfiguration config) {
 		config.set("loselevel.p1", p1);
-		config.set("loselevel.p2", p2);
+		config.set("loselevel.p2", null);
 	}
 
+	/**
+	 * Load the lose level vector. P2 is now redundant and is loaded for
+	 * compatibility. P1 is set to the higher of the 2 Y values.
+	 *
+	 * @param config
+	 */
 	public void loadFromConfig(FileConfiguration config) {
 		p1 = config.getVector("loselevel.p1", null);
 		p2 = config.getVector("loselevel.p2", null);
+		if (p2 != null) {
+			if (p1 != null && p2.getY() > p1.getY()) {
+				p1.setY(p2.getY());
+			}
+		}
 	}
 
 }

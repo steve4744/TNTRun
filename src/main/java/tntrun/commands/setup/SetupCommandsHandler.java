@@ -95,7 +95,7 @@ public class SetupCommandsHandler implements CommandExecutor {
 		commandHandlers.put("setarena", new SetArena(plugin, plselection));
 		commandHandlers.put("setgameleveldestroydelay", new SetGameLevelDestroyDelay(plugin));
 		commandHandlers.put("setregenerationdelay", new SetRegenerationDelay(plugin));
-		commandHandlers.put("setloselevel", new SetLoseLevel(plugin, plselection));
+		commandHandlers.put("setloselevel", new SetLoseLevel(plugin));
 		commandHandlers.put("setspawn", new SetSpawn(plugin));
 		commandHandlers.put("addspawn", new AddSpawn(plugin));
 		commandHandlers.put("deletespawnpoints", new DeleteSpawnPoints(plugin));

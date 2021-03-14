@@ -181,6 +181,7 @@ public class TNTRun extends JavaPlugin {
 	public boolean isPlaceholderAPI() {
 		return placeholderapi;
 	}
+
 	public boolean useStats() {
 		return usestats;
 	}

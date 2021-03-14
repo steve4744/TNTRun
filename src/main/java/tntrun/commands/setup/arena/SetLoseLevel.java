@@ -17,23 +17,20 @@
 
 package tntrun.commands.setup.arena;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.commands.setup.CommandHandlerInterface;
 import tntrun.messages.Messages;
-import tntrun.selectionget.PlayerCuboidSelection;
-import tntrun.selectionget.PlayerSelection;
-import tntrun.utils.Utils;
 
 public class SetLoseLevel implements CommandHandlerInterface {
 
 	private TNTRun plugin;
-	private PlayerSelection selection;
-	public SetLoseLevel(TNTRun plugin, PlayerSelection selection) {
+
+	public SetLoseLevel(TNTRun plugin) {
 		this.plugin = plugin;
-		this.selection = selection;
 	}
 
 	@Override
@@ -51,19 +48,12 @@ public class SetLoseLevel implements CommandHandlerInterface {
 			Messages.sendMessage(player, "&c Arena &6" + args[0] + "&c bounds are wrong");
 			return true;
 		}
-		PlayerCuboidSelection sel = selection.getPlayerSelection(player);
-		if (sel != null) {
-			if (arena.getStructureManager().setLooseLevel(sel.getMinimumLocation(), sel.getMaximumLocation())) {
-				Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 Loselevel set");
-			} else {
-				Messages.sendMessage(player, "&c Arena &6" + args[0] + "&c Error: Loselevel is not within the bounds of the arena");
-			}
-			if (Utils.debug()) {
-				plugin.getLogger().info("Arena " + arena.getArenaName() + " min loselevel: " + sel.getMinimumLocation().toVector().toString());
-				plugin.getLogger().info("Arena " + arena.getArenaName() + " max loselevel: " + sel.getMaximumLocation().toVector().toString());
-			}
+
+		Location loc = player.getLocation();
+		if (arena.getStructureManager().setLooseLevel(loc)) {
+			Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 Loselevel set to Y: " + loc.getY());
 		} else {
-			Messages.sendMessage(player, "&c Arena &6" + args[0] + "&c locations are wrong - retry or use WorldEdit to select the loselevel bounds");
+			Messages.sendMessage(player, "&c Arena &6" + args[0] + "&c Error: Loselevel is not within the bounds of the arena");
 		}
 		return true;
 	}
