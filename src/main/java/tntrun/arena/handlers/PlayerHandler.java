@@ -866,19 +866,43 @@ public class PlayerHandler {
 				.replace("{MPS}", String.valueOf(arena.getStructureManager().getMaxPlayers()));
 	}
 
+	/**
+	 * Display the invitation to join message to selected players.
+	 *
+	 * @param player
+	 */
 	private void sendInvitationMessage(Player player) {
 		if (plugin.getConfig().getBoolean("invitationmessage.enabled")) {
 			String welcomeJoinMessage = getFormattedMessage(player, Messages.playerjoininvite);
 
-			List<String> activePlayers = new ArrayList<>();
-			if (plugin.getConfig().getBoolean("invitationmessage.excludeplayers")) {
-				activePlayers = Utils.getTNTRunPlayers();
-			}
+			List<String> excludedPlayers = getExcludedPlayers(player.getName());
+
 			for (Player aplayer : Bukkit.getOnlinePlayers()) {
-				if (aplayer.getName().equalsIgnoreCase(player.getName()) || !activePlayers.contains(aplayer.getName())) {
+				if (!excludedPlayers.contains(aplayer.getName())) {
 					Utils.displayJoinMessage(aplayer, arena.getArenaName(), welcomeJoinMessage);
 				}
 			}
 		}
+	}
+
+	/**
+	 * Get a list of players that should receive the invitation to join message.
+	 *
+	 * @param originator player name
+	 * @return
+	 */
+	private List<String> getExcludedPlayers(String originator) {
+		List<String> excludedPlayers = new ArrayList<>();
+		if (plugin.getConfig().getBoolean("invitationmessage.excludeplayers")) {
+			excludedPlayers = Utils.getTNTRunPlayers();
+		}
+		if (plugin.getConfig().getBoolean("invitationmessage.excludeoriginator")) {
+			if (!excludedPlayers.contains(originator)) {
+				excludedPlayers.add(originator);
+			}
+		} else {
+			excludedPlayers.remove(originator);
+		}
+		return excludedPlayers;
 	}
 }

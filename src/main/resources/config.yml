@@ -40,6 +40,7 @@ invitationmessage:
   enabled: false
   allowspectate: false
   excludeplayers: false
+  excludeoriginator: false
 menu:
   item: TNT
   pvpitem: IRON_BLOCK
