@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.server.ServerListPingEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
@@ -74,12 +75,23 @@ public class BungeeHandler implements Listener {
 	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
-		if (plugin.isBungeecord()) {
-			Arena arena = plugin.getBungeeArena();
-			if (arena == null) {
-				return;
-			}
-			arena.getPlayerHandler().spawnPlayer(event.getPlayer(), Messages.playerjoinedtoothers);
+		if (!plugin.isBungeecord()) {
+			return;
 		}
+		Arena arena = plugin.getBungeeArena();
+		if (arena == null) {
+			return;
+		}
+		Player player = event.getPlayer();
+		if (!player.hasPermission("tntrun.spectate")) {
+			arena.getPlayerHandler().spawnPlayer(player, Messages.playerjoinedtoothers);
+			return;
+		}
+		if (!arena.getPlayerHandler().canSpectate(player)) {
+			plugin.getServer().getScheduler().runTaskLater(plugin, () ->
+					connectToHub(player), 20L);
+			return;
+		}
+		arena.getPlayerHandler().spectatePlayer(player, Messages.playerjoinedasspectator, "");
 	}
 }
