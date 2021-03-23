@@ -84,7 +84,6 @@ public class StructureManager {
 		return p1;
 	}
 
-
 	public Vector getP2() {
 		return p2;
 	}
@@ -264,6 +263,14 @@ public class StructureManager {
 
 	public boolean isArenaFinished() {
 		return finished;
+	}
+
+	public boolean isSpawnpointSet() {
+		return spawnpoint != null;
+	}
+
+	public boolean isSpectatorSpawnSet() {
+		return spectatorspawn != null;
 	}
 
 	public void setArenaFinished(boolean finished) {

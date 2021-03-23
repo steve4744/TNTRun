@@ -140,7 +140,7 @@ public class GameCommands implements CommandExecutor {
 		// join arena
 		else if (args[0].equalsIgnoreCase("join")) {
 			if (args.length == 1 && player.hasPermission("tntrun.joinmenu")) {
-				plugin.getJoinMenu().buildMenu(player);
+				plugin.getMenus().buildJoinMenu(player);
 				return true;
 			}
 			if (args.length != 2) {
@@ -215,7 +215,7 @@ public class GameCommands implements CommandExecutor {
 				}
 				arenatype = args[1];
 			}
-			plugin.getJoinMenu().autoJoin(player, arenatype);
+			plugin.getMenus().autoJoin(player, arenatype);
 		}
 
 		// tntrun_reloaded info

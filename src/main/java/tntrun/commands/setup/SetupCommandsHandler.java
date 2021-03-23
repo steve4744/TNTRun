@@ -27,6 +27,7 @@ import org.bukkit.entity.Player;
 
 import tntrun.TNTRun;
 import tntrun.commands.setup.arena.AddSpawn;
+import tntrun.commands.setup.arena.Configure;
 import tntrun.commands.setup.arena.CreateArena;
 import tntrun.commands.setup.arena.DeleteArena;
 import tntrun.commands.setup.arena.DeleteSpawnPoints;
@@ -125,6 +126,7 @@ public class SetupCommandsHandler implements CommandExecutor {
 		commandHandlers.put("setcurrency", new SetCurrency(plugin));
 		commandHandlers.put("setlanguage", new SetLanguage(plugin));
 		commandHandlers.put("addtowhitelist", new AddToWhitelist(plugin));
+		commandHandlers.put("configure", new Configure(plugin));
 		commandHandlers.put("migrate", new Migrate(plugin));
 		commandHandlers.put("help", new SetupHelp(plugin));
 	}

@@ -44,7 +44,7 @@ public class AutoJoinSign implements SignType {
 	@Override
 	public void handleClick(PlayerInteractEvent e) {
 		String type = ChatColor.stripColor(((Sign) e.getClickedBlock().getState()).getLine(2));
-		plugin.getJoinMenu().autoJoin(e.getPlayer(), type);
+		plugin.getMenus().autoJoin(e.getPlayer(), type);
 		e.setCancelled(true);
 	}
 

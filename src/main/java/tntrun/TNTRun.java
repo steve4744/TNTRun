@@ -35,7 +35,7 @@ import tntrun.arena.handlers.BungeeHandler;
 import tntrun.arena.handlers.SoundHandler;
 import tntrun.arena.handlers.VaultHandler;
 import tntrun.utils.Bars;
-import tntrun.utils.JoinMenu;
+import tntrun.utils.Menus;
 import tntrun.utils.Shop;
 import tntrun.utils.Sounds;
 import tntrun.utils.Stats;
@@ -73,7 +73,7 @@ public class TNTRun extends JavaPlugin {
 	private BungeeHandler bungeeHandler;
 	private GlobalLobby globallobby;
 	private Arena bungeeArena;
-	private JoinMenu joinMenu;
+	private Menus menus;
 	private PlayerDataStore pdata;
 	private Kits kitmanager;
 	private Sounds sound;
@@ -102,7 +102,7 @@ public class TNTRun extends JavaPlugin {
 		pdata = new PlayerDataStore(this);
 		amanager = new ArenasManager();
 		shop = new Shop(this);
-		joinMenu = new JoinMenu(this);
+		menus = new Menus(this);
 
 		//register commands and events
 		setupPlugin();
@@ -350,8 +350,8 @@ public class TNTRun extends JavaPlugin {
 		}
 	}
 
-	public JoinMenu getJoinMenu() {
-		return joinMenu;
+	public Menus getMenus() {
+		return menus;
 	}
 
 	public Arena getBungeeArena() {

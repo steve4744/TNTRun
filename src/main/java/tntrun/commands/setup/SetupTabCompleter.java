@@ -37,7 +37,7 @@ public class SetupTabCompleter implements TabCompleter {
 	private static final List<String> ARENA_COMMANDS = Arrays.asList("setarena", "setloselevel", "setspawn", "addspawn", "setspectate", "finish",
 			"deletespectate", "deletespawnpoints", "setgameleveldestroydelay", "setregenerationdelay", "setmaxplayers", "setminplayers", "setvotepercent",
 			"settimelimit", "setcountdown", "setmoneyreward", "setteleport", "enable", "disable", "setreward", "enablekits", "disablekits", "linkkit",
-			"unlinkkit", "delete", "setdamage", "setfee", "setcurrency");
+			"unlinkkit", "delete", "setdamage", "setfee", "setcurrency", "configure");
 
 	private static final List<String> TELEPORT_COMMANDS = Arrays.asList("lobby", "previous");
 
