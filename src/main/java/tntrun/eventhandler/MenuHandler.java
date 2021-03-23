@@ -92,7 +92,7 @@ public class MenuHandler implements Listener {
 		if (!title.startsWith("TNTRun setup")) {
 			return;
 		}
-		String arenaname = ChatColor.stripColor(title.substring(title.lastIndexOf(" ") +1));
+		String arenaname = ChatColor.stripColor(title.substring(title.lastIndexOf(" ") + 1));
 		Arena arena = plugin.amanager.getArenaByName(arenaname);
 		if (arena == null) {
 			return;
@@ -119,7 +119,7 @@ public class MenuHandler implements Listener {
 				String status = arena.getStatusManager().isArenaEnabled() ? "Enabled" : "Disabled";
 				status = status.equalsIgnoreCase("Enabled") ? "disable " : "enable ";
 				Bukkit.dispatchCommand(player, "trsetup " + status + arenaname);
-				plugin.getMenus().buildConfigMenu(player, arena);
+				plugin.getMenus().updateConfigItem(inv, slot, arena);
 				player.updateInventory();
 				break;
 			case 10:
@@ -146,7 +146,7 @@ public class MenuHandler implements Listener {
 				String dest = arena.getStructureManager().getTeleportDestination().toString();
 				dest = dest.equalsIgnoreCase("LOBBY") ? " PREVIOUS" : " LOBBY";
 				Bukkit.dispatchCommand(player, "trsetup setteleport " + arenaname + dest);
-				plugin.getMenus().buildConfigMenu(player, arena);
+				plugin.getMenus().updateConfigItem(inv, slot, arena);
 				player.updateInventory();
 				break;
 			case 19:
@@ -159,20 +159,19 @@ public class MenuHandler implements Listener {
 					damage = " NO";
 				}
 				Bukkit.dispatchCommand(player, "trsetup setdamage " + arenaname + damage);
-				plugin.getMenus().buildConfigMenu(player, arena);
+				plugin.getMenus().updateConfigItem(inv, slot, arena);
 				player.updateInventory();
 				break;
 			case 20:
 				int minplayers = leftclick ? (is.getAmount() + 1) : (is.getAmount() - 1);
 				Bukkit.dispatchCommand(player, "trsetup setminplayers " + arenaname + " " + minplayers);
-				plugin.getMenus().buildConfigMenu(player, arena);
+				plugin.getMenus().updateConfigItem(inv, slot, arena);
 				player.updateInventory();
 				break;
 			case 21:
 				int maxplayers = leftclick ? (is.getAmount() + 1) : (is.getAmount() - 1);
 				Bukkit.dispatchCommand(player, "trsetup setmaxplayers " + arenaname + " " + maxplayers);
-				plugin.getMenus().buildConfigMenu(player, arena);
-				plugin.getMenus().buildConfigMenu(player, arena);
+				plugin.getMenus().updateConfigItem(inv, slot, arena);
 				player.updateInventory();
 				break;
 			case 23:

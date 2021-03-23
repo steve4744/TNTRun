@@ -48,6 +48,11 @@ public class Menus {
 		this.plugin = plugin;
 	}
 
+	/**
+	 * Create the inventory menu for the player to select an arena to join.
+	 *
+	 * @param player
+	 */
 	public void buildJoinMenu(Player player) {
 		TreeMap<String, Arena> arenas = getDisplayArenas();
 		int size = getInventorySize(arenas.size());
@@ -92,26 +97,43 @@ public class Menus {
 		player.openInventory(inv);
 	}
 
+	/**
+	 * Create the inventory menu for the player to configure the arena.
+	 *
+	 * @param player
+	 * @param arena
+	 */
 	public void buildConfigMenu(Player player, Arena arena) {
 		final int size = 36;
 		Inventory inv = Bukkit.createInventory(player, size, "TNTRun setup - " + arena.getArenaName());
 
 		Stream.of(ConfigMenu.values()).forEach(item -> {
 			int slot = item.getSlot();
-			inv.setItem(slot, createItem(Material.getMaterial(String.valueOf(item)), slot, arena));
+			inv.setItem(slot, createConfigItem(Material.getMaterial(String.valueOf(item)), slot, arena));
 		});
 
 		fillEmptySlots(inv, size);
 		player.openInventory(inv);
 	}
 
-	private ItemStack createItem(Material material, int slot, Arena arena) {
+	/**
+	 * Create each configuration item with a custom display name showing the function of the item,
+	 * and lore to give a description of what action the function performs.
+	 *
+	 * @param material
+	 * @param slot
+	 * @param arena
+	 * @return ItemStack
+	 */
+	private ItemStack createConfigItem(Material material, int slot, Arena arena) {
 		String done = ChatColor.GREEN + "Complete";
 		String todo = ChatColor.RED + "Not set";
 		String status = ChatColor.GOLD + "Status: ";
 		List<String> lores = new ArrayList<>();
+
 		ItemStack is = new ItemStack(material);
 		ItemMeta im = is.getItemMeta();
+
 		switch (slot) {
 			case 4:
 				if (arena.getStatusManager().isArenaEnabled()) {
@@ -140,17 +162,17 @@ public class Menus {
 				break;
 			case 14:
 				im.setDisplayName(ChatColor.GREEN + "Set arena spawn point");
-				lores.add(ChatColor.GRAY + "Set the arena spawn point to your current location.");
+				lores.add(ChatColor.GRAY + "This is the point at you current location where players joining the arena will spawn.");
 				lores.add(status + ChatColor.WHITE + (arena.getStructureManager().isSpawnpointSet() ? done : todo));
 				break;
 			case 15:
 				im.setDisplayName(ChatColor.GREEN + "Set spectator spawn point");
-				lores.add(ChatColor.GRAY + "Set the spectator spawn point to your current location.");
+				lores.add(ChatColor.GRAY + "This is the point at you current location where spectators will spawn.");
 				lores.add(status + ChatColor.WHITE + (arena.getStructureManager().isSpectatorSpawnSet() ? done : todo));
 				break;
 			case 16:
 				im.setDisplayName(ChatColor.GREEN + "Set teleport location");
-				lores.add(ChatColor.GRAY + "Set the teleport destination when the game ends.");
+				lores.add(ChatColor.GRAY + "When the game ends players will teleport to either their previous location or to the lobby.");
 				lores.add(ChatColor.GRAY + "Click to toggle between LOBBY and PREVIOUS location.");
 				lores.add(status + ChatColor.WHITE + (arena.getStructureManager().getTeleportDestination()));
 				break;
@@ -188,6 +210,25 @@ public class Menus {
 		return is;
 	}
 
+	/**
+	 * Update a single configuration item so that its new value is displayed immediately without
+	 * the need to rebuild the whole inventory menu.
+	 *
+	 * @param inv
+	 * @param slot
+	 * @param arena
+	 */
+	public void updateConfigItem(Inventory inv, int slot, Arena arena) {
+		Material material = Material.getMaterial(String.valueOf(ConfigMenu.getName(slot)));
+		inv.setItem(slot, createConfigItem(material, slot, arena));
+	}
+
+	/**
+	 * Fill each unoccupied inventory slot with a coloured glass pane.
+	 *
+	 * @param inv
+	 * @param size
+	 */
 	private void fillEmptySlots(Inventory inv, Integer size) {
 		ItemStack is = new ItemStack(getPane());
 		if (is.getType() == Material.AIR) {
