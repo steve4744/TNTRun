@@ -23,12 +23,15 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.stream.Stream;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import com.google.common.base.Enums;
@@ -93,41 +96,10 @@ public class Menus {
 		final int size = 36;
 		Inventory inv = Bukkit.createInventory(player, size, "TNTRun setup - " + arena.getArenaName());
 
-		//enable/disable
-		inv.setItem(4, createItem(Material.RED_WOOL, 4, arena));
-
-		//setlobby
-		inv.setItem(10, createItem(Material.LAPIS_LAZULI, 10, arena));
-
-		//setbounds
-		inv.setItem(11, createItem(Material.ARROW, 11, arena));
-
-		//setloselevel
-		inv.setItem(12, createItem(Material.BONE, 12, arena));
-
-		//setspawn
-		inv.setItem(14, createItem(Material.APPLE, 14, arena));
-
-		//setspectate
-		inv.setItem(15, createItem(Material.NETHER_STAR, 15, arena));
-
-		//setteleport
-		inv.setItem(16, createItem(Material.ENDER_PEARL, 16, arena));
-
-		//setdamage
-		inv.setItem(19, createItem(Material.BLAZE_ROD, 19, arena));
-
-		//setminplayers
-		inv.setItem(20, createItem(Material.REDSTONE, 20, arena));
-
-		//setmaxplayers
-		inv.setItem(21, createItem(Material.GLOWSTONE_DUST, 21, arena));
-
-		//create sign
-		inv.setItem(23, createItem(Material.OAK_SIGN, 23, arena));
-
-		//finish
-		inv.setItem(25, createItem(Material.DIAMOND, 25, arena));
+		Stream.of(ConfigMenu.values()).forEach(item -> {
+			int slot = item.getSlot();
+			inv.setItem(slot, createItem(Material.getMaterial(String.valueOf(item)), slot, arena));
+		});
 
 		fillEmptySlots(inv, size);
 		player.openInventory(inv);
@@ -155,6 +127,7 @@ public class Menus {
 				lores.add(status + ChatColor.WHITE + (plugin.getGlobalLobby().isLobbyLocationSet() ? done : todo));
 				break;
 			case 11:
+				im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 				im.setDisplayName(ChatColor.GREEN + "Set arena bounds");
 				lores.add(ChatColor.GRAY + "Set the corner points of a cuboid which completely encloses the arena.");
 				lores.add(status + ChatColor.WHITE + (arena.getStructureManager().isArenaBoundsSet() ? done : todo));
