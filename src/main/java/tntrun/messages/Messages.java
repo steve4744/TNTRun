@@ -133,6 +133,7 @@ public class Messages {
 	public static String setuplobby = "Set the global lobby at your current location";
 	public static String setupdellobby = "Delete the global lobby";
 	public static String setupcreate = "Create a new arena";
+	public static String setupconfigure = "Open menu to configure arena";
 	public static String setupbounds = "Set bounds for arena";
 	public static String setuploselevel = "Set loselevel bounds";
 	public static String setupspawn = "Set arena spawn at your feet";
@@ -293,6 +294,7 @@ public class Messages {
 		setuplobby = config.getString("setuplobby", setuplobby);
 		setupdellobby = config.getString("setupdellobby", setupdellobby);
 		setupcreate = config.getString("setupcreate", setupcreate);
+		setupconfigure = config.getString("setupconfigure", setupconfigure);
 		setupbounds = config.getString("setupbounds", setupbounds);
 		setuploselevel = config.getString("setuploselevel", setuploselevel);
 		setupspawn = config.getString("setupspawn", setupspawn);
@@ -434,6 +436,7 @@ public class Messages {
 		config.set("setuplobby", setuplobby);
 		config.set("setupdellobby", setupdellobby);
 		config.set("setupcreate", setupcreate);
+		config.set("setupconfigure", setupconfigure);
 		config.set("setupbounds", setupbounds);
 		config.set("setuploselevel", setuploselevel);
 		config.set("setupspawn", setupspawn);

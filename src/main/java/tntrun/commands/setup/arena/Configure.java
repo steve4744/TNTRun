@@ -36,10 +36,6 @@ public class Configure implements CommandHandlerInterface{
 	public boolean handleCommand(Player player, String[] args) {
 		Arena arena = plugin.amanager.getArenaByName(args[0]);
 		if (arena != null) {
-			/*if (arena.getStatusManager().isArenaEnabled()) {
-				Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", args[0]));
-				return false;
-			}*/
 			plugin.getMenus().buildConfigMenu(player, arena);
 		} else {
 			Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[0]));

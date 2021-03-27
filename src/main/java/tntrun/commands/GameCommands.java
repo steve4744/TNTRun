@@ -286,6 +286,7 @@ public class GameCommands implements CommandExecutor {
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup setP1", true), Utils.getTextComponent(Messages.setupp1));
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup setP2", true), Utils.getTextComponent(Messages.setupp2));
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup clear", true), Utils.getTextComponent(Messages.setupclear));
+			player.spigot().sendMessage(Utils.getTextComponent("/trsetup configure", true), Utils.getTextComponent(Messages.setupconfigure));
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup reloadbars", true), Utils.getTextComponent(Messages.setupreloadbars));
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup reloadtitles", true), Utils.getTextComponent(Messages.setupreloadtitles));
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup reloadmsg", true), Utils.getTextComponent(Messages.setupreloadmsg));
