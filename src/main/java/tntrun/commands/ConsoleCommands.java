@@ -19,12 +19,15 @@ package tntrun.commands;
 
 import java.util.StringJoiner;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.RemoteConsoleCommandSender;
+import org.bukkit.entity.Player;
+
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.utils.Bars;
@@ -43,7 +46,7 @@ public class ConsoleCommands implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof ConsoleCommandSender || sender instanceof RemoteConsoleCommandSender || sender instanceof BlockCommandSender)) {
 			sender.sendMessage("Console is expected");
-			return true;
+			return false;
 		}
 		if (args.length == 0 || args[0].equalsIgnoreCase("info")) {
 			Utils.displayInfo(sender);
@@ -57,15 +60,16 @@ public class ConsoleCommands implements CommandExecutor {
 				sender.sendMessage("Arena disabled");
 			} else {
 				Messages.sendMessage(sender, Messages.arenanotexist.replace("{ARENA}", args[1]));
+				return false;
 			}
 			return true;
-		}
+
 		// enable arena
-		else if (args.length == 2 && args[0].equalsIgnoreCase("enable")) {
+		} else if (args.length == 2 && args[0].equalsIgnoreCase("enable")) {
 			Arena arena = plugin.amanager.getArenaByName(args[1]);
 			if (arena == null) {
 				Messages.sendMessage(sender, Messages.arenanotexist.replace("{ARENA}", args[1]));
-				return true;
+				return false;
 			}
 			if (arena.getStatusManager().isArenaEnabled()) {
 				sender.sendMessage("Arena already enabled.");
@@ -73,16 +77,16 @@ public class ConsoleCommands implements CommandExecutor {
 				if (arena.getStatusManager().enableArena()) {
 					sender.sendMessage("Arena enabled");
 				} else {
-					sender.sendMessage("Arena is not configured. Reason: "+ arena.getStructureManager().isArenaConfigured());
+					sender.sendMessage("Arena is not configured. Reason: " + arena.getStructureManager().isArenaConfigured());
 				}
 			}
 			return true;
-		}
+
 		// leader board
-		else if (args.length >= 1 && args[0].equalsIgnoreCase("leaderboard")) {
+		} else if (args.length >= 1 && args[0].equalsIgnoreCase("leaderboard")) {
 			if (!plugin.useStats()) {
 				Messages.sendMessage(sender, Messages.statsdisabled);
-				return true;
+				return false;
 			}
 			int entries = plugin.getConfig().getInt("leaderboard.maxentries", 10);
 			if (args.length >= 2) {
@@ -93,9 +97,9 @@ public class ConsoleCommands implements CommandExecutor {
 			Messages.sendMessage(sender, Messages.leaderhead, false);
 			plugin.stats.getLeaderboard(sender, entries);
 			return true;
-		}
+
 		// list
-		else if (args[0].equalsIgnoreCase("list")) {
+		} else if (args[0].equalsIgnoreCase("list")) {
 			int arenacount = plugin.amanager.getArenas().size();
 			Messages.sendMessage(sender, Messages.availablearenas.replace("{COUNT}", String.valueOf(arenacount)));
 			if (arenacount == 0) {
@@ -111,50 +115,110 @@ public class ConsoleCommands implements CommandExecutor {
 			});
 			Messages.sendMessage(sender, message.toString(), false);
 			return true;
-		}
+
 		// start
-		else if (args.length == 2 && args[0].equalsIgnoreCase("start")) {
+		} else if (args.length == 2 && args[0].equalsIgnoreCase("start")) {
 			Arena arena = plugin.amanager.getArenaByName(args[1]);
 			if (arena == null) {
 				Messages.sendMessage(sender, Messages.arenanotexist.replace("{ARENA}", args[1]));
-				return true;
+				return false;
 			}
 			if (arena.getPlayersManager().getPlayersCount() <= 1) {
 				Messages.sendMessage(sender, Messages.playersrequiredtostart);
-				return true;
+				return false;
 			}
 			if (!arena.getStatusManager().isArenaStarting()) {
 				Messages.sendMessage(sender, "Arena " + arena.getArenaName() + " force-started by console");
 				arena.getGameHandler().forceStartByCommand();
 				return true;
 			}
-		}
+
 		// help
-		if (args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("cmds")) {
+		} else if (args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("cmds")) {
 			displayConsoleCommands(sender);
-		}
+			return true;
+
 		// reload config
-		else if (args[0].equalsIgnoreCase("reloadconfig")) {
+		} else if (args[0].equalsIgnoreCase("reloadconfig")) {
 			plugin.reloadConfig();
 			plugin.signEditor.loadConfiguration();
 			sender.sendMessage("Config reloaded");
 			return true;
-		}
+
 		// reload messages
-		else if (args[0].equalsIgnoreCase("reloadmsg")) {
+		} else if (args[0].equalsIgnoreCase("reloadmsg")) {
 			Messages.loadMessages(plugin);
 			sender.sendMessage("Messages reloaded");
 			return true;
-		}
+
 		// reload bars
-		else if (args[0].equalsIgnoreCase("reloadbars")) {
+		} else if (args[0].equalsIgnoreCase("reloadbars")) {
 			Bars.loadBars(plugin);
 			sender.sendMessage("Bars reloaded");
+			return true;
+
+		// join or spectate player
+		} else if (args[0].equalsIgnoreCase("join") || args[0].equalsIgnoreCase("spectate")) {
+			if (args.length != 3) {
+				Messages.sendMessage(sender, "&c Invalid number of arguments supplied");
+				return false;
+			}
+			Arena arena = plugin.amanager.getArenaByName(args[1]);
+			if (arena == null) {
+				Messages.sendMessage(sender, Messages.arenanotexist.replace("{ARENA}", args[1]));
+				return false;
+			}
+			Player player = Bukkit.getPlayer(args[2]);
+			if (player == null || !player.isOnline()) {
+				Messages.sendMessage(sender, "&c Player is not online");
+				return false;
+			}
+			if (args[0].equalsIgnoreCase("join")) {
+				if (!arena.getPlayerHandler().checkJoin(player)) {
+					Messages.sendMessage(sender, "&c Player cannot join the arena at this time");
+					return false;
+				}
+				arena.getPlayerHandler().spawnPlayer(player, Messages.playerjoinedtoothers);
+				return true;
+			}
+
+			if (!arena.getPlayerHandler().canSpectate(player)) {
+				Messages.sendMessage(sender, "&c Player cannot spectate the arena at this time");
+				return false;
+			}
+			arena.getPlayerHandler().spectatePlayer(player, Messages.playerjoinedasspectator, "");
+			if (Utils.debug()) {
+				plugin.getLogger().info("Player " + player.getName() + " joined arena " + arena.getArenaName() + " as a spectator");
+			}
+			return true;
+
+		// autojoin
+		} else if (args[0].equalsIgnoreCase("autojoin")) {
+			if (args.length != 3 && args.length != 2) {
+				Messages.sendMessage(sender, "&c Invalid number of arguments supplied");
+				return false;
+			}
+			Player player = args.length == 2 ? Bukkit.getPlayer(args[1]) : Bukkit.getPlayer(args[2]);
+			if (player == null || !player.isOnline()) {
+				Messages.sendMessage(sender, "&c Player is not online");
+				return false;
+			}
+
+			String arenatype = "";
+			if (args.length == 3) {
+				if (!args[1].equalsIgnoreCase("pvp") && !args[1].equalsIgnoreCase("nopvp")) {
+					Messages.sendMessage(sender, "&c Invalid argument supplied");
+					return false;
+				}
+				arenatype = args[1];
+			}
+			plugin.getMenus().autoJoin(player, arenatype);
 			return true;
 		}
 
 		return false;
 	}
+
 	private void displayConsoleCommands(CommandSender sender) {
 		Messages.sendMessage(sender, "trconsole help");
 		Messages.sendMessage(sender, "trconsole list");
@@ -166,6 +230,9 @@ public class ConsoleCommands implements CommandExecutor {
 		Messages.sendMessage(sender, "trconsole reloadmessages");
 		Messages.sendMessage(sender, "trconsole reloadbars");
 		Messages.sendMessage(sender, "trconsole leaderboard");
+		Messages.sendMessage(sender, "trconsole join {arena} {player}");
+		Messages.sendMessage(sender, "trconsole spectate {arena} {player}");
+		Messages.sendMessage(sender, "trconsole autojoin [pvp|nopvp] {player}");
 	}
 
 }
