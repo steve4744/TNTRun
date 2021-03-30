@@ -39,6 +39,7 @@ import org.bukkit.block.data.type.WallSign;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
@@ -332,5 +333,20 @@ public class SignEditor {
 		blockSection.set("y", si.getY());
 		blockSection.set("z", si.getZ());
 		blockSection.set("world", si.getWorldName());
+	}
+
+	public void createJoinSign(Block block, String arenaname) {
+		Sign sign = (Sign)block.getState();
+		sign.setLine(0, FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")));
+		sign.setLine(1, FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.join")));
+		sign.setLine(2, FormattingCodesParser.parseFormattingCodes(arenaname));
+		addSign(block, arenaname);
+		sign.update();
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				modifySigns(arenaname);
+			}
+		}.runTask(plugin);
 	}
 }

@@ -17,7 +17,6 @@
 
 package tntrun.signs.type;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -44,19 +43,8 @@ public class JoinSign implements SignType {
 		String arenaname = ChatColor.stripColor(FormattingCodesParser.parseFormattingCodes(e.getLine(2)));
 		final Arena arena = plugin.amanager.getArenaByName(arenaname);
 		if (arena != null) {
-			e.setLine(0, FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")));
-			e.setLine(1, FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.join")));
-			e.setLine(2, FormattingCodesParser.parseFormattingCodes(e.getLine(2)));
+			plugin.signEditor.createJoinSign(e.getBlock(), arenaname);
 			Messages.sendMessage(e.getPlayer(), Messages.signcreate);
-			plugin.signEditor.addSign(e.getBlock(), arenaname);
-			Bukkit.getScheduler().scheduleSyncDelayedTask(plugin,
-				new Runnable() {
-					@Override
-					public void run() {
-						plugin.signEditor.modifySigns(arenaname);
-					}
-				}
-			);
 		} else {
 			Messages.sendMessage(e.getPlayer(), Messages.arenanotexist.replace("{ARENA}", arenaname));
 			e.setCancelled(true);

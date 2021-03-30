@@ -57,6 +57,7 @@ public class Messages {
 	public static String arenastarting = "&6 Arena already starting";
 	public static String signcreate = "&7 Sign successfully created";
 	public static String signremove = "&7 Sign successfully removed";
+	public static String signfail = "&7 You must be looking at a sign to create the join sign";
 	public static String arenafee = "&7 You have been charged &6{FEE} &7to enter the arena";
 	public static String arenanofee = "&c You require a fee of &6{FEE} &cto enter the arena";
 	public static String arenawaiting = "&6 Arena is waiting";
@@ -226,6 +227,7 @@ public class Messages {
 		arenastarting = config.getString("arenastarting", arenastarting);
 		signcreate = config.getString("signcreate", signcreate);
 		signremove = config.getString("signremove", signremove);
+		signfail = config.getString("signfail", signfail);
 		arenafee = config.getString("arenafee", arenafee);
 		arenanofee = config.getString("arenanofee", arenanofee);
 		arenawaiting = config.getString("arenawaiting", arenawaiting);
@@ -368,6 +370,7 @@ public class Messages {
 		config.set("arenastarting", arenastarting);
 		config.set("signcreate", signcreate);
 		config.set("signremove", signremove);
+		config.set("signfail", signfail);
 		config.set("arenafee", arenafee);
 		config.set("arenanofee", arenanofee);
 		config.set("arenawaiting", arenawaiting);

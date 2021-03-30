@@ -20,6 +20,8 @@ package tntrun.eventhandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -175,10 +177,15 @@ public class MenuHandler implements Listener {
 				player.updateInventory();
 				break;
 			case 23:
-				//im.setDisplayName(ChatColor.GREEN + "Create a join sign");
-				//lores.add(ChatColor.GRAY + "Target a sign and click to create a join sign");
+				Block block = player.getTargetBlock(null, 5);
+				if (block.getState() instanceof Sign) {
+					plugin.signEditor.createJoinSign(block, arenaname);
+					Messages.sendMessage(player, Messages.signcreate);
+				} else {
+					Messages.sendMessage(player, Messages.signfail);
+				}
+				player.closeInventory();
 				break;
-			case 24:
 			case 25:
 				Bukkit.dispatchCommand(player, "trsetup finish " + arenaname);
 				player.closeInventory();
