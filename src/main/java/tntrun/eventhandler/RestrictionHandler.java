@@ -134,23 +134,23 @@ public class RestrictionHandler implements Listener {
 
 		} else if (e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.info.material"))) {
 			e.setCancelled(true);
-			if (u.contains(player)) {
+			if (u.contains(player.getName())) {
 				plugin.getSound().NOTE_PLING(player, 5, 999);
 				return;
 			}
-			u.add(player);
+			u.add(player.getName());
 			coolDown(player);
 			plugin.getSound().ITEM_SELECT(player);
 			Utils.displayInfo(player);
 
 		} else if (e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.vote.material"))) {
 			e.setCancelled(true);
-			if (u.contains(player)) {
+			if (u.contains(player.getName())) {
 				plugin.getSound().NOTE_PLING(player, 5, 999);
 				return;
 			}
 			plugin.getSound().ITEM_SELECT(player);
-			u.add(player);
+			u.add(player.getName());
 			coolDown(player);
 
 			if (arena.getStatusManager().isArenaStarting()) {
@@ -165,18 +165,18 @@ public class RestrictionHandler implements Listener {
 
 		} else if (e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.stats.material"))) {
 			e.setCancelled(true);
-			if (u.contains(player)) {
+			if (u.contains(player.getName())) {
 				plugin.getSound().NOTE_PLING(player, 5, 999);
 				return;
 			}
-			u.add(player);
+			u.add(player.getName());
 			coolDown(player);
 			plugin.getSound().ITEM_SELECT(player);
 			player.chat("/tntrun stats");
 
 		} else if (e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.heads.material"))) {
 			e.setCancelled(true);
-			if (u.contains(player)) {
+			if (u.contains(player.getName())) {
 				plugin.getSound().NOTE_PLING(player, 5, 999);
 				return;
 			}
@@ -184,7 +184,7 @@ public class RestrictionHandler implements Listener {
 				Messages.sendMessage(player, Messages.nopermission);
 				return;
 			}
-			u.add(player);
+			u.add(player.getName());
 			coolDown(player);
 			plugin.getSound().ITEM_SELECT(player);
 			Heads.openMenu(player);
@@ -194,54 +194,55 @@ public class RestrictionHandler implements Listener {
 	private void coolDown(Player player) {
 		new BukkitRunnable() {
 			@Override
-	    	public void run() {
-	    		  u.remove(player);
+			public void run() {
+				u.remove(player.getName());
 			}
 		}.runTaskLater(plugin, 40);
 	}
 
-	public ArrayList<Player> u = new ArrayList<>();
+	public ArrayList<String> u = new ArrayList<>();
 
 	@EventHandler
 	public void onFly(PlayerToggleFlightEvent e) {
-		final Player p = e.getPlayer();
-		Arena arena = plugin.amanager.getPlayerArena(p.getName());
+		final Player player = e.getPlayer();
+		Arena arena = plugin.amanager.getPlayerArena(player.getName());
 
 		if (arena == null) {
 			return;
 		}
-		if (p.getGameMode() == GameMode.CREATIVE) {
-			p.setAllowFlight(true);
+		if (player.getGameMode() == GameMode.CREATIVE) {
+			player.setAllowFlight(true);
 			return;
 		}
-		if (arena.getPlayersManager().isSpectator(p.getName())) {
+		if (arena.getPlayersManager().isSpectator(player.getName())) {
 			e.setCancelled(false);
-			p.setFlying(true);
+			player.setFlying(true);
 			return;
 		}
 		e.setCancelled(true);
 		if (!arena.getStatusManager().isArenaRunning()) {
 			return;
 		}
-		if (u.contains(p)) {
+		if (u.contains(player.getName())) {
 			return;
 		}
-		if (!arena.getPlayerHandler().hasDoubleJumps(p)) {
-			p.setAllowFlight(false);
+		if (!arena.getPlayerHandler().hasDoubleJumps(player)) {
+			player.setAllowFlight(false);
 			return;
 		}
 
-		arena.getPlayerHandler().decrementDoubleJumps(p);
-		p.setFlying(false);
-		p.setVelocity(p.getLocation().getDirection().multiply(1.5D).setY(0.7D));
-		plugin.getSound().NOTE_PLING(p, 5, 999);
-		u.add(p);
+		arena.getPlayerHandler().decrementDoubleJumps(player);
+		player.setFlying(false);
+		//p.setVelocity(p.getLocation().getDirection().multiply(1.5D).setY(0.7D));
+		player.setVelocity(player.getLocation().getDirection().multiply(1.5D).setY(0.7D));
+		plugin.getSound().NOTE_PLING(player, 5, 999);
+		u.add(player.getName());
 
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				u.remove(p);
-				p.setAllowFlight(true);
+				u.remove(player.getName());
+				player.setAllowFlight(true);
 			}
 		}.runTaskLater(plugin, 20);
 	}
