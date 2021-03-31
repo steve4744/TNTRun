@@ -66,6 +66,9 @@ anticamping:
   enabled: true
 leaderboard:
   maxentries: 10
+doublejumps:
+  multiplier: 1.5
+  height: 0.7
 items:
   vote:
     use: true

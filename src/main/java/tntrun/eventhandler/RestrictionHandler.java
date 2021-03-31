@@ -233,8 +233,9 @@ public class RestrictionHandler implements Listener {
 
 		arena.getPlayerHandler().decrementDoubleJumps(player);
 		player.setFlying(false);
-		//p.setVelocity(p.getLocation().getDirection().multiply(1.5D).setY(0.7D));
-		player.setVelocity(player.getLocation().getDirection().multiply(1.5D).setY(0.7D));
+		player.setVelocity(player.getLocation().getDirection()
+				.multiply(plugin.getConfig().getDouble("doublejumps.multiplier", 1.5D))
+				.setY(plugin.getConfig().getDouble("doublejumps.height", 0.7D)));
 		plugin.getSound().NOTE_PLING(player, 5, 999);
 		u.add(player.getName());
 
