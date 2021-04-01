@@ -25,6 +25,7 @@ arenadisabling: '&6 Arena is disabling'
 arenastarting: '&6 Arena already starting'
 signcreate: '&7 Sign successfully created'
 signremove: '&7 Sign successfully removed'
+signfail: '&7 You must be looking at a sign to create the join sign'
 arenafee: '&7 You have been charged &6{FEE} &7to enter the arena'
 arenanofee: '&c You require a fee of &6{FEE} &cto enter the arena'
 arenawaiting: '&6 Arena is waiting'
@@ -94,8 +95,9 @@ helpstart: Force-start the arena
 setuplobby: Set the global lobby at your current location
 setupdellobby: Delete the global lobby
 setupcreate: Create a new arena
+setupconfigure: Open menu to configure arena
 setupbounds: Set bounds for arena
-setuploselevel: Set loselevel bounds
+setuploselevel: Set loselevel point at your feet
 setupspawn: Set arena spawn at your feet
 setupspectate: Set spectator spawn point
 setupaddspawn: Set an additional spawn at your feet

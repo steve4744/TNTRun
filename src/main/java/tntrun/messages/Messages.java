@@ -136,7 +136,7 @@ public class Messages {
 	public static String setupcreate = "Create a new arena";
 	public static String setupconfigure = "Open menu to configure arena";
 	public static String setupbounds = "Set bounds for arena";
-	public static String setuploselevel = "Set loselevel bounds";
+	public static String setuploselevel = "Set loselevel point at your feet";
 	public static String setupspawn = "Set arena spawn at your feet";
 	public static String setupspectate = "Set spectator spawn point";
 	public static String setupaddspawn = "Set an additional spawn at your feet";
