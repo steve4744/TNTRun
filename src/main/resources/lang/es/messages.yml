@@ -96,7 +96,7 @@ setuplobby: Establecer el lobby global en su ubicación actual
 setupdellobby: Eliminar el lobby global
 setupcreate: Crear una nueva arena
 setupbounds: Establecer límites para la arena
-setuploselevel: Establecer límites del nivel para perder
+setuploselevel: Colocar el punto del nivel para perder a tus pies
 setupspawn: Colocar el punto de reaparición de la arena a tus pies
 setupspectate: Colocar el punto de reaparición de los espectadores
 setupaddspawn: Colocar el punto de reaparición adicional a tus pies
@@ -141,3 +141,5 @@ playerjoininvite: "&c{RANK}&6{PLAYER} &7se ha unido a la arena TNTRun &6{ARENA}&
   haz clic para unirse"
 playerborderinvite: "&b---------------------------------------"
 playerclickinvite: Haz clic para unirse a {ARENA}
+signfail: "&7 Debe estar mirando un cartel para crear el cartel  de unión"
+setupconfigure: Abrir el menu para configurar la arena
