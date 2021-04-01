@@ -141,68 +141,70 @@ public class Menus {
 				}
 				im.setDisplayName(ChatColor.GREEN + "Set arena status");
 				lores.add(ChatColor.GRAY + "Click to Enable or Disable the arena.");
-				lores.add(status + ChatColor.WHITE + (arena.getStatusManager().isArenaEnabled() ? "Enabled" : "Disabled"));
+				lores.add(status + ChatColor.GREEN + (arena.getStatusManager().isArenaEnabled() ? "Enabled" : "Disabled"));
 				break;
 			case 10:
 				im.setDisplayName(ChatColor.GREEN + "Set Lobby at your current location");
 				lores.add(ChatColor.GRAY + "This is the lobby players will return to after the game.");
-				lores.add(status + ChatColor.WHITE + (plugin.getGlobalLobby().isLobbyLocationSet() ? done : todo));
+				lores.add(status + (plugin.getGlobalLobby().isLobbyLocationSet() ? done : todo));
 				break;
 			case 11:
 				im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 				im.setDisplayName(ChatColor.GREEN + "Set arena bounds");
 				lores.add(ChatColor.GRAY + "Set the corner points of a cuboid which completely encloses the arena.");
-				lores.add(status + ChatColor.WHITE + (arena.getStructureManager().isArenaBoundsSet() ? done : todo));
+				lores.add(status + (arena.getStructureManager().isArenaBoundsSet() ? done : todo));
 				break;
 			case 12:
 				im.setDisplayName(ChatColor.GREEN + "Set lose level");
 				lores.add(ChatColor.GRAY + "Set the point at which players lose to your current Y location.");
 				lores.add(ChatColor.GRAY + "You must be within the arena bounds to set the lose level.");
-				lores.add(status + ChatColor.WHITE + (arena.getStructureManager().getLoseLevel().isConfigured() ? done : todo));
+				lores.add(status + (arena.getStructureManager().getLoseLevel().isConfigured() ? done : todo));
 				break;
 			case 14:
 				im.setDisplayName(ChatColor.GREEN + "Set arena spawn point");
-				lores.add(ChatColor.GRAY + "This is the point at you current location where players joining the arena will spawn.");
-				lores.add(status + ChatColor.WHITE + (arena.getStructureManager().isSpawnpointSet() ? done : todo));
+				lores.add(ChatColor.GRAY + "Set the point at your current location where ");
+				lores.add(ChatColor.GRAY + "players joining the arena will spawn.");
+				lores.add(status + (arena.getStructureManager().isSpawnpointSet() ? done : todo));
 				break;
 			case 15:
 				im.setDisplayName(ChatColor.GREEN + "Set spectator spawn point");
-				lores.add(ChatColor.GRAY + "This is the point at you current location where spectators will spawn.");
-				lores.add(status + ChatColor.WHITE + (arena.getStructureManager().isSpectatorSpawnSet() ? done : todo));
+				lores.add(ChatColor.GRAY + "Set the point at you current location where ");
+				lores.add(ChatColor.GRAY + "spectators will spawn.");
+				lores.add(status + (arena.getStructureManager().isSpectatorSpawnSet() ? done : todo));
 				break;
 			case 16:
 				im.setDisplayName(ChatColor.GREEN + "Set teleport location");
-				lores.add(ChatColor.GRAY + "When the game ends players will teleport to either their previous location or to the lobby.");
+				lores.add(ChatColor.GRAY + "When the game ends players will teleport to either ");
+				lores.add(ChatColor.GRAY + "their previous location or to the lobby.");
 				lores.add(ChatColor.GRAY + "Click to toggle between LOBBY and PREVIOUS location.");
-				lores.add(status + ChatColor.WHITE + (arena.getStructureManager().getTeleportDestination()));
+				lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getTeleportDestination()));
 				break;
 			case 19:
 				im.setDisplayName(ChatColor.GREEN + "Set damage (PVP)");
-				lores.add(ChatColor.GRAY + "Enable or disable PVP in the arena by setting the damage.");
+				lores.add(ChatColor.GRAY + "Enable or disable PVP in the arena by setting the damage indicator.");
 				lores.add(ChatColor.GRAY + "Click to toggle between YES, NO and ZERO.");
-				lores.add(status + ChatColor.WHITE + (arena.getStructureManager().getDamageEnabled()));
+				lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getDamageEnabled()));
 				break;
 			case 20:
 				im.setDisplayName(ChatColor.GREEN + "Set the minimum number of players");
 				lores.add(ChatColor.GRAY + "Left click to increase, right click to decrease.");
-				lores.add(status + ChatColor.WHITE + (arena.getStructureManager().getMinPlayers()));
+				lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getMinPlayers()));
 				is.setAmount(arena.getStructureManager().getMinPlayers());
 				break;
 			case 21:
 				im.setDisplayName(ChatColor.GREEN + "Set the maximum number of players");
 				lores.add(ChatColor.GRAY + "Left click to increase, right click to decrease.");
-				lores.add(status + ChatColor.WHITE + (arena.getStructureManager().getMaxPlayers()));
+				lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getMaxPlayers()));
 				is.setAmount(arena.getStructureManager().getMaxPlayers());
 				break;
 			case 23:
 				im.setDisplayName(ChatColor.GREEN + "Create a join sign");
-				lores.add(ChatColor.GRAY + "Target a sign and click to create a join sign");
+				lores.add(ChatColor.GRAY + "Target a sign and click to create a join sign.");
 				break;
-			case 24:
 			case 25:
 				im.setDisplayName(ChatColor.GREEN + "Finish configuring the arena");
 				lores.add(ChatColor.GRAY + "Save the settings and enable the arena.");
-				lores.add(status + ChatColor.WHITE + (arena.getStructureManager().isArenaFinished() ? done : todo));
+				lores.add(status + (arena.getStructureManager().isArenaFinished() ? done : todo));
 		}
 
 		im.setLore(lores);
