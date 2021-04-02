@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.steve4744</groupId>
   <artifactId>TNTRun_reloaded</artifactId>
-  <version>9.10</version>
+  <version>9.10.0</version>
   <name>TNTRun_reloaded</name>
   <description>A Minecraft mini-game plugin</description>
   <packaging>jar</packaging>
