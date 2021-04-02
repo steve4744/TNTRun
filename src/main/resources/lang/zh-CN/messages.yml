@@ -92,7 +92,7 @@ setuplobby: 将你所在的位置设为大厅
 setupdellobby: 删除大厅
 setupcreate: 建立新场地
 setupbounds: 设置场地大小
-setuploselevel: 设置失败的位置
+setuploselevel: 设置失败的位置于你的脚下
 setupspawn: 设置该地图的重生点于你的脚下
 setupspectate: 设置旁观者重生点
 setupaddspawn: 设置一个额外的重生点于你的脚下
@@ -134,3 +134,5 @@ setupwhitelist: 可在游戏内使用的指令
 playerjoininvite: "&c{RANK}&6{PLAYER} &7加入了 TNTRun 于 &6{ARENA}&7, 点击游玩"
 playerborderinvite: "&b---------------------------------------"
 playerclickinvite: 点击加入 {ARENA}
+signfail: "&7 你必须看着一个告示牌来创建加入告示牌"
+setupconfigure: "&7 开启选单以设置场地"
