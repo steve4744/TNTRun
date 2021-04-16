@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.steve4744</groupId>
   <artifactId>TNTRun_reloaded</artifactId>
-  <version>9.10.0</version>
+  <version>9.10.0-party</version>
   <name>TNTRun_reloaded</name>
   <description>A Minecraft mini-game plugin</description>
   <packaging>jar</packaging>
@@ -49,12 +49,22 @@
         <snapshots>
             <enabled>true</enabled> <!-- snapshots enabled: we declare a SNAPSHOT repository because we need to download a SNAPSHOT dependency -->
         </snapshots>
-  </repository>
+    </repository>
     <!-- Vault & HeadsPlus Repo -->
     <repository>
 	    <id>jitpack.io</id>
 	    <url>https://jitpack.io</url>
 	</repository>
+	<!-- Parties Repo -->
+    <repository>
+        <id>alessiodp-repo</id>
+        <url>https://repo.alessiodp.com/releases/</url>
+    </repository>
+    <repository>
+        <id>minecraft-libraries</id>
+        <name>Minecraft Libraries</name>
+        <url>https://libraries.minecraft.net</url>
+    </repository>
   </repositories>
   <dependencies>
     <!-- Spigot API -->
@@ -105,9 +115,18 @@
         <artifactId>mcMMO</artifactId>
         <version>2.1.173</version>
         <scope>provided</scope>
-  </dependency>
+    </dependency>
+    <dependency>
+        <groupId>com.alessiodp.parties</groupId>
+        <artifactId>parties-api</artifactId>
+        <version>3.0.2</version>
+    </dependency>
+    <dependency>
+        <groupId>com.mojang</groupId>
+        <artifactId>brigadier</artifactId>
+        <version>1.0.17</version>
+    </dependency>
   </dependencies>
-
   <build>
     <finalName>${project.artifactId}-${project.version}</finalName>
 	<defaultGoal>clean package</defaultGoal>
