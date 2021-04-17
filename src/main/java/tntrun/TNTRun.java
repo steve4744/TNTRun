@@ -241,21 +241,21 @@ public class TNTRun extends JavaPlugin {
 
 	private void connectToMySQL() {
 		log.info("Connecting to MySQL database...");
-		String host = this.getConfig().getString("MySQL.host");
-		Integer port = this.getConfig().getInt("MySQL.port");
-		String name = this.getConfig().getString("MySQL.name");
-		String table = this.getConfig().getString("MySQL.table");
-		String user = this.getConfig().getString("MySQL.user");
-		String pass = this.getConfig().getString("MySQL.pass");
-		String useSSL = this.getConfig().getString("MySQL.useSSL");
-		String flags = this.getConfig().getString("MySQL.flags");
-		mysql = new MySQL(host, port, name, user, pass, useSSL, flags, this);
+		mysql = new MySQL(getConfig().getString("MySQL.host"),
+				getConfig().getInt("MySQL.port"),
+				getConfig().getString("MySQL.name"),
+				getConfig().getString("MySQL.user"),
+				getConfig().getString("MySQL.pass"),
+				getConfig().getString("MySQL.useSSL"),
+				getConfig().getString("MySQL.flags"),
+				getConfig().getBoolean("MySQL.legacyDriver"),
+				this);
 
 		new BukkitRunnable() {
 			@Override
 			public void run() {
 
-				mysql.query("CREATE TABLE IF NOT EXISTS `" + table + "` ( `username` varchar(50) NOT NULL, "
+				mysql.query("CREATE TABLE IF NOT EXISTS `" + getConfig().getString("MySQL.table") + "` ( `username` varchar(50) NOT NULL, "
 						+ "`looses` int(16) NOT NULL, `wins` int(16) NOT NULL, "
 						+ "`played` int(16) NOT NULL, "
 						+ "UNIQUE KEY `username` (`username`) ) ENGINE=InnoDB DEFAULT CHARSET=latin1;");

@@ -46,8 +46,8 @@ import java.util.logging.Logger;
 		this.pl = plugin;
 	}
 
-	public MySQL(String hostname, int port, String database, String username, String password, String useSSL, String flags, TNTRun plugin) {
-		driver           = "com.mysql.jdbc.Driver";
+	public MySQL(String hostname, int port, String database, String username, String password, String useSSL, String flags, boolean legacyDriver, TNTRun plugin) {
+		driver = legacyDriver ? "com.mysql.jdbc.Driver" : "com.mysql.cj.jdbc.Driver";
 		connectionString = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?useSSL=" + useSSL + "&" + flags + "&user=" + username + "&password=" + password;
 		this.pl = plugin;
 	}
