@@ -15,7 +15,7 @@
  *
  */
 
-package tntrun.utils;
+package tntrun.menu;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,6 +38,7 @@ import com.google.common.base.Enums;
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.messages.Messages;
+import tntrun.utils.FormattingCodesParser;
 
 public class Menus {
 
