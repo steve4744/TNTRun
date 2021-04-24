@@ -66,7 +66,7 @@ public class BungeeHandler implements Listener {
 			return;
 		}
 		Arena arena = plugin.getBungeeArena();
-		if (arena == null || !arena.getPlayerHandler().checkJoin(event.getPlayer())) {
+		if (arena == null || (!event.getPlayer().hasPermission("tntrun.spectate") && !arena.getPlayerHandler().checkJoin(event.getPlayer())) ){
 			event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "You cannot join the arena at this time");
 		}
 	}
