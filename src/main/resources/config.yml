@@ -154,6 +154,7 @@ bungeecord:
   hub: lobby
   useMOTD: true
   stopserver: false
+  useUUID: false
 currency:
   prefix: ''
   suffix: ' coins'

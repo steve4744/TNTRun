@@ -203,6 +203,10 @@ public class TNTRun extends JavaPlugin {
 		return file;
 	}
 
+	public boolean useUuid() {
+		return Bukkit.getOnlineMode() || (isBungeecord() && getConfig().getBoolean("bungeecord.useUUID"));
+	}
+
 	public boolean isBungeecord() {
 		return getConfig().getBoolean("bungeecord.enabled");
 	}

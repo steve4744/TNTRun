@@ -31,7 +31,7 @@ public class Migrate implements CommandHandlerInterface {
 			}
 
 			/* Check if anything already in players.yml */
-			if (Bukkit.getOnlineMode()) {
+			if (plugin.useUuid()) {
 				@SuppressWarnings("deprecation")
 				OfflinePlayer oplayer = Bukkit.getOfflinePlayer(name);
 

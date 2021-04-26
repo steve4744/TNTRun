@@ -272,7 +272,7 @@ public class RestrictionHandler implements Listener {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				if (Bukkit.getOnlineMode()) {
+				if (plugin.useUuid()) {
 					plugin.mysql.query("INSERT IGNORE INTO `" + table + "` (`username`, `played`, "
 							+ "`wins`, `looses`) VALUES "
 							+ "('" + player.getUniqueId().toString()

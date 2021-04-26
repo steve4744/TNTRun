@@ -152,7 +152,7 @@ public class Stats {
 			.sorted(Entry.comparingByValue(Comparator.reverseOrder()))
 			.limit(entries)
 			.forEach(e -> {
-			if (Bukkit.getOnlineMode()) {
+			if (plugin.useUuid()) {
 				OfflinePlayer p = Bukkit.getOfflinePlayer(UUID.fromString(e.getKey()));
 				lbentry = p.getName();
 				lbrank = Utils.getRank(p);
@@ -194,7 +194,7 @@ public class Stats {
 		ConfigurationSection stats = config.getConfigurationSection("stats");
 
 		if (stats != null) {
-			if (Bukkit.getOnlineMode()) {
+			if (plugin.useUuid()) {
 				for (String uuid : stats.getKeys(false)) {
 					if (!isValidUuid(uuid) || !isKnownPlayer(uuid)) {
 						continue;
@@ -228,7 +228,7 @@ public class Stats {
 
 				while (rs.next()) {
 					String playerName = rs.getString("username");
-					if (Bukkit.getOnlineMode()) {
+					if (plugin.useUuid()) {
 						if (!isValidUuid(playerName) || !isKnownPlayer(playerName)) {
 							continue;
 						}
@@ -301,7 +301,7 @@ public class Stats {
 	}
 
 	private String getPlayerUUID(OfflinePlayer player) {
-		return Bukkit.getOnlineMode() ? player.getUniqueId().toString() : player.getName();
+		return plugin.useUuid() ? player.getUniqueId().toString() : player.getName();
 	}
 
 	/**
@@ -345,7 +345,7 @@ public class Stats {
 			if (item.equalsIgnoreCase("score")) {
 				lbplaceholdervalue = String.valueOf(opt.get().getValue());
 
-			} else if (Bukkit.getOnlineMode()) {
+			} else if (plugin.useUuid()) {
 				OfflinePlayer p = Bukkit.getOfflinePlayer(UUID.fromString(opt.get().getKey()));
 				lbplaceholdervalue = item.equalsIgnoreCase("player") ? p.getName() : Utils.getRank(p);
 
