@@ -79,11 +79,11 @@ public class TNTRun extends JavaPlugin {
 	private Kits kitmanager;
 	private Sounds sound;
 	private Language language;
+	private MySQL mysql;
 
 	public ArenasManager amanager;
 	public SignEditor signEditor;
 	public String[] version = {"Nothing", "Nothing"};
-	public MySQL mysql;
 	public Stats stats;
 	public Shop shop;
 
@@ -390,6 +390,10 @@ public class TNTRun extends JavaPlugin {
 
 	public Language getLanguage() {
 		return language;
+	}
+
+	public MySQL getMysql() {
+		return mysql;
 	}
 
 	public void updateScoreboardList() {
