@@ -1,0 +1,141 @@
+---
+trprefix: "&7[&6TNTRun_reloaded&7]"
+menutitle: "&1TNTRun_reloaded Arenaer"
+menuarenaname: "&a{ARENA}"
+menutext: "&5Spiller: &6{PS}/{MPS}"
+menufee: "&5Bli med Avgift: &6{FEE}"
+menupvp: "&5PVP: &6Aktivert"
+nopermission: "&c Du har ikke tillatelse til å gjøre dette"
+nolobby: "&c Global lobby er ikke satt, kjør &6/trsetup setlobby"
+lobbyunloaded: "&c Lobbyverdenen er losset eller eksisterer ikke"
+teleporttolobby: "&7 Teleportert til lobbyen"
+arenanotexist: "&c Arena &6{ARENA}&c eksisterer ikke"
+noarenas: "&c Det finnes ingen arenaer tilgjengelig for å bli med i"
+arenanotdisabled: "&c Please Vennligst deaktiver arena: &6/trsetup disable {ARENA}"
+arenanospectatorspawn: "&c Ingen tilskuer spawn satt for arena &6{ARENA}"
+availablearenas: "&7 Tilgjengelige arenaer: {COUNT}"
+availablekits: "&7 Tilgjengelige sett: {COUNT}"
+arenawolrdna: "&7 Arena verden er ikke lastet"
+arenanobounds: "&7 Arena-grenser er ikke satt"
+arenadisabled: "&7 Arena er deaktivert"
+arenarunning: "&7 Arena kjører allerede"
+arenaregenerating: "&7 Arena regenererer"
+arenavehicle: "&c Du kan ikke delta i spillet mens du sitter inne i et kjøretøy"
+arenajoined: "&c Du har allerede blitt med på en arena"
+arenadisabling: "&6 Arena deaktiverer"
+arenastarting: "&6 Arena allerede begynt"
+signcreate: "&7 Skilt er opprettet"
+signremove: "&7 Skiltet ble fjernet"
+arenafee: "&7 Du er belastet &6{FEE} &7Gå inn på arenaen"
+arenanofee: "&c Du krever et gebyr på&6{FEE} &cgå inn på arenaen"
+arenawaiting: "&6 Arena venter"
+playerscountinarena: "&6 Nåværende antall spillere i arenaen: {COUNT} spillere"
+limitreached: "&7 Arena er full."
+playerjoinedtoothers: "&c {RANG}&6{SPILLER} &7ble med på arenaen (&6{PS}&7/&6{MPS}&7)"
+playerjoinedasspectator: "&7 Du ble med på arenaen &6{ARENA} &7som tilskuer"
+playerlefttoplayer: "&7 Du forlot arenaen"
+playerlefttoothers: "&c {RANG}&6{SPILLER} &7forlot spillet (&6{PS}&7/&6{MPS}&7)"
+playervotedforstart: "&f Du stemte for å tvangs starte spillet"
+playeralreadyvotedforstart: "&c Du har allerede stemt"
+playercannotvote: "&c Du kan ikke stemme for å starte arenaen"
+arenastarted: "&7 Arena startet. Tidsgrense er{TIMELIMIT} sekunder"
+arenanolimit: "&7 Arena startet. Ingen tidsbegrensning"
+arenacountdown: "&7 Arena starter om {COUNTDOWN} sekunder"
+arenatimeout: "&7 Tiden er ute. Avslutter spillet"
+playerwontoplayer: "&7 Du vant spillet!"
+playerlosttoplayer: "&7 Du tapte spillet"
+playerlosttoothers: "&c {RANK}&6{PLAYER} &7tapte kampen"
+playerfirstplace: "&a1. plass: &f{RANK}"
+playersecondplace: "&a2. plass: &f{RANK}"
+playerthirdplace: "&a3. plass: &f{RANK}"
+playerrewardmessage: "&7 Du har blitt belønnet: &6{REWARD}"
+playerrewardmaterial: "&6 Materiale :  &f"
+playerrewardcommand: "&6 Kommando : &f"
+playerrewardmoney: "&6 Penger :    &f"
+playerrewardxp: "&6 XP :      &l  &f"
+playerboughtitem: "&7 Du har kjøpt varen &6{VARE} &7for &6{PENGER}"
+playerboughtwait: "&7 Du vil få varene dine når spillet starter"
+playerkit: "&7 Du har fått utstyr &6{UTSTYR}"
+playersrequiredtostart: "&c Det må være minst 2 spillere på arenaen for å tvinge start"
+notenoughmoney: "&c Du trenger {PENGER} for å kjøpe denne varen"
+alreadyboughtitem: "&c Du har allerede kjøpt en butikkvare"
+shopnostock: "&c Denne varen er for tiden ikke på lager"
+maxdoublejumpsexceeded: "&c Du kan ikke overskride maksimalt tillatte doble hopp ({MAXJUMPS})"
+playernotinarena: "&c Du er ikke i en TNTRun arena"
+gamesplayed: "&bSpill spilt &f: "
+gameswon: "&bVunnet &f: "
+gameslost: "&bTapt &f: "
+statshead: "&7=========[&6TNTRun Statistikk&7]========="
+rewardshead: "&7======[&6TNTRun Belønninger&7 - &a{ARENA}&7]======"
+leaderhead: "&7======[&6TNTRun Leaderboard&7]======"
+resultshead: "&7============[&6TNTRun&7]============"
+leaderboard: "{POSISJON}) &c{RANG}&b{SPILLER} &f: Vunnet &3{VUNNET}"
+leadersign: "&1{SPILLER} &4{VUNNET}"
+shopmoneyheader: "&fTNTRun Butikk konto"
+shopmoneybalance: "&5Balansen din er &6{BAL}"
+statsdisabled: "&c Statistikk er for øyeblikket deaktivert"
+helplobby: Teleporter til lobbyen
+helplist: Liste opp alle arenaer ELLER Liste arena detaljer
+helplistkit: Liste opp alle settene ELLER listesettdetaljer
+helplistrewards: Oppgi belønningene for arenaen
+helpjoin: Åpne bli meny ELLER Bli med på arenaen
+helpspectate: Bli med på arenaen som tilskuer
+helpautojoin: Bli automatisk med på den første tilgjengelige arenaen
+helpleave: Forlat den nåværende arenaen
+helpvote: Stem for å tvinge igang nåværende arena
+helpcmds: Vis alle TNTRun-kommandoer
+helpinfo: Se plugin-informasjon
+helpstats: Se spillerstatistikk
+helplb: Vis TNTRun leaderboard
+helpstart: Tving start arenaen
+setuplobby: Sett den globale lobbyen på din nåværende plassering
+setupdellobby: Slett den globale lobbyen
+setupcreate: Lag en ny arena
+setupbounds: Sett grenser for arena
+setuploselevel: Sett tapsnivå på føttene
+setupspawn: Sett arena spawn for føttene
+setupspectate: Sett tilskuerens spawn punkt
+setupaddspawn: Sett et ekstra spawn for føttene
+setupdelspawns: Slett alle spawn punktene som er opprettet med addspawn-kommandoen
+setupfinish: Fullfør arena og lagre
+setupdelspectate: Slett tilskuer spawn for arena
+setupdelay: Still forsinkelse for fjerning av blokkering når spilleren tråkker på
+  den
+setupregendelay: 'Sett forsinkelse før spillerne kan bli med på arenaen igjen (Standard:
+  60)'
+setupmax: 'Sett maksimale spillere for arenaen(Standard: 15)'
+setupmin: 'Sett minimumsspillere for arena (Standard: 2)'
+setupvote: 'Sett stemmeprosent for å tvinge start arena (Standard: 0.75)'
+setuptimelimit: 'Sett en tidsbegrensning for arenaen (Standard: 300 sekunder)'
+setupcountdown: 'Sett en nedtelling for arena (Standard: 15 sekunder)'
+setupmoney: Sett en pengebelønning for vinnende spiller
+setupteleport: Sett teleportering når du taper eller vinner på arenaen
+setupdamage: Aktiver/deaktiver PVP for arenaen
+setupbarcolor: Still inn BossBar-fargen
+setupreloadbars: Last inn Bar-meldinger
+setupreloadtitles: Last inn tittelmeldinger på nytt
+setupreloadmsg: Last arena-meldinger på nytt
+setupreloadconfig: Last inn konfigurasjonsfilen på nytt
+setupenable: Aktiver arena
+setupdisable: Deaktiver arena
+setupdelete: Slett arena
+setupreward: Sett belønningene for arenaen
+setupfee: Sett kostnadene for å bli med på arenaen
+setupcurrency: Still inn valutaen for å bli med på arenaen
+setuphelp: Kommandoer som kreves for å sette opp en ny arena
+setupenablekits: Aktiver sett for arenaen
+setupdisablekits: Deaktiver sett for arenaen
+setupaddkit: Lag et TNTRun-sett
+setupdelkit: Slett et TNTRun-sett
+setupp1: Sett målrettet blokk som første valgpunkt
+setupp2: Sett målrettet blokk som andre valgpunkt
+setupclear: Fjern markeringspunkter
+kitexists: "&c Det spesifiserte settet eksisterer allerede : &6{SETT}"
+kitnotexists: "&c Det spesifiserte settet eksisterer ikke : &6{SETT}"
+setupwhitelist: Hvitliste en kommando for bruk i spillet
+playerjoininvite: "&c{RANG}&6{SPILLER} &7har sluttet seg til TNTRun arena &6{ARENA}&7,
+  Klikk for å spille"
+playerborderinvite: "&b---------------------------------------"
+playerclickinvite: Klikk for å bli med {ARENA}
+signfail: "&7 Du må se på et skilt for å opprette tilknytningstegnet"
+setupconfigure: Åpne menyen for å konfigurere arena
