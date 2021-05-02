@@ -89,7 +89,7 @@ public class SoundHandler extends Sounds {
 		float pitch = (float) plugin.getConfig().getDouble("sounds." + path + ".pitch", 1.0);
 		return (pitch > 0.5 && pitch < 2.0) ? pitch : 1.0F;
 	}
-	
+
 	private boolean isSoundEnabled(String path) {
 		return plugin.getConfig().getBoolean("sounds." + path + ".enabled");
 	}
