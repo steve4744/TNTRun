@@ -30,7 +30,7 @@ freedoublejumps:
   enabled: false
   amount: 10
 commandsonwin:
-- say {PLAYER} won TNTRun
+- say {PLAYER} won TNTRun on {ARENA}
 - say Congratulations...
 fireworksonwin:
   enabled: true
