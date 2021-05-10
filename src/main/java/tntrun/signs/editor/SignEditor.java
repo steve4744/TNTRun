@@ -120,7 +120,7 @@ public class SignEditor {
 				.sorted(Entry.comparingByValue(Comparator.reverseOrder()))
 				.limit(3)
 				.forEach(e -> {
-					if (Bukkit.getOnlineMode()) {
+					if (plugin.useUuid()) {
 						OfflinePlayer p = Bukkit.getOfflinePlayer(UUID.fromString(e.getKey()));
 						if (!p.hasPlayedBefore()) {
 							plugin.getLogger().info("Invalid player data found for " + e.getKey());

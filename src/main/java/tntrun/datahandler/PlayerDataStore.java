@@ -23,7 +23,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -47,8 +46,10 @@ public class PlayerDataStore {
 	private Map<String, Integer> pllevel = new HashMap<>();
 	private Map<String, Boolean> plflight = new HashMap<>();
 	private File file;
+	private final TNTRun plugin;
 
 	public PlayerDataStore(TNTRun plugin) {
+		this.plugin = plugin;
 		file = new File(plugin.getDataFolder(), "players.yml");
 		if (!file.exists()) {
 			try {
@@ -139,7 +140,7 @@ public class PlayerDataStore {
 	}
 
 	public void saveDoubleJumpsToFile(OfflinePlayer player, int amount) {
-		String uuid = Bukkit.getOnlineMode() ? player.getUniqueId().toString() : player.getName();
+		String uuid = plugin.useUuid() ? player.getUniqueId().toString() : player.getName();
 		saveConfigFile(uuid, amount);
 	}
 
@@ -167,7 +168,7 @@ public class PlayerDataStore {
 	}
 
 	public int getDoubleJumpsFromFile(OfflinePlayer player) {
-		String uuid = Bukkit.getOnlineMode() ? player.getUniqueId().toString() : player.getName();
+		String uuid = plugin.useUuid() ? player.getUniqueId().toString() : player.getName();
 		return getDoubleJumpsFromFile(uuid);
 	}
 

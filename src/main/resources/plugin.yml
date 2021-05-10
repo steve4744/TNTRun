@@ -1,6 +1,6 @@
 name: TNTRun_reloaded
 main: tntrun.TNTRun
-softdepend: [WorldEdit, Vault, HeadsPlus, mcMMO, PlaceholderAPI]
+softdepend: [WorldEdit, Vault, HeadsPlus, mcMMO, PlaceholderAPI, Parties]
 version: ${project.version}
 api-version: 1.13
 author: [steve4744]

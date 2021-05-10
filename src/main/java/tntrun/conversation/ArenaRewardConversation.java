@@ -32,10 +32,9 @@ import tntrun.arena.Arena;
 import tntrun.conversation.TNTRunConversation;
 import tntrun.utils.Utils;
 
-
 public class ArenaRewardConversation extends FixedSetPrompt {
 	private Arena arena;
-	private Boolean isFirstItem = true;
+	private boolean isFirstItem = true;
 	private String podium;
 	private int place;
 	private static final String PREFIX = GRAY + "[" + GOLD + "TNTRun_reloaded" + GRAY + "] ";
@@ -73,7 +72,6 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 	}
 
 	private class ChooseRewardType extends FixedSetPrompt {
-
 		public ChooseRewardType() {
 			super("material", "command", "xp", "money");
 		}
@@ -121,7 +119,6 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 	}
 
 	private class ChooseAmount extends NumericPrompt {
-
 		@Override
 		public String getPromptText(ConversationContext context) {
 			return GOLD + " How many would you like to reward the player with?";
@@ -146,11 +143,11 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 
 	private class MaterialProcessComplete extends BooleanPrompt {
 		public String getPromptText(ConversationContext context) {
-            return GOLD + " Reward saved - would you like to add another Material?\n" +
-                    GREEN + "[yes, no]";
-        }
+			return GOLD + " Reward saved - would you like to add another Material?\n" +
+					GREEN + "[yes, no]";
+		}
 		@Override
-        protected Prompt acceptValidatedInput(ConversationContext context, boolean nextMaterial) {
+		protected Prompt acceptValidatedInput(ConversationContext context, boolean nextMaterial) {
 			arena.getStructureManager().getRewards().setMaterialReward(
 					context.getSessionData("material").toString(),
 					context.getSessionData("amount").toString(),
@@ -174,7 +171,6 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 
 	/* === Reward Command === */
 	private class ChooseCommand extends StringPrompt {
-
 		@Override
 		public String getPromptText(ConversationContext context) {
 			context.getForWhom().sendRawMessage(GRAY + "Remember you can include %PLAYER% to apply it to that player.\nExample: 'perm setrank %PLAYER% vip'");
@@ -190,7 +186,6 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 	}
 
 	private class ChooseRunNow extends BooleanPrompt {
-
 		@Override
 		public String getPromptText(ConversationContext arg0) {
 			return GOLD + " Would you like to run this command now? (to test)\n" +
@@ -209,23 +204,31 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 		}
 	}
 
-	private class CommandProcessComplete extends MessagePrompt {
+	private class CommandProcessComplete extends BooleanPrompt {
 		public String getPromptText(ConversationContext context) {
-			arena.getStructureManager().getRewards().setCommandReward(
-					context.getSessionData("command").toString(), place);
-
-			return PREFIX + podium + "command reward for " + GOLD + arena.getArenaName() + GRAY + " was set to /" + GOLD + context.getSessionData("command");
+			return GOLD + " Reward saved - would you like to add another Command?\n" +
+					GREEN + "[yes, no]";
 		}
 
 		@Override
-		protected Prompt getNextPrompt(ConversationContext context) {
+		protected Prompt acceptValidatedInput(ConversationContext context, boolean nextCommand) {
+			arena.getStructureManager().getRewards().setCommandReward(
+					context.getSessionData("command").toString(), isFirstItem, place);
+
+			context.getForWhom().sendRawMessage(PREFIX + podium + "command reward for " + GOLD + arena.getArenaName() + GRAY + " was set to /" + GOLD + context.getSessionData("command"));
+
+			if (nextCommand) {
+				isFirstItem = false;
+				return new ChooseCommand();
+			}
+
+			isFirstItem = true;
 			return Prompt.END_OF_CONVERSATION;
 		}
 	}
 
 	/* === Reward XP === */
 	private class ChooseXP extends NumericPrompt {
-
 		@Override
 		public String getPromptText(ConversationContext context) {
 			return GOLD + " How much XP would you like to reward the player with?";
@@ -264,7 +267,6 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 
 	/* === Reward Money === */
 	private class ChooseMoney extends NumericPrompt {
-
 		@Override
 		public String getPromptText(ConversationContext context) {
 			return GOLD + " How much money would you like to reward the player with?";

@@ -35,7 +35,6 @@ import tntrun.arena.handlers.BungeeHandler;
 import tntrun.arena.handlers.SoundHandler;
 import tntrun.arena.handlers.VaultHandler;
 import tntrun.utils.Bars;
-import tntrun.utils.Menus;
 import tntrun.utils.Shop;
 import tntrun.utils.Sounds;
 import tntrun.utils.Stats;
@@ -55,6 +54,7 @@ import tntrun.eventhandler.PlayerStatusHandler;
 import tntrun.eventhandler.RestrictionHandler;
 import tntrun.kits.Kits;
 import tntrun.lobby.GlobalLobby;
+import tntrun.menu.Menus;
 import tntrun.messages.Language;
 import tntrun.messages.Messages;
 import tntrun.signs.SignHandler;
@@ -68,6 +68,7 @@ public class TNTRun extends JavaPlugin {
 	private boolean usestats = false;
 	private boolean needupdate = false;
 	private boolean placeholderapi = false;
+	private boolean parties = false;
 	private boolean file = false;
 	private VaultHandler vaultHandler;
 	private BungeeHandler bungeeHandler;
@@ -78,11 +79,11 @@ public class TNTRun extends JavaPlugin {
 	private Kits kitmanager;
 	private Sounds sound;
 	private Language language;
+	private MySQL mysql;
 
 	public ArenasManager amanager;
 	public SignEditor signEditor;
 	public String[] version = {"Nothing", "Nothing"};
-	public MySQL mysql;
 	public Stats stats;
 	public Shop shop;
 
@@ -182,6 +183,10 @@ public class TNTRun extends JavaPlugin {
 		return placeholderapi;
 	}
 
+	public boolean isParties() {
+		return parties;
+	}
+
 	public boolean useStats() {
 		return usestats;
 	}
@@ -196,6 +201,10 @@ public class TNTRun extends JavaPlugin {
 
 	public boolean isFile() {
 		return file;
+	}
+
+	public boolean useUuid() {
+		return Bukkit.getOnlineMode() || (isBungeecord() && getConfig().getBoolean("bungeecord.useUUID"));
 	}
 
 	public boolean isBungeecord() {
@@ -236,21 +245,21 @@ public class TNTRun extends JavaPlugin {
 
 	private void connectToMySQL() {
 		log.info("Connecting to MySQL database...");
-		String host = this.getConfig().getString("MySQL.host");
-		Integer port = this.getConfig().getInt("MySQL.port");
-		String name = this.getConfig().getString("MySQL.name");
-		String table = this.getConfig().getString("MySQL.table");
-		String user = this.getConfig().getString("MySQL.user");
-		String pass = this.getConfig().getString("MySQL.pass");
-		String useSSL = this.getConfig().getString("MySQL.useSSL");
-		String flags = this.getConfig().getString("MySQL.flags");
-		mysql = new MySQL(host, port, name, user, pass, useSSL, flags, this);
+		mysql = new MySQL(getConfig().getString("MySQL.host"),
+				getConfig().getInt("MySQL.port"),
+				getConfig().getString("MySQL.name"),
+				getConfig().getString("MySQL.user"),
+				getConfig().getString("MySQL.pass"),
+				getConfig().getString("MySQL.useSSL"),
+				getConfig().getString("MySQL.flags"),
+				getConfig().getBoolean("MySQL.legacyDriver"),
+				this);
 
 		new BukkitRunnable() {
 			@Override
 			public void run() {
 
-				mysql.query("CREATE TABLE IF NOT EXISTS `" + table + "` ( `username` varchar(50) NOT NULL, "
+				mysql.query("CREATE TABLE IF NOT EXISTS `" + getConfig().getString("MySQL.table") + "` ( `username` varchar(50) NOT NULL, "
 						+ "`looses` int(16) NOT NULL, `wins` int(16) NOT NULL, "
 						+ "`played` int(16) NOT NULL, "
 						+ "UNIQUE KEY `username` (`username`) ) ENGINE=InnoDB DEFAULT CHARSET=latin1;");
@@ -290,6 +299,11 @@ public class TNTRun extends JavaPlugin {
 			placeholderapi = true;
 			log.info("Successfully linked with PlaceholderAPI, version " + PlaceholderAPI.getDescription().getVersion());
 			new TNTRunPlaceholders(this).register();
+		}
+		Plugin Parties = getServer().getPluginManager().getPlugin("Parties");
+		if (Parties != null && Parties.isEnabled()) {
+			parties = true;
+			log.info("Successfully linked with Parties, version " + Parties.getDescription().getVersion());
 		}
 
 		vaultHandler = new VaultHandler(this);
@@ -376,6 +390,10 @@ public class TNTRun extends JavaPlugin {
 
 	public Language getLanguage() {
 		return language;
+	}
+
+	public MySQL getMysql() {
+		return mysql;
 	}
 
 	public void updateScoreboardList() {

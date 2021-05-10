@@ -30,7 +30,7 @@ freedoublejumps:
   enabled: false
   amount: 10
 commandsonwin:
-- say {PLAYER} won TNTRun
+- say {PLAYER} won TNTRun on {ARENA}
 - say Congratulations...
 fireworksonwin:
   enabled: true
@@ -41,6 +41,8 @@ invitationmessage:
   allowspectate: false
   excludeplayers: false
   excludeoriginator: false
+parties:
+  enabled: false
 menu:
   item: TNT
   pvpitem: IRON_BLOCK
@@ -133,6 +135,7 @@ MySQL:
   pass: password
   useSSL: false
   flags: allowPublicKeyRetrieval=true
+  legacyDriver: true
 signs:
   prefix: '&6&lTNTRun'
   join: '[Join]'
@@ -151,6 +154,7 @@ bungeecord:
   hub: lobby
   useMOTD: true
   stopserver: false
+  useUUID: false
 currency:
   prefix: ''
   suffix: ' coins'

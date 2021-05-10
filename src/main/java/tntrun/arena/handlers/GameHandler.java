@@ -460,7 +460,7 @@ public class GameHandler {
 
 					final ConsoleCommandSender console = Bukkit.getConsoleSender();
 					for(String commands : plugin.getConfig().getStringList("commandsonwin")) {
-						Bukkit.dispatchCommand(console, commands.replace("{PLAYER}", player.getName()));
+						Bukkit.dispatchCommand(console, commands.replace("{PLAYER}", player.getName()).replace("{ARENA}", arena.getArenaName()));
 					}
 				} catch (NullPointerException ex) {
 
@@ -601,7 +601,8 @@ public class GameHandler {
 	 */
 	private String getPodiumPlaces(Player winner) {
 		StringBuilder sb = new StringBuilder(200);
-		sb.append("\n" + Messages.resultshead);
+		String header = Messages.resultshead.replace("{ARENA}", arena.getArenaName());
+		sb.append("\n" + header);
 		sb.append("\n ");
 		sb.append("\n                " + Messages.playerfirstplace.replace("{RANK}", Utils.getRank(winner)) + winner.getName());
 
@@ -621,7 +622,7 @@ public class GameHandler {
 			sb.append("\n                " + Messages.playerthirdplace.replace("{RANK}", "") + "-");
 		}
 		sb.append("\n ");
-		sb.append("\n" + Messages.resultshead);
+		sb.append("\n" + header);
 
 		return sb.toString();
 	}

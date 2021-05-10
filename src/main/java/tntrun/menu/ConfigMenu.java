@@ -15,7 +15,7 @@
  *
  */
 
-package tntrun.utils;
+package tntrun.menu;
 
 import java.util.Arrays;
 

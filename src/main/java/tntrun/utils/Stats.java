@@ -77,14 +77,14 @@ public class Stats {
 			return;
 		}
 		final String table = plugin.getConfig().getString("MySQL.table");
-		if (plugin.mysql.isConnected()) {
+		if (plugin.getMysql().isConnected()) {
 			getStatsFromDB(table);
 			return;
 		}
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				if (plugin.mysql.isConnected()) {
+				if (plugin.getMysql().isConnected()) {
 					getStatsFromDB(table);
 				} else {
 					plugin.setUseStats(false);
@@ -152,7 +152,7 @@ public class Stats {
 			.sorted(Entry.comparingByValue(Comparator.reverseOrder()))
 			.limit(entries)
 			.forEach(e -> {
-			if (Bukkit.getOnlineMode()) {
+			if (plugin.useUuid()) {
 				OfflinePlayer p = Bukkit.getOfflinePlayer(UUID.fromString(e.getKey()));
 				lbentry = p.getName();
 				lbrank = Utils.getRank(p);
@@ -194,7 +194,7 @@ public class Stats {
 		ConfigurationSection stats = config.getConfigurationSection("stats");
 
 		if (stats != null) {
-			if (Bukkit.getOnlineMode()) {
+			if (plugin.useUuid()) {
 				for (String uuid : stats.getKeys(false)) {
 					if (!isValidUuid(uuid) || !isKnownPlayer(uuid)) {
 						continue;
@@ -224,11 +224,11 @@ public class Stats {
 			Map<String, Integer> workingMap = new HashMap<>();
 			try {
 				ResultSet rs;
-				rs = plugin.mysql.query("SELECT * FROM `" + table + "` ORDER BY " + stat + " DESC LIMIT 99999").getResultSet();
+				rs = plugin.getMysql().query("SELECT * FROM `" + table + "` ORDER BY " + stat + " DESC LIMIT 99999").getResultSet();
 
 				while (rs.next()) {
 					String playerName = rs.getString("username");
-					if (Bukkit.getOnlineMode()) {
+					if (plugin.useUuid()) {
 						if (!isValidUuid(playerName) || !isKnownPlayer(playerName)) {
 							continue;
 						}
@@ -294,14 +294,14 @@ public class Stats {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				plugin.mysql.query("UPDATE `" + table + "` SET `" + statname
+				plugin.getMysql().query("UPDATE `" + table + "` SET `" + statname
 						+ "`='" + value + "' WHERE `username`='" + player + "';");
 			}
 		}.runTaskAsynchronously(plugin);
 	}
 
 	private String getPlayerUUID(OfflinePlayer player) {
-		return Bukkit.getOnlineMode() ? player.getUniqueId().toString() : player.getName();
+		return plugin.useUuid() ? player.getUniqueId().toString() : player.getName();
 	}
 
 	/**
@@ -345,7 +345,7 @@ public class Stats {
 			if (item.equalsIgnoreCase("score")) {
 				lbplaceholdervalue = String.valueOf(opt.get().getValue());
 
-			} else if (Bukkit.getOnlineMode()) {
+			} else if (plugin.useUuid()) {
 				OfflinePlayer p = Bukkit.getOfflinePlayer(UUID.fromString(opt.get().getKey()));
 				lbplaceholdervalue = item.equalsIgnoreCase("player") ? p.getName() : Utils.getRank(p);
 

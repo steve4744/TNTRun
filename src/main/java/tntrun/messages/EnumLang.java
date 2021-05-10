@@ -16,14 +16,14 @@ public enum EnumLang {
 	Italian("it", false),
 	Japanese("ja", false),
 	Korean("ko", false),
-	Norwegian("no", false),
+	Norwegian("no", true),
 	Polish("pl", false),
 	Portugese("pt", false),
 	Russian("ru", false),
 	Spanish("es", true),
 	Swedish("sv", false),
 	Welsh("cy", true);
-	
+
 	private final String name;
 	private final boolean supported;
 
