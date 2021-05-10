@@ -51,7 +51,7 @@ public class Rewards {
 
 	private Map<Integer, Integer> moneyreward = new HashMap<>();
 	private Map<Integer, Integer> xpreward = new HashMap<>();
-	private Map<Integer, String> commandreward = new HashMap<>();
+	private Map<Integer, List<String>> commandrewards = new HashMap<>();
 	private Map<Integer, List<ItemStack>> materialrewards = new HashMap<>();
 	private Map<Integer, Boolean> activereward = new HashMap<>();
 	private Map<Integer, Integer> minplayersrequired = new HashMap<>();
@@ -65,8 +65,8 @@ public class Rewards {
 		return moneyreward.getOrDefault(place, 0);
 	}
 
-	public String getCommandReward(int place) {
-		return commandreward.get(place);
+	public List<String> getCommandRewards(int place) {
+		return commandrewards.get(place);
 	}
 
 	public int getXPReward(int place) {
@@ -81,7 +81,7 @@ public class Rewards {
 		return activereward.get(place);
 	}
 
-	public void setMaterialReward(String item, String amount, Boolean isFirstItem, int place) {
+	public void setMaterialReward(String item, String amount, boolean isFirstItem, int place) {
 		if (isFirstItem) {
 			materialrewards.remove(place);
 		}
@@ -101,10 +101,23 @@ public class Rewards {
 		moneyreward.put(place, money);
 	}
 	
-	public void setCommandReward(String cmdreward, int place) {
-		commandreward.put(place, cmdreward);
+	public void setCommandReward(String cmdreward, boolean isFirstCmd, int place) {
+		if (isFirstCmd) {
+			commandrewards.remove(place);
+		}
+		if (Utils.debug()) {
+			Bukkit.getLogger().info("[TNTRun] reward(" + place + ") = " + commandrewards.toString());
+		}
+		commandrewards.computeIfAbsent(place, k -> new ArrayList<>()).add(cmdreward);
+		if (Utils.debug()) {
+			Bukkit.getLogger().info("[TNTRun] reward(" + place + ") = " + commandrewards.toString());
+		}
 	}
 	
+	public void setCommandRewards(List<String> cmdreward, int place) {
+		commandrewards.put(place, cmdreward);
+	}
+
 	public void setXPReward(int xprwd, int place) {
 		xpreward.put(place, xprwd);
 	}
@@ -145,10 +158,11 @@ public class Rewards {
 			rewardmessage.add(xpreward + " XP");
 		}
 
-		String commandreward = getCommandReward(place);
-		if (commandreward != null && commandreward.length() != 0) {
-			Bukkit.getServer().dispatchCommand(console, commandreward.replace("%PLAYER%", player.getName()));
-			console.sendMessage("[TNTRun_reloaded] Command " + ChatColor.GOLD + commandreward + ChatColor.WHITE + " has been executed for " + ChatColor.AQUA + player.getName());
+		for (String commandreward : getCommandRewards(place)) {
+			if (commandreward != null && commandreward.length() != 0) {
+				Bukkit.getServer().dispatchCommand(console, commandreward.replace("%PLAYER%", player.getName()));
+				console.sendMessage("[TNTRun_reloaded] Command " + ChatColor.GOLD + commandreward + ChatColor.WHITE + " has been executed for " + ChatColor.AQUA + player.getName());
+			}
 		}
 
 		if (!rewardmessage.toString().isEmpty()) {
@@ -179,7 +193,7 @@ public class Rewards {
 			config.set(path + ".minPlayers", getMinPlayersRequired(index));
 			config.set(path + ".money", getMoneyReward(index));
 			config.set(path + ".xp", getXPReward(index));
-			config.set(path + ".command", getCommandReward(index));
+			config.set(path + ".command", getCommandRewards(index));
 			if (getMaterialReward(index) != null) {
 				getMaterialReward(index).forEach(is -> {
 					config.set(path + ".material." + is.getType().toString()  + ".amount", is.getAmount());
@@ -196,7 +210,7 @@ public class Rewards {
 			setMinPlayersRequired(config.getInt(path + ".minPlayers"), index);
 			setMoneyReward(config.getInt(path + ".money"), index);
 			setXPReward(config.getInt(path + ".xp"), index);
-			setCommandReward(config.getString(path + ".command"), index);
+			setCommandRewards(config.getStringList(path + ".command"), index);
 			if (config.getConfigurationSection(path + ".material") != null) {
 				Set<String> materials = config.getConfigurationSection(path + ".material").getKeys(false);
 				for (String material : materials) {
@@ -229,8 +243,10 @@ public class Rewards {
 			if (getMoneyReward(i) != 0) {
 				sb.append("\n   " + Messages.playerrewardmoney + getMoneyReward(i));
 			}
-			if (getCommandReward(i) != null) {
-				sb.append("\n   " + Messages.playerrewardcommand + getCommandReward(i));
+			if (getCommandRewards(i) != null) {
+				getCommandRewards(i).forEach(reward -> {
+					sb.append("\n   " + Messages.playerrewardcommand + reward);
+				});
 			}
 			if (getMaterialReward(i) != null) {
 				sb.append("\n   " + Messages.playerrewardmaterial);
