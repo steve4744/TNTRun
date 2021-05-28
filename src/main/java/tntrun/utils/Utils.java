@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -274,5 +275,23 @@ public class Utils {
 				ranks.put(player.getName(), rank);
 			}
 		}.runTaskAsynchronously(TNTRun.getInstance());
+	}
+
+	public static void displayPartyInvite(Player player, String target, String joinMessage) {
+		TextComponent partytc = new TextComponent(TextComponent.fromLegacyText("Would you like to "));
+		partytc.addExtra(getPartyInviteComponent("Accept", "Click to Accept", player, target));
+		partytc.addExtra(" or ");
+		partytc.addExtra(getPartyInviteComponent("Decline", "Click to Decline", player, target));
+		partytc.addExtra(" the party invitation?");
+		Bukkit.getPlayer(target).spigot().sendMessage(partytc);
+	}
+
+	private static TextComponent getPartyInviteComponent(String text, String hoverMessage, Player player, String target) {
+		TextComponent component = new TextComponent(text);
+		component.setColor(ChatColor.GOLD);
+		component.setBold(true);
+		component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tntrun acceptpartyinvite " + text + " " + player.getName() + " " + target));
+		component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(hoverMessage).create()));
+		return component;
 	}
 }

@@ -20,6 +20,7 @@ package tntrun.commands;
 import java.util.List;
 import java.util.StringJoiner;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -388,6 +389,32 @@ public class GameCommands implements CommandExecutor {
 				return false;
 			}
 		}
+		// party
+		else if(args[0].equalsIgnoreCase("party")) {
+			if (!player.hasPermission("tntrun.party")) {
+				Messages.sendMessage(player, Messages.nopermission);
+				return false;
+			}
+			if (!validatePartyArgs(args)) {
+				Messages.sendMessage(player, "&c Invalid number of arguments supplied");
+				return false;
+			}
+
+			//return plugin.getParties().handleCommand(player, args[1]);
+			plugin.getParties().handleCommand(player, args);
+		}
+		// accept or decline party invitation called from party message
+		else if (args[0].equalsIgnoreCase("acceptpartyinvite")) {
+			if (args.length != 4) {
+				return false;
+			}
+			if(!args[1].equalsIgnoreCase("accept")) {
+				Messages.sendMessage(Bukkit.getPlayer(args[2]), "&cParty invitation declined by " + args[3]);
+				Messages.sendMessage(Bukkit.getPlayer(args[3]), "&cYou have declined the party invitation from " + args[2]);
+				return false;
+			}
+			plugin.getParties().joinParty(args[2], args[3]);
+		}
 
 		else {
 			Messages.sendMessage(player, "&c Invalid argument supplied, please use &6/tr help");
@@ -396,4 +423,23 @@ public class GameCommands implements CommandExecutor {
 		return true;
 	}
 
+	private boolean validatePartyArgs(String[] args) {
+		if (args.length == 1) {
+			return false;
+		}
+		switch(args[1]) {
+			case "invite":
+			case "unkick":
+			case "kick":
+				return args.length == 3;
+
+			case "create":
+			case "leave":
+			case "info":
+				return args.length == 2;
+
+			default:
+		}
+		return false;
+	}
 }
