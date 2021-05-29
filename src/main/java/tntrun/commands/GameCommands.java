@@ -389,21 +389,21 @@ public class GameCommands implements CommandExecutor {
 				return false;
 			}
 		}
+
 		// party
 		else if(args[0].equalsIgnoreCase("party")) {
-			if (!player.hasPermission("tntrun.party")) {
+			/*if (!player.hasPermission("tntrun.party")) {
 				Messages.sendMessage(player, Messages.nopermission);
 				return false;
-			}
+			}*/
 			if (!validatePartyArgs(args)) {
 				Messages.sendMessage(player, "&c Invalid number of arguments supplied");
 				return false;
 			}
-
-			//return plugin.getParties().handleCommand(player, args[1]);
 			plugin.getParties().handleCommand(player, args);
 		}
-		// accept or decline party invitation called from party message
+
+		// accept or decline party invitation (called from party message)
 		else if (args[0].equalsIgnoreCase("acceptpartyinvite")) {
 			if (args.length != 4) {
 				return false;

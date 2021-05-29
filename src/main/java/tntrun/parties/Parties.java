@@ -71,6 +71,9 @@ public class Parties {
 		}
 		partyMap.put(player.getName(), new ArrayList<>());
 		Messages.sendMessage(player, "&c Party created!");
+		if (Utils.debug()) {
+			plugin.getLogger().info("Party created by " + player.getName());
+		}
 	}
 
 	private void leaveParty(Player player) {
@@ -91,6 +94,9 @@ public class Parties {
 				e.getValue().remove(player.getName());
 				Messages.sendMessage(player, "&c You have left the party");
 				Messages.sendMessage(Bukkit.getPlayer(e.getKey()), "&c " + player + " has left the party");
+				if (Utils.debug()) {
+					plugin.getLogger().info(player.getName() + " has left party created by " + e.getKey());
+				}
 			}
 		});
 	}
@@ -151,6 +157,9 @@ public class Parties {
 		partyMap.computeIfAbsent(playerName, k -> new ArrayList<>()).add(targetName);
 		Messages.sendMessage(targetPlayer, "&c " + targetName + " has joined the party");
 		Messages.sendMessage(Bukkit.getPlayer(playerName), "&c " + targetName + " has joined the party");
+		if (Utils.debug()) {
+			plugin.getLogger().info(targetName + " has joined party created by " + playerName);
+		}
 	}
 
 	public boolean isPartyLeader(Player player) {
@@ -175,6 +184,9 @@ public class Parties {
 	private void removeParty(Player player) {
 		partyMap.remove(player.getName());
 		Messages.sendMessage(player, "&c You have left the party, and the party has been deleted");
+		if (Utils.debug()) {
+			plugin.getLogger().info("Party leader " + player.getName() + " has left party");
+		}
 	}
 
 	public List<String> getPartyMembers(String playerName) {

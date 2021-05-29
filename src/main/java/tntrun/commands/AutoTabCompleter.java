@@ -32,7 +32,11 @@ import tntrun.TNTRun;
 public class AutoTabCompleter implements TabCompleter {
 
 	private static final List<String> COMMANDS = Arrays.asList(
-			"help", "lobby", "list", "join", "leave", "vote", "cmds", "info", "stats", "listkits", "autojoin", "leaderboard");
+			"help", "lobby", "list", "join", "leave", "vote", "cmds", "info", "stats", "listkits", "autojoin", "leaderboard", "party");
+
+	private static final List<String> PARTY_COMMANDS = Arrays.asList(
+			"create", "info", "invite", "kick", "leave", "unkick");
+
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("tntrun") || cmd.getName().equalsIgnoreCase("tr")) {
@@ -59,6 +63,9 @@ public class AutoTabCompleter implements TabCompleter {
 			} else if (args.length == 2) {
 				if (Stream.of("join", "list", "start", "spectate", "listrewards").anyMatch(s -> s.equalsIgnoreCase(args[0]))) {
 					list.addAll(TNTRun.getInstance().amanager.getArenasNames());
+
+				} else if (args[0].equalsIgnoreCase("party")) {
+					list.addAll(PARTY_COMMANDS);
 
 				} else if (args[0].equalsIgnoreCase("listkits") || args[0].equalsIgnoreCase("listkit")) {
 					list.addAll(TNTRun.getInstance().getKitManager().getKits());
