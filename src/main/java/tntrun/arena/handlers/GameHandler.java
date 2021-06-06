@@ -332,7 +332,7 @@ public class GameHandler {
 	 * @param playerName
 	 */
 	public void setPlaces(String playerName) {
-		if (places.containsValue(playerName)) {
+		if (places.containsValue(playerName) || arena.getPlayersManager().isSpectator(playerName)) {
 			return;
 		}
 		int remainingPlayers = arena.getPlayersManager().getPlayersCount();

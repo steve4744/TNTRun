@@ -27,6 +27,7 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -57,6 +58,7 @@ import tntrun.lobby.GlobalLobby;
 import tntrun.menu.Menus;
 import tntrun.messages.Language;
 import tntrun.messages.Messages;
+import tntrun.parties.Parties;
 import tntrun.signs.SignHandler;
 import tntrun.signs.editor.SignEditor;
 
@@ -68,7 +70,6 @@ public class TNTRun extends JavaPlugin {
 	private boolean usestats = false;
 	private boolean needupdate = false;
 	private boolean placeholderapi = false;
-	private boolean parties = false;
 	private boolean file = false;
 	private VaultHandler vaultHandler;
 	private BungeeHandler bungeeHandler;
@@ -79,6 +80,7 @@ public class TNTRun extends JavaPlugin {
 	private Kits kitmanager;
 	private Sounds sound;
 	private Language language;
+	private Parties parties;
 	private MySQL mysql;
 
 	public ArenasManager amanager;
@@ -104,6 +106,7 @@ public class TNTRun extends JavaPlugin {
 		amanager = new ArenasManager();
 		shop = new Shop(this);
 		menus = new Menus(this);
+		parties = new Parties(this);
 
 		//register commands and events
 		setupPlugin();
@@ -184,7 +187,7 @@ public class TNTRun extends JavaPlugin {
 	}
 
 	public boolean isParties() {
-		return parties;
+		return getConfig().getBoolean("parties.enabled");
 	}
 
 	public boolean useStats() {
@@ -276,34 +279,30 @@ public class TNTRun extends JavaPlugin {
 		getCommand("tntrun").setTabCompleter(new AutoTabCompleter());
 		getCommand("tntrunsetup").setTabCompleter(new SetupTabCompleter());
 
-		getServer().getPluginManager().registerEvents(new PlayerStatusHandler(this), this);
-		getServer().getPluginManager().registerEvents(new RestrictionHandler(this), this);
-		getServer().getPluginManager().registerEvents(new PlayerLeaveArenaChecker(this), this);
-		getServer().getPluginManager().registerEvents(new SignHandler(this), this);
-		getServer().getPluginManager().registerEvents(new MenuHandler(this), this);
-		getServer().getPluginManager().registerEvents(this.shop, this);
+		PluginManager pm = getServer().getPluginManager();
+		pm.registerEvents(new PlayerStatusHandler(this), this);
+		pm.registerEvents(new RestrictionHandler(this), this);
+		pm.registerEvents(new PlayerLeaveArenaChecker(this), this);
+		pm.registerEvents(new SignHandler(this), this);
+		pm.registerEvents(new MenuHandler(this), this);
+		pm.registerEvents(this.shop, this);
 
-		Plugin HeadsPlus = getServer().getPluginManager().getPlugin("HeadsPlus");
+		Plugin HeadsPlus = pm.getPlugin("HeadsPlus");
 		if (HeadsPlus != null && HeadsPlus.isEnabled()) {
-			getServer().getPluginManager().registerEvents(new HeadsPlusHandler(this), this);
+			pm.registerEvents(new HeadsPlusHandler(this), this);
 			headsplus = true;
 			log.info("Successfully linked with HeadsPlus, version " + HeadsPlus.getDescription().getVersion());
 		}
-		Plugin MCMMO = getServer().getPluginManager().getPlugin("mcMMO");
+		Plugin MCMMO = pm.getPlugin("mcMMO");
 		if (MCMMO != null && MCMMO.isEnabled()) {
 			mcMMO = true;
 			log.info("Successfully linked with mcMMO, version " + MCMMO.getDescription().getVersion());
 		}
-		Plugin PlaceholderAPI = getServer().getPluginManager().getPlugin("PlaceholderAPI");
+		Plugin PlaceholderAPI = pm.getPlugin("PlaceholderAPI");
 		if (PlaceholderAPI != null && PlaceholderAPI.isEnabled()) {
 			placeholderapi = true;
 			log.info("Successfully linked with PlaceholderAPI, version " + PlaceholderAPI.getDescription().getVersion());
 			new TNTRunPlaceholders(this).register();
-		}
-		Plugin Parties = getServer().getPluginManager().getPlugin("Parties");
-		if (Parties != null && Parties.isEnabled()) {
-			parties = true;
-			log.info("Successfully linked with Parties, version " + Parties.getDescription().getVersion());
 		}
 
 		vaultHandler = new VaultHandler(this);
@@ -315,6 +314,10 @@ public class TNTRun extends JavaPlugin {
 
 	public BungeeHandler getBungeeHandler() {
 		return bungeeHandler;
+	}
+
+	public Parties getParties() {
+		return parties;
 	}
 
 	private void loadArenas() {
