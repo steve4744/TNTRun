@@ -25,7 +25,7 @@ jobs:
         distribution: 'adopt-hotspot'
         java-version: 16
     - name: Build with Maven
-      run: mvn -e -B package --file pom.xml
+      run: mvn -B package --file pom.xml
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
