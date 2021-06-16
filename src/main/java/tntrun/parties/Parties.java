@@ -66,11 +66,11 @@ public class Parties {
 
 	private void createParty(Player player) {
 		if (alreadyInParty(player)) {
-			Messages.sendMessage(player, "&c You are already in a party");
+			Messages.sendMessage(player, Messages.partyinparty);
 			return;
 		}
 		partyMap.put(player.getName(), new ArrayList<>());
-		Messages.sendMessage(player, "&c Party created!");
+		Messages.sendMessage(player, Messages.partycreate);
 		if (Utils.debug()) {
 			plugin.getLogger().info("Party created by " + player.getName());
 		}
@@ -79,21 +79,22 @@ public class Parties {
 	private void leaveParty(Player player) {
 		if (isPartyLeader(player)) {
 			for (String member : partyMap.get(player.getName())) {
-				Messages.sendMessage(Bukkit.getPlayer(member), "&c You are no longer in the party as the leader has left");
+				Messages.sendMessage(Bukkit.getPlayer(member), Messages.partyleaderleave.replace("{PLAYER}", player.getName()));
 			}
 			removeParty(player);
 			return;
 		}
 		if (!isPartyMember(player)) {
-			Messages.sendMessage(player, "&c You are not a member of any party");
+			Messages.sendMessage(player, Messages.partynotmember);
 			return;
 		}
 
 		partyMap.entrySet().forEach(e -> {
 			if (e.getValue().contains(player.getName())) {
 				e.getValue().remove(player.getName());
-				Messages.sendMessage(player, "&c You have left the party");
-				Messages.sendMessage(Bukkit.getPlayer(e.getKey()), "&c " + player + " has left the party");
+				String msg = Messages.partyleave.replace("{PLAYER}", player.getName());
+				Messages.sendMessage(player, msg);
+				Messages.sendMessage(Bukkit.getPlayer(e.getKey()), msg);
 				if (Utils.debug()) {
 					plugin.getLogger().info(player.getName() + " has left party created by " + e.getKey());
 				}
@@ -103,60 +104,61 @@ public class Parties {
 
 	private void kickFromParty(Player player, String targetName) {
 		if (!isPartyLeader(player)) {
-			Messages.sendMessage(player, "&cYou are not a party leader");
+			Messages.sendMessage(player, Messages.partynotleader);
 			return;
 		}
 		if (partyMap.get(player.getName()).removeIf(list -> list.contains(targetName))) {
 			kickedMap.computeIfAbsent(player.getName(), k -> new ArrayList<>()).add(targetName);
-			Messages.sendMessage(player, "&c" + targetName + " has been kicked from the party");
+			Messages.sendMessage(player, Messages.partykick.replace("{PLAYER}", targetName));
 		}
 	}
 
 	private void unkickFromParty(Player player, String targetName) {
 		if (!isPartyLeader(player)) {
-			Messages.sendMessage(player, "&cYou are not a party leader");
+			Messages.sendMessage(player, Messages.partynotleader);
 			return;
 		}
 		if (kickedMap.containsKey(player.getName())) {
 			kickedMap.get(player.getName()).removeIf(list -> list.contains(targetName));
-			Messages.sendMessage(player, "&c" + targetName + " is allowed to join your party");
+			Messages.sendMessage(player, Messages.partyunkick.replace("{PLAYER}", targetName));
 		}
 	}
 
 	private void inviteToParty(Player player, String targetName) {
 		if (!isPartyLeader(player)) {
-			Messages.sendMessage(player, "&cYou are not a party leader");
+			Messages.sendMessage(player, Messages.partynotleader);
 			return;
 		}
 		if (targetName.equalsIgnoreCase(player.getName())) {
-			Messages.sendMessage(player, "&cYou cannot invite yourself");
+			Messages.sendMessage(player, Messages.partyinviteself);
 			return;
 		}
 		if (Bukkit.getPlayer(targetName) == null) {
-			Messages.sendMessage(player, "&cPlayer " + targetName + " is not online");
+			Messages.sendMessage(player, Messages.playernotonline.replace("{PLAYER}", targetName));
 			return;
 		}
-		Messages.sendMessage(Bukkit.getPlayer(targetName), player.getName() + " has invited you to join a party.");
+		Messages.sendMessage(Bukkit.getPlayer(targetName), Messages.partyinvite.replace("{PLAYER}", player.getName()));
 		Utils.displayPartyInvite(player, targetName, "");
 	}
 
 	public void joinParty(String playerName, String targetName) {
 		Player targetPlayer = Bukkit.getPlayer(targetName);
 		if (alreadyInParty(targetPlayer)) {
-			Messages.sendMessage(targetPlayer, "&c You are already in a party");
+			Messages.sendMessage(targetPlayer, Messages.partyinparty);
 			return;
 		}
 		if (!partyExists(playerName)) {
-			Messages.sendMessage(targetPlayer, "&c The selected party does not exist");
+			Messages.sendMessage(targetPlayer, Messages.partynotexist);
 			return;
 		}
 		if (isKicked(playerName, targetName)) {
-			Messages.sendMessage(targetPlayer, "&c You are currently kicked from this party");
+			Messages.sendMessage(targetPlayer, Messages.partyban);
 			return;
 		}
 		partyMap.computeIfAbsent(playerName, k -> new ArrayList<>()).add(targetName);
-		Messages.sendMessage(targetPlayer, "&c " + targetName + " has joined the party");
-		Messages.sendMessage(Bukkit.getPlayer(playerName), "&c " + targetName + " has joined the party");
+		String msg = Messages.partyjoin.replace("{PLAYER}", targetName);
+		Messages.sendMessage(targetPlayer, msg);
+		Messages.sendMessage(Bukkit.getPlayer(playerName), msg);
 		if (Utils.debug()) {
 			plugin.getLogger().info(targetName + " has joined party created by " + playerName);
 		}
@@ -183,7 +185,7 @@ public class Parties {
 
 	private void removeParty(Player player) {
 		partyMap.remove(player.getName());
-		Messages.sendMessage(player, "&c You have left the party, and the party has been deleted");
+		Messages.sendMessage(player, Messages.partyleaderleave.replace("{PLAYER}", player.getName()));
 		if (Utils.debug()) {
 			plugin.getLogger().info("Party leader " + player.getName() + " has left party");
 		}
@@ -212,7 +214,7 @@ public class Parties {
 
 	private void displayPartyInfo(Player player) {
 		if (!alreadyInParty(player)) {
-			Messages.sendMessage(player, "&c You are not currently in a party");
+			Messages.sendMessage(player, Messages.partynotmember);
 			return;
 		}
 		String leader = getPartyLeader(player);
