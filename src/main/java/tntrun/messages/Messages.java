@@ -80,6 +80,7 @@ public class Messages {
 	public static String arenacountdown = "&7 Arena starts in {COUNTDOWN} seconds";
 	public static String arenatimeout = "&7 Time is up. Ending game";
 	public static String playerwontoplayer = "&7 You won the game!";
+	public static String playerfinishedtestmode = "&7 Test game completed!";
 	public static String playerlosttoplayer = "&7 You lost the game";
 	public static String playerlosttoothers = "&c {RANK}&6{PLAYER} &7lost the game";
 	public static String playerfirstplace = "&a1st place: &f{RANK}";
@@ -264,6 +265,7 @@ public class Messages {
 		arenacountdown = config.getString("arenacountdown", arenacountdown);
 		arenatimeout = config.getString("arenatimeout", arenatimeout);
 		playerwontoplayer = config.getString("playerwontoplayer", playerwontoplayer);
+		playerfinishedtestmode = config.getString("playerfinishedtestmode", playerfinishedtestmode);
 		playerlosttoplayer = config.getString("playerlosttoplayer", playerlosttoplayer);
 		playerlosttoothers = config.getString("playerlosttoothers", playerlosttoothers);
 		playerfirstplace = config.getString("playerfirstplace", playerfirstplace);
@@ -421,6 +423,7 @@ public class Messages {
 		config.set("arenacountdown", arenacountdown);
 		config.set("arenatimeout", arenatimeout);
 		config.set("playerwontoplayer", playerwontoplayer);
+		config.set("playerfinishedtestmode", playerfinishedtestmode);
 		config.set("playerlosttoplayer", playerlosttoplayer);
 		config.set("playerlosttoothers", playerlosttoothers);
 		config.set("playerfirstplace", playerfirstplace);

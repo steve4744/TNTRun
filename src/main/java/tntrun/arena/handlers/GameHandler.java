@@ -447,7 +447,8 @@ public class GameHandler {
 				try {
 					//check if winner has not left the arena
 					if (arena.getPlayersManager().getPlayersCount() == 1) {
-						arena.getPlayerHandler().leaveWinner(player, Messages.playerwontoplayer);
+						String msg = arena.getStructureManager().isTestMode() ? Messages.playerfinishedtestmode : Messages.playerwontoplayer;
+						arena.getPlayerHandler().leaveWinner(player, msg);
 					}
 					if (Utils.debug()) {
 						plugin.getLogger().info("GH StartEnding calling stopArena...");
