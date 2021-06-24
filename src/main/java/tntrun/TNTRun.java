@@ -82,6 +82,7 @@ public class TNTRun extends JavaPlugin {
 	private Language language;
 	private Parties parties;
 	private MySQL mysql;
+	private static final int BSTATS_PLUGIN_ID = 2192;
 
 	public ArenasManager amanager;
 	public SignEditor signEditor;
@@ -127,7 +128,7 @@ public class TNTRun extends JavaPlugin {
 
 		if (getConfig().getBoolean("special.Metrics", true)) {
 			log.info("Attempting to start metrics (bStats)...");
-			new Metrics(this, 2192);
+			new Metrics(this, BSTATS_PLUGIN_ID);
 		}
 
 		setStorage();
