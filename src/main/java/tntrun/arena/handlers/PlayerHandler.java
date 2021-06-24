@@ -756,10 +756,10 @@ public class PlayerHandler {
 	private void cacheDoubleJumps(Player player) {
 		int amount = 0;
 		if (plugin.getConfig().getBoolean("freedoublejumps.enabled")) {
-			amount = plugin.shop.getAllowedDoubleJumps(player, plugin.getConfig().getInt("freedoublejumps.amount", 0));
+			amount = Utils.getAllowedDoubleJumps(player, plugin.getConfig().getInt("freedoublejumps.amount", 0));
 
 		} else {
-			if (plugin.shop.hasDoubleJumps(player)) {
+			if (plugin.getPData().hasStoredDoubleJumps(player)) {
 				amount = plugin.getPData().getDoubleJumpsFromFile(player);
 			}
 		}
@@ -833,6 +833,9 @@ public class PlayerHandler {
 	 * @param player
 	 */
 	public void removePurchase(Player player ) {
+		if (!plugin.isGlobalShop()) {
+			return;
+		}
 		if (plugin.shop.getPlayersItems().containsKey(player.getName())) {
 			plugin.shop.getPlayersItems().remove(player.getName());
 			plugin.shop.getBuyers().remove(player.getName());

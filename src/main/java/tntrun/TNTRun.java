@@ -105,7 +105,6 @@ public class TNTRun extends JavaPlugin {
 		TitleMsg.loadTitles(this);
 		pdata = new PlayerDataStore(this);
 		amanager = new ArenasManager();
-		shop = new Shop(this);
 		menus = new Menus(this);
 		parties = new Parties(this);
 
@@ -286,7 +285,8 @@ public class TNTRun extends JavaPlugin {
 		pm.registerEvents(new PlayerLeaveArenaChecker(this), this);
 		pm.registerEvents(new SignHandler(this), this);
 		pm.registerEvents(new MenuHandler(this), this);
-		pm.registerEvents(this.shop, this);
+
+		setupShop();
 
 		Plugin HeadsPlus = pm.getPlugin("HeadsPlus");
 		if (HeadsPlus != null && HeadsPlus.isEnabled()) {
@@ -307,6 +307,18 @@ public class TNTRun extends JavaPlugin {
 		}
 
 		vaultHandler = new VaultHandler(this);
+	}
+
+	public void setupShop() {
+		if (!isGlobalShop() || shop != null) {
+			return;
+		}
+		shop = new Shop(this);
+		getServer().getPluginManager().registerEvents(this.shop, this);
+	}
+
+	public boolean isGlobalShop() {
+		return getConfig().getBoolean("shop.enabled");
 	}
 
 	public VaultHandler getVaultHandler() {

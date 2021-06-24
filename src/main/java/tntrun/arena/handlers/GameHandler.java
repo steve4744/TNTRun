@@ -522,6 +522,13 @@ public class GameHandler {
 			arena.getPlayerHandler().allocateKits(player);
 		}
 
+		givePlayerPurchasedItems(player);
+	}
+
+	private void givePlayerPurchasedItems(Player player) {
+		if (!plugin.isGlobalShop()) {
+			return;
+		}
 		if (plugin.shop.getPlayersItems().containsKey(player.getName())) {
 			ArrayList<ItemStack> items = plugin.shop.getPlayersItems().get(player.getName());
 			if (items != null) {

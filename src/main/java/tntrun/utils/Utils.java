@@ -30,6 +30,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import net.md_5.bungee.api.ChatColor;
@@ -275,6 +276,32 @@ public class Utils {
 				ranks.put(player.getName(), rank);
 			}
 		}.runTaskAsynchronously(TNTRun.getInstance());
+	}
+
+	/**
+	 * The maximum number of double jumps the player is allowed. If permissions are used,
+	 * return the lower number of the maximum and number allowed by the permission node.
+	 * This applies to free and purchased double jumps.
+	 *
+	 * @param player
+	 * @param max allowed double jumps
+	 * @return integer representing the number of double jumps to give player
+	 */
+	public static int getAllowedDoubleJumps(Player player, int max) {
+		if (!TNTRun.getInstance().getConfig().getBoolean("special.UseDoubleJumpPermissions") || max <= 0) {
+			return max;
+		}
+		String permissionPrefix = "tntrun.doublejumps.";
+		for (PermissionAttachmentInfo attachmentInfo : player.getEffectivePermissions()) {
+			if (attachmentInfo.getPermission().startsWith(permissionPrefix) && attachmentInfo.getValue()) {
+				String permission = attachmentInfo.getPermission();
+				if (!isNumber(permission.substring(permission.lastIndexOf(".") + 1))) {
+					return 0;
+				}
+				return Math.min(Integer.parseInt(permission.substring(permission.lastIndexOf(".") + 1)), max);
+			}
+		}
+		return max;
 	}
 
 	public static void displayPartyInvite(Player player, String target, String joinMessage) {

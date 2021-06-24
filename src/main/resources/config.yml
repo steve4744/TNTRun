@@ -18,6 +18,7 @@ UseRankInChat:
   usegroup: true
   useprefix: false
 shop:
+  enabled: true
   name: '&6&lTNTRun &f&lSHOP'
   size: 27
   doublejump:

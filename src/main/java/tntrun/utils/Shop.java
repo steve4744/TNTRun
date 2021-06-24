@@ -38,7 +38,6 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -258,7 +257,7 @@ public class Shop implements Listener {
 				Arena arena = plugin.amanager.getPlayerArena(p.getName());
 				if (doublejumpPurchase && !canBuyDoubleJumps(cfg, p, kit)) {
 					Messages.sendMessage(p, Messages.maxdoublejumpsexceeded.replace("{MAXJUMPS}",
-							getAllowedDoubleJumps(p, plugin.getConfig().getInt("shop.doublejump.maxdoublejumps", 10)) + ""));
+							Utils.getAllowedDoubleJumps(p, plugin.getConfig().getInt("shop.doublejump.maxdoublejumps", 10)) + ""));
 					plugin.getSound().ITEM_SELECT(p);
 					p.closeInventory();
 					return;
@@ -286,7 +285,7 @@ public class Shop implements Listener {
 
 	private boolean canBuyDoubleJumps(FileConfiguration cfg, Player p, int kit) {
 		Arena arena = plugin.amanager.getPlayerArena(p.getName());
-		int maxjumps = getAllowedDoubleJumps(p, plugin.getConfig().getInt("shop.doublejump.maxdoublejumps", 10));
+		int maxjumps = Utils.getAllowedDoubleJumps(p, plugin.getConfig().getInt("shop.doublejump.maxdoublejumps", 10));
 		int quantity = cfg.getInt(kit + ".items." + kit + ".amount", 1);
 
 		if (plugin.getConfig().getBoolean("freedoublejumps.enabled")) {
@@ -388,10 +387,6 @@ public class Shop implements Listener {
 		return buyers;
 	}
 
-	public boolean hasDoubleJumps(Player player) {
-		return plugin.getPData().getDoubleJumpsFromFile(player) > 0;
-	}
-
 	public double getKnockback() {
 		return Math.min(Math.max(knockback, 0), 5) * 0.4;
 	}
@@ -408,29 +403,4 @@ public class Shop implements Listener {
 		return ShopFiles.getShopConfiguration().getConfigurationSection("").getKeys(false).size();
 	}
 
-	/**
-	 * The maximum number of double jumps the player is allowed. If permissions are used,
-	 * return the lower number of the maximum and number allowed by the permission node.
-	 * This applies to free and purchased double jumps.
-	 *
-	 * @param player
-	 * @param max allowed double jumps
-	 * @return integer representing the number of double jumps to give player
-	 */
-	public int getAllowedDoubleJumps(Player player, int max) {
-		if (!plugin.getConfig().getBoolean("special.UseDoubleJumpPermissions") || max <= 0) {
-			return max;
-		}
-		String permissionPrefix = "tntrun.doublejumps.";
-		for (PermissionAttachmentInfo attachmentInfo : player.getEffectivePermissions()) {
-			if (attachmentInfo.getPermission().startsWith(permissionPrefix) && attachmentInfo.getValue()) {
-				String permission = attachmentInfo.getPermission();
-				if (!Utils.isNumber(permission.substring(permission.lastIndexOf(".") + 1))) {
-					return 0;
-				}
-				return Math.min(Integer.parseInt(permission.substring(permission.lastIndexOf(".") + 1)), max);
-			}
-		}
-		return max;
-	}
 }
