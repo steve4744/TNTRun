@@ -623,6 +623,9 @@ public class PlayerHandler {
 	}
 
 	private void addShop(Player player) {
+		if (!arena.getStructureManager().isShopEnabled()) {
+			return;
+		}
 		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.shop.material"))); 
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.shop.name")));

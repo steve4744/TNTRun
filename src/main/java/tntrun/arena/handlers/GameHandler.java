@@ -526,7 +526,7 @@ public class GameHandler {
 	}
 
 	private void givePlayerPurchasedItems(Player player) {
-		if (!plugin.isGlobalShop()) {
+		if (!plugin.isGlobalShop() || !arena.getStructureManager().isShopEnabled()) {
 			return;
 		}
 		if (plugin.shop.getPlayersItems().containsKey(player.getName())) {

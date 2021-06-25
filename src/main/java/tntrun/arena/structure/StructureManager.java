@@ -71,6 +71,7 @@ public class StructureManager {
 	private List<Vector> freeSpawnList = new ArrayList<>();
 	private String commandOnStart;
 	private String commandOnStop;
+	private boolean shopEnabled = true;
 
 	public String getWorldName() {
 		return world;
@@ -185,6 +186,10 @@ public class StructureManager {
 
 	public boolean isExcludeStats() {
 		return excludeStats;
+	}
+
+	public boolean isShopEnabled() {
+		return shopEnabled;
 	}
 
 	public int getRegenerationDelay() {
@@ -457,6 +462,7 @@ public class StructureManager {
 		config.set("spawnpoints", additionalSpawnPoints);
 		config.set("commandOnStart", getCommandOnStart());
 		config.set("commandOnStop", getCommandOnStop());
+		config.set("shop.enabled", shopEnabled);
 		rewards.saveToConfig(config);
 		try {
 			config.save(arena.getArenaFile());
@@ -499,6 +505,7 @@ public class StructureManager {
 		additionalSpawnPoints = (List<Vector>) config.getList("spawnpoints", new ArrayList<>());
 		commandOnStart = config.getString("commandOnStart", "");
 		commandOnStop = config.getString("commandOnStop", "");
+		shopEnabled = config.getBoolean("shop.enabled", true);
 	}
 
 }
