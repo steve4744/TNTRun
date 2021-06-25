@@ -70,6 +70,7 @@ public class GameHandler {
 							if (arena.getStatusManager().isArenaStarting()) {
 								arena.getPlayerHandler().leavePlayer(player, Messages.playerlefttoplayer, Messages.playerlefttoothers);
 							} else {
+								setPlaces(player.getName());
 								arena.getPlayerHandler().dispatchPlayer(player);
 							}
 						}
