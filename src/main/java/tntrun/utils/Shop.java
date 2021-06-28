@@ -51,26 +51,26 @@ public class Shop implements Listener {
 	private String invname;
 	private int invsize;
 	private int knockback;
+	private ShopFiles shopFiles;
+	private List<String> buyers = new ArrayList<>();
+	private Map<Integer, Integer> itemSlot = new HashMap<>();
+	private Map<String, ArrayList<ItemStack>> pitems = new HashMap<>(); // player-name -> items
+	private Map<String, List<PotionEffect>> potionMap = new HashMap<>();  // player-name -> effects
+	private boolean doublejumpPurchase;
+	private FileConfiguration cfg;
 
 	public Shop(TNTRun plugin) {
 		this.plugin = plugin;
-		ShopFiles shopFiles = new ShopFiles(plugin);
+		shopFiles = new ShopFiles(plugin);
 		shopFiles.setShopItems();
-
+		cfg = shopFiles.getShopConfiguration();
 		invsize = getValidSize();
 		invname = FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("shop.name"));
-	}  
-
-	private Map<Integer, Integer> itemSlot = new HashMap<>();
-	private Map<String, ArrayList<ItemStack>> pitems = new HashMap<>(); // player-name -> items
-	private List<String> buyers = new ArrayList<>();
-	private Map<String, List<PotionEffect>> potionMap = new HashMap<>();  // player-name -> effects
-	private boolean doublejumpPurchase;
+	}
 
 	private void giveItem(int slot, Player player, String title) {
 		int kit = itemSlot.get(slot);		
 		ArrayList<ItemStack> item = new ArrayList<>();
-		FileConfiguration cfg = ShopFiles.getShopConfiguration();
 		List<PotionEffect> pelist = new ArrayList<>();
 
 		if (doublejumpPurchase) {
@@ -230,8 +230,6 @@ public class Shop implements Listener {
 		if (e.getSlot() == e.getRawSlot() && e.getCurrentItem() != null) {
 			ItemStack current = e.getCurrentItem();
 			if (current.hasItemMeta() && current.getItemMeta().hasDisplayName()) {
-				FileConfiguration cfg = ShopFiles.getShopConfiguration();
-
 				int kit = itemSlot.get(e.getSlot());
 				if (cfg.getInt(kit + ".items.1.amount") <= 0) {
 					Messages.sendMessage(p, Messages.shopnostock);
@@ -295,7 +293,6 @@ public class Shop implements Listener {
 	}
 
 	public void setItems(Inventory inventory, Player player) {
-		FileConfiguration cfg = ShopFiles.getShopConfiguration();
 		int slot = 0;
 		for (String kitCounter : cfg.getConfigurationSection("").getKeys(false)) {
 			String title = FormattingCodesParser.parseFormattingCodes(cfg.getString(kitCounter + ".name"));
@@ -400,7 +397,7 @@ public class Shop implements Listener {
 	}
 
 	private int getShopFileEntries() {
-		return ShopFiles.getShopConfiguration().getConfigurationSection("").getKeys(false).size();
+		return cfg.getConfigurationSection("").getKeys(false).size();
 	}
 
 }
