@@ -30,9 +30,6 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -43,9 +40,10 @@ import org.bukkit.potion.PotionEffectType;
 
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
+import tntrun.eventhandler.ShopHandler;
 import tntrun.messages.Messages;
 
-public class Shop implements Listener {
+public class Shop {
 
 	private TNTRun plugin;
 	private String invname;
@@ -61,6 +59,7 @@ public class Shop implements Listener {
 
 	public Shop(TNTRun plugin) {
 		this.plugin = plugin;
+		plugin.getServer().getPluginManager().registerEvents(new ShopHandler(plugin), plugin);
 		shopFiles = new ShopFiles(plugin);
 		shopFiles.setShopItems();
 		cfg = shopFiles.getShopConfiguration();
@@ -68,7 +67,7 @@ public class Shop implements Listener {
 		invname = FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("shop.name"));
 	}
 
-	private void giveItem(int slot, Player player, String title) {
+	public void giveItem(int slot, Player player, String title) {
 		int kit = itemSlot.get(slot);		
 		ArrayList<ItemStack> item = new ArrayList<>();
 		List<PotionEffect> pelist = new ArrayList<>();
@@ -217,70 +216,6 @@ public class Shop implements Listener {
 		return peffect;
 	}
 
-	@EventHandler
-	public void onClick(InventoryClickEvent e) {
-		if (!e.getView().getTitle().equals(invname)) {
-			return;
-		}
-		e.setCancelled(true);
-		if (e.getRawSlot() == getInvsize() -1) {
-			return;
-		}
-		Player p = (Player)e.getWhoClicked();
-		if (e.getSlot() == e.getRawSlot() && e.getCurrentItem() != null) {
-			ItemStack current = e.getCurrentItem();
-			if (current.hasItemMeta() && current.getItemMeta().hasDisplayName()) {
-				int kit = itemSlot.get(e.getSlot());
-				if (cfg.getInt(kit + ".items.1.amount") <= 0) {
-					Messages.sendMessage(p, Messages.shopnostock);
-					return;
-				}
-
-				String permission = cfg.getString(kit + ".permission");
-				if (!p.hasPermission(permission) && !p.hasPermission("tntrun.shop")) {
-					p.closeInventory();
-					Messages.sendMessage(p, Messages.nopermission);
-					plugin.getSound().ITEM_SELECT(p);
-					return;
-				}
-
-				doublejumpPurchase = Material.getMaterial(cfg.getString(kit + ".material").toUpperCase()) == Material.FEATHER;
-				if (!doublejumpPurchase && buyers.contains(p.getName())) {
-					Messages.sendMessage(p, Messages.alreadyboughtitem);
-					plugin.getSound().ITEM_SELECT(p);
-					p.closeInventory();
-					return;
-				}
-
-				Arena arena = plugin.amanager.getPlayerArena(p.getName());
-				if (doublejumpPurchase && !canBuyDoubleJumps(cfg, p, kit)) {
-					Messages.sendMessage(p, Messages.maxdoublejumpsexceeded.replace("{MAXJUMPS}",
-							Utils.getAllowedDoubleJumps(p, plugin.getConfig().getInt("shop.doublejump.maxdoublejumps", 10)) + ""));
-					plugin.getSound().ITEM_SELECT(p);
-					p.closeInventory();
-					return;
-				}
-
-				String title = current.getItemMeta().getDisplayName();
-				int cost = cfg.getInt(kit + ".cost");
-
-				if (arena.getArenaEconomy().hasMoney(cost, p)) {
-					Messages.sendMessage(p, Messages.playerboughtitem.replace("{ITEM}", title).replace("{MONEY}", Utils.getFormattedCurrency(String.valueOf(cost))));
-					logPurchase(p, title, cost);
-					if (!doublejumpPurchase) {
-						Messages.sendMessage(p, Messages.playerboughtwait);
-					}
-					plugin.getSound().NOTE_PLING(p, 5, 10);
-				} else {
-					Messages.sendMessage(p, Messages.notenoughmoney.replace("{MONEY}", Utils.getFormattedCurrency(String.valueOf(cost))));
-					plugin.getSound().ITEM_SELECT(p);
-					return;
-				}
-				giveItem(e.getSlot(), p, title);  
-			}
-		}
-	}
-
 	private boolean canBuyDoubleJumps(FileConfiguration cfg, Player p, int kit) {
 		Arena arena = plugin.amanager.getPlayerArena(p.getName());
 		int maxjumps = Utils.getAllowedDoubleJumps(p, plugin.getConfig().getInt("shop.doublejump.maxdoublejumps", 10));
@@ -400,4 +335,46 @@ public class Shop implements Listener {
 		return cfg.getConfigurationSection("").getKeys(false).size();
 	}
 
+	public ShopFiles getShopFiles() {
+		return shopFiles;
+	}
+
+	public Map<Integer, Integer> getItemSlot() {
+		return itemSlot;
+	}
+
+	public boolean validatePurchase(Player p, int kit, String title) {
+		doublejumpPurchase = Material.getMaterial(cfg.getString(kit + ".material").toUpperCase()) == Material.FEATHER;
+		if (!doublejumpPurchase && buyers.contains(p.getName())) {
+			Messages.sendMessage(p, Messages.alreadyboughtitem);
+			plugin.getSound().ITEM_SELECT(p);
+			p.closeInventory();
+			return false;
+		}
+
+		Arena arena = plugin.amanager.getPlayerArena(p.getName());
+		if (doublejumpPurchase && !canBuyDoubleJumps(cfg, p, kit)) {
+			Messages.sendMessage(p, Messages.maxdoublejumpsexceeded.replace("{MAXJUMPS}",
+					Utils.getAllowedDoubleJumps(p, plugin.getConfig().getInt("shop.doublejump.maxdoublejumps", 10)) + ""));
+			plugin.getSound().ITEM_SELECT(p);
+			p.closeInventory();
+			return false;
+		}
+
+		int cost = cfg.getInt(kit + ".cost");
+
+		if (!arena.getArenaEconomy().hasMoney(cost, p)) {
+			Messages.sendMessage(p, Messages.notenoughmoney.replace("{MONEY}", Utils.getFormattedCurrency(String.valueOf(cost))));
+			plugin.getSound().ITEM_SELECT(p);
+			return false;
+		}
+
+		Messages.sendMessage(p, Messages.playerboughtitem.replace("{ITEM}", title).replace("{MONEY}", Utils.getFormattedCurrency(String.valueOf(cost))));
+		logPurchase(p, title, cost);
+		if (!doublejumpPurchase) {
+			Messages.sendMessage(p, Messages.playerboughtwait);
+		}
+		plugin.getSound().NOTE_PLING(p, 5, 10);
+		return true;
+	}
 }

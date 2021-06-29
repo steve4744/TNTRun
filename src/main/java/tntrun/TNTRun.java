@@ -314,7 +314,6 @@ public class TNTRun extends JavaPlugin {
 			return;
 		}
 		shop = new Shop(this);
-		getServer().getPluginManager().registerEvents(this.shop, this);
 	}
 
 	public boolean isGlobalShop() {
