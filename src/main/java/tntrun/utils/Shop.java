@@ -54,6 +54,7 @@ public class Shop {
 	private Map<Integer, Integer> itemSlot = new HashMap<>();
 	private Map<String, ArrayList<ItemStack>> pitems = new HashMap<>(); // player-name -> items
 	private Map<String, List<PotionEffect>> potionMap = new HashMap<>();  // player-name -> effects
+	private Map<String, String> commandMap = new HashMap<>();  // player-name -> command
 	private boolean doublejumpPurchase;
 	private FileConfiguration cfg;
 
@@ -79,6 +80,14 @@ public class Shop {
 		}
 
 		buyers.add(player.getName());
+
+		if (isCommandPurchase(kit)) {
+			List<String> lore = cfg.getStringList(kit + ".lore");
+			String cmd = FormattingCodesParser.parseFormattingCodes(lore.get(0));
+			commandMap.put(player.getName(), cmd);
+			player.closeInventory();
+			return;
+		}
 		for (String items : cfg.getConfigurationSection(kit + ".items").getKeys(false)) {
 			try {				
 				Material material = Material.getMaterial(cfg.getString(kit + ".items." + items + ".material"));
@@ -319,6 +328,10 @@ public class Shop {
 		return buyers;
 	}
 
+	public Map<String, String> getPurchasedCommands() {
+		return commandMap;
+	}
+
 	public double getKnockback() {
 		return Math.min(Math.max(knockback, 0), 5) * 0.4;
 	}
@@ -376,5 +389,9 @@ public class Shop {
 		}
 		plugin.getSound().NOTE_PLING(p, 5, 10);
 		return true;
+	}
+
+	private boolean isCommandPurchase(int kit) {
+		return cfg.getString(kit + ".items.1.material").equalsIgnoreCase("command");
 	}
 }

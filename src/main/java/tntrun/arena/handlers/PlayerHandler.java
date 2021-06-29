@@ -839,10 +839,9 @@ public class PlayerHandler {
 		if (!plugin.isGlobalShop()) {
 			return;
 		}
-		if (plugin.shop.getPlayersItems().containsKey(player.getName())) {
-			plugin.shop.getPlayersItems().remove(player.getName());
-			plugin.shop.getBuyers().remove(player.getName());
-		}
+		plugin.shop.getPlayersItems().remove(player.getName());
+		plugin.shop.getBuyers().remove(player.getName());
+		plugin.shop.getPurchasedCommands().remove(player.getName());
 		if (plugin.shop.getPotionEffects(player) != null) {
 			plugin.shop.removePotionEffects(player);
 		}

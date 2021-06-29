@@ -303,7 +303,7 @@ public class ShopFiles {
 		cfg.addDefault("13.amount", Integer.valueOf(1));
 		cfg.addDefault("13.permission", "tntrun.shop.13");
 		lore = new ArrayList<String>();
-		lore.add("Run&6 give steve4744 DIAMOND_BLOCK 1");
+		lore.add("&6give %PLAYER% GOLD_NUGGET 1");
 		lore.add("Cost&6 50 &5coins");
 		cfg.addDefault("13.lore", lore);
 		cfg.addDefault("13.items.1.material", "COMMAND");

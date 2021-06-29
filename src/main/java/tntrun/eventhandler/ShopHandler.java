@@ -31,7 +31,7 @@ private TNTRun plugin;
 		if (e.getSlot() == e.getRawSlot() && e.getCurrentItem() != null) {
 			ItemStack current = e.getCurrentItem();
 			if (current.hasItemMeta() && current.getItemMeta().hasDisplayName()) {
-				FileConfiguration cfg = plugin.shop.getShopFiles().getShopConfiguration(); 
+				FileConfiguration cfg = plugin.shop.getShopFiles().getShopConfiguration();
 				int kit = plugin.shop.getItemSlot().get(e.getSlot());
 				if (cfg.getInt(kit + ".items.1.amount") <= 0) {
 					Messages.sendMessage(p, Messages.shopnostock);
