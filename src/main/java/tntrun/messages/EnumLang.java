@@ -12,7 +12,7 @@ public enum EnumLang {
 	English_US("en-US", false),
 	Finnish("fi", false),
 	French("fr", false),
-	German("de", false),
+	German("de", true),
 	Italian("it", false),
 	Japanese("ja", false),
 	Korean("ko", false),

@@ -183,7 +183,7 @@ public class Messages {
 	public static String partyleaderleave = "&7 Party leader &6{PLAYER} &7has left - the party has been deleted";
 	public static String partynotmember = "&c You are not a member of any party";
 	public static String partynotleader = "&c You are not a party leader";
-	public static String partykick = "&6 {PLAYER} &7has has been kicked from the party";
+	public static String partykick = "&6 {PLAYER} &7has been kicked from the party";
 	public static String partyunkick = "&6 {PLAYER} &7is allowed to join your party";
 	public static String partyinviteself = "&c You cannot invite yourself";
 	public static String partyinvite = "&6 {PLAYER} &7has invited you to join a party";
