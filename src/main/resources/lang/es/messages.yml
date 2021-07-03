@@ -1,145 +1,156 @@
 ---
 trprefix: "&7[&6TNTRun_reloaded&7]"
-menutitle: "&1Arenas de TNTRun_reloaded"
+menutitle: "&1TNTRun_reloaded Arenas"
 menuarenaname: "&a{ARENA}"
-menutext: "&5Jugadores: &6{PS}/{MPS}"
-menufee: "&5Cuota de inscripción: &6{FEE}"
-menupvp: "&5PVP: &6Habilitado"
-nopermission: "&c No tienes permisos para hacer esto"
-nolobby: "&c No existe un lobby global, escribe &6/trsetup setlobby &cpara colocar
-  uno"
-lobbyunloaded: "&c El mundo del lobby está sin cargar o no existe"
-teleporttolobby: "&7 Teletransportado al lobby"
-arenanotexist: "&c La arena &6{ARENA}&c no existe"
-noarenas: "&c No hay partidas disponibles para unirte"
-arenanotdisabled: "&c Porfavor, deshabilita la arena: &6/trsetup disable {ARENA}"
-arenanospectatorspawn: "&c No existe un punto de reaparición para espectadores en
-  la arena &6{ARENA}"
-availablearenas: "&7 Arenas disponibles: {COUNT}"
-availablekits: "&7 Kits disponibles: {COUNT}"
-arenawolrdna: "&7 El mundo de la arena no está cargado"
-arenanobounds: "&7 Límites de la arena no establecidos"
-arenadisabled: "&7 La arena está deshabilitada"
-arenarunning: "&7 ¡La arena ya está en juego!"
-arenaregenerating: "&7 La arena se está regenerando"
-arenavehicle: "&c No puedes unirte al juego si estás sentado en un vehículo"
-arenajoined: "&c Ya te has unido a una partida"
-arenadisabling: "&6 La arena se está deshabilitando"
-arenastarting: "&6 La partida está comenzando"
-signcreate: "&7 Cartel creado exitosamente"
-signremove: "&7 Cartel removido exitosamente"
-arenafee: "&7 Se te ha cobrado &6{FEE} &7para entrar a la arena"
-arenanofee: "&c Debes pagar una tarifa de &6{FEE} &cpara entrar a la arena"
-arenawaiting: "&6 Partida esperando"
-playerscountinarena: "&6 Cantidad de jugadores en la partida: {COUNT} jugadores"
-limitreached: "&7 La partida está llena"
-playerjoinedtoothers: "&c {RANK}&6{PLAYER} &7se unió a la partida (&6{PS}&7/&6{MPS}&7)"
-playerjoinedasspectator: "&7 Te uniste a la partida &6{ARENA} &7como espectador"
-playerlefttoplayer: "&7 Saliste de esta partida"
-playerlefttoothers: "&c {RANK}&6{PLAYER} &7Salió del juego (&6{PS}&7/&6{MPS}&7)"
-playervotedforstart: "&f Votaste para forzar el inicio del juego"
-playeralreadyvotedforstart: "&c Ya votaste para reiniciar"
-playercannotvote: "&c No puedes votar para forzar el inicio de la arena"
-arenastarted: "&7 ¡Partida comenzada!. El límite de tiempo es de {TIMELIMIT} segundos"
-arenanolimit: "&7 ¡Partida comenzada!. Sin límite de tiempo"
-arenacountdown: "&7 La partida comienza en {COUNTDOWN} segundos"
-arenatimeout: "&7 El tiempo se acabó. Finalizando la partida"
-playerwontoplayer: "&7 ¡Ganaste!"
-playerlosttoplayer: "&7 Perdiste :("
-playerlosttoothers: "&c {RANK}&6{PLAYER} &7perdió el juego"
-playerfirstplace: "&a1er lugar: &f{RANK}"
-playersecondplace: "&a2do lugar: &f{RANK}"
-playerthirdplace: "&a3er lugar: &f{RANK}"
-playerrewardmessage: "&7 Has sido recompensado con: &6{REWARD}"
-playerrewardmaterial: "&6 Material :  &f"
-playerrewardcommand: "&6 Comando : &f"
-playerrewardmoney: "&6 Dinero :    &f"
-playerrewardxp: "&6 XP :      &l  &f"
-playerboughtitem: "&7 Compraste el artículo &6{ITEM} &7por &6{MONEY} "
-playerboughtwait: "&7 Recibirás tus ítems cuando la partida comience"
-playerkit: "&7 Se te brindó el kit &6{KIT}"
-playersrequiredtostart: "&c Deben haber al menos 2 jugadores para poder votar para
-  forzar el inicio de la partida"
-notenoughmoney: "&c Necesitas {MONEY} para poder comprar este artículo"
-alreadyboughtitem: "&c Ya compraste un artículo de la tienda"
-shopnostock: "&c Este artículo está temporalmente fuera de stock"
-maxdoublejumpsexceeded: "&c No puedes superar el máximo de saltos dobles permitidos
-  ({MAXJUMPS} saltos)"
-playernotinarena: "&c No estás en una arena de TNTRun"
-gamesplayed: "&bPartidas jugadas &f: "
-gameswon: "&bVictorias &f: "
-gameslost: "&bDerrotas &f: "
-statshead: "&7=========[&6Estadisticas TNTRun&7]========="
-rewardshead: "&7======[&6Recompensas TNTRun&7 - &a{ARENA}&7]======"
-leaderhead: "&7======[&6Tabla de clasificación TNTRun&7]======"
-resultshead: "&7============[&6TNTRun&7]============"
-leaderboard: "{POSITION})&c{RANK} &b{PLAYER} &f: Victorias &3{WINS}"
-leadersign: "&1{PLAYER} &4{WINS}"
-shopmoneyheader: "&fCuenta de la tienda de TNTRun"
-shopmoneybalance: "&5Tu saldo es de &6{BAL}"
-statsdisabled: "&c Estadísticas temporalmente deshabilitadas"
-helplobby: Teletransportarse al lobby
-helplist: Listar todas las arenas O Listar detalles de arenas
-helplistkit: Listar todos los kits O Listar los detalles del kit
-helplistrewards: Listar las recompensas para la arena
-helpjoin: Abrir el menú de partidas O unirse a la partida
-helpspectate: Unirse a la partida como espectador
-helpautojoin: Únase automáticamente a la primera partida disponible
-helpleave: Dejar la partida actual
-helpvote: Vote para forzar el inicio de la partida actual
-helpcmds: Ver todos los comandos TNTRun
-helpinfo: Ver la información del plugin
-helpstats: Ver las estadísticas de los jugadores
-helplb: Mostrar la tabla de clasificación TNTRun
-helpstart: Forzar el inicio de la partida
-setuplobby: Establecer el lobby global en su ubicación actual
-setupdellobby: Eliminar el lobby global
-setupcreate: Crear una nueva arena
-setupbounds: Establecer límites para la arena
-setuploselevel: Colocar el punto del nivel para perder a tus pies
-setupspawn: Colocar el punto de reaparición de la arena a tus pies
-setupspectate: Colocar el punto de reaparición de los espectadores
-setupaddspawn: Colocar el punto de reaparición adicional a tus pies
-setupdelspawns: Elimina todos los puntos de reaparición creados con el comando addspawn
-setupfinish: Termina y guarda la arena
-setupdelspectate: Eliminar el punto de reaparición de los espectadores para la arena
-setupdelay: Establecer el retraso para eliminar el bloque cuando el jugador lo pisa
-setupregendelay: 'Establecer retraso antes de que los jugadores puedan volver a unirse
-  a la arena (Por defecto: 60)'
-setupmax: 'Definir el máximo de jugadores para la arena (Por defecto: 15)'
-setupmin: 'Definir el mínimo de jugadores para la arena (Por defecto: 2)'
-setupvote: 'Establecer porcentaje de votos para forzar el inicio de la arena (Por
-  defecto: 0.75)'
-setuptimelimit: 'Establecer un límite de tiempo para la arena (Por defecto: 300 segundos)'
-setupcountdown: 'Establecer una cuenta regresiva para la arena (Por defecto: 15 segundos)'
-setupmoney: Establecer una recompensa de dinero para el jugador ganador
-setupteleport: Establece el teletransporte cuando pierdes o ganas en la arena
-setupdamage: Activar / desactivar PVP para la arena
-setupbarcolor: Establecer el color de la BossBar
-setupreloadbars: Recargar mensajes de la barra
-setupreloadtitles: Recargar mensajes de título
-setupreloadmsg: Recargar mensajes de arena
-setupreloadconfig: Recargar archivo de configuración
-setupenable: Habilitar arena
-setupdisable: Deshabilitar arena
-setupdelete: Eliminar arena
-setupreward: Establecer las recompensas para la arena
-setupfee: Establecer el costo para unirse a la arena
-setupcurrency: Establecer la moneda para unirse a la arena
-setuphelp: Comandos necesarios para configurar una nueva arena
-setupenablekits: Habilitar kits para la arena
-setupdisablekits: Desactivar kits para la arena
-setupaddkit: Crea un kit TNTRun
-setupdelkit: Elimina un kit TNTRun
-setupp1: Establecer bloque de destino como primer punto de selección
-setupp2: Establecer bloque de destino como segundo punto de selección
-setupclear: Quitar puntos de selección
-kitexists: "&c El kit especificado ya existe : &6{KIT}"
-kitnotexists: "&c El kit especificado no existe : &6{KIT}"
-setupwhitelist: Incluir un comando en la lista blanca para usarlo en el juego
-playerjoininvite: "&c{RANK}&6{PLAYER} &7se ha unido a la arena TNTRun &6{ARENA}&7,
-  haz clic para unirse"
+menutext: "&5Players: &6{PS}/{MPS}"
+menufee: "&5Join Fee: &6{FEE}"
+menupvp: "&5PVP: &6Enabled"
+nopermission: "&c You don't have permission to do this"
+nolobby: "&c Global lobby isn't set, run &6/trsetup setlobby"
+lobbyunloaded: "&c Lobby world is unloaded or doesn't exist"
+teleporttolobby: "&7 Teleported to lobby"
+arenanotexist: "&c Arena &6{ARENA}&c doesn't exist"
+noarenas: "&c There are no arenas available to join"
+arenanotdisabled: "&c Please disable arena: &6/trsetup disable {ARENA}"
+arenanospectatorspawn: "&c No spectator spawn set for arena &6{ARENA}"
+availablearenas: "&7 Available arenas: {COUNT}"
+availablekits: "&7 Available kits: {COUNT}"
+arenawolrdna: "&7 Arena world is not loaded"
+arenanobounds: "&7 Arena bounds not set"
+arenadisabled: "&7 Arena is disabled"
+arenarunning: "&7 Arena already running"
+arenaregenerating: "&7 Arena is regenerating"
+arenavehicle: "&c You can't join the game while sitting inside a vehicle"
+arenajoined: "&c You have already joined an arena"
+arenadisabling: "&6 Arena is disabling"
+arenastarting: "&6 Arena already starting"
+signcreate: "&7 Sign successfully created"
+signremove: "&7 Sign successfully removed"
+signfail: "&7 You must be looking at a sign to create the join sign"
+arenafee: "&7 You have been charged &6{FEE} &7to enter the arena"
+arenanofee: "&c You require a fee of &6{FEE} &cto enter the arena"
+arenawaiting: "&6 Arena is waiting"
+playerscountinarena: "&6 Current number of players in arena: {COUNT} players"
+limitreached: "&7 Arena is full."
+playerjoinedtoothers: "&c {RANK}&6{PLAYER} &7joined the arena (&6{PS}&7/&6{MPS}&7)"
+playerjoininvite: "&c{RANK}&6{PLAYER} &7has joined TNTRun arena &6{ARENA}&7, click
+  to play"
 playerborderinvite: "&b---------------------------------------"
-playerclickinvite: Haz clic para unirse a {ARENA}
-signfail: "&7 Debe estar mirando un cartel para crear el cartel  de unión"
-setupconfigure: Abrir el menu para configurar la arena
+playerclickinvite: Click to join {ARENA}
+playerjoinedasspectator: "&7 You joined arena &6{ARENA} &7as a spectator"
+playerlefttoplayer: "&7 You left the arena"
+playerlefttoothers: "&c {RANK}&6{PLAYER} &7left the game (&6{PS}&7/&6{MPS}&7)"
+playervotedforstart: "&f You voted to force-start the game"
+playeralreadyvotedforstart: "&c You have already voted"
+playercannotvote: "&c You cannot vote to force-start the arena"
+arenastarted: "&7 Arena started. Time limit is {TIMELIMIT} seconds"
+arenanolimit: "&7 Arena started. No time limit"
+arenacountdown: "&7 Arena starts in {COUNTDOWN} seconds"
+arenatimeout: "&7 Time is up. Ending game"
+playerwontoplayer: "&7 You won the game!"
+playerfinishedtestmode: "&7 ¡Juego de prueba completado!"
+playerlosttoplayer: "&7 You lost the game"
+playerlosttoothers: "&c {RANK}&6{PLAYER} &7lost the game"
+playerfirstplace: "&a1st place: &f{RANK}"
+playersecondplace: "&a2nd place: &f{RANK}"
+playerthirdplace: "&a3rd place: &f{RANK}"
+playerrewardmessage: "&7 You have been rewarded: &6{REWARD}"
+playerrewardmaterial: "&6 Material :  &f"
+playerrewardcommand: "&6 Command : &f"
+playerrewardmoney: "&6 Money :    &f"
+playerrewardxp: "&6 XP :      &l  &f"
+playerboughtitem: "&7 You have bought item &6{ITEM} &7for &6{MONEY}"
+playerboughtwait: "&7 You will get your items when the game starts"
+playerkit: "&7 You have been given kit &6{KIT}"
+playersrequiredtostart: "&c There must be at least 2 players in the arena to force-start"
+notenoughmoney: "&c You need {MONEY} to buy this item"
+alreadyboughtitem: "&c You have already bought a shop item"
+shopnostock: "&c This item is currently out of stock"
+maxdoublejumpsexceeded: "&c You cannot exceed the maximum doublejumps allowed ({MAXJUMPS})"
+playernotinarena: "&c You are not in a TNTRun arena"
+playernotonline: "&6 {PLAYER} &7no está en línea actualmente"
+gamesplayed: "&bGames played &f: "
+gameswon: "&bWins &f: "
+gameslost: "&bLosses &f: "
+statshead: "&7=========[&6TNTRun Stats&7]========="
+rewardshead: "&7======[&6TNTRun Rewards&7 - &a{ARENA}&7]======"
+leaderhead: "&7======[&6TNTRun Leaderboard&7]======"
+resultshead: "&7============[&6TNTRun&7]============"
+leaderboard: "{POSITION}) &c{RANK}&b{PLAYER} &f: Wins &3{WINS}"
+leadersign: "&1{PLAYER} &4{WINS}"
+shopmoneyheader: "&fTNTRun Shop Account"
+shopmoneybalance: "&5Your balance is &6{BAL}"
+statsdisabled: "&c Stats are currently disabled"
+helplobby: Teleport to lobby
+helplist: List all arenas OR List arena details
+helplistkit: List all kits OR List kit details
+helplistrewards: List the rewards for the arena
+helpjoin: Open join menu OR Join the arena
+helpspectate: Join the arena as a spectator
+helpautojoin: Automatically join the first available arena
+helpleave: Leave the current arena
+helpvote: Vote to force-start current arena
+helpcmds: View all TNTRun commands
+helpinfo: View plugin info
+helpstats: View player stats
+helplb: Display the TNTRun leaderboard
+helpstart: Force-start the arena
+setuplobby: Set the global lobby at your current location
+setupdellobby: Delete the global lobby
+setupcreate: Create a new arena
+setupconfigure: Open menu to configure arena
+setupbounds: Set bounds for arena
+setuploselevel: Set loselevel point at your feet
+setupspawn: Set arena spawn at your feet
+setupspectate: Set spectator spawn point
+setupaddspawn: Set an additional spawn at your feet
+setupdelspawns: Delete all spawn points created with the addspawn command
+setupfinish: Finish arena and save
+setupdelspectate: Delete spectator spawn for arena
+setupdelay: Set delay for removing block when player steps on it
+setupregendelay: 'Set delay before players can re-join arena (Default: 60)'
+setupmax: 'Set maximum players for arena (Default: 15)'
+setupmin: 'Set minimum players for arena (Default: 2)'
+setupvote: 'Set vote percentage to force-start arena (Default: 0.75)'
+setuptimelimit: 'Set a time limit for arena (Default: 300 seconds)'
+setupcountdown: 'Set a countdown for arena (Default: 15 seconds)'
+setupmoney: Set a money reward for winning player
+setupteleport: Set teleport when you lose or win in arena
+setupdamage: Enable/disable PVP for the arena
+setupbarcolor: Set the BossBar color
+setupreloadbars: Reload Bar messages
+setupreloadtitles: Reload Title messages
+setupreloadmsg: Reload arena messages
+setupreloadconfig: Reload config file
+setupenable: Enable arena
+setupdisable: Disable arena
+setupdelete: Delete arena
+setupreward: Set the rewards for the arena
+setupfee: Set the cost to join the arena
+setupcurrency: Set the currency to join the arena
+setuphelp: Commands required to setup a new arena
+setupenablekits: Enable kits for the arena
+setupdisablekits: Disable kits for the arena
+setupaddkit: Create a TNTRun kit
+setupdelkit: Delete a TNTRun kit
+setupp1: Set targeted block as first selection point
+setupp2: Set targeted block as second selection point
+setupclear: Clear selection points
+setupwhitelist: Whitelist a command for use in-game
+kitexists: "&c The specified kit already exists : &6{KIT}"
+kitnotexists: "&c The specified kit does not exist : &6{KIT}"
+partycreate: "&7 ¡El equipo ha sido creado!"
+partyjoin: "&6 {PLAYER} &7se ha unido al equipo"
+partydecline: "&6 {PLAYER} &7ha rechazado la invitación del equipo"
+partyleave: "&6 {PLAYER} &7ha dejado el equipo"
+partyleaderleave: "&7 El líder del equipo &6{PLAYER} &7se ha ido - el equipo ha sido
+  eliminado"
+partynotmember: "&c No estas miembro de ningún equipo"
+partynotleader: "&c No estas un líder de equipo"
+partykick: "&6 {PLAYER} &7ha sido expulsado del equipo"
+partyunkick: "&6 {PLAYER} &7puede unirse a su equipo"
+partyinviteself: "&c No te puedes invitar tú mismo"
+partyinvite: "&6 {PLAYER} &7te ha invitado a unirte a un equipo"
+partyban: "&c Actualmente estás excluido de este equipo"
+partyinparty: "&c ¡Ya estás en un equipo!"
+partynotexist: "&c El equipo seleccionado no existe"
