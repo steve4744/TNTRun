@@ -1,0 +1,162 @@
+---
+trprefix: "&7[&6TNTRun_reloaded&7]"
+menutitle: "&1TNTRun_reloaded Arenas"
+menuarenaname: "&a{ARENA}"
+menutext: "&5Spieler: &6{PS}/{MPS}"
+menufee: "&5Beitrittsgebühr: &6{FEE}"
+menupvp: "&5PVP: &6Aktiviert"
+nopermission: "&c Sie haben keine Berechtigung dafür"
+nolobby: "&c Globale Lobby ist nicht eingerichtet, führen Sie &6/trsetup setlobby
+  aus"
+lobbyunloaded: "&c Lobbywelt ist nicht geladen oder existiert nicht"
+teleporttolobby: "&7 In die Lobby teleportiert"
+arenanotexist: "&c Arena &6{ARENA}&c existiert nicht"
+noarenas: "&c Es stehen keine Arenen zum Beitritt zur Verfügung"
+arenanotdisabled: "&c Bitte Arena: &6/trsetup disable {ARENA} deaktivieren"
+arenanospectatorspawn: "&c Keinen Zuschauer-Spawn gesetzt für Arena &6{ARENA}"
+availablearenas: "&7 Verfügbare Arenen: {COUNT}"
+availablekits: "&7 Verfügbare Kits: {COUNT}"
+arenawolrdna: "&7 Arenawelt ist nicht geladen"
+arenanobounds: "&7 Arena bounds not set"
+arenadisabled: "&7 Arena ist deaktiviert"
+arenarunning: "&7 Arena läuft bereits"
+arenaregenerating: "&7 Arena regeneriert sich"
+arenavehicle: "&c Du kannst dem Spiel nicht beitreten, während du in einem Fahrzeug
+  sitzt"
+arenajoined: "&c Du bist bereits einer Arena beigetreten"
+arenadisabling: "&6 Arena wird deaktiviert"
+arenastarting: "&6 Arena startet bereits"
+signcreate: "&7 Schild erfolgreich erstellt"
+signremove: "&7 Schild erfolgreich entfernt"
+signfail: "&7 Sie müssen das Schild anschauen, um das Beitritts-Schild zu erstellen"
+arenafee: "&7 Ihnen wurden &6{FEE} &7 gezahlt, um die Arena zu betreten"
+arenanofee: "&c Sie benötigen eine Gebühr von &6{FEE} &c, um diese Arena zu betreten"
+arenawaiting: "&6 Arena wartet"
+playerscountinarena: "&6 Aktuelle Spieleranzahl in der Arena: {COUNT} Spieler"
+limitreached: "&7 Arena ist voll."
+playerjoinedtoothers: "&c {RANK}&6{PLAYER} &7ist der Arena beigetreten (&6{PS}&7/&6{MPS}&7)"
+playerjoininvite: "&c{RANK}&6{PLAYER} &7ist der TNTRun arena &6{ARENA}&7 beigetreten,
+  zum Spielen klicken"
+playerborderinvite: "&b---------------------------------------"
+playerclickinvite: Klicken, um {ARENA} beizutreten
+playerjoinedasspectator: "&7 Sie sind der Arena &6{ARENA} &7als Zuschauer beigetreten"
+playerlefttoplayer: "&7 Du hast die Arena verlassen"
+playerlefttoothers: "&c {RANK}&6{PLAYER} &7hat das Spiel verlassen (&6{PS}&7/&6{MPS}&7)"
+playervotedforstart: "&f Du hast dafür gestimmt, den Spielstart zu erzwingen"
+playeralreadyvotedforstart: "&c Sie haben bereits abgestimmt"
+playercannotvote: "&c Du kannst nicht abstimmen, um die Arena zum Starten zu erzwingen"
+arenastarted: "&7 Arena gestartet. Das Zeitlimit beträgt {TIMELIMIT} Sekunden"
+arenanolimit: "&7 Arena gestartet. Keine Zeitbegrenzung"
+arenacountdown: "&7 Arena beginnt in {COUNTDOWN} Sekunden"
+arenatimeout: "&7 Zeit ist abgelaufen. Spiel wird beendet"
+playerwontoplayer: "&7 Du hast das Spiel gewonnen!"
+playerfinishedtestmode: "&7 Testspiel abgeschlossen!"
+playerlosttoplayer: "&7 Du hast das Spiel verloren"
+playerlosttoothers: "&c {RANG}&6{SPIELER} &7hat das Spiel verloren"
+playerfirstplace: "&a1. Platz: &f{RANK}"
+playersecondplace: "&a2. Platz: &f{RANK}"
+playerthirdplace: "&a3. Platz: &f{RANK}"
+playerrewardmessage: "&7 Sie wurden belohnt: &6{REWARD}"
+playerrewardmaterial: "&6 Material : &f"
+playerrewardcommand: "&6 Befehl : &f"
+playerrewardmoney: "&6 Geld : &f"
+playerrewardxp: "&6 XP : &l &f"
+playerboughtitem: "&7 Sie haben Artikel &6{ITEM} &7für &6{MONEY} gekauft"
+playerboughtwait: "&7 Du erhältst deine Gegenstände, wenn das Spiel beginnt"
+playerkit: "&7 Sie haben das Kit &6{KIT} erhalten"
+playersrequiredtostart: "&c Es müssen mindestens 2 Spieler in der Arena sein, um einen
+  Force-Start auszuführen"
+notenoughmoney: "&c Du benötigst {MONEY}, um diesen Artikel zu kaufen"
+alreadyboughtitem: "&c Du hast bereits einen Shop-Artikel gekauft"
+shopnostock: "&c Dieser Artikel ist derzeit nicht auf Lager"
+maxdoublejumpsexceeded: "&c Sie können die maximal zulässigen Doppelsprünge nicht
+  überschreiten ({MAXJUMPS})"
+playernotinarena: "&c Sie befinden sich nicht in einer TNTRun-Arena"
+playernotonline: "&6 {PLAYER} &7ist derzeit nicht online"
+gamesplayed: "&bGespielte Spiele &f:"
+gameswon: "&bSiege &f:"
+gameslost: "&bVerluste &f:"
+statshead: "&7=========[&6TNTRun Statistiken&7]========="
+rewardshead: "&7======[&6TNTRun Belohnungen&7 - &a{ARENA}&7]======"
+leaderhead: "&7======[&6TNTRun Siegertafel&7]======"
+resultshead: "&7============[&6TNTRun&7]============"
+leaderboard: "{POSITION}) &c{RANK}&b{PLAYER} &f: Gewinnt &3{WINS}"
+leadersign: "&1{PLAYER} &4{WINS}"
+shopmoneyheader: "&fTNTRun Shop-Konto"
+shopmoneybalance: "&5Ihr Guthaben beträgt &6{BAL}"
+statsdisabled: "&c Statistiken sind derzeit deaktiviert"
+helplobby: In die Lobby teleportieren
+helplist: Alle Arenen auflisten ODER Arenadetails auflisten
+helplistkit: Alle Kits auflisten ODER Kit-Details auflisten
+helplistrewards: Liste die Belohnungen für die Arena auf
+helpjoin: Öffne das Beitrittsmenü ODER Tritt der Arena bei
+helpspectate: Betreten Sie die Arena als Zuschauer
+helpautojoin: Tritt automatisch der ersten verfügbaren Arena bei
+helpleave: Verlasse die aktuelle Arena
+helpvote: Stimmen Sie ab, um den aktuellen Arenastart zu erzwingen
+helpcmds: Alle TNTRun-Befehle anzeigen
+helpinfo: Plugin-Info anzeigen
+helpstats: Spielerstatistiken ansehen
+helplb: Zeigen Sie die TNTRun-Bestenliste an
+helpstart: Erzwingen Sie den Start der Arena
+setuplobby: Stellen Sie die globale Lobby an Ihrem aktuellen Standort ein
+setupdellobby: Löschen Sie die globale Lobby
+setupcreate: Erstelle eine neue Arena
+setupconfigure: Menü öffnen, um Arena zu konfigurieren
+setupbounds: Setze Grenzen für die Arena
+setuploselevel: Legen Sie den Loselevel-Punkt zu Ihren Füßen fest
+setupspawn: Lege den Arena-Spawn zu deinen Füßen
+setupspectate: Zuschauer-Spawnpunkt festlegen
+setupaddspawn: Setze dir einen zusätzlichen Spawn bei deinen Füßen
+setupdelspawns: Löschen Sie alle Spawnpunkte, die mit dem Befehl addspawn erstellt
+  wurden
+setupfinish: Arena beenden und speichern
+setupdelspectate: Zuschauer-Spawn für Arena löschen
+setupdelay: Verzögerung für das Entfernen des Blocks einstellen, wenn der Spieler
+  darauf tritt
+setupregendelay: 'Verzögerung festlegen, bevor Spieler wieder der Arena beitreten
+  können (Standard: 60)'
+setupmax: 'Maximale Spieleranzahl für die Arena festlegen (Standard: 15)'
+setupmin: 'Mindestspielerzahl für Arena festlegen (Standard: 2)'
+setupvote: 'Stimmenprozentsatz festlegen, um Arena zu erzwingen (Standard: 0,75)'
+setuptimelimit: 'Legen Sie ein Zeitlimit für die Arena fest (Standard: 300 Sekunden)'
+setupcountdown: 'Stellen Sie einen Countdown für die Arena ein (Standard: 15 Sekunden)'
+setupmoney: Legen Sie eine Geldprämie für den Gewinner fest
+setupteleport: Teleport einstellen, wenn du in der Arena verlierst oder gewinnst
+setupdamage: PVP für die Arena aktivieren/deaktivieren
+setupbarcolor: Legen Sie die BossBar-Farbe fest
+setupreloadbars: Bar-Nachrichten neu laden
+setupreloadtitles: Titelnachrichten neu laden
+setupreloadmsg: Arena-Nachrichten neu laden
+setupreloadconfig: Konfigurationsdatei neu laden
+setupenable: Arena aktivieren
+setupdisable: Arena deaktivieren
+setupdelete: Arena löschen
+setupreward: Lege die Belohnungen für die Arena fest
+setupfee: Legen Sie die Kosten fest, um der Arena beizutreten
+setupcurrency: Legen Sie die Währung fest, um der Arena beizutreten
+setuphelp: Erforderliche Befehle zum Einrichten einer neuen Arena
+setupenablekits: Kits für die Arena aktivieren
+setupdisablekits: Kits für die Arena deaktivieren
+setupaddkit: Erstellen eines TNTRun-Kits
+setupdelkit: Löschen eines TNTRun-Kits
+setupp1: Zielblock als ersten Auswahlpunkt festlegen
+setupp2: Zielblock als zweiten Auswahlpunkt festlegen
+setupclear: Auswahlpunkte löschen
+setupwhitelist: Einen Befehl zur Verwendung im Spiel auf die Whitelist setzen
+kitexists: "&c Das angegebene Kit existiert bereits : &6{KIT}"
+kitnotexists: "&c Das angegebene Kit existiert nicht : &6{KIT}"
+partycreate: "&7 Party erstellt"
+partyjoin: "&6 {PLAYER} &7ist der Party beigetreten"
+partydecline: "&6 {PLAYER} &7hat die Partyeinladung abgelehnt"
+partyleave: "&6 {PLAYER} &7hat die Party verlassen"
+partyleaderleave: "&7 Gruppenleiter &6{PLAYER} &7ist gegangen - die Gruppe wurde gelöscht"
+partynotmember: "&c Sie sind kein Mitglied einer Party"
+partynotleader: "&c Du bist kein Partyleiter"
+partykick: "&6 {PLAYER} &7wurde aus der Party geworfen"
+partyunkick: "&6 {PLAYER} &7 darf deiner Party beitreten"
+partyinviteself: "&c Sie können sich nicht selbst einladen"
+partyinvite: "&6 {PLAYER} &7hat Sie zu einer Party eingeladen"
+partyban: "&c Du wirst derzeit aus dieser Party geworfen"
+partyinparty: "&c Du bist bereits in einer Party"
+partynotexist: "&c Die ausgewählte Partei existiert nicht"
