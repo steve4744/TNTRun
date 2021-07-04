@@ -19,6 +19,7 @@ package tntrun.arena.structure;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +67,7 @@ public class Rewards {
 	}
 
 	public List<String> getCommandRewards(int place) {
-		return commandrewards.get(place);
+		return commandrewards.getOrDefault(place, Collections.emptyList());
 	}
 
 	public int getXPReward(int place) {
@@ -133,6 +134,9 @@ public class Rewards {
 		StringJoiner rewardmessage = new StringJoiner(", ");
 		final ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 
+		if (Utils.debug()) {
+			Bukkit.getLogger().info("[TNTRun] Checking rewards for " + player.getName());
+		}
 		if (getMaterialReward(place) != null) {
 			getMaterialReward(place).forEach(reward -> {
 				if (player.getInventory().firstEmpty() != -1) {
