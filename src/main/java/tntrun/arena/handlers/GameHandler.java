@@ -280,6 +280,7 @@ public class GameHandler {
 		lostPlayers = 0;
 		forceStartByCmd = false;
 		places.clear();
+		arena.getPlayerHandler().getRewardedPlayers().clear();
 		Bukkit.getScheduler().cancelTask(arenahandler);
 		Bukkit.getScheduler().cancelTask(arena.getScoreboardHandler().getPlayingTask());
 		plugin.signEditor.modifySigns(arena.getArenaName());

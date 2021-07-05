@@ -58,6 +58,7 @@ public class PlayerHandler {
 	private HashSet<String> votes = new HashSet<>();
 	private Map<String, Location> spawnmap = new HashMap<>();
 	private String linkedKitName;
+	private List<String> rewardedPlayers = new ArrayList<>();
 
 	public PlayerHandler(TNTRun plugin, Arena arena) {
 		this.plugin = plugin;
@@ -530,10 +531,11 @@ public class PlayerHandler {
 		if (winner) {
 			arena.getStructureManager().getRewards().rewardPlayer(player, 1);
 
-		} else if (arena.getGameHandler().getPlaces().containsValue(player.getName())) {
+		} else if (arena.getGameHandler().getPlaces().containsValue(player.getName()) && !getRewardedPlayers().contains(player.getName())) {
 			arena.getGameHandler().getPlaces().entrySet().forEach(e -> {
 				if (e.getValue().equalsIgnoreCase(player.getName())) {
 					arena.getStructureManager().getRewards().rewardPlayer(player, e.getKey());
+					getRewardedPlayers().add(player.getName());
 				}
 			});
 		}
@@ -934,4 +936,11 @@ public class PlayerHandler {
 		});
 	}
 
+	/**
+	 * Maintain a list of players that have received their reward.
+	 * @return
+	 */
+	public List<String> getRewardedPlayers() {
+		return rewardedPlayers;
+	}
 }
