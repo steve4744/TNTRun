@@ -531,11 +531,11 @@ public class PlayerHandler {
 		if (winner) {
 			arena.getStructureManager().getRewards().rewardPlayer(player, 1);
 
-		} else if (arena.getGameHandler().getPlaces().containsValue(player.getName()) && !getRewardedPlayers().contains(player.getName())) {
+		} else if (arena.getGameHandler().getPlaces().containsValue(player.getName()) && !rewardedPlayers.contains(player.getName())) {
 			arena.getGameHandler().getPlaces().entrySet().forEach(e -> {
 				if (e.getValue().equalsIgnoreCase(player.getName())) {
 					arena.getStructureManager().getRewards().rewardPlayer(player, e.getKey());
-					getRewardedPlayers().add(player.getName());
+					rewardedPlayers.add(player.getName());
 				}
 			});
 		}
@@ -937,10 +937,9 @@ public class PlayerHandler {
 	}
 
 	/**
-	 * Maintain a list of players that have received their reward.
-	 * @return
+	 * Clear the list of players that have received their reward.
 	 */
-	public List<String> getRewardedPlayers() {
-		return rewardedPlayers;
+	public void clearRewardedPlayers() {
+		rewardedPlayers.clear();
 	}
 }
