@@ -58,6 +58,7 @@ public class PlayerHandler {
 	private HashSet<String> votes = new HashSet<>();
 	private Map<String, Location> spawnmap = new HashMap<>();
 	private String linkedKitName;
+	private List<String> rewardedPlayers = new ArrayList<>();
 
 	public PlayerHandler(TNTRun plugin, Arena arena) {
 		this.plugin = plugin;
@@ -530,10 +531,11 @@ public class PlayerHandler {
 		if (winner) {
 			arena.getStructureManager().getRewards().rewardPlayer(player, 1);
 
-		} else if (arena.getGameHandler().getPlaces().containsValue(player.getName())) {
+		} else if (arena.getGameHandler().getPlaces().containsValue(player.getName()) && !rewardedPlayers.contains(player.getName())) {
 			arena.getGameHandler().getPlaces().entrySet().forEach(e -> {
 				if (e.getValue().equalsIgnoreCase(player.getName())) {
 					arena.getStructureManager().getRewards().rewardPlayer(player, e.getKey());
+					rewardedPlayers.add(player.getName());
 				}
 			});
 		}
@@ -623,6 +625,9 @@ public class PlayerHandler {
 	}
 
 	private void addShop(Player player) {
+		if (!arena.getStructureManager().isShopEnabled()) {
+			return;
+		}
 		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.shop.material"))); 
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.shop.name")));
@@ -756,10 +761,10 @@ public class PlayerHandler {
 	private void cacheDoubleJumps(Player player) {
 		int amount = 0;
 		if (plugin.getConfig().getBoolean("freedoublejumps.enabled")) {
-			amount = plugin.shop.getAllowedDoubleJumps(player, plugin.getConfig().getInt("freedoublejumps.amount", 0));
+			amount = Utils.getAllowedDoubleJumps(player, plugin.getConfig().getInt("freedoublejumps.amount", 0));
 
 		} else {
-			if (plugin.shop.hasDoubleJumps(player)) {
+			if (plugin.getPData().hasStoredDoubleJumps(player)) {
 				amount = plugin.getPData().getDoubleJumpsFromFile(player);
 			}
 		}
@@ -833,10 +838,12 @@ public class PlayerHandler {
 	 * @param player
 	 */
 	public void removePurchase(Player player ) {
-		if (plugin.shop.getPlayersItems().containsKey(player.getName())) {
-			plugin.shop.getPlayersItems().remove(player.getName());
-			plugin.shop.getBuyers().remove(player.getName());
+		if (!plugin.isGlobalShop()) {
+			return;
 		}
+		plugin.shop.getPlayersItems().remove(player.getName());
+		plugin.shop.getBuyers().remove(player.getName());
+		plugin.shop.getPurchasedCommands().remove(player.getName());
 		if (plugin.shop.getPotionEffects(player) != null) {
 			plugin.shop.removePotionEffects(player);
 		}
@@ -929,4 +936,10 @@ public class PlayerHandler {
 		});
 	}
 
+	/**
+	 * Clear the list of players that have received their reward.
+	 */
+	public void clearRewardedPlayers() {
+		rewardedPlayers.clear();
+	}
 }

@@ -34,6 +34,7 @@ public class ReloadConfig  implements CommandHandlerInterface {
 		plugin.reloadConfig();
 		plugin.signEditor.loadConfiguration();
 		plugin.updateScoreboardList();
+		plugin.setupShop();
 		player.sendMessage("Config reloaded");
 		return true;
 	}

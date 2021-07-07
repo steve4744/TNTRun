@@ -70,6 +70,7 @@ public class GameHandler {
 							if (arena.getStatusManager().isArenaStarting()) {
 								arena.getPlayerHandler().leavePlayer(player, Messages.playerlefttoplayer, Messages.playerlefttoothers);
 							} else {
+								setPlaces(player.getName());
 								arena.getPlayerHandler().dispatchPlayer(player);
 							}
 						}
@@ -279,6 +280,7 @@ public class GameHandler {
 		lostPlayers = 0;
 		forceStartByCmd = false;
 		places.clear();
+		arena.getPlayerHandler().clearRewardedPlayers();
 		Bukkit.getScheduler().cancelTask(arenahandler);
 		Bukkit.getScheduler().cancelTask(arena.getScoreboardHandler().getPlayingTask());
 		plugin.signEditor.modifySigns(arena.getArenaName());
@@ -447,7 +449,8 @@ public class GameHandler {
 				try {
 					//check if winner has not left the arena
 					if (arena.getPlayersManager().getPlayersCount() == 1) {
-						arena.getPlayerHandler().leaveWinner(player, Messages.playerwontoplayer);
+						String msg = arena.getStructureManager().isTestMode() ? Messages.playerfinishedtestmode : Messages.playerwontoplayer;
+						arena.getPlayerHandler().leaveWinner(player, msg);
 					}
 					if (Utils.debug()) {
 						plugin.getLogger().info("GH StartEnding calling stopArena...");
@@ -521,6 +524,13 @@ public class GameHandler {
 			arena.getPlayerHandler().allocateKits(player);
 		}
 
+		givePlayerPurchasedItems(player);
+	}
+
+	private void givePlayerPurchasedItems(Player player) {
+		if (!plugin.isGlobalShop() || !arena.getStructureManager().isShopEnabled()) {
+			return;
+		}
 		if (plugin.shop.getPlayersItems().containsKey(player.getName())) {
 			ArrayList<ItemStack> items = plugin.shop.getPlayersItems().get(player.getName());
 			if (items != null) {
@@ -539,6 +549,12 @@ public class GameHandler {
 				player.addPotionEffect(pe);
 			}
 		}
+		String cmd = plugin.shop.getPurchasedCommands().get(player.getName());
+		if (cmd != null) {
+			final ConsoleCommandSender console = Bukkit.getConsoleSender();
+			Bukkit.dispatchCommand(console, cmd.replace("{PLAYER}", player.getName()).replace("%PLAYER%", player.getName()));
+		}
+
 		arena.getPlayerHandler().removePurchase(player);
 	}
 

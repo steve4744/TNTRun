@@ -176,4 +176,8 @@ public class PlayerDataStore {
 		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 		return config.getInt(name + ".doublejumps", 0);
 	}
+
+	public boolean hasStoredDoubleJumps(Player player) {
+		return getDoubleJumpsFromFile(player) > 0;
+	}
 }

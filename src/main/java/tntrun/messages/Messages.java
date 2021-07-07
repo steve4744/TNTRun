@@ -80,6 +80,7 @@ public class Messages {
 	public static String arenacountdown = "&7 Arena starts in {COUNTDOWN} seconds";
 	public static String arenatimeout = "&7 Time is up. Ending game";
 	public static String playerwontoplayer = "&7 You won the game!";
+	public static String playerfinishedtestmode = "&7 Test game completed!";
 	public static String playerlosttoplayer = "&7 You lost the game";
 	public static String playerlosttoothers = "&c {RANK}&6{PLAYER} &7lost the game";
 	public static String playerfirstplace = "&a1st place: &f{RANK}";
@@ -97,6 +98,7 @@ public class Messages {
 	public static String shopnostock = "&c This item is currently out of stock";
 	public static String maxdoublejumpsexceeded = "&c You cannot exceed the maximum doublejumps allowed ({MAXJUMPS})";
 	public static String playernotinarena = "&c You are not in a TNTRun arena";
+	public static String playernotonline = "&6 {PLAYER} &7is not currently online";
 	public static String playerkit = "&7 You have been given kit &6{KIT}";
 	public static String kitadd = "&7 The kit &6{KIT} &7has been created";
 	public static String kitdel = "&7 The kit &6{KIT} &7has been deleted";
@@ -174,6 +176,20 @@ public class Messages {
 	public static String setupclear = "Clear selection points";
 	public static String setupwhitelist = "Whitelist a command for use in-game";
 	
+	public static String partycreate = "&7 Party created";
+	public static String partyjoin = "&6 {PLAYER} &7has joined the party";
+	public static String partydecline = "&6 {PLAYER} &7has declined the party invitation";
+	public static String partyleave = "&6 {PLAYER} &7has left the party";
+	public static String partyleaderleave = "&7 Party leader &6{PLAYER} &7has left - the party has been deleted";
+	public static String partynotmember = "&c You are not a member of any party";
+	public static String partynotleader = "&c You are not a party leader";
+	public static String partykick = "&6 {PLAYER} &7has been kicked from the party";
+	public static String partyunkick = "&6 {PLAYER} &7is allowed to join your party";
+	public static String partyinviteself = "&c You cannot invite yourself";
+	public static String partyinvite = "&6 {PLAYER} &7has invited you to join a party";
+	public static String partyban = "&c You are currently kicked from this party";
+	public static String partyinparty = "&c You are already in a party";
+	public static String partynotexist = "&c The selected party does not exist";
 	
 	public static void sendMessage(CommandSender sender, String message) {
 		sendMessage(sender, message, true);
@@ -249,6 +265,7 @@ public class Messages {
 		arenacountdown = config.getString("arenacountdown", arenacountdown);
 		arenatimeout = config.getString("arenatimeout", arenatimeout);
 		playerwontoplayer = config.getString("playerwontoplayer", playerwontoplayer);
+		playerfinishedtestmode = config.getString("playerfinishedtestmode", playerfinishedtestmode);
 		playerlosttoplayer = config.getString("playerlosttoplayer", playerlosttoplayer);
 		playerlosttoothers = config.getString("playerlosttoothers", playerlosttoothers);
 		playerfirstplace = config.getString("playerfirstplace", playerfirstplace);
@@ -267,6 +284,7 @@ public class Messages {
 		shopnostock = config.getString("shopnostock", shopnostock);
 		maxdoublejumpsexceeded = config.getString("maxdoublejumpsexceeded", maxdoublejumpsexceeded);
 		playernotinarena = config.getString("playernotinarena", playernotinarena);
+		playernotonline = config.getString("playernotonline", playernotonline);
 		gamesplayed = config.getString("gamesplayed", gamesplayed);
 		gameswon = config.getString("gameswon", gameswon);
 		gameslost = config.getString("gameslost", gameslost);
@@ -337,6 +355,20 @@ public class Messages {
 		setupwhitelist = config.getString("setupwhitelist", setupwhitelist);
 		kitexists = config.getString("kitexists", kitexists);
 		kitnotexists = config.getString("kitnotexists", kitnotexists);
+		partycreate = config.getString("partycreate", partycreate);
+		partyjoin = config.getString("partyjoin", partyjoin);
+		partydecline = config.getString("partydecline", partydecline);
+		partyleave = config.getString("partyleave", partyleave);
+		partyleaderleave = config.getString("partyleaderleave", partyleaderleave);
+		partynotmember = config.getString("partynotmember", partynotmember);
+		partynotleader = config.getString("partynotleader", partynotleader);
+		partykick = config.getString("partykick", partykick);
+		partyunkick = config.getString("partyunkick", partyunkick);
+		partyinviteself = config.getString("partyinviteself", partyinviteself);
+		partyinvite = config.getString("partyinvite", partyinvite);
+		partyban = config.getString("partyban", partyban);
+		partyinparty = config.getString("partyinparty", partyinparty);
+		partynotexist = config.getString("partynotexist", partynotexist);
 		saveMessages(messageconfig);
 	}
 
@@ -391,6 +423,7 @@ public class Messages {
 		config.set("arenacountdown", arenacountdown);
 		config.set("arenatimeout", arenatimeout);
 		config.set("playerwontoplayer", playerwontoplayer);
+		config.set("playerfinishedtestmode", playerfinishedtestmode);
 		config.set("playerlosttoplayer", playerlosttoplayer);
 		config.set("playerlosttoothers", playerlosttoothers);
 		config.set("playerfirstplace", playerfirstplace);
@@ -410,6 +443,7 @@ public class Messages {
 		config.set("shopnostock", shopnostock);
 		config.set("maxdoublejumpsexceeded", maxdoublejumpsexceeded);
 		config.set("playernotinarena", playernotinarena);
+		config.set("playernotonline", playernotonline);
 		config.set("gamesplayed", gamesplayed);
 		config.set("gameswon", gameswon);
 		config.set("gameslost", gameslost);
@@ -480,6 +514,20 @@ public class Messages {
 		config.set("setupwhitelist", setupwhitelist);
 		config.set("kitexists", kitexists);
 		config.set("kitnotexists", kitnotexists);
+		config.set("partycreate", partycreate);
+		config.set("partyjoin", partyjoin);
+		config.set("partydecline", partydecline);
+		config.set("partyleave", partyleave);
+		config.set("partyleaderleave", partyleaderleave);
+		config.set("partynotmember", partynotmember);
+		config.set("partynotleader", partynotleader);
+		config.set("partykick", partykick);
+		config.set("partyunkick", partyunkick);
+		config.set("partyinviteself", partyinviteself);
+		config.set("partyinvite", partyinvite);
+		config.set("partyban", partyban);
+		config.set("partyinparty", partyinparty);
+		config.set("partynotexist", partynotexist);
 		try {
 			config.save(messageconfig);
 		} catch (IOException e) {

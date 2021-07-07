@@ -30,48 +30,47 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
+import tntrun.eventhandler.ShopHandler;
 import tntrun.messages.Messages;
 
-public class Shop implements Listener {
+public class Shop {
 
 	private TNTRun plugin;
 	private String invname;
 	private int invsize;
 	private int knockback;
+	private ShopFiles shopFiles;
+	private List<String> buyers = new ArrayList<>();
+	private Map<Integer, Integer> itemSlot = new HashMap<>();
+	private Map<String, ArrayList<ItemStack>> pitems = new HashMap<>(); // player-name -> items
+	private Map<String, List<PotionEffect>> potionMap = new HashMap<>();  // player-name -> effects
+	private Map<String, String> commandMap = new HashMap<>();  // player-name -> command
+	private boolean doublejumpPurchase;
+	private FileConfiguration cfg;
 
 	public Shop(TNTRun plugin) {
 		this.plugin = plugin;
-		ShopFiles shopFiles = new ShopFiles(plugin);
+		plugin.getServer().getPluginManager().registerEvents(new ShopHandler(plugin), plugin);
+		shopFiles = new ShopFiles(plugin);
 		shopFiles.setShopItems();
-
+		cfg = shopFiles.getShopConfiguration();
 		invsize = getValidSize();
 		invname = FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("shop.name"));
-	}  
+	}
 
-	private Map<Integer, Integer> itemSlot = new HashMap<>();
-	private Map<String, ArrayList<ItemStack>> pitems = new HashMap<>(); // player-name -> items
-	private List<String> buyers = new ArrayList<>();
-	private Map<String, List<PotionEffect>> potionMap = new HashMap<>();  // player-name -> effects
-	private boolean doublejumpPurchase;
-
-	private void giveItem(int slot, Player player, String title) {
+	public void giveItem(int slot, Player player, String title) {
 		int kit = itemSlot.get(slot);		
 		ArrayList<ItemStack> item = new ArrayList<>();
-		FileConfiguration cfg = ShopFiles.getShopConfiguration();
 		List<PotionEffect> pelist = new ArrayList<>();
 
 		if (doublejumpPurchase) {
@@ -81,6 +80,14 @@ public class Shop implements Listener {
 		}
 
 		buyers.add(player.getName());
+
+		if (isCommandPurchase(kit)) {
+			List<String> lore = cfg.getStringList(kit + ".lore");
+			String cmd = FormattingCodesParser.parseFormattingCodes(lore.get(0));
+			commandMap.put(player.getName(), cmd);
+			player.closeInventory();
+			return;
+		}
 		for (String items : cfg.getConfigurationSection(kit + ".items").getKeys(false)) {
 			try {				
 				Material material = Material.getMaterial(cfg.getString(kit + ".items." + items + ".material"));
@@ -218,75 +225,9 @@ public class Shop implements Listener {
 		return peffect;
 	}
 
-	@EventHandler
-	public void onClick(InventoryClickEvent e) {
-		if (!e.getView().getTitle().equals(invname)) {
-			return;
-		}
-		e.setCancelled(true);
-		if (e.getRawSlot() == getInvsize() -1) {
-			return;
-		}
-		Player p = (Player)e.getWhoClicked();
-		if (e.getSlot() == e.getRawSlot() && e.getCurrentItem() != null) {
-			ItemStack current = e.getCurrentItem();
-			if (current.hasItemMeta() && current.getItemMeta().hasDisplayName()) {
-				FileConfiguration cfg = ShopFiles.getShopConfiguration();
-
-				int kit = itemSlot.get(e.getSlot());
-				if (cfg.getInt(kit + ".items.1.amount") <= 0) {
-					Messages.sendMessage(p, Messages.shopnostock);
-					return;
-				}
-
-				String permission = cfg.getString(kit + ".permission");
-				if (!p.hasPermission(permission) && !p.hasPermission("tntrun.shop")) {
-					p.closeInventory();
-					Messages.sendMessage(p, Messages.nopermission);
-					plugin.getSound().ITEM_SELECT(p);
-					return;
-				}
-
-				doublejumpPurchase = Material.getMaterial(cfg.getString(kit + ".material").toUpperCase()) == Material.FEATHER;
-				if (!doublejumpPurchase && buyers.contains(p.getName())) {
-					Messages.sendMessage(p, Messages.alreadyboughtitem);
-					plugin.getSound().ITEM_SELECT(p);
-					p.closeInventory();
-					return;
-				}
-
-				Arena arena = plugin.amanager.getPlayerArena(p.getName());
-				if (doublejumpPurchase && !canBuyDoubleJumps(cfg, p, kit)) {
-					Messages.sendMessage(p, Messages.maxdoublejumpsexceeded.replace("{MAXJUMPS}",
-							getAllowedDoubleJumps(p, plugin.getConfig().getInt("shop.doublejump.maxdoublejumps", 10)) + ""));
-					plugin.getSound().ITEM_SELECT(p);
-					p.closeInventory();
-					return;
-				}
-
-				String title = current.getItemMeta().getDisplayName();
-				int cost = cfg.getInt(kit + ".cost");
-
-				if (arena.getArenaEconomy().hasMoney(cost, p)) {
-					Messages.sendMessage(p, Messages.playerboughtitem.replace("{ITEM}", title).replace("{MONEY}", Utils.getFormattedCurrency(String.valueOf(cost))));
-					logPurchase(p, title, cost);
-					if (!doublejumpPurchase) {
-						Messages.sendMessage(p, Messages.playerboughtwait);
-					}
-					plugin.getSound().NOTE_PLING(p, 5, 10);
-				} else {
-					Messages.sendMessage(p, Messages.notenoughmoney.replace("{MONEY}", Utils.getFormattedCurrency(String.valueOf(cost))));
-					plugin.getSound().ITEM_SELECT(p);
-					return;
-				}
-				giveItem(e.getSlot(), p, title);  
-			}
-		}
-	}
-
 	private boolean canBuyDoubleJumps(FileConfiguration cfg, Player p, int kit) {
 		Arena arena = plugin.amanager.getPlayerArena(p.getName());
-		int maxjumps = getAllowedDoubleJumps(p, plugin.getConfig().getInt("shop.doublejump.maxdoublejumps", 10));
+		int maxjumps = Utils.getAllowedDoubleJumps(p, plugin.getConfig().getInt("shop.doublejump.maxdoublejumps", 10));
 		int quantity = cfg.getInt(kit + ".items." + kit + ".amount", 1);
 
 		if (plugin.getConfig().getBoolean("freedoublejumps.enabled")) {
@@ -296,7 +237,6 @@ public class Shop implements Listener {
 	}
 
 	public void setItems(Inventory inventory, Player player) {
-		FileConfiguration cfg = ShopFiles.getShopConfiguration();
 		int slot = 0;
 		for (String kitCounter : cfg.getConfigurationSection("").getKeys(false)) {
 			String title = FormattingCodesParser.parseFormattingCodes(cfg.getString(kitCounter + ".name"));
@@ -388,8 +328,8 @@ public class Shop implements Listener {
 		return buyers;
 	}
 
-	public boolean hasDoubleJumps(Player player) {
-		return plugin.getPData().getDoubleJumpsFromFile(player) > 0;
+	public Map<String, String> getPurchasedCommands() {
+		return commandMap;
 	}
 
 	public double getKnockback() {
@@ -405,32 +345,53 @@ public class Shop implements Listener {
 	}
 
 	private int getShopFileEntries() {
-		return ShopFiles.getShopConfiguration().getConfigurationSection("").getKeys(false).size();
+		return cfg.getConfigurationSection("").getKeys(false).size();
 	}
 
-	/**
-	 * The maximum number of double jumps the player is allowed. If permissions are used,
-	 * return the lower number of the maximum and number allowed by the permission node.
-	 * This applies to free and purchased double jumps.
-	 *
-	 * @param player
-	 * @param max allowed double jumps
-	 * @return integer representing the number of double jumps to give player
-	 */
-	public int getAllowedDoubleJumps(Player player, int max) {
-		if (!plugin.getConfig().getBoolean("special.UseDoubleJumpPermissions") || max <= 0) {
-			return max;
+	public ShopFiles getShopFiles() {
+		return shopFiles;
+	}
+
+	public Map<Integer, Integer> getItemSlot() {
+		return itemSlot;
+	}
+
+	public boolean validatePurchase(Player p, int kit, String title) {
+		doublejumpPurchase = Material.getMaterial(cfg.getString(kit + ".material").toUpperCase()) == Material.FEATHER;
+		if (!doublejumpPurchase && buyers.contains(p.getName())) {
+			Messages.sendMessage(p, Messages.alreadyboughtitem);
+			plugin.getSound().ITEM_SELECT(p);
+			p.closeInventory();
+			return false;
 		}
-		String permissionPrefix = "tntrun.doublejumps.";
-		for (PermissionAttachmentInfo attachmentInfo : player.getEffectivePermissions()) {
-			if (attachmentInfo.getPermission().startsWith(permissionPrefix) && attachmentInfo.getValue()) {
-				String permission = attachmentInfo.getPermission();
-				if (!Utils.isNumber(permission.substring(permission.lastIndexOf(".") + 1))) {
-					return 0;
-				}
-				return Math.min(Integer.parseInt(permission.substring(permission.lastIndexOf(".") + 1)), max);
-			}
+
+		Arena arena = plugin.amanager.getPlayerArena(p.getName());
+		if (doublejumpPurchase && !canBuyDoubleJumps(cfg, p, kit)) {
+			Messages.sendMessage(p, Messages.maxdoublejumpsexceeded.replace("{MAXJUMPS}",
+					Utils.getAllowedDoubleJumps(p, plugin.getConfig().getInt("shop.doublejump.maxdoublejumps", 10)) + ""));
+			plugin.getSound().ITEM_SELECT(p);
+			p.closeInventory();
+			return false;
 		}
-		return max;
+
+		int cost = cfg.getInt(kit + ".cost");
+
+		if (!arena.getArenaEconomy().hasMoney(cost, p)) {
+			Messages.sendMessage(p, Messages.notenoughmoney.replace("{MONEY}", Utils.getFormattedCurrency(String.valueOf(cost))));
+			plugin.getSound().ITEM_SELECT(p);
+			return false;
+		}
+
+		Messages.sendMessage(p, Messages.playerboughtitem.replace("{ITEM}", title).replace("{MONEY}", Utils.getFormattedCurrency(String.valueOf(cost))));
+		logPurchase(p, title, cost);
+		if (!doublejumpPurchase) {
+			Messages.sendMessage(p, Messages.playerboughtwait);
+		}
+		plugin.getSound().NOTE_PLING(p, 5, 10);
+		return true;
+	}
+
+	private boolean isCommandPurchase(int kit) {
+		return cfg.getString(kit + ".items.1.material").equalsIgnoreCase("command");
 	}
 }

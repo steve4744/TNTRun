@@ -170,7 +170,7 @@ public class ConsoleCommands implements CommandExecutor {
 			}
 			Player player = Bukkit.getPlayer(args[2]);
 			if (player == null || !player.isOnline()) {
-				Messages.sendMessage(sender, "&c Player is not online");
+				Messages.sendMessage(sender, Messages.playernotonline.replace("{PLAYER}", args[2]));
 				return false;
 			}
 			if (args[0].equalsIgnoreCase("join")) {
@@ -200,7 +200,8 @@ public class ConsoleCommands implements CommandExecutor {
 			}
 			Player player = args.length == 2 ? Bukkit.getPlayer(args[1]) : Bukkit.getPlayer(args[2]);
 			if (player == null || !player.isOnline()) {
-				Messages.sendMessage(sender, "&c Player is not online");
+				String playerName = player != null ? player.getName() : "Player";
+				Messages.sendMessage(sender, Messages.playernotonline.replace("{PLAYER}", playerName));
 				return false;
 			}
 

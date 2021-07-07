@@ -82,6 +82,7 @@ public class TNTRun extends JavaPlugin {
 	private Language language;
 	private Parties parties;
 	private MySQL mysql;
+	private static final int BSTATS_PLUGIN_ID = 2192;
 
 	public ArenasManager amanager;
 	public SignEditor signEditor;
@@ -104,7 +105,6 @@ public class TNTRun extends JavaPlugin {
 		TitleMsg.loadTitles(this);
 		pdata = new PlayerDataStore(this);
 		amanager = new ArenasManager();
-		shop = new Shop(this);
 		menus = new Menus(this);
 		parties = new Parties(this);
 
@@ -127,7 +127,7 @@ public class TNTRun extends JavaPlugin {
 
 		if (getConfig().getBoolean("special.Metrics", true)) {
 			log.info("Attempting to start metrics (bStats)...");
-			new Metrics(this, 2192);
+			new Metrics(this, BSTATS_PLUGIN_ID);
 		}
 
 		setStorage();
@@ -285,7 +285,8 @@ public class TNTRun extends JavaPlugin {
 		pm.registerEvents(new PlayerLeaveArenaChecker(this), this);
 		pm.registerEvents(new SignHandler(this), this);
 		pm.registerEvents(new MenuHandler(this), this);
-		pm.registerEvents(this.shop, this);
+
+		setupShop();
 
 		Plugin HeadsPlus = pm.getPlugin("HeadsPlus");
 		if (HeadsPlus != null && HeadsPlus.isEnabled()) {
@@ -306,6 +307,17 @@ public class TNTRun extends JavaPlugin {
 		}
 
 		vaultHandler = new VaultHandler(this);
+	}
+
+	public void setupShop() {
+		if (!isGlobalShop() || shop != null) {
+			return;
+		}
+		shop = new Shop(this);
+	}
+
+	public boolean isGlobalShop() {
+		return getConfig().getBoolean("shop.enabled");
 	}
 
 	public VaultHandler getVaultHandler() {

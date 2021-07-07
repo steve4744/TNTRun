@@ -198,6 +198,6 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 	 */
 	private int getUncachedDoubleJumps(OfflinePlayer p) {
 		boolean free = plugin.getConfig().getBoolean("freedoublejumps.enabled");
-		return free ? plugin.shop.getAllowedDoubleJumps((Player) p, plugin.getConfig().getInt("freedoublejumps.amount", 0)) : plugin.getPData().getDoubleJumpsFromFile(p);
+		return free ? Utils.getAllowedDoubleJumps((Player) p, plugin.getConfig().getInt("freedoublejumps.amount", 0)) : plugin.getPData().getDoubleJumpsFromFile(p);
 	}
 }

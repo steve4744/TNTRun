@@ -127,6 +127,9 @@ public class RestrictionHandler implements Listener {
 
 		} else if (e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.shop.material"))) {
 			e.setCancelled(true);
+			if (!plugin.isGlobalShop()) {
+				return;
+			}
 			plugin.getSound().ITEM_SELECT(player);
 			Inventory inv = Bukkit.createInventory(null, plugin.shop.getInvsize(), plugin.shop.getInvname());
 			plugin.shop.setItems(inv, player);

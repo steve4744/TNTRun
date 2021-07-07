@@ -29,17 +29,17 @@ import tntrun.TNTRun;
 
 public class ShopFiles {
 
-	private static TNTRun pl;
+	private final TNTRun plugin;
 
 	public ShopFiles(TNTRun plugin) {
-		pl = plugin;
+		this.plugin = plugin;
 	}
 
-	public static File getShopFile() {
-		return new File(pl.getDataFolder(), "shop.yml");
+	public File getShopFile() {
+		return new File(plugin.getDataFolder(), "shop.yml");
 	}
 
-	public static FileConfiguration getShopConfiguration() {
+	public FileConfiguration getShopConfiguration() {
 		return YamlConfiguration.loadConfiguration(getShopFile());
 	}
 
@@ -295,12 +295,23 @@ public class ShopFiles {
 		iEnch.add("BLINDNESS#90");
 		cfg.addDefault("12.items.1.enchantments", iEnch);
 		/*
-		* tidy up old IDs
+		* thirteenth item
 		*/
-		cfg.set("1.ID", null);
-		cfg.set("1.subID", null);
-		cfg.set("1.items.1.ID", null);
-		cfg.set("1.items.1.subID", null);
+		cfg.addDefault("13.name", "&fCommand");
+		cfg.addDefault("13.cost", Integer.valueOf(50));
+		cfg.addDefault("13.material", "COMMAND_BLOCK");
+		cfg.addDefault("13.amount", Integer.valueOf(1));
+		cfg.addDefault("13.permission", "tntrun.shop.13");
+		lore = new ArrayList<String>();
+		lore.add("&6give %PLAYER% GOLD_NUGGET 1");
+		lore.add("Cost&6 50 &5coins");
+		cfg.addDefault("13.lore", lore);
+		cfg.addDefault("13.items.1.material", "COMMAND");
+		cfg.addDefault("13.items.1.amount", Integer.valueOf(1));
+		iEnch = new ArrayList<String>();
+		iEnch.add("null");
+		cfg.addDefault("13.items.1.enchantments", iEnch);
+
 		try{
 			cfg.save(getShopFile());
 		} catch (IOException e) {

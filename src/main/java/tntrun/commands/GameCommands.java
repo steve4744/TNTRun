@@ -409,8 +409,9 @@ public class GameCommands implements CommandExecutor {
 				return false;
 			}
 			if(!args[1].equalsIgnoreCase("accept")) {
-				Messages.sendMessage(Bukkit.getPlayer(args[2]), "&cParty invitation declined by " + args[3]);
-				Messages.sendMessage(Bukkit.getPlayer(args[3]), "&cYou have declined the party invitation from " + args[2]);
+				String msg = Messages.partydecline.replace("{PLAYER}", args[3]);
+				Messages.sendMessage(Bukkit.getPlayer(args[2]), msg);
+				Messages.sendMessage(Bukkit.getPlayer(args[3]), msg);
 				return false;
 			}
 			plugin.getParties().joinParty(args[2], args[3]);
