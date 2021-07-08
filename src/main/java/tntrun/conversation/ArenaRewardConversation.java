@@ -29,7 +29,6 @@ import org.bukkit.conversations.Prompt;
 import org.bukkit.conversations.StringPrompt;
 
 import tntrun.arena.Arena;
-import tntrun.conversation.TNTRunConversation;
 import tntrun.utils.Utils;
 
 public class ArenaRewardConversation extends FixedSetPrompt {
