@@ -230,7 +230,6 @@ public class RestrictionHandler implements Listener {
 			return;
 		}
 		if (!arena.getPlayerHandler().hasDoubleJumps(player)) {
-			player.setAllowFlight(false);
 			return;
 		}
 
@@ -246,7 +245,9 @@ public class RestrictionHandler implements Listener {
 			@Override
 			public void run() {
 				u.remove(player.getName());
-				player.setAllowFlight(true);
+				if (!arena.getPlayerHandler().hasDoubleJumps(player)) {
+					player.setAllowFlight(false);
+				}
 			}
 		}.runTaskLater(plugin, 20);
 	}

@@ -206,7 +206,9 @@ public class GameHandler {
 			if (plugin.useStats() && !arena.getStructureManager().isExcludeStats()) {
 				plugin.stats.addPlayedGames(player, 1);
 			}
-			player.setAllowFlight(true);
+			if (arena.getPlayerHandler().hasDoubleJumps(player)) {
+				player.setAllowFlight(true);
+			}
 
 			Messages.sendMessage(player, message, false);
 			plugin.getSound().ARENA_START(player);
