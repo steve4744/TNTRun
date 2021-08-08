@@ -150,6 +150,7 @@ signs:
     ingame: ''
     starting: ''
     waiting: ''
+  allowspectate: false
 bungeecord:
   enabled: false
   hub: lobby

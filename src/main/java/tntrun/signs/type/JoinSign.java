@@ -29,6 +29,7 @@ import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.messages.Messages;
 import tntrun.utils.FormattingCodesParser;
+import tntrun.utils.Utils;
 
 public class JoinSign implements SignType {
 
@@ -56,16 +57,23 @@ public class JoinSign implements SignType {
 	public void handleClick(PlayerInteractEvent e) {
 		Player player = e.getPlayer();
 		Arena arena = plugin.amanager.getArenaByName(ChatColor.stripColor(((Sign) e.getClickedBlock().getState()).getLine(2)));
-		if (arena != null) {
+		if (arena == null) {
+			Messages.sendMessage(player, Messages.arenanotexist);
+			e.getClickedBlock().breakNaturally();
+			return;
+		}
+		if (!arena.getStatusManager().isArenaRunning()) {
 			if (arena.getPlayerHandler().checkJoin(player)) {
 				arena.getPlayerHandler().spawnPlayer(player, Messages.playerjoinedtoothers);
 				//attempt to cache the sign location as a fix for lost signinfo
 				plugin.signEditor.addSign(e.getClickedBlock(), arena.getArenaName());
 			}
 			e.setCancelled(true);
-		} else {
-			Messages.sendMessage(player, Messages.arenanotexist);
-			e.getClickedBlock().breakNaturally();
+		} else if (plugin.getConfig().getBoolean("signs.allowspectate") && arena.getPlayerHandler().canSpectate(player)) {
+			arena.getPlayerHandler().spectatePlayer(player, Messages.playerjoinedasspectator, "");
+			if (Utils.debug()) {
+				plugin.getLogger().info("Player " + player.getName() + " joined arena " + arena.getArenaName() + " as a spectator");
+			}
 		}
 	}
 
