@@ -95,7 +95,7 @@ public class ConsoleCommands implements CommandExecutor {
 				}
 			}
 			Messages.sendMessage(sender, Messages.leaderhead, false);
-			plugin.stats.getLeaderboard(sender, entries);
+			plugin.getStats().getLeaderboard(sender, entries);
 			return true;
 
 		// list

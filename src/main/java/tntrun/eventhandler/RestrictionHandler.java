@@ -269,7 +269,7 @@ public class RestrictionHandler implements Listener {
 		if (!plugin.useStats() || plugin.isFile()) {
 			return;
 		}
-		if (plugin.stats.hasDatabaseEntry(player)) {
+		if (plugin.getStats().hasDatabaseEntry(player)) {
 			return;
 		}
 		final String table = plugin.getConfig().getString("MySQL.table", "stats");

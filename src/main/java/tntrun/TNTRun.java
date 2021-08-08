@@ -81,13 +81,13 @@ public class TNTRun extends JavaPlugin {
 	private Sounds sound;
 	private Language language;
 	private Parties parties;
+	private Stats stats;
 	private MySQL mysql;
 	private static final int BSTATS_PLUGIN_ID = 2192;
 
 	public ArenasManager amanager;
 	public SignEditor signEditor;
 	public String[] version = {"Nothing", "Nothing"};
-	public Stats stats;
 	public Shop shop;
 
 	private static TNTRun instance;
@@ -389,6 +389,10 @@ public class TNTRun extends JavaPlugin {
 
 	public PlayerDataStore getPData() {
 		return pdata;
+	}
+
+	public Stats getStats() {
+		return stats;
 	}
 
 	public Kits getKitManager() {

@@ -116,7 +116,7 @@ public class SignEditor {
 			Sign sign = (Sign) block.getState();
 			position = 0;
 			sign.setLine(position, FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")));
-			plugin.stats.getWinMap().entrySet().stream()
+			plugin.getStats().getWinMap().entrySet().stream()
 				.sorted(Entry.comparingByValue(Comparator.reverseOrder()))
 				.limit(3)
 				.forEach(e -> {

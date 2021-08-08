@@ -231,9 +231,9 @@ public class GameCommands implements CommandExecutor {
 				return false;
 			}
 			Messages.sendMessage(player, Messages.statshead, false);
-			Messages.sendMessage(player, Messages.gamesplayed + plugin.stats.getPlayedGames(player), false);
-			Messages.sendMessage(player, Messages.gameswon + plugin.stats.getWins(player), false);
-			Messages.sendMessage(player, Messages.gameslost + plugin.stats.getLosses(player), false);
+			Messages.sendMessage(player, Messages.gamesplayed + plugin.getStats().getPlayedGames(player), false);
+			Messages.sendMessage(player, Messages.gameswon + plugin.getStats().getWins(player), false);
+			Messages.sendMessage(player, Messages.gameslost + plugin.getStats().getLosses(player), false);
 		}
 
 		// leaderboard
@@ -249,7 +249,7 @@ public class GameCommands implements CommandExecutor {
 				}
 			}
 			Messages.sendMessage(player, Messages.leaderhead, false);
-			plugin.stats.getLeaderboard(player, entries);
+			plugin.getStats().getLeaderboard(player, entries);
 		}
 
 		// leave arena
