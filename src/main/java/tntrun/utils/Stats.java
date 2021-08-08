@@ -107,7 +107,7 @@ public class Stats {
 		} else {
 			pmap.put(uuid, value);
 		}
-		saveStats(player, "played");
+		saveStats(uuid, "played");
 	}
 
 	/**
@@ -123,7 +123,7 @@ public class Stats {
 		} else {
 			wmap.put(uuid, value);
 		}
-		saveStats(player, "wins");
+		saveStats(uuid, "wins");
 	}
 
 	public int getLosses(OfflinePlayer player) {
@@ -252,24 +252,26 @@ public class Stats {
 		return wmap;
 	}
 
-	private void saveStats(Player player, String statname) {
+	private void saveStats(String uuid, String statname) {
 		if (plugin.isFile()) {
-			saveStatsToFile(player, statname);
+			saveStatsToFile(uuid, statname);
 			return;
 		}
-		saveStatsToDB(player, statname);
+		saveStatsToDB(uuid, statname);
 	}
 
-	private void saveStatsToFile(Player player, String statname) {
+	private void saveStatsToFile(String uuid, String statname) {
 		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 
-		String uuid = getPlayerUUID(player);
+		//String uuid = getPlayerUUID(player);
 
 		if (statname.equalsIgnoreCase("played")) {
 			config.set("stats." + uuid + ".played", pmap.get(uuid));
 
 		} else if (statname.equalsIgnoreCase("wins")) {
 			config.set("stats." + uuid + ".wins", wmap.get(uuid));
+		} else {
+			config.set("stats." + uuid, null);
 		}
 		try {
 			config.save(file);
@@ -278,14 +280,14 @@ public class Stats {
 		}
 	}
 
-	private void saveStatsToDB(Player player, String statname) {
-		String uuid = getPlayerUUID(player);
+	private void saveStatsToDB(String uuid, String statname) {
+		//String uuid = getPlayerUUID(player);
 
 		if (statname.equalsIgnoreCase("played")) {
-			updateDB("played", uuid, pmap.get(uuid));
+			updateDB("played", uuid, pmap.getOrDefault(uuid, 0));
 
 		} else if (statname.equalsIgnoreCase("wins")) {
-			updateDB("wins", uuid, wmap.get(uuid));
+			updateDB("wins", uuid, wmap.getOrDefault(uuid, 0));
 		}
 	}
 
@@ -375,5 +377,13 @@ public class Stats {
 
 	public boolean hasDatabaseEntry(OfflinePlayer player) {
 		return pmap.containsKey(getPlayerUUID(player));
+	}
+
+	@SuppressWarnings("deprecation")
+	public void resetStats(String playerName) {
+		String uuid = plugin.useUuid() ? Bukkit.getOfflinePlayer(playerName).getUniqueId().toString() : playerName;
+		pmap.remove(uuid);
+		wmap.remove(uuid);
+		saveStats(uuid, "reset");
 	}
 }
