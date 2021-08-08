@@ -276,17 +276,11 @@ public class RestrictionHandler implements Listener {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				if (plugin.useUuid()) {
-					plugin.getMysql().query("INSERT IGNORE INTO `" + table + "` (`username`, `played`, "
+				String uuid = plugin.useUuid() ? player.getUniqueId().toString() : player.getName();
+				plugin.getMysql().query("INSERT IGNORE INTO `" + table + "` (`username`, `played`, "
 							+ "`wins`, `looses`) VALUES "
-							+ "('" + player.getUniqueId().toString()
-							+ "', '0', '0', '0');");
-				} else {
-					plugin.getMysql().query("INSERT IGNORE INTO `" + table + "` (`username`, `played`, "
-							+ "`wins`, `looses`) VALUES "
-							+ "('" + player.getName()
-							+ "', '0', '0', '0');");
-				}
+							+ "('" + uuid + "', '0', '0', '0');");
+
 			}
 		}.runTaskAsynchronously(plugin);
 	}

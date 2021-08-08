@@ -263,8 +263,6 @@ public class Stats {
 	private void saveStatsToFile(String uuid, String statname) {
 		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 
-		//String uuid = getPlayerUUID(player);
-
 		if (statname.equalsIgnoreCase("played")) {
 			config.set("stats." + uuid + ".played", pmap.get(uuid));
 
@@ -281,12 +279,10 @@ public class Stats {
 	}
 
 	private void saveStatsToDB(String uuid, String statname) {
-		//String uuid = getPlayerUUID(player);
-
-		if (statname.equalsIgnoreCase("played")) {
+		if (statname.equalsIgnoreCase("played") || statname.equalsIgnoreCase("reset")) {
 			updateDB("played", uuid, pmap.getOrDefault(uuid, 0));
-
-		} else if (statname.equalsIgnoreCase("wins")) {
+		}
+		if (statname.equalsIgnoreCase("wins") || statname.equalsIgnoreCase("reset")) {
 			updateDB("wins", uuid, wmap.getOrDefault(uuid, 0));
 		}
 	}
