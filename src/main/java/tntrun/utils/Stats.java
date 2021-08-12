@@ -129,6 +129,7 @@ public class Stats {
 		}
 		saveStats(uuid, "wins");
 		sortedWins.clear();
+		sortedLosses.clear();
 	}
 
 	public int getLosses(String uuid) {
