@@ -221,6 +221,7 @@ public class GameHandler {
 			}
 		}
 
+		plugin.getStats().clearPlayedList();
 		plugin.signEditor.modifySigns(arena.getArenaName());
 
 		timeremaining = limit * 20;

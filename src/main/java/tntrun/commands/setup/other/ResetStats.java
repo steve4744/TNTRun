@@ -17,6 +17,7 @@
 
 package tntrun.commands.setup.other;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import tntrun.TNTRun;
@@ -37,7 +38,13 @@ public class ResetStats implements CommandHandlerInterface {
 			Messages.sendMessage(player, Messages.statsdisabled);
 			return false;
 		}
-		plugin.getStats().resetStats(args[0]);
+		@SuppressWarnings("deprecation")
+		String uuid = plugin.useUuid() ? Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString() : args[0];
+		if (!plugin.getStats().hasStats(uuid)) {
+			Messages.sendMessage(player, "&7 No stats exist for player: &c" + args[0]);
+			return false;
+		}
+		plugin.getStats().resetStats(uuid);
 		Messages.sendMessage(player, "&7 Stats reset for player: &6" + args[0]);
 		return true;
 	}

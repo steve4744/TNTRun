@@ -68,6 +68,7 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 		if (p == null) {
 			return "";
 		}
+		String uuid = plugin.getStats().getPlayerUUID(p);
 		if (identifier.equals("version")) {
 			return String.valueOf(plugin.getDescription().getVersion());
 
@@ -81,13 +82,13 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 			return String.valueOf(plugin.amanager.getNonPvpArenas().size());
 
 		} else if (identifier.equals("played")) {
-			return String.valueOf(plugin.getStats().getPlayedGames(p));
+			return String.valueOf(plugin.getStats().getPlayedGames(uuid));
 
 		} else if (identifier.equals("wins")) {
-			return String.valueOf(plugin.getStats().getWins(p));
+			return String.valueOf(plugin.getStats().getWins(uuid));
 
 		} else if (identifier.equals("losses")) {
-			return String.valueOf(plugin.getStats().getLosses(p));
+			return String.valueOf(plugin.getStats().getLosses(uuid));
 
 		} else if (identifier.equals("current_arena")) {
 			Arena arena = plugin.amanager.getPlayerArena(p.getName());

@@ -230,10 +230,11 @@ public class GameCommands implements CommandExecutor {
 				Messages.sendMessage(player, Messages.statsdisabled);
 				return false;
 			}
+			String uuid = plugin.getStats().getPlayerUUID(player);
 			Messages.sendMessage(player, Messages.statshead, false);
-			Messages.sendMessage(player, Messages.gamesplayed + plugin.getStats().getPlayedGames(player), false);
-			Messages.sendMessage(player, Messages.gameswon + plugin.getStats().getWins(player), false);
-			Messages.sendMessage(player, Messages.gameslost + plugin.getStats().getLosses(player), false);
+			Messages.sendMessage(player, Messages.gamesplayed + plugin.getStats().getPlayedGames(uuid), false);
+			Messages.sendMessage(player, Messages.gameswon + plugin.getStats().getWins(uuid), false);
+			Messages.sendMessage(player, Messages.gameslost + plugin.getStats().getLosses(uuid), false);
 		}
 
 		// leaderboard
