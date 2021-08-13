@@ -315,31 +315,7 @@ public class Stats {
 	 * @return the requested placeholder value.
 	 */
 	public String getLeaderboardPosition(int position, String type, String item) {
-		List<String> workingList = new ArrayList<>();
-
-		switch(type.toLowerCase()) {
-		case "wins":
-			if (sortedWins.isEmpty()) {
-				sortedWins = createSortedList(wmap);
-			}
-			workingList.addAll(sortedWins);
-			break;
-		case "played":
-			if (sortedPlayed.isEmpty()) {
-				sortedPlayed = createSortedList(pmap);
-			}
-			workingList.addAll(sortedPlayed);
-			break;
-		case "losses":
-			if (sortedLosses.isEmpty()) {
-				sortedLosses = createSortedList(getLossMap());
-			}
-			workingList.addAll(sortedLosses);
-			break;
-		default:
-			return null;
-		}
-
+		List<String> workingList = getWorkingList(type);
 		if (position > workingList.size()) {
 			return "";
 		}
@@ -362,6 +338,31 @@ public class Stats {
 			lbplaceholdervalue = item.equalsIgnoreCase("player") ? uuid : Utils.getRank(Bukkit.getPlayer(uuid));
 		}
 		return lbplaceholdervalue != null ? lbplaceholdervalue : "";
+	}
+
+	private List<String> getWorkingList(String type) {
+		switch(type.toLowerCase()) {
+		case "wins":
+			if (sortedWins.isEmpty()) {
+				sortedWins = createSortedList(wmap);
+			}
+			return sortedWins;
+
+		case "played":
+			if (sortedPlayed.isEmpty()) {
+				sortedPlayed = createSortedList(pmap);
+			}
+			return sortedPlayed;
+
+		case "losses":
+			if (sortedLosses.isEmpty()) {
+				sortedLosses = createSortedList(getLossMap());
+			}
+			return sortedLosses;
+
+		default:
+			return List.of();
+		}
 	}
 
 	private List<String> createSortedList(Map<String, Integer> map) {
@@ -413,5 +414,17 @@ public class Stats {
 	public void clearPlayedList() {
 		sortedPlayed.clear();
 		sortedLosses.clear();
+	}
+
+	/**
+	 * Get the position the player occupies in the leaderboard.
+	 * If the player is not in the list then zero is returned.
+	 *
+	 * @param uuid
+	 * @param type leaderboard type "wins", "played" or "losses"
+	 * @return leaderboard position or zero
+	 */
+	public int getPosition(String uuid, String type) {
+		return getWorkingList(type).indexOf(uuid) + 1;
 	}
 }

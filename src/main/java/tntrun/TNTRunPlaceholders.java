@@ -135,6 +135,14 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 			Arena arena = getArenaFromPlaceholder(identifier, 2);
 			return arena != null && arena.getStructureManager().isCurrencyEnabled() ? arena.getStructureManager().getCurrency().toString() : null;
 
+		} else if (identifier.startsWith("position")) {
+			String[] temp = identifier.split("_");
+			if (!isValidType(temp[1])) {
+				return null;
+			}
+			int pos = plugin.getStats().getPosition(uuid, temp[1]);
+			return pos > 0 ? String.valueOf(pos) : "";
+
 		} else if (identifier.startsWith("leaderboard") || identifier.startsWith("lb")) {
 			if (!isValidLeaderboardIdentifier(identifier)) {
 				return null;
@@ -177,10 +185,14 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 		if (!Stream.of("player", "score", "rank").anyMatch(temp[2]::equalsIgnoreCase)) {
 			return false;
 		}
-		if (!Stream.of("wins", "played", "losses").anyMatch(temp[1]::equalsIgnoreCase)) {
+		if (!isValidType(temp[1])) {
 			return false;
 		}
 		return true;
+	}
+
+	private boolean isValidType(String type) {
+		return Stream.of("wins", "played", "losses").anyMatch(type::equalsIgnoreCase);
 	}
 
 	private String getNames(HashSet<Player> playerSet) {
