@@ -136,6 +136,7 @@ setupp1: Set targeted block as first selection point
 setupp2: Set targeted block as second selection point
 setupclear: Clear selection points
 setupwhitelist: Whitelist a command for use in-game
+setupresetstats: Remove all TNTRun stats for the player
 kitexists: '&c The specified kit already exists : &6{KIT}'
 kitnotexists: '&c The specified kit does not exist : &6{KIT}'
 partycreate: '&7 Party created'
