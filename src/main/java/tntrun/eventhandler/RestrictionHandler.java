@@ -230,7 +230,6 @@ public class RestrictionHandler implements Listener {
 			return;
 		}
 		if (!arena.getPlayerHandler().hasDoubleJumps(player)) {
-			player.setAllowFlight(false);
 			return;
 		}
 
@@ -246,7 +245,9 @@ public class RestrictionHandler implements Listener {
 			@Override
 			public void run() {
 				u.remove(player.getName());
-				player.setAllowFlight(true);
+				if (!arena.getPlayerHandler().hasDoubleJumps(player)) {
+					player.setAllowFlight(false);
+				}
 			}
 		}.runTaskLater(plugin, 20);
 	}
@@ -268,24 +269,18 @@ public class RestrictionHandler implements Listener {
 		if (!plugin.useStats() || plugin.isFile()) {
 			return;
 		}
-		if (plugin.stats.hasDatabaseEntry(player)) {
+		if (plugin.getStats().hasDatabaseEntry(player)) {
 			return;
 		}
 		final String table = plugin.getConfig().getString("MySQL.table", "stats");
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				if (plugin.useUuid()) {
-					plugin.getMysql().query("INSERT IGNORE INTO `" + table + "` (`username`, `played`, "
+				String uuid = plugin.useUuid() ? player.getUniqueId().toString() : player.getName();
+				plugin.getMysql().query("INSERT IGNORE INTO `" + table + "` (`username`, `played`, "
 							+ "`wins`, `looses`) VALUES "
-							+ "('" + player.getUniqueId().toString()
-							+ "', '0', '0', '0');");
-				} else {
-					plugin.getMysql().query("INSERT IGNORE INTO `" + table + "` (`username`, `played`, "
-							+ "`wins`, `looses`) VALUES "
-							+ "('" + player.getName()
-							+ "', '0', '0', '0');");
-				}
+							+ "('" + uuid + "', '0', '0', '0');");
+
 			}
 		}.runTaskAsynchronously(plugin);
 	}

@@ -68,6 +68,7 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 		if (p == null) {
 			return "";
 		}
+		String uuid = plugin.getStats().getPlayerUUID(p);
 		if (identifier.equals("version")) {
 			return String.valueOf(plugin.getDescription().getVersion());
 
@@ -81,13 +82,13 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 			return String.valueOf(plugin.amanager.getNonPvpArenas().size());
 
 		} else if (identifier.equals("played")) {
-			return String.valueOf(plugin.stats.getPlayedGames(p));
+			return String.valueOf(plugin.getStats().getPlayedGames(uuid));
 
 		} else if (identifier.equals("wins")) {
-			return String.valueOf(plugin.stats.getWins(p));
+			return String.valueOf(plugin.getStats().getWins(uuid));
 
 		} else if (identifier.equals("losses")) {
-			return String.valueOf(plugin.stats.getLosses(p));
+			return String.valueOf(plugin.getStats().getLosses(uuid));
 
 		} else if (identifier.equals("current_arena")) {
 			Arena arena = plugin.amanager.getPlayerArena(p.getName());
@@ -134,6 +135,14 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 			Arena arena = getArenaFromPlaceholder(identifier, 2);
 			return arena != null && arena.getStructureManager().isCurrencyEnabled() ? arena.getStructureManager().getCurrency().toString() : null;
 
+		} else if (identifier.startsWith("position")) {
+			String[] temp = identifier.split("_");
+			if (!isValidType(temp[1])) {
+				return null;
+			}
+			int pos = plugin.getStats().getPosition(uuid, temp[1]);
+			return pos > 0 ? String.valueOf(pos) : "";
+
 		} else if (identifier.startsWith("leaderboard") || identifier.startsWith("lb")) {
 			if (!isValidLeaderboardIdentifier(identifier)) {
 				return null;
@@ -143,7 +152,7 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 			String entry = temp[2];
 			int pos = Integer.parseInt(temp[3]);
 
-			return plugin.stats.getLeaderboardPosition(pos, type, entry);
+			return plugin.getStats().getLeaderboardPosition(pos, type, entry);
 		}
 		return null;
 	}
@@ -176,10 +185,14 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 		if (!Stream.of("player", "score", "rank").anyMatch(temp[2]::equalsIgnoreCase)) {
 			return false;
 		}
-		if (!Stream.of("wins", "played", "losses").anyMatch(temp[1]::equalsIgnoreCase)) {
+		if (!isValidType(temp[1])) {
 			return false;
 		}
 		return true;
+	}
+
+	private boolean isValidType(String type) {
+		return Stream.of("wins", "played", "losses").anyMatch(type::equalsIgnoreCase);
 	}
 
 	private String getNames(HashSet<Player> playerSet) {

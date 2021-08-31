@@ -175,6 +175,7 @@ public class Messages {
 	public static String setupp2 = "Set targeted block as second selection point";
 	public static String setupclear = "Clear selection points";
 	public static String setupwhitelist = "Whitelist a command for use in-game";
+	public static String setupresetstats = "Remove all TNTRun stats for the player";
 	
 	public static String partycreate = "&7 Party created";
 	public static String partyjoin = "&6 {PLAYER} &7has joined the party";
@@ -353,6 +354,7 @@ public class Messages {
 		setupp2 = config.getString("setupp2", setupp2);
 		setupclear = config.getString("setupclear", setupclear);
 		setupwhitelist = config.getString("setupwhitelist", setupwhitelist);
+		setupresetstats = config.getString("setupresetstats", setupresetstats);
 		kitexists = config.getString("kitexists", kitexists);
 		kitnotexists = config.getString("kitnotexists", kitnotexists);
 		partycreate = config.getString("partycreate", partycreate);
@@ -512,6 +514,7 @@ public class Messages {
 		config.set("setupp2", setupp2);
 		config.set("setupclear", setupclear);
 		config.set("setupwhitelist", setupwhitelist);
+		config.set("setupresetstats", setupresetstats);
 		config.set("kitexists", kitexists);
 		config.set("kitnotexists", kitnotexists);
 		config.set("partycreate", partycreate);

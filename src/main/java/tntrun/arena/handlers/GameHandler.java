@@ -204,9 +204,11 @@ public class GameHandler {
 		for (Player player : arena.getPlayersManager().getPlayers()) {
 			player.closeInventory();
 			if (plugin.useStats() && !arena.getStructureManager().isExcludeStats()) {
-				plugin.stats.addPlayedGames(player, 1);
+				plugin.getStats().addPlayedGames(player, 1);
 			}
-			player.setAllowFlight(true);
+			if (arena.getPlayerHandler().hasDoubleJumps(player)) {
+				player.setAllowFlight(true);
+			}
 
 			Messages.sendMessage(player, message, false);
 			plugin.getSound().ARENA_START(player);
@@ -219,6 +221,7 @@ public class GameHandler {
 			}
 		}
 
+		plugin.getStats().clearPlayedList();
 		plugin.signEditor.modifySigns(arena.getArenaName());
 
 		timeremaining = limit * 20;
@@ -385,7 +388,7 @@ public class GameHandler {
 	 */
 	private void startEnding(final Player player) {
 		if (plugin.useStats() && !arena.getStructureManager().isExcludeStats()) {
-			plugin.stats.addWins(player, 1);
+			plugin.getStats().addWins(player, 1);
 		}
 		TitleMsg.sendFullTitle(player, TitleMsg.win, TitleMsg.subwin, 20, 60, 20, plugin);
 		arena.getPlayerHandler().clearPotionEffects(player);

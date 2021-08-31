@@ -230,10 +230,11 @@ public class GameCommands implements CommandExecutor {
 				Messages.sendMessage(player, Messages.statsdisabled);
 				return false;
 			}
+			String uuid = plugin.getStats().getPlayerUUID(player);
 			Messages.sendMessage(player, Messages.statshead, false);
-			Messages.sendMessage(player, Messages.gamesplayed + plugin.stats.getPlayedGames(player), false);
-			Messages.sendMessage(player, Messages.gameswon + plugin.stats.getWins(player), false);
-			Messages.sendMessage(player, Messages.gameslost + plugin.stats.getLosses(player), false);
+			Messages.sendMessage(player, Messages.gamesplayed + plugin.getStats().getPlayedGames(uuid), false);
+			Messages.sendMessage(player, Messages.gameswon + plugin.getStats().getWins(uuid), false);
+			Messages.sendMessage(player, Messages.gameslost + plugin.getStats().getLosses(uuid), false);
 		}
 
 		// leaderboard
@@ -249,7 +250,7 @@ public class GameCommands implements CommandExecutor {
 				}
 			}
 			Messages.sendMessage(player, Messages.leaderhead, false);
-			plugin.stats.getLeaderboard(player, entries);
+			plugin.getStats().getLeaderboard(player, entries);
 		}
 
 		// leave arena
@@ -303,6 +304,7 @@ public class GameCommands implements CommandExecutor {
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup addspawn", true), Utils.getTextComponent(Messages.setupaddspawn));
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup deletespawnpoints", true), Utils.getTextComponent(Messages.setupdelspawns));
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup addtowhitelist", true), Utils.getTextComponent(Messages.setupwhitelist));
+			player.spigot().sendMessage(Utils.getTextComponent("/trsetup resetstats {player}", true), Utils.getTextComponent(Messages.setupresetstats));
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup help", true), Utils.getTextComponent(Messages.setuphelp));
 		}
 

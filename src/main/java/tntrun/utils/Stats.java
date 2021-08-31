@@ -21,14 +21,14 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Stream;
 import java.util.Map.Entry;
-import java.util.Optional;
-
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -37,8 +37,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import com.google.common.collect.Streams;
 
 import tntrun.TNTRun;
 import tntrun.messages.Messages;
@@ -54,6 +52,10 @@ public class Stats {
 
 	private static Map<String, Integer> pmap = new HashMap<>();
 	private static Map<String, Integer> wmap = new HashMap<>();
+	private static Map<String, Integer> lmap = new HashMap<>();
+	private static List<String> sortedPlayed = new ArrayList<>();
+	private static List<String> sortedWins = new ArrayList<>();
+	private static List<String> sortedLosses = new ArrayList<>();
 
 	public Stats(TNTRun plugin) {
 		this.plugin = plugin;
@@ -96,6 +98,7 @@ public class Stats {
 
 	/**
 	 * Increment the number of played games in the map, and save to file.
+	 *
 	 * @param player
 	 * @param value
 	 */
@@ -107,11 +110,12 @@ public class Stats {
 		} else {
 			pmap.put(uuid, value);
 		}
-		saveStats(player, "played");
+		saveStats(uuid, "played");
 	}
 
 	/**
 	 * Increment the number of wins for the player in the map, and save to file.
+	 *
 	 * @param player
 	 * @param value
 	 */
@@ -123,20 +127,20 @@ public class Stats {
 		} else {
 			wmap.put(uuid, value);
 		}
-		saveStats(player, "wins");
+		saveStats(uuid, "wins");
+		sortedWins.clear();
+		sortedLosses.clear();
 	}
 
-	public int getLosses(OfflinePlayer player) {
-		return getPlayedGames(player) - getWins(player);
+	public int getLosses(String uuid) {
+		return getPlayedGames(uuid) - getWins(uuid);
 	}
 
-	public int getPlayedGames(OfflinePlayer player) {
-		String uuid = getPlayerUUID(player);
+	public int getPlayedGames(String uuid) {
 		return pmap.containsKey(uuid) ? pmap.get(uuid) : 0;
 	}
 
-	public int getWins(OfflinePlayer player) {
-		String uuid = getPlayerUUID(player);
+	public int getWins(String uuid) {
 		return wmap.containsKey(uuid) ? wmap.get(uuid) : 0;
 	}
 
@@ -252,24 +256,24 @@ public class Stats {
 		return wmap;
 	}
 
-	private void saveStats(Player player, String statname) {
+	private void saveStats(String uuid, String statname) {
 		if (plugin.isFile()) {
-			saveStatsToFile(player, statname);
+			saveStatsToFile(uuid, statname);
 			return;
 		}
-		saveStatsToDB(player, statname);
+		saveStatsToDB(uuid, statname);
 	}
 
-	private void saveStatsToFile(Player player, String statname) {
+	private void saveStatsToFile(String uuid, String statname) {
 		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
-
-		String uuid = getPlayerUUID(player);
 
 		if (statname.equalsIgnoreCase("played")) {
 			config.set("stats." + uuid + ".played", pmap.get(uuid));
 
 		} else if (statname.equalsIgnoreCase("wins")) {
 			config.set("stats." + uuid + ".wins", wmap.get(uuid));
+		} else {
+			config.set("stats." + uuid, null);
 		}
 		try {
 			config.save(file);
@@ -278,14 +282,12 @@ public class Stats {
 		}
 	}
 
-	private void saveStatsToDB(Player player, String statname) {
-		String uuid = getPlayerUUID(player);
-
-		if (statname.equalsIgnoreCase("played")) {
-			updateDB("played", uuid, pmap.get(uuid));
-
-		} else if (statname.equalsIgnoreCase("wins")) {
-			updateDB("wins", uuid, wmap.get(uuid));
+	private void saveStatsToDB(String uuid, String statname) {
+		if (statname.equalsIgnoreCase("played") || statname.equalsIgnoreCase("reset")) {
+			updateDB("played", uuid, pmap.getOrDefault(uuid, 0));
+		}
+		if (statname.equalsIgnoreCase("wins") || statname.equalsIgnoreCase("reset")) {
+			updateDB("wins", uuid, wmap.getOrDefault(uuid, 0));
 		}
 	}
 
@@ -300,7 +302,7 @@ public class Stats {
 		}.runTaskAsynchronously(plugin);
 	}
 
-	private String getPlayerUUID(OfflinePlayer player) {
+	public String getPlayerUUID(OfflinePlayer player) {
 		return plugin.useUuid() ? player.getUniqueId().toString() : player.getName();
 	}
 
@@ -313,47 +315,65 @@ public class Stats {
 	 * @return the requested placeholder value.
 	 */
 	public String getLeaderboardPosition(int position, String type, String item) {
-		Map<String, Integer> workingMap = new HashMap<>();
-
-		switch(type.toLowerCase()) {
-		case "wins":
-			workingMap.putAll(wmap);
-			break;
-		case "played":
-			workingMap.putAll(pmap);
-			break;
-		case "losses":
-			workingMap.putAll(getLossMap());
-			break;
-		default:
-			return null;
-		}
-
-		if (position > workingMap.size()) {
+		List<String> workingList = getWorkingList(type);
+		if (position > workingList.size()) {
 			return "";
 		}
 
-		return getResult(workingMap, item, position);
+		String uuid = workingList.get(position - 1);
+		if (item.equalsIgnoreCase("score")) {
+			if (type.equalsIgnoreCase("wins")) {
+				lbplaceholdervalue = String.valueOf(wmap.get(uuid));
+			} else if (type.equalsIgnoreCase("played")) {
+				lbplaceholdervalue = String.valueOf(pmap.get(uuid));
+			} else {
+				lbplaceholdervalue = String.valueOf(lmap.get(uuid));
+			}
+
+		} else if (plugin.useUuid()) {
+			OfflinePlayer p = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
+			lbplaceholdervalue = item.equalsIgnoreCase("player") ? p.getName() : Utils.getRank(p);
+
+		} else {
+			lbplaceholdervalue = item.equalsIgnoreCase("player") ? uuid : Utils.getRank(Bukkit.getPlayer(uuid));
+		}
+		return lbplaceholdervalue != null ? lbplaceholdervalue : "";
 	}
 
-	private String getResult(Map<String, Integer> workingMap, String item, int position) {
-		Optional<Entry<String, Integer>> opt = Streams.findLast(
-				workingMap.entrySet().stream()
-				.sorted(Entry.comparingByValue(Comparator.reverseOrder()))
-				.limit(position));
-		opt.ifPresent(x -> {
-			if (item.equalsIgnoreCase("score")) {
-				lbplaceholdervalue = String.valueOf(opt.get().getValue());
-
-			} else if (plugin.useUuid()) {
-				OfflinePlayer p = Bukkit.getOfflinePlayer(UUID.fromString(opt.get().getKey()));
-				lbplaceholdervalue = item.equalsIgnoreCase("player") ? p.getName() : Utils.getRank(p);
-
-			} else {
-				lbplaceholdervalue = item.equalsIgnoreCase("player") ? opt.get().getKey() : Utils.getRank(Bukkit.getPlayer(opt.get().getKey()));
+	private List<String> getWorkingList(String type) {
+		switch(type.toLowerCase()) {
+		case "wins":
+			if (sortedWins.isEmpty()) {
+				sortedWins = createSortedList(wmap);
 			}
-		});
-		return lbplaceholdervalue != null ? lbplaceholdervalue : "";
+			return sortedWins;
+
+		case "played":
+			if (sortedPlayed.isEmpty()) {
+				sortedPlayed = createSortedList(pmap);
+			}
+			return sortedPlayed;
+
+		case "losses":
+			if (sortedLosses.isEmpty()) {
+				sortedLosses = createSortedList(getLossMap());
+			}
+			return sortedLosses;
+
+		default:
+			return List.of();
+		}
+	}
+
+	private List<String> createSortedList(Map<String, Integer> map) {
+		List<String> sorted = new ArrayList<>();
+		map.entrySet().stream()
+			.sorted(Entry.comparingByValue(Comparator.reverseOrder()))
+			.forEach(e -> {
+				sorted.add(e.getKey());
+			}
+		);
+		return sorted;
 	}
 
 	/**
@@ -362,7 +382,7 @@ public class Stats {
 	 * @return
 	 */
 	private Map<String, Integer> getLossMap() {
-		Map<String, Integer> lmap = new HashMap<>();
+		sortedLosses.clear();
 		pmap.entrySet().forEach(e -> {
 			int wins = 0;
 			if (wmap.containsKey(e.getKey())) {
@@ -375,5 +395,36 @@ public class Stats {
 
 	public boolean hasDatabaseEntry(OfflinePlayer player) {
 		return pmap.containsKey(getPlayerUUID(player));
+	}
+
+	public void resetStats(String uuid) {
+		pmap.remove(uuid);
+		wmap.remove(uuid);
+		lmap.remove(uuid);
+		sortedWins.remove(uuid);
+		sortedPlayed.remove(uuid);
+		sortedLosses.remove(uuid);
+		saveStats(uuid, "reset");
+	}
+
+	public boolean hasStats(String uuid) {
+		return pmap.containsKey(uuid) || wmap.containsKey(uuid);
+	}
+
+	public void clearPlayedList() {
+		sortedPlayed.clear();
+		sortedLosses.clear();
+	}
+
+	/**
+	 * Get the position the player occupies in the leaderboard.
+	 * If the player is not in the list then zero is returned.
+	 *
+	 * @param uuid
+	 * @param type leaderboard type "wins", "played" or "losses"
+	 * @return leaderboard position or zero
+	 */
+	public int getPosition(String uuid, String type) {
+		return getWorkingList(type).indexOf(uuid) + 1;
 	}
 }
