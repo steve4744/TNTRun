@@ -209,7 +209,7 @@ public class StructureManager {
 	}
 
 	public boolean isCurrencyEnabled() {
-		return Material.getMaterial(currency) != null && !Utils.isAir(Material.getMaterial(currency));
+		return Material.getMaterial(currency) != null && !Material.getMaterial(currency).isAir();
 	}
 
 	public String getArenaCost() {
@@ -398,7 +398,7 @@ public class StructureManager {
 	}
 
 	public void setCurrency(Material currency) {
-		if (Utils.isAir(currency)) {
+		if (currency.isAir()) {
 			this.currency = null;
 			return;
 		}

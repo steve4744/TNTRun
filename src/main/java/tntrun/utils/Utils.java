@@ -25,7 +25,6 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -172,10 +171,6 @@ public class Utils {
 
 	public static String getTitleCase(String input) {
 		return input.substring(0,1).toUpperCase() + input.substring(1).toLowerCase();
-	}
-
-	public static boolean isAir(Material material) {
-		return material == Material.AIR || material == Material.CAVE_AIR || material == Material.VOID_AIR;
 	}
 
 	public static TextComponent getTextComponent(String text) {
