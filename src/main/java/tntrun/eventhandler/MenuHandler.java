@@ -29,8 +29,6 @@ import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.messages.Messages;
@@ -45,6 +43,38 @@ public class MenuHandler implements Listener {
 	}
 
 	@EventHandler
+	public void onTrackerSelect(InventoryClickEvent e) {
+		Inventory inv = e.getClickedInventory();
+		if (inv == null) {
+			return;
+		}
+		String title = FormattingCodesParser.parseFormattingCodes(Messages.menutracker);
+		if (!e.getView().getTitle().equals(title)) {
+			return;
+		}
+		if (!isValidClick(e)) {
+			return;
+		}
+		ItemStack is = e.getCurrentItem();
+		if (is == null || is.getType() != Material.PLAYER_HEAD) {
+			return;
+		}
+
+		Player player = (Player) e.getWhoClicked();
+		String target = is.getItemMeta().getDisplayName();
+		Player targetPlayer = Bukkit.getPlayer(target);
+		Arena arena = plugin.amanager.getPlayerArena(player.getName());
+
+		if (targetPlayer == null || !arena.getPlayersManager().getPlayers().contains(targetPlayer)) {
+			Messages.sendMessage(player, Messages.playernotplaying);
+			return;
+		}
+
+		player.teleport(targetPlayer.getLocation());
+		player.closeInventory();
+	}
+
+	@EventHandler
 	public void onArenaSelect(InventoryClickEvent e) {
 		Inventory inv = e.getClickedInventory();
 		if (inv == null) {
@@ -54,30 +84,20 @@ public class MenuHandler implements Listener {
 		if (!e.getView().getTitle().equals(title)) {
 			return;
 		}
-
-		ItemStack is = e.getCurrentItem();
-		Player player = (Player) e.getWhoClicked();
-		if (e.getRawSlot() >= e.getView().getTopInventory().getSize()) {
-			e.setCancelled(true);
+		if (!isValidClick(e)) {
 			return;
 		}
+		ItemStack is = e.getCurrentItem();
 		if (is == null) {
-			e.setCancelled(true);
 			return;
 		}
 		if (is.getType() != Material.getMaterial(plugin.getConfig().getString("menu.item")) &&
 				is.getType() != Material.getMaterial(plugin.getConfig().getString("menu.pvpitem"))) {
-			e.setCancelled(true);
 			return;
 		}
-		if (e.getAction() == InventoryAction.HOTBAR_MOVE_AND_READD || e.getAction() == InventoryAction.HOTBAR_SWAP || e.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
-			e.setCancelled(true);
-			return;
-		}
-		e.setCancelled(true);
 
-		ItemMeta im = is.getItemMeta();
-		String arenaname = im.getDisplayName();
+		Player player = (Player) e.getWhoClicked();
+		String arenaname = is.getItemMeta().getDisplayName();
 		String cmd = "tntrun join " + ChatColor.stripColor(arenaname);
 	
 		Bukkit.dispatchCommand(player, cmd);
@@ -94,28 +114,22 @@ public class MenuHandler implements Listener {
 		if (!title.startsWith("TNTRun setup")) {
 			return;
 		}
+		if (!isValidClick(e)) {
+			return;
+		}
 		String arenaname = ChatColor.stripColor(title.substring(title.lastIndexOf(" ") + 1));
 		Arena arena = plugin.amanager.getArenaByName(arenaname);
 		if (arena == null) {
 			return;
 		}
 		ItemStack is = e.getCurrentItem();
-		Player player = (Player) e.getWhoClicked();
-		int slot = e.getRawSlot();
-		if (slot >= e.getView().getTopInventory().getSize()) {
-			e.setCancelled(true);
-			return;
-		}
 		if (is == null) {
-			e.setCancelled(true);
 			return;
 		}
-		if (e.getAction() == InventoryAction.HOTBAR_MOVE_AND_READD || e.getAction() == InventoryAction.HOTBAR_SWAP || e.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
-			e.setCancelled(true);
-			return;
-		}
+
+		Player player = (Player) e.getWhoClicked();
 		boolean leftclick = e.getClick().isLeftClick();
-		e.setCancelled(true);
+		int slot = e.getRawSlot();
 		switch (slot) {
 			case 4:
 				String status = arena.getStatusManager().isArenaEnabled() ? "Enabled" : "Disabled";
@@ -190,5 +204,16 @@ public class MenuHandler implements Listener {
 				Bukkit.dispatchCommand(player, "trsetup finish " + arenaname);
 				player.closeInventory();
 		}
+	}
+
+	private boolean isValidClick(InventoryClickEvent e) {
+		e.setCancelled(true);
+		if (e.getRawSlot() >= e.getView().getTopInventory().getSize()) {
+			return false;
+		}
+		if (e.getAction() == InventoryAction.HOTBAR_MOVE_AND_READD || e.getAction() == InventoryAction.HOTBAR_SWAP || e.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
+			return false;
+		}
+		return true;
 	}
 }

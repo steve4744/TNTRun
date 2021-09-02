@@ -388,6 +388,9 @@ public class PlayerHandler {
 				if (plugin.getConfig().getBoolean("items.stats.use")) {
 					addStats(player);
 				}
+				if (plugin.getConfig().getBoolean("items.tracker.use")) {
+					addTracker(player);
+				}
 			}
 		}.runTaskLater(plugin, 5L);
 
@@ -659,6 +662,15 @@ public class PlayerHandler {
 		item.setItemMeta(meta);
 
 		player.getInventory().setItem(plugin.getConfig().getInt("items.heads.slot", 4), item);
+	}
+
+	private void addTracker(Player player) {
+		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.tracker.material")));
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.tracker.name")));
+		item.setItemMeta(meta);
+
+		player.getInventory().setItem(plugin.getConfig().getInt("items.tracker.slot", 5), item);
 	}
 
 	private void addLeaveItem(Player player) {

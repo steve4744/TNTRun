@@ -103,6 +103,11 @@ items:
     material: GLOWSTONE_DUST
     name: '&e&lHeadsPlus'
     slot: 4
+  tracker:
+    use: true
+    material: COMPASS
+    name: '&e&lPlayer Tracker'
+    slot: 5
 scoreboard:
   header: '&6&lTNTRUN'
   displaydoublejumps: false
