@@ -30,7 +30,6 @@ import org.bukkit.entity.Player;
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.messages.Messages;
-import tntrun.utils.FormattingCodesParser;
 import tntrun.utils.Utils;
 
 public class GameCommands implements CommandExecutor {
@@ -44,7 +43,7 @@ public class GameCommands implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (!(sender instanceof Player)) {
-			sender.sendMessage(FormattingCodesParser.parseFormattingCodes(Messages.trprefix + "&c You must be a player"));
+			Messages.sendMessage(sender, "&c You must be a player");
 			return false;
 		}
 		Player player = (Player) sender;

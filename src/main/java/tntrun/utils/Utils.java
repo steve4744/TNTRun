@@ -155,7 +155,7 @@ public class Utils {
 		final String border = FormattingCodesParser.parseFormattingCodes(Messages.playerborderinvite);
 		TextComponent jointc = new TextComponent(TextComponent.fromLegacyText(border + "\n"));
 		jointc.addExtra(getJoinTextComponent(joinMessage, arenaname));
-		jointc.addExtra("\n" + border);
+		jointc.addExtra(new TextComponent(TextComponent.fromLegacyText("\n" + border)));
 		player.spigot().sendMessage(jointc);
 	}
 

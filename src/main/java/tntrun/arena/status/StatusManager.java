@@ -21,6 +21,7 @@ import org.bukkit.entity.Player;
 
 import tntrun.arena.Arena;
 import tntrun.messages.Messages;
+import tntrun.utils.FormattingCodesParser;
 
 public class StatusManager {
 
@@ -90,16 +91,17 @@ public class StatusManager {
 	}
 
 	public String getArenaStatusMesssage() {
+		String message = Messages.arenawaiting;
 		if (isArenaRunning()) {
-			return Messages.arenarunning;
+			message = Messages.arenarunning;
 		} else if (isArenaRegenerating()) {
-			return Messages.arenaregenerating;
+			message = Messages.arenaregenerating;
 		} else if (isArenaStarting()) {
-			return Messages.arenastarting;
+			message = Messages.arenastarting;
 		} else if(!isArenaEnabled()) {
-			return Messages.arenadisabled;
+			message = Messages.arenadisabled;
 		}
-		return Messages.arenawaiting;
+		return FormattingCodesParser.parseFormattingCodes(message);
 	}
 
 	public String getArenaStatus() {
