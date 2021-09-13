@@ -141,7 +141,7 @@ public class ConsoleCommands implements CommandExecutor {
 		// reload config
 		} else if (args[0].equalsIgnoreCase("reloadconfig")) {
 			plugin.reloadConfig();
-			plugin.signEditor.loadConfiguration();
+			plugin.getSignEditor().loadConfiguration();
 			sender.sendMessage("Config reloaded");
 			return true;
 

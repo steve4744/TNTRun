@@ -77,20 +77,20 @@ public class TNTRun extends JavaPlugin {
 	private Arena bungeeArena;
 	private Menus menus;
 	private PlayerDataStore pdata;
+	private SignEditor signEditor;
 	private Kits kitmanager;
 	private Sounds sound;
 	private Language language;
 	private Parties parties;
 	private Stats stats;
 	private MySQL mysql;
-	private static final int BSTATS_PLUGIN_ID = 2192;
 
 	public ArenasManager amanager;
-	public SignEditor signEditor;
 	public String[] version = {"Nothing", "Nothing"};
 	public Shop shop;
 
 	private static TNTRun instance;
+	private static final int BSTATS_PLUGIN_ID = 2192;
 
 	@Override
 	public void onEnable() {
@@ -409,6 +409,10 @@ public class TNTRun extends JavaPlugin {
 
 	public Language getLanguage() {
 		return language;
+	}
+
+	public SignEditor getSignEditor() {
+		return signEditor;
 	}
 
 	public MySQL getMysql() {

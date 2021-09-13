@@ -43,7 +43,7 @@ public class StatusManager {
 		if (arena.getStructureManager().isArenaConfigured()) {
 			enabled = true;
 			arena.getGameHandler().startArenaAntiLeaveHandler();
-			arena.plugin.signEditor.modifySigns(arena.getArenaName());
+			arena.plugin.getSignEditor().modifySigns(arena.getArenaName());
 			return true;
 		}
 		return false;
@@ -63,7 +63,7 @@ public class StatusManager {
 		}
 		arena.getGameHandler().stopArenaAntiLeaveHandler();
 		arena.getStructureManager().getGameZone().regenNow();
-		arena.plugin.signEditor.modifySigns(arena.getArenaName());
+		arena.plugin.getSignEditor().modifySigns(arena.getArenaName());
 	}
 
 	public boolean isArenaStarting() {

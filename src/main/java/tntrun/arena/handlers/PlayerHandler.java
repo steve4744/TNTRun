@@ -289,7 +289,7 @@ public class PlayerHandler {
 			Messages.sendMessage(player, message);
 		}
 
-		plugin.signEditor.modifySigns(arena.getArenaName());
+		plugin.getSignEditor().modifySigns(arena.getArenaName());
 		arena.getScoreboardHandler().createWaitingScoreBoard();
 
 		if (!arena.getStatusManager().isArenaStarting()) {
@@ -366,7 +366,7 @@ public class PlayerHandler {
 		}
 
 		Messages.sendMessage(player, msgtoplayer.replace("{ARENA}", arena.getArenaName()));
-		plugin.signEditor.modifySigns(arena.getArenaName());
+		plugin.getSignEditor().modifySigns(arena.getArenaName());
 
 		if (!isSpectatorOnly) {
 			msgtoarenaplayers = msgtoarenaplayers.replace("{PLAYER}", player.getName()).replace("{RANK}", Utils.getRank(player));
@@ -452,7 +452,7 @@ public class PlayerHandler {
 		}
 
 		Messages.sendMessage(player, msgtoplayer);
-		plugin.signEditor.modifySigns(arena.getArenaName());
+		plugin.getSignEditor().modifySigns(arena.getArenaName());
 
 		if (!arena.getStatusManager().isArenaRunning()) {
 			arena.getScoreboardHandler().createWaitingScoreBoard();
@@ -488,8 +488,8 @@ public class PlayerHandler {
 		player.setFlying(false);
 		removePlayerFromArenaAndRestoreState(player, true);
 		Messages.sendMessage(player, msgtoplayer);
-		plugin.signEditor.modifySigns(arena.getArenaName());
-		plugin.signEditor.refreshLeaderBoards();
+		plugin.getSignEditor().modifySigns(arena.getArenaName());
+		plugin.getSignEditor().refreshLeaderBoards();
 		arena.getStructureManager().getFreeSpawnList().clear();
 		spawnmap.clear();
 		setLinkedKitName(null);

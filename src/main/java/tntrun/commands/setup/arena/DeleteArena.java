@@ -45,7 +45,7 @@ public class DeleteArena implements CommandHandlerInterface {
 			return true;
 		}
 		new File(plugin.getDataFolder() + File.separator + "arenas" + File.separator + arena.getArenaName() + ".yml").delete();
-		plugin.signEditor.removeArena(arena.getArenaName());
+		plugin.getSignEditor().removeArena(arena.getArenaName());
 		plugin.amanager.unregisterArena(arena);
 		Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 deleted");
 		return true;

@@ -193,7 +193,7 @@ public class MenuHandler implements Listener {
 			case 23:
 				Block block = player.getTargetBlock(null, 5);
 				if (block.getState() instanceof Sign) {
-					plugin.signEditor.createJoinSign(block, arenaname);
+					plugin.getSignEditor().createJoinSign(block, arenaname);
 					Messages.sendMessage(player, Messages.signcreate);
 				} else {
 					Messages.sendMessage(player, Messages.signfail);
