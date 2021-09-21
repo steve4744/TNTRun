@@ -1,17 +1,21 @@
+---
 trprefix: "&7[&6TNTRun_reloaded&7]"
 menutitle: "&1Arenas de TNTRun_reloaded"
 menuarenaname: "&a{ARENA}"
 menutext: "&5Jugadores: &6{PS}/{MPS}"
 menufee: "&5Cuota de inscripción: &6{FEE}"
 menupvp: "&5PVP: &6Habilitado"
+menutracker: "&1TNTRun rastreador de jugadores"
 nopermission: "&c No tienes permisos para hacer esto"
-nolobby: "&c No existe un lobby global, escribe &6/trsetup setlobby &cpara colocar uno"
+nolobby: "&c No existe un lobby global, escribe &6/trsetup setlobby &cpara colocar
+  uno"
 lobbyunloaded: "&c El mundo del lobby está sin cargar o no existe"
 teleporttolobby: "&7 Teletransportado al lobby"
 arenanotexist: "&c La arena &6{ARENA}&c no existe"
 noarenas: "&c No hay partidas disponibles para unirte"
 arenanotdisabled: "&c Porfavor, deshabilita la arena: &6/trsetup disable {ARENA}"
-arenanospectatorspawn: "&c No existe un punto de reaparición para espectadores en la arena &6{ARENA}"
+arenanospectatorspawn: "&c No existe un punto de reaparición para espectadores en
+  la arena &6{ARENA}"
 availablearenas: "&7 Arenas disponibles: {COUNT}"
 availablekits: "&7 Kits disponibles: {COUNT}"
 arenawolrdna: "&7 El mundo de la arena no está cargado"
@@ -25,15 +29,21 @@ arenadisabling: "&6 La arena se está deshabilitando"
 arenastarting: "&6 La partida está comenzando"
 signcreate: "&7 Cartel creado exitosamente"
 signremove: "&7 Cartel removido exitosamente"
+signfail: "&7 Debe estar mirando un cartel para crear el cartel  de unión"
 arenafee: "&7 Se te ha cobrado &6{FEE} &7para entrar a la arena"
 arenanofee: "&c Debes pagar una tarifa de &6{FEE} &cpara entrar a la arena"
 arenawaiting: "&6 Partida esperando"
 playerscountinarena: "&6 Cantidad de jugadores en la partida: {COUNT} jugadores"
 limitreached: "&7 La partida está llena"
 playerjoinedtoothers: "&c {RANK}&6{PLAYER} &7se unió a la partida (&6{PS}&7/&6{MPS}&7)"
+playerjoininvite: "&c{RANK}&6{PLAYER} &7se ha unido a la arena TNTRun &6{ARENA}&7,
+  haz clic para unirse"
+playerborderinvite: "&b---------------------------------------"
+playerclickinvite: Haz clic para unirse a {ARENA}
 playerjoinedasspectator: "&7 Te uniste a la partida &6{ARENA} &7como espectador"
 playerlefttoplayer: "&7 Saliste de esta partida"
 playerlefttoothers: "&c {RANK}&6{PLAYER} &7Salió del juego (&6{PS}&7/&6{MPS}&7)"
+playernotplaying: "&c El jugador objetivo &6{PLAYER} &cya no está jugando"
 playervotedforstart: "&f Votaste para forzar el inicio del juego"
 playeralreadyvotedforstart: "&c Ya votaste para reiniciar"
 playercannotvote: "&c No puedes votar para forzar el inicio de la arena"
@@ -56,11 +66,13 @@ playerrewardxp: "&6 XP :      &l  &f"
 playerboughtitem: "&7 Compraste el artículo &6{ITEM} &7por &6{MONEY} "
 playerboughtwait: "&7 Recibirás tus ítems cuando la partida comience"
 playerkit: "&7 Se te brindó el kit &6{KIT}"
-playersrequiredtostart: "&c Deben haber al menos 2 jugadores para poder votar para forzar el inicio de la partida"
+playersrequiredtostart: "&c Deben haber al menos 2 jugadores para poder votar para
+  forzar el inicio de la partida"
 notenoughmoney: "&c Necesitas {MONEY} para poder comprar este artículo"
 alreadyboughtitem: "&c Ya compraste un artículo de la tienda"
 shopnostock: "&c Este artículo está temporalmente fuera de stock"
-maxdoublejumpsexceeded: "&c No puedes superar el máximo de saltos dobles permitidos ({MAXJUMPS} saltos)"
+maxdoublejumpsexceeded: "&c No puedes superar el máximo de saltos dobles permitidos
+  ({MAXJUMPS} saltos)"
 playernotinarena: "&c No estás en una arena de TNTRun"
 playernotonline: "&6 {PLAYER} &7no está en línea actualmente"
 gamesplayed: "&bPartidas jugadas &f: "
@@ -92,6 +104,7 @@ helpstart: Forzar el inicio de la partida
 setuplobby: Establecer el lobby global en su ubicación actual
 setupdellobby: Eliminar el lobby global
 setupcreate: Crear una nueva arena
+setupconfigure: Abrir el menu para configurar la arena
 setupbounds: Establecer límites para la arena
 setuploselevel: Colocar el punto del nivel para perder a tus pies
 setupspawn: Colocar el punto de reaparición de la arena a tus pies
@@ -101,10 +114,12 @@ setupdelspawns: Elimina todos los puntos de reaparición creados con el comando 
 setupfinish: Termina y guarda la arena
 setupdelspectate: Eliminar el punto de reaparición de los espectadores para la arena
 setupdelay: Establecer el retraso para eliminar el bloque cuando el jugador lo pisa
-setupregendelay: 'Establecer retraso antes de que los jugadores puedan volver a unirse a la arena (Por defecto: 60)'
+setupregendelay: 'Establecer retraso antes de que los jugadores puedan volver a unirse
+  a la arena (Por defecto: 60)'
 setupmax: 'Definir el máximo de jugadores para la arena (Por defecto: 15)'
 setupmin: 'Definir el mínimo de jugadores para la arena (Por defecto: 2)'
-setupvote: 'Establecer porcentaje de votos para forzar el inicio de la arena (Por defecto: 0.75)'
+setupvote: 'Establecer porcentaje de votos para forzar el inicio de la arena (Por
+  defecto: 0.75)'
 setuptimelimit: 'Establecer un límite de tiempo para la arena (Por defecto: 300 segundos)'
 setupcountdown: 'Establecer una cuenta regresiva para la arena (Por defecto: 15 segundos)'
 setupmoney: Establecer una recompensa de dinero para el jugador ganador
@@ -129,20 +144,16 @@ setupdelkit: Elimina un kit TNTRun
 setupp1: Establecer bloque de destino como primer punto de selección
 setupp2: Establecer bloque de destino como segundo punto de selección
 setupclear: Quitar puntos de selección
-kitexists: "&c El kit especificado ya existe : &6{KIT}"
-kitnotexists: "&c El kit especificado no existe : &6{KIT}"
 setupwhitelist: Incluir un comando en la lista blanca para usarlo en el juego
 setupresetstats: Elimina todas las estadísticas de TNTRun del jugador
-playerjoininvite: "&c{RANK}&6{PLAYER} &7se ha unido a la arena TNTRun &6{ARENA}&7, haz clic para unirse"
-playerborderinvite: "&b---------------------------------------"
-playerclickinvite: Haz clic para unirse a {ARENA}
-signfail: "&7 Debe estar mirando un cartel para crear el cartel  de unión"
-setupconfigure: Abrir el menu para configurar la arena
+kitexists: "&c El kit especificado ya existe : &6{KIT}"
+kitnotexists: "&c El kit especificado no existe : &6{KIT}"
 partycreate: "&7 ¡El equipo ha sido creado!"
 partyjoin: "&6 {PLAYER} &7se ha unido al equipo"
 partydecline: "&6 {PLAYER} &7ha rechazado la invitación del equipo"
 partyleave: "&6 {PLAYER} &7ha dejado el equipo"
-partyleaderleave: "&7 El líder del equipo &6{PLAYER} &7se ha ido - el equipo ha sido eliminado"
+partyleaderleave: "&7 El líder del equipo &6{PLAYER} &7se ha ido - el equipo ha sido
+  eliminado"
 partynotmember: "&c No estas miembro de ningún equipo"
 partynotleader: "&c No estas un líder de equipo"
 partykick: "&6 {PLAYER} &7ha sido expulsado del equipo"
