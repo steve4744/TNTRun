@@ -50,3 +50,12 @@ jobs:
         asset_path: target/TNTRun_reloaded-${{ env.VERSION }}.jar
         asset_name: TNTRun_reloaded-${{ env.VERSION }}.jar
         asset_content_type: application/java-archive
+    - name: Upload to Artifactory
+      id: upload-to-artifactory
+      uses: advancedcsg-open/action-jfrog-cli@master
+      with:
+        url: 'https://steve4744.jfrog.io/artifactory/'
+        credentials type: 'username'
+        user: ${{ secrets.RT_USER }}
+        password: ${{ secrets.RT_PASSWORD }}
+        args: u "target/TNTRun_reloaded-${{ env.VERSION }}.jar" "steve4744-repo/io.github.steve4744/TNTRun_reloaded/${{ env.VERSION }}/"
