@@ -11,7 +11,7 @@ public enum EnumLang {
 	English("en-GB", true),
 	English_US("en-US", false),
 	Finnish("fi", false),
-	French("fr", false),
+	French("fr", true),
 	German("de", true),
 	Italian("it", false),
 	Japanese("ja", false),
