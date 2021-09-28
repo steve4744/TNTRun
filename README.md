@@ -15,7 +15,7 @@
 
 ## Description
 
-TNTRun is a highly configurable, fully automated minigame for Minecraft servers. Traditionally players start on a layer of sand supported by TNT blocks, although any combination of blocks can be used, and every block that they step on disappears. If a player falls through a hole, he/she will continue to run on the layer below. Once a player falls through the final layer he/she loses the game and becomes a spectator for the remainder of the game. The last player remaining wins the game.
+TNTRun is a highly configurable, fully automated minigame for Minecraft servers. Traditionally players start on a layer of sand supported by TNT blocks, although any combination of blocks can be used. Once the game starts, every block that the player step on disappears. If a player falls through a hole, he/she will continue to run on the layer below. Once a player falls through the final layer he/she loses the game and becomes a spectator for the remainder of the game. The last player remaining wins the game.
 
 This fork was created in 2016 from the unsupported TNTRun by Shevchik for Minecraft v1.10, and has been improved and updated as new versions of Minecraft have been released. The latest version of TNTRun_reloaded, like Minecraft itself, requires a minimum Java version of 16. Therefore it is supported on Minecraft versions from 1.16.5 to 1.17.1 for servers running a minimum Java version of 16. Servers running a Java version less than 16 and Minecraft versions 1.13.2 to 1.6.4 should download version 9.11 of the plugin, while the legacy version (v6.8.7) is supported for servers running Minecraft versions from 1.8 through to 1.12.2.
 
@@ -84,14 +84,18 @@ The latest version of TNTRun_reloaded has been tested with the following version
 
     WorldEdit 7.2.6 (optional, internal commands setP1 and setP2 can be used to set arena bounds)
     Vault 1.7.2 (optional, required to use economy)
-    HeadsPlus 6.10.9 (optional, allow players to buy and run around wearing different heads)
+    HeadsPlus 6.11.10 (optional, allow players to buy and run around wearing different heads)
     mcMMO 2.1.200 (optional, will allow players in same mcMMO party to PVP in arena)
-    PlaceholderAPI 2.10.9 (optional, needed to use placeholders)
+    PlaceholderAPI 2.10.10 (optional, needed to use placeholders)
     
 Although not required to compile the plugin, the following plugins (or similar) are required to create Holographic Leaderboards for TNTRun_reloaded.
     
     HolographicDisplays (optional, an example plugin needed to create holograms)
     HolographicExtension (optional, needed with HolographicDisplays to create holograms using placeholders. Also requires ProtolcolLib)
+
+If you are interested in recording the amount of time players spend playing TNTRun_reloaded, with the option to reward players in-game for surviving a set amount of time (includes its own leaderboards and placeholders):
+
+    TNTRunTimedRewards (optional add-on for recording time played in arena, and rewarding survival time)
 
 FAWE is also supported, and can be used in place of the WorldEdit on 1.13+ servers.
 
@@ -105,4 +109,4 @@ For legacy Minecraft 1.12.2 and below:
 <br />
 <br />
 <br />
-Updated steve4744 - 8th July 2021
+Updated steve4744 - 28th September 2021
