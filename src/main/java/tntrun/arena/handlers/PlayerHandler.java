@@ -289,7 +289,7 @@ public class PlayerHandler {
 			Messages.sendMessage(player, message);
 		}
 
-		plugin.signEditor.modifySigns(arena.getArenaName());
+		plugin.getSignEditor().modifySigns(arena.getArenaName());
 		arena.getScoreboardHandler().createWaitingScoreBoard();
 
 		if (!arena.getStatusManager().isArenaStarting()) {
@@ -366,7 +366,7 @@ public class PlayerHandler {
 		}
 
 		Messages.sendMessage(player, msgtoplayer.replace("{ARENA}", arena.getArenaName()));
-		plugin.signEditor.modifySigns(arena.getArenaName());
+		plugin.getSignEditor().modifySigns(arena.getArenaName());
 
 		if (!isSpectatorOnly) {
 			msgtoarenaplayers = msgtoarenaplayers.replace("{PLAYER}", player.getName()).replace("{RANK}", Utils.getRank(player));
@@ -387,6 +387,9 @@ public class PlayerHandler {
 				}
 				if (plugin.getConfig().getBoolean("items.stats.use")) {
 					addStats(player);
+				}
+				if (plugin.getConfig().getBoolean("items.tracker.use")) {
+					addTracker(player);
 				}
 			}
 		}.runTaskLater(plugin, 5L);
@@ -449,7 +452,7 @@ public class PlayerHandler {
 		}
 
 		Messages.sendMessage(player, msgtoplayer);
-		plugin.signEditor.modifySigns(arena.getArenaName());
+		plugin.getSignEditor().modifySigns(arena.getArenaName());
 
 		if (!arena.getStatusManager().isArenaRunning()) {
 			arena.getScoreboardHandler().createWaitingScoreBoard();
@@ -485,8 +488,8 @@ public class PlayerHandler {
 		player.setFlying(false);
 		removePlayerFromArenaAndRestoreState(player, true);
 		Messages.sendMessage(player, msgtoplayer);
-		plugin.signEditor.modifySigns(arena.getArenaName());
-		plugin.signEditor.refreshLeaderBoards();
+		plugin.getSignEditor().modifySigns(arena.getArenaName());
+		plugin.getSignEditor().refreshLeaderBoards();
 		arena.getStructureManager().getFreeSpawnList().clear();
 		spawnmap.clear();
 		setLinkedKitName(null);
@@ -659,6 +662,15 @@ public class PlayerHandler {
 		item.setItemMeta(meta);
 
 		player.getInventory().setItem(plugin.getConfig().getInt("items.heads.slot", 4), item);
+	}
+
+	private void addTracker(Player player) {
+		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.tracker.material")));
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.tracker.name")));
+		item.setItemMeta(meta);
+
+		player.getInventory().setItem(plugin.getConfig().getInt("items.tracker.slot", 5), item);
 	}
 
 	private void addLeaveItem(Player player) {

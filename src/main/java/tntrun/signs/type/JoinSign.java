@@ -44,7 +44,7 @@ public class JoinSign implements SignType {
 		String arenaname = ChatColor.stripColor(FormattingCodesParser.parseFormattingCodes(e.getLine(2)));
 		final Arena arena = plugin.amanager.getArenaByName(arenaname);
 		if (arena != null) {
-			plugin.signEditor.createJoinSign(e.getBlock(), arenaname);
+			plugin.getSignEditor().createJoinSign(e.getBlock(), arenaname);
 			Messages.sendMessage(e.getPlayer(), Messages.signcreate);
 		} else {
 			Messages.sendMessage(e.getPlayer(), Messages.arenanotexist.replace("{ARENA}", arenaname));
@@ -66,7 +66,7 @@ public class JoinSign implements SignType {
 			if (arena.getPlayerHandler().checkJoin(player)) {
 				arena.getPlayerHandler().spawnPlayer(player, Messages.playerjoinedtoothers);
 				//attempt to cache the sign location as a fix for lost signinfo
-				plugin.signEditor.addSign(e.getClickedBlock(), arena.getArenaName());
+				plugin.getSignEditor().addSign(e.getClickedBlock(), arena.getArenaName());
 			}
 			e.setCancelled(true);
 		} else if (plugin.getConfig().getBoolean("signs.allowspectate") && arena.getPlayerHandler().canSpectate(player)) {
@@ -80,7 +80,7 @@ public class JoinSign implements SignType {
 	@Override
 	public void handleDestroy(BlockBreakEvent e) {
 		Block b = e.getBlock();
-		plugin.signEditor.removeSign(b, ChatColor.stripColor(((Sign) b.getState()).getLine(2)));
+		plugin.getSignEditor().removeSign(b, ChatColor.stripColor(((Sign) b.getState()).getLine(2)));
 		Messages.sendMessage(e.getPlayer(), Messages.signremove);
 	}
 

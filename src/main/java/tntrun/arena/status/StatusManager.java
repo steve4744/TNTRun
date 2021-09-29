@@ -21,6 +21,7 @@ import org.bukkit.entity.Player;
 
 import tntrun.arena.Arena;
 import tntrun.messages.Messages;
+import tntrun.utils.FormattingCodesParser;
 
 public class StatusManager {
 
@@ -42,7 +43,7 @@ public class StatusManager {
 		if (arena.getStructureManager().isArenaConfigured()) {
 			enabled = true;
 			arena.getGameHandler().startArenaAntiLeaveHandler();
-			arena.plugin.signEditor.modifySigns(arena.getArenaName());
+			arena.plugin.getSignEditor().modifySigns(arena.getArenaName());
 			return true;
 		}
 		return false;
@@ -62,7 +63,7 @@ public class StatusManager {
 		}
 		arena.getGameHandler().stopArenaAntiLeaveHandler();
 		arena.getStructureManager().getGameZone().regenNow();
-		arena.plugin.signEditor.modifySigns(arena.getArenaName());
+		arena.plugin.getSignEditor().modifySigns(arena.getArenaName());
 	}
 
 	public boolean isArenaStarting() {
@@ -90,16 +91,17 @@ public class StatusManager {
 	}
 
 	public String getArenaStatusMesssage() {
+		String message = Messages.arenawaiting;
 		if (isArenaRunning()) {
-			return Messages.arenarunning;
+			message = Messages.arenarunning;
 		} else if (isArenaRegenerating()) {
-			return Messages.arenaregenerating;
+			message = Messages.arenaregenerating;
 		} else if (isArenaStarting()) {
-			return Messages.arenastarting;
+			message = Messages.arenastarting;
 		} else if(!isArenaEnabled()) {
-			return Messages.arenadisabled;
+			message = Messages.arenadisabled;
 		}
-		return Messages.arenawaiting;
+		return FormattingCodesParser.parseFormattingCodes(message);
 	}
 
 	public String getArenaStatus() {

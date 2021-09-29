@@ -35,6 +35,7 @@ public class Messages {
 	public static String menutext = "&5Players: &6{PS}/{MPS}";
 	public static String menufee = "&5Join Fee: &6{FEE}";
 	public static String menupvp = "&5PVP: &6Enabled";
+	public static String menutracker = "&1TNTRun player tracker";
 	public static String nopermission = "&c You don't have permission to do this";
 	public static String nolobby = "&c Global lobby isn't set, run &6/trsetup setlobby";
 	public static String lobbyunloaded = "&c Lobby world is unloaded or doesn't exist";
@@ -72,6 +73,7 @@ public class Messages {
 	public static String playerjoinedasspectator = "&7 You joined arena &6{ARENA} &7as a spectator";
 	public static String playerlefttoplayer = "&7 You left the arena";
 	public static String playerlefttoothers = "&c {RANK}&6{PLAYER} &7left the game (&6{PS}&7/&6{MPS}&7)";
+	public static String playernotplaying = "&c Targeted player &6{PLAYER} &cis no longer playing";
 	public static String playervotedforstart = "&f You voted to force-start the game";
 	public static String playeralreadyvotedforstart = "&c You have already voted";
 	public static String playercannotvote = "&c You cannot vote to force-start the arena";
@@ -223,6 +225,7 @@ public class Messages {
 		menutext = config.getString("menutext", menutext);
 		menufee = config.getString("menufee", menufee);
 		menupvp = config.getString("menupvp", menupvp);
+		menutracker = config.getString("menutracker", menutracker);
 		nopermission = config.getString("nopermission", nopermission);
 		nolobby = config.getString("nolobby", nolobby);
 		lobbyunloaded = config.getString("lobbyunloaded", lobbyunloaded);
@@ -257,6 +260,7 @@ public class Messages {
 		playerjoinedasspectator = config.getString("playerjoinedasspectator", playerjoinedasspectator);
 		playerlefttoplayer = config.getString("playerlefttoplayer", playerlefttoplayer);
 		playerlefttoothers = config.getString("playerlefttoothers", playerlefttoothers);
+		playernotplaying = config.getString("playernotplaying", playernotplaying);
 		playervotedforstart = config.getString("playervotedforstart", playervotedforstart);
 		playeralreadyvotedforstart = config.getString("playeralreadyvotedforstart", playeralreadyvotedforstart);
 		playercannotvote = config.getString("playercannotvote", playercannotvote);
@@ -383,6 +387,7 @@ public class Messages {
 		config.set("menutext",  menutext);
 		config.set("menufee",  menufee);
 		config.set("menupvp",  menupvp);
+		config.set("menutracker",  menutracker);
 		config.set("nopermission", nopermission);
 		config.set("nolobby", nolobby);
 		config.set("lobbyunloaded", lobbyunloaded);
@@ -417,6 +422,7 @@ public class Messages {
 		config.set("playerjoinedasspectator", playerjoinedasspectator);
 		config.set("playerlefttoplayer", playerlefttoplayer);
 		config.set("playerlefttoothers", playerlefttoothers);
+		config.set("playernotplaying", playernotplaying);
 		config.set("playervotedforstart", playervotedforstart);
 		config.set("playeralreadyvotedforstart", playeralreadyvotedforstart);
 		config.set("playercannotvote", playercannotvote);

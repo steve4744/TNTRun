@@ -34,6 +34,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
+
 import com.google.common.base.Enums;
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
@@ -56,7 +58,7 @@ public class Menus {
 	 */
 	public void buildJoinMenu(Player player) {
 		TreeMap<String, Arena> arenas = getDisplayArenas();
-		int size = getInventorySize(arenas.size());
+		int size = getJoinMenuSize(arenas.size());
 		Inventory inv = Bukkit.createInventory(player, size, FormattingCodesParser.parseFormattingCodes(Messages.menutitle));
 
 		keyPos = 9;
@@ -93,6 +95,32 @@ public class Menus {
 			}
 			inv.setItem(keyPos,is);
 		});
+
+		fillEmptySlots(inv, size);
+		player.openInventory(inv);
+	}
+
+	/**
+	 * Create the inventory menu for spectators to teleport to players.
+	 *
+	 * @param player
+	 * @param arena
+	 */
+	public void buildTrackerMenu(Player player, Arena arena) {
+		int size = getTrackerMenuSize(arena.getPlayersManager().getPlayersCount());
+		Inventory inv = Bukkit.createInventory(player, size, FormattingCodesParser.parseFormattingCodes(Messages.menutracker));
+
+		for (Player p : arena.getPlayersManager().getPlayers()) {
+			ItemStack is = new ItemStack(Material.PLAYER_HEAD);
+			ItemMeta meta = is.getItemMeta();
+			meta.setDisplayName(p.getName());
+
+			SkullMeta skullMeta = (SkullMeta) meta;
+			skullMeta.setOwningPlayer(p);
+			is.setItemMeta(skullMeta);
+
+			inv.addItem(is);
+		}
 
 		fillEmptySlots(inv, size);
 		player.openInventory(inv);
@@ -330,17 +358,30 @@ public class Menus {
 		return arenas;
 	}
 
-	private int getInventorySize(int size) {
-		int invsize = 0;
+	private int getJoinMenuSize(int size) {
+		int invsize = 54;
 		if (size < 8) {
 			invsize = 27;
 		} else if (size < 15) {
 			invsize = 36;
 		} else if (size < 22) {
 			invsize = 45;
-		//} else if (size < 29) {
-		} else {
-			invsize = 54;
+		}
+		return invsize;
+	}
+
+	private int getTrackerMenuSize(int size) {
+		int invsize = 54;
+		if (size < 10) {
+			invsize = 9;
+		} else if (size < 19) {
+			invsize = 18;
+		} else if (size < 28) {
+			invsize = 27;
+		} else if (size < 37) {
+			invsize = 36;
+		} else if (size < 46) {
+			invsize = 45;
 		}
 		return invsize;
 	}

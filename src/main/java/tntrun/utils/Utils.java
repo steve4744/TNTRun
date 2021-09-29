@@ -25,7 +25,6 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -38,6 +37,8 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.hover.content.Content;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.messages.Messages;
@@ -115,10 +116,8 @@ public class Utils {
 			link.setClickEvent( new ClickEvent( ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/tntrun_reloaded.53359/"));
 			tc.addExtra(link);
 
-			//TODO update for 1.16 API
-			//Content content = new Text(getUpdateMessage().create());
-			//tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, content));
-			tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, getUpdateMessage().create()));
+			Content content = new Text(getUpdateMessage().create());
+			tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, content));
 
 			player.spigot().sendMessage(tc);
 		}
@@ -156,15 +155,17 @@ public class Utils {
 		final String border = FormattingCodesParser.parseFormattingCodes(Messages.playerborderinvite);
 		TextComponent jointc = new TextComponent(TextComponent.fromLegacyText(border + "\n"));
 		jointc.addExtra(getJoinTextComponent(joinMessage, arenaname));
-		jointc.addExtra("\n" + border);
+		jointc.addExtra(new TextComponent(TextComponent.fromLegacyText("\n" + border)));
 		player.spigot().sendMessage(jointc);
 	}
 
 	private static TextComponent getJoinTextComponent(String text, String arenaname) {
 		String hoverMessage = FormattingCodesParser.parseFormattingCodes(Messages.playerclickinvite.replace("{ARENA}", arenaname));
+		Content content = new Text(hoverMessage);
 		TextComponent component = new TextComponent(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', text)));
+
 		component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tntrun joinorspectate " + arenaname));
-		component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(hoverMessage).create()));
+		component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, content));
 		return component;
 	}
 
@@ -172,17 +173,12 @@ public class Utils {
 		return input.substring(0,1).toUpperCase() + input.substring(1).toLowerCase();
 	}
 
-	public static boolean isAir(Material material) {
-		return material == Material.AIR || material == Material.CAVE_AIR || material == Material.VOID_AIR;
-	}
-
 	public static TextComponent getTextComponent(String text) {
 		return getTextComponent(text, false);
 	}
 
 	public static TextComponent getTextComponent(String text, Boolean click) {
-		//TODO update to 1.16 API
-		//Content msg = new Text("Click to select");
+		Content content = new Text("Click to select");
 		TextComponent tc = new TextComponent(text);
 		if (click) {
 			String splitter = "[";
@@ -191,10 +187,7 @@ public class Utils {
 			}
 			tc.setColor(ChatColor.GOLD);
 			tc.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, StringUtils.substringBefore(text, splitter)));
-
-			//TODO update to 1.16 API
-			//tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, msg));
-			tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click to select").create()));
+			tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, content));
 			tc.addExtra(getTextComponentDelimiter(" - "));
 		} else {
 			tc.setColor(ChatColor.RED);
@@ -314,11 +307,12 @@ public class Utils {
 	}
 
 	private static TextComponent getPartyInviteComponent(String text, String hoverMessage, Player player, String target) {
+		Content content = new Text(hoverMessage);
 		TextComponent component = new TextComponent(text);
 		component.setColor(ChatColor.GOLD);
 		component.setBold(true);
 		component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tntrun acceptpartyinvite " + text + " " + player.getName() + " " + target));
-		component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(hoverMessage).create()));
+		component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, content));
 		return component;
 	}
 }

@@ -179,18 +179,17 @@ public class RestrictionHandler implements Listener {
 
 		} else if (e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.heads.material"))) {
 			e.setCancelled(true);
-			if (u.contains(player.getName())) {
-				plugin.getSound().NOTE_PLING(player, 5, 999);
-				return;
-			}
 			if (!player.hasPermission("tntrun.heads")) {
 				Messages.sendMessage(player, Messages.nopermission);
 				return;
 			}
-			u.add(player.getName());
-			coolDown(player);
 			plugin.getSound().ITEM_SELECT(player);
 			Heads.openMenu(player);
+
+		} else if (e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.tracker.material"))) {
+			e.setCancelled(true);
+			plugin.getSound().ITEM_SELECT(player);
+			plugin.getMenus().buildTrackerMenu(player, arena);
 		}
 	}
 

@@ -236,6 +236,7 @@ public class SignEditor {
 				if (block.getState() instanceof Sign) {
 					Sign sign = (Sign) block.getState();
 					sign.setLine(0, FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")));
+					sign.setLine(1, FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.join")));
 					sign.setLine(3, text);
 					sign.update();
 					setBlockColour(block, colour);

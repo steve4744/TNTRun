@@ -17,34 +17,25 @@
 
 package tntrun.utils;
 
-import org.bukkit.ChatColor;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import net.md_5.bungee.api.ChatColor;
 
 public class FormattingCodesParser {
 
-	public static String parseFormattingCodes(String message) {
-		message = message.replaceAll("&0", ChatColor.BLACK.toString());
-		message = message.replaceAll("&1", ChatColor.DARK_BLUE.toString());
-		message = message.replaceAll("&2", ChatColor.DARK_GREEN.toString());
-		message = message.replaceAll("&3", ChatColor.DARK_AQUA.toString());
-		message = message.replaceAll("&4", ChatColor.DARK_RED.toString());
-		message = message.replaceAll("&5", ChatColor.DARK_PURPLE.toString());
-		message = message.replaceAll("&6", ChatColor.GOLD.toString());
-		message = message.replaceAll("&7", ChatColor.GRAY.toString());
-		message = message.replaceAll("&8", ChatColor.DARK_GRAY.toString());
-		message = message.replaceAll("&9", ChatColor.BLUE.toString());
-		message = message.replaceAll("(?i)&a", ChatColor.GREEN.toString());
-		message = message.replaceAll("(?i)&b", ChatColor.AQUA.toString());
-		message = message.replaceAll("(?i)&c", ChatColor.RED.toString());
-		message = message.replaceAll("(?i)&d", ChatColor.LIGHT_PURPLE.toString());
-		message = message.replaceAll("(?i)&e", ChatColor.YELLOW.toString());
-		message = message.replaceAll("(?i)&f", ChatColor.WHITE.toString());
-		message = message.replaceAll("(?i)&l", ChatColor.BOLD.toString());
-		message = message.replaceAll("(?i)&o", ChatColor.ITALIC.toString());
-		message = message.replaceAll("(?i)&m", ChatColor.STRIKETHROUGH.toString());
-		message = message.replaceAll("(?i)&n", ChatColor.UNDERLINE.toString());
-		message = message.replaceAll("(?i)&k", ChatColor.MAGIC.toString());
-		message = message.replaceAll("(?i)&r", ChatColor.RESET.toString());
-		return message;
-	}
+	private final static Pattern HEXCOLOUR = Pattern.compile("<#([A-Fa-f0-9]){6}>");
 
+	public static String parseFormattingCodes(String message) {
+
+		Matcher matcher = HEXCOLOUR.matcher(message);
+		while (matcher.find()) {
+			StringBuilder sb = new StringBuilder();
+			final ChatColor hexColour = ChatColor.of(matcher.group().substring(1, matcher.group().length() - 1));
+			sb.append(message.substring(0, matcher.start())).append(hexColour).append(message.substring(matcher.end()));
+			message = sb.toString();
+			matcher = HEXCOLOUR.matcher(message);
+		}
+
+		return ChatColor.translateAlternateColorCodes('&', message);
+	}
 }

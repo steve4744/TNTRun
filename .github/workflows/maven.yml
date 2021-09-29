@@ -4,11 +4,11 @@
 name: Java CI with Maven
 
 env:
-  VERSION: 9.13-SNAPSHOT
+  VERSION: 9.14-SNAPSHOT
 
 on:
   push:
-    branches: [ 9.13-SNAPSHOT ]
+    branches: [ 9.14-SNAPSHOT ]
       #  pull_request:
       #    branches: [ master ]
 
@@ -50,3 +50,12 @@ jobs:
         asset_path: target/TNTRun_reloaded-${{ env.VERSION }}.jar
         asset_name: TNTRun_reloaded-${{ env.VERSION }}.jar
         asset_content_type: application/java-archive
+    - name: Upload to Artifactory
+      id: upload-to-artifactory
+      uses: advancedcsg-open/action-jfrog-cli@master
+      with:
+        url: 'https://steve4744.jfrog.io/artifactory/'
+        credentials type: 'username'
+        user: ${{ secrets.RT_USER }}
+        password: ${{ secrets.RT_PASSWORD }}
+        args: u "target/TNTRun_reloaded-${{ env.VERSION }}.jar" "steve4744-repo/io.github.steve4744/TNTRun_reloaded/${{ env.VERSION }}/"
