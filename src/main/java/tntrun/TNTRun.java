@@ -19,7 +19,6 @@ package tntrun;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -74,7 +73,6 @@ public class TNTRun extends JavaPlugin {
 	private VaultHandler vaultHandler;
 	private BungeeHandler bungeeHandler;
 	private GlobalLobby globallobby;
-	private Arena bungeeArena;
 	private Menus menus;
 	private PlayerDataStore pdata;
 	private SignEditor signEditor;
@@ -108,7 +106,6 @@ public class TNTRun extends JavaPlugin {
 		menus = new Menus(this);
 		parties = new Parties(this);
 
-		//register commands and events
 		setupPlugin();
 
 		saveDefaultConfig();
@@ -343,19 +340,15 @@ public class TNTRun extends JavaPlugin {
 				kitmanager.loadFromConfig();
 
 				List<String> arenaList = Arrays.asList(arenasfolder.list());
-				Collections.shuffle(arenaList);
 				for (String file : arenaList) {
 					Arena arena = new Arena(file.substring(0, file.length() - 4), instance);
 					arena.getStructureManager().loadFromConfig();
 					arena.getStatusManager().enableArena();
 					amanager.registerArena(arena);
 					Bars.createBar(arena.getArenaName());
-
-					if (isBungeecord()) {
-						bungeeArena = arena;
-						log.info("Bungeecord arena is: " + bungeeArena.getArenaName());
-						break;
-					}
+				}
+				if (isBungeecord()) {
+					amanager.setBungeeArena();
 				}
 
 				signEditor.loadConfiguration();
@@ -381,10 +374,6 @@ public class TNTRun extends JavaPlugin {
 
 	public Menus getMenus() {
 		return menus;
-	}
-
-	public Arena getBungeeArena() {
-		return bungeeArena;
 	}
 
 	public PlayerDataStore getPData() {

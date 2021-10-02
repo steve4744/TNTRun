@@ -17,15 +17,22 @@
 
 package tntrun.datahandler;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.bukkit.Bukkit;
+
 import tntrun.arena.Arena;
+import tntrun.utils.Utils;
 
 public class ArenasManager {
 
+	private Arena bungeeArena;
 	private HashMap<String, Arena> arenanames = new HashMap<>();
 
 	public void registerArena(Arena arena) {
@@ -69,5 +76,21 @@ public class ArenasManager {
 				.filter(e -> ("no".equalsIgnoreCase(e.getValue().getStructureManager().getDamageEnabled().toString())))
 				.map(e -> e.getValue())
 				.collect(Collectors.toSet());
+	}
+
+	public Arena getBungeeArena() {
+		return bungeeArena;
+	}
+
+	public void setBungeeArena() {
+		List<Arena> arenaList = new ArrayList<>(getArenas());
+		if (arenaList.isEmpty()) {
+			return;
+		}
+		Collections.shuffle(arenaList);
+		if (Utils.debug()) {
+			Bukkit.getLogger().info("[TNTRun_reloaded] Bungee arena set to " + arenaList.get(0).getArenaName());
+		}
+		bungeeArena = arenaList.get(0);
 	}
 }

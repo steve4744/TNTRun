@@ -40,7 +40,7 @@ public class BungeeHandler implements Listener {
 	}
 
 	private String getMOTD() {
-		Arena arena = plugin.getBungeeArena();
+		Arena arena = plugin.amanager.getBungeeArena();
 		if (arena == null) {
 			return "";
 		}
@@ -52,7 +52,7 @@ public class BungeeHandler implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onServerListPing(ServerListPingEvent event) {
-		Arena arena = plugin.getBungeeArena();
+		Arena arena = plugin.amanager.getBungeeArena();
 		if (arena == null || !plugin.getConfig().getBoolean("bungeecord.useMOTD")) {
 			return;
 		}
@@ -65,7 +65,7 @@ public class BungeeHandler implements Listener {
 		if (!plugin.isBungeecord()) {
 			return;
 		}
-		Arena arena = plugin.getBungeeArena();
+		Arena arena = plugin.amanager.getBungeeArena();
 		if (arena == null || (!event.getPlayer().hasPermission("tntrun.spectate") && !arena.getPlayerHandler().checkJoin(event.getPlayer())) ){
 			event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "You cannot join the arena at this time");
 		}
@@ -76,7 +76,7 @@ public class BungeeHandler implements Listener {
 		if (!plugin.isBungeecord()) {
 			return;
 		}
-		Arena arena = plugin.getBungeeArena();
+		Arena arena = plugin.amanager.getBungeeArena();
 		if (arena == null) {
 			return;
 		}

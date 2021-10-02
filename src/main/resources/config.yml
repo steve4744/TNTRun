@@ -160,6 +160,7 @@ bungeecord:
   enabled: false
   hub: lobby
   useMOTD: true
+  randomarena: true
   stopserver: false
   useUUID: false
 currency:

@@ -370,7 +370,13 @@ public class GameHandler {
 				arena.getStatusManager().setRegenerating(false);
 				signEditor.modifySigns(arena.getArenaName());
 
-				if (plugin.isBungeecord() && plugin.getConfig().getBoolean("bungeecord.stopserver")) {
+				if (!plugin.isBungeecord()) {
+					this.cancel();
+				}
+				if (plugin.getConfig().getBoolean("bungeecord.randomarena")) {
+					plugin.amanager.setBungeeArena();
+				}
+				if (plugin.getConfig().getBoolean("bungeecord.stopserver")) {
 					new BukkitRunnable() {
 						@Override
 						public void run() {
