@@ -84,7 +84,7 @@ public class Messages {
 	public static String playerwontoplayer = "&7 You won the game!";
 	public static String playerfinishedtestmode = "&7 Test game completed!";
 	public static String playerlosttoplayer = "&7 You lost the game";
-	public static String playerlosttoothers = "&c {RANK}&6{PLAYER} &7lost the game";
+	public static String playerlosttoothers = "&c {RANK}&6{PLAYER} &7lost the game (&6{PS}&7/&6{MPS}&7)";
 	public static String playerfirstplace = "&a1st place: &f{RANK}";
 	public static String playersecondplace = "&a2nd place: &f{RANK}";
 	public static String playerthirdplace = "&a3rd place: &f{RANK}";

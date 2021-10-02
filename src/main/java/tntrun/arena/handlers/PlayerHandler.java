@@ -369,7 +369,7 @@ public class PlayerHandler {
 		plugin.getSignEditor().modifySigns(arena.getArenaName());
 
 		if (!isSpectatorOnly) {
-			msgtoarenaplayers = msgtoarenaplayers.replace("{PLAYER}", player.getName()).replace("{RANK}", Utils.getRank(player));
+			msgtoarenaplayers = getFormattedMessage(player, msgtoarenaplayers);
 			for (Player oplayer : arena.getPlayersManager().getAllParticipantsCopy()) {
 				Messages.sendMessage(oplayer, msgtoarenaplayers);
 			}
@@ -461,11 +461,7 @@ public class PlayerHandler {
 			}
 		}
 
-		msgtoarenaplayers = msgtoarenaplayers
-				.replace("{PLAYER}", player.getName())
-				.replace("{RANK}", Utils.getRank(player))
-				.replace("{PS}", String.valueOf(arena.getPlayersManager().getPlayersCount()))
-				.replace("{MPS}", String.valueOf(arena.getStructureManager().getMaxPlayers()));
+		msgtoarenaplayers = getFormattedMessage(player, msgtoarenaplayers);
 
 		for (Player oplayer : arena.getPlayersManager().getAllParticipantsCopy()) {
 			Messages.sendMessage(oplayer, msgtoarenaplayers);
