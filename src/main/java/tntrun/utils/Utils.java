@@ -221,14 +221,9 @@ public class Utils {
 	 * @param player
 	 */
 	public static void cachePlayerGroupData(OfflinePlayer player) {
-		FileConfiguration config = TNTRun.getInstance().getConfig();
-		if (player == null || !config.getBoolean("UseRankInChat.enabled")) {
-			return;
+		if (!ranks.containsKey(player.getName())) {
+			cacheRank(player);
 		}
-		if (ranks.containsKey(player.getName())) {
-			return;
-		}
-		cacheRank(player);
 	}
 
 	/**
@@ -296,10 +291,12 @@ public class Utils {
 	 * @return player's rank.
 	 */
 	public static String getRank(OfflinePlayer player) {
-		if (ranks.containsKey(player.getName())) {
-			return ranks.get(player.getName());
+		if (TNTRun.getInstance().getConfig().getBoolean("UseRankInChat.enabled")) {
+			if (ranks.containsKey(player.getName())) {
+				return ranks.get(player.getName());
+			}
+			cachePlayerGroupData(player);
 		}
-		cachePlayerGroupData(player);
 		return "";
 	}
 
