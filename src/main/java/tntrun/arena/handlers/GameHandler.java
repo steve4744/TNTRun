@@ -371,7 +371,10 @@ public class GameHandler {
 				signEditor.modifySigns(arena.getArenaName());
 
 				if (!plugin.isBungeecord()) {
-					this.cancel();
+					//debug
+					plugin.getLogger().info("canceling task...");
+					cancel();
+					return;
 				}
 				if (plugin.getConfig().getBoolean("bungeecord.randomarena")) {
 					plugin.amanager.setBungeeArena();

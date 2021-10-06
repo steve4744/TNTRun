@@ -221,6 +221,7 @@ public class PlayerHandler {
 	 * @param msgtoarenaplayers Player join message sent to players in the arena
 	 */
 	public void spawnPlayer(final Player player, String msgtoarenaplayers) {
+		Utils.cachePlayerGroupData(player);
 		plugin.getPData().storePlayerLocation(player);
 
 		player.teleport(getSpawnPoint(player.getName()));

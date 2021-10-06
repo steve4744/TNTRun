@@ -45,7 +45,6 @@ public class Stats {
 
 	private TNTRun plugin;
 	private File file;
-	private int position;
 	private String lbentry;
 	private String lbrank;
 	private String lbplaceholdervalue;
@@ -151,27 +150,24 @@ public class Stats {
 	 * @param entries
 	 */
 	public void getLeaderboard(CommandSender sender, int entries) {
-		position = 0;
-		wmap.entrySet().stream()
-			.sorted(Entry.comparingByValue(Comparator.reverseOrder()))
+		final String type = "wins";
+		getWorkingList(type).stream()
 			.limit(entries)
-			.forEach(e -> {
-			if (plugin.useUuid()) {
-				OfflinePlayer p = Bukkit.getOfflinePlayer(UUID.fromString(e.getKey()));
-				lbentry = p.getName();
-				lbrank = Utils.getRank(p);
-			} else {
-				lbentry = e.getKey();
-				lbrank = Utils.getRank(Bukkit.getPlayer(e.getKey()));
-			}
-			position++;
-			Messages.sendMessage(sender, Messages.leaderboard
-					.replace("{POSITION}", String.valueOf(position))
+			.forEach(uuid -> {
+				if (plugin.useUuid()) {
+					OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
+					lbentry = player.getName();
+					lbrank = Utils.getRank(player);
+				} else {
+					lbentry = uuid;
+					lbrank = Utils.getRank(Bukkit.getPlayer(uuid));
+				}
+				Messages.sendMessage(sender, Messages.leaderboard
+					.replace("{POSITION}", String.valueOf(getPosition(uuid, type)))
 					.replace("{PLAYER}", lbentry)
 					.replace("{RANK}", lbrank)
-					.replace("{WINS}", String.valueOf(e.getValue())), false);
-			});
-		return;
+					.replace("{WINS}", String.valueOf(wmap.get(uuid))), false);
+		});
 	}
 
 	private boolean isValidUuid(String uuid) {
