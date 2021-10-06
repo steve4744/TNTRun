@@ -28,6 +28,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import tntrun.TNTRun;
+import tntrun.arena.Arena;
 
 public class SetupTabCompleter implements TabCompleter {
 
@@ -88,7 +89,10 @@ public class SetupTabCompleter implements TabCompleter {
 				list.addAll(TNTRun.getInstance().getKitManager().getKits());
 
 			} else if (args[0].equalsIgnoreCase("unlinkkit")) {
-				list.addAll(TNTRun.getInstance().amanager.getArenaByName(args[1]).getStructureManager().getLinkedKits());
+				Arena arena = TNTRun.getInstance().amanager.getArenaByName(args[1]);
+				if (arena != null) {
+					list.addAll(arena.getStructureManager().getLinkedKits());
+				}
 			}
 		}
 		for (String s : list) {
