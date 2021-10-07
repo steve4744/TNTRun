@@ -260,7 +260,7 @@ public class Rewards {
 				sb.setLength(sb.length() - 2);
 			}
 			if (sb.length() != 0) {
-				sb.insert(0, places.get(i-1).replace("{RANK}", ""));
+				sb.insert(0, places.get(i-1).replace("{RANK}", "").replace("{COLOR}", ""));
 				Messages.sendMessage(player, sb.toString(), false);
 			}
 		});

@@ -882,12 +882,13 @@ public class PlayerHandler {
 	}
 
 	private String getFormattedMessage(Player player, String message) {
-		return FormattingCodesParser.parseFormattingCodes(message)
-				.replace("{PLAYER}", player.getName())
+		message = message.replace("{PLAYER}", player.getName())
 				.replace("{RANK}", Utils.getRank(player))
+				.replace("{COLOR}", Utils.getColourMeta(player))
 				.replace("{ARENA}", arena.getArenaName())
 				.replace("{PS}", String.valueOf(arena.getPlayersManager().getPlayersCount()))
 				.replace("{MPS}", String.valueOf(arena.getStructureManager().getMaxPlayers()));
+		return FormattingCodesParser.parseFormattingCodes(message);
 	}
 
 	/**

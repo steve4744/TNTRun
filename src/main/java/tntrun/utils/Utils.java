@@ -235,11 +235,15 @@ public class Utils {
 	private static void cacheRank(OfflinePlayer player) {
 		FileConfiguration config = TNTRun.getInstance().getConfig();
 		String rank = "";
+		String cgmeta = "";
 		if (TNTRun.getInstance().getVaultHandler().isPermissions() && config.getBoolean("UseRankInChat.usegroup")) {
 			if (player.isOnline()) {
 				rank = TNTRun.getInstance().getVaultHandler().getPermissions().getPrimaryGroup(null, player);
+				cgmeta = TNTRun.getInstance().getVaultHandler().getChat().getGroupInfoString("",
+						TNTRun.getInstance().getVaultHandler().getPermissions().getPrimaryGroup(null, player), "tntrun-color", "xx");
 				if (Utils.debug()) {
 					Bukkit.getLogger().info("[TNTRun_reloaded] Cached rank " + rank + " for online player " + player.getName());
+					Bukkit.getLogger().info("[TNTRun_reloaded] Cached colour " + cgmeta + " for online player " + player.getName());
 				}
 			} else {
 				final String pn = player.getName();
@@ -247,15 +251,19 @@ public class Utils {
 					@Override
 					public void run() {
 						String rank = TNTRun.getInstance().getVaultHandler().getPermissions().getPrimaryGroup(null, player);
+						String cgmeta = TNTRun.getInstance().getVaultHandler().getChat().getGroupInfoString("",
+								TNTRun.getInstance().getVaultHandler().getPermissions().getPrimaryGroup(null, player), "tntrun-color", "");
 						ranks.put(pn, rank != null ? rank : "");
+						colours.put(pn, cgmeta != null ? cgmeta : "");
+
+						if (Utils.debug()) {
+							Bukkit.getLogger().info("[TNTRun_reloaded] Cached rank " + rank + " for offline player " + pn);
+							Bukkit.getLogger().info("[TNTRun_reloaded] Cached colour " + cgmeta + " for offline player " + pn);
+						}
 					}
 				}.runTaskAsynchronously(TNTRun.getInstance());
-
-				if (Utils.debug()) {
-					Bukkit.getLogger().info("[TNTRun_reloaded] Cached rank " + rank + " for offline player " + player.getName());
-				}
-
 			}
+
 		} else if (TNTRun.getInstance().getVaultHandler().isChat() && config.getBoolean("UseRankInChat.useprefix")) {
 			if (player.isOnline()) {
 				rank = TNTRun.getInstance().getVaultHandler().getChat().getPlayerPrefix(null, player);
@@ -269,18 +277,16 @@ public class Utils {
 					public void run() {
 						String rank = TNTRun.getInstance().getVaultHandler().getChat().getPlayerPrefix(null, player);
 						ranks.put(pn, rank != null ? rank : "");
+
+						if (Utils.debug()) {
+							Bukkit.getLogger().info("[TNTRun_reloaded] Cached prefix " + rank + "for offline player " + pn);
+						}
 					}
 				}.runTaskAsynchronously(TNTRun.getInstance());
-
-				if (Utils.debug()) {
-					Bukkit.getLogger().info("[TNTRun_reloaded] Cached prefix " + rank + "for offline player " + player.getName());
-				}
 			}
 		}
 		ranks.put(player.getName(), rank != null ? rank : "");
-
-		//Bukkit.getLogger().info("value from vault = " +
-				//TNTRun.getInstance().getVaultHandler().getChat().getGroupInfoString("", TNTRun.getInstance().getVaultHandler().getPermissions().getPrimaryGroup(null, player), "tntrun-color", "xx"));
+		colours.put(player.getName(), cgmeta != null ? cgmeta : "");
 	}
 
 	/**
@@ -294,6 +300,24 @@ public class Utils {
 		if (TNTRun.getInstance().getConfig().getBoolean("UseRankInChat.enabled")) {
 			if (ranks.containsKey(player.getName())) {
 				return ranks.get(player.getName());
+			}
+			cachePlayerGroupData(player);
+		}
+		return "";
+	}
+
+	/**
+	 * Attempt to get a player's cached colour meta. The colour is applied to players of the same rank/group.
+	 * If the rank is not cached, retrieve it asynchronously and cache it.
+	 *
+	 * @param player
+	 * @return player's rank.
+	 */
+	public static String getColourMeta(OfflinePlayer player) {
+		FileConfiguration config = TNTRun.getInstance().getConfig();
+		if (config.getBoolean("UseRankInChat.enabled") && config.getBoolean("UseRankInChat.groupcolormeta")) {
+			if (colours.containsKey(player.getName())) {
+				return colours.get(player.getName());
 			}
 			cachePlayerGroupData(player);
 		}

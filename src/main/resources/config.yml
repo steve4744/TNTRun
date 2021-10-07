@@ -16,6 +16,7 @@ special:
 UseRankInChat:
   enabled: false
   usegroup: true
+  groupcolormeta: false
   useprefix: false
 shop:
   enabled: true

@@ -45,6 +45,7 @@ public class Stats {
 
 	private TNTRun plugin;
 	private File file;
+	private String lbcolour;
 	private String lbentry;
 	private String lbrank;
 	private String lbplaceholdervalue;
@@ -158,14 +159,17 @@ public class Stats {
 					OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
 					lbentry = player.getName();
 					lbrank = Utils.getRank(player);
+					lbcolour = Utils.getColourMeta(player);
 				} else {
 					lbentry = uuid;
 					lbrank = Utils.getRank(Bukkit.getPlayer(uuid));
+					lbcolour = Utils.getRank(Bukkit.getPlayer(uuid));
 				}
 				Messages.sendMessage(sender, Messages.leaderboard
 					.replace("{POSITION}", String.valueOf(getPosition(uuid, type)))
 					.replace("{PLAYER}", lbentry)
 					.replace("{RANK}", lbrank)
+					.replace("{COLOR}", lbcolour)
 					.replace("{WINS}", String.valueOf(wmap.get(uuid))), false);
 		});
 	}
