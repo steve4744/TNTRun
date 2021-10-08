@@ -239,8 +239,10 @@ public class Utils {
 		if (TNTRun.getInstance().getVaultHandler().isPermissions() && config.getBoolean("UseRankInChat.usegroup")) {
 			if (player.isOnline()) {
 				rank = TNTRun.getInstance().getVaultHandler().getPermissions().getPrimaryGroup(null, player);
-				cgmeta = TNTRun.getInstance().getVaultHandler().getChat().getGroupInfoString("",
-						TNTRun.getInstance().getVaultHandler().getPermissions().getPrimaryGroup(null, player), "tntrun-color", "xx");
+				if (config.getBoolean("UseRankInChat.groupcolormeta")) {
+					cgmeta = TNTRun.getInstance().getVaultHandler().getChat().getGroupInfoString("",
+							TNTRun.getInstance().getVaultHandler().getPermissions().getPrimaryGroup(null, player), "tntrun-color", "");
+				}
 				if (Utils.debug()) {
 					Bukkit.getLogger().info("[TNTRun_reloaded] Cached rank " + rank + " for online player " + player.getName());
 					Bukkit.getLogger().info("[TNTRun_reloaded] Cached colour " + cgmeta + " for online player " + player.getName());
@@ -250,11 +252,15 @@ public class Utils {
 				new BukkitRunnable() {
 					@Override
 					public void run() {
+						String cgmeta = "";
 						String rank = TNTRun.getInstance().getVaultHandler().getPermissions().getPrimaryGroup(null, player);
-						String cgmeta = TNTRun.getInstance().getVaultHandler().getChat().getGroupInfoString("",
-								TNTRun.getInstance().getVaultHandler().getPermissions().getPrimaryGroup(null, player), "tntrun-color", "");
 						ranks.put(pn, rank != null ? rank : "");
-						colours.put(pn, cgmeta != null ? cgmeta : "");
+
+						if (config.getBoolean("UseRankInChat.groupcolormeta")) {
+							cgmeta = TNTRun.getInstance().getVaultHandler().getChat().getGroupInfoString("",
+									TNTRun.getInstance().getVaultHandler().getPermissions().getPrimaryGroup(null, player), "tntrun-color", "");
+							colours.put(pn, cgmeta != null ? cgmeta : "");
+						}
 
 						if (Utils.debug()) {
 							Bukkit.getLogger().info("[TNTRun_reloaded] Cached rank " + rank + " for offline player " + pn);
