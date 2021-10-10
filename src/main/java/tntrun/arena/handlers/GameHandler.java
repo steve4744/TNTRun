@@ -633,7 +633,7 @@ public class GameHandler {
 		String header = Messages.resultshead.replace("{ARENA}", arena.getArenaName());
 		sb.append("\n" + header);
 		sb.append("\n ");
-		sb.append("\n                " + Messages.playerfirstplace.replace("{RANK}", Utils.getRank(winner))
+		sb.append("\n" + Messages.playerfirstplace.replace("{RANK}", Utils.getRank(winner))
 								.replace("{COLOR}", Utils.getColourMeta(winner))+ winner.getName());
 
 		if (places.get(2) != null) {
@@ -641,9 +641,9 @@ public class GameHandler {
 			String message = Messages.playersecondplace.replace("{RANK}", Utils.getRank(Bukkit.getPlayer(playerName)))
 								.replace("{COLOR}", Utils.getColourMeta(Bukkit.getPlayer(playerName)));
 
-			sb.append("\n                " + message + playerName);
+			sb.append("\n" + message + playerName);
 		} else {
-			sb.append("\n                " + Messages.playersecondplace.replace("{RANK}", "").replace("{COLOR}", "") + "-");
+			sb.append("\n" + Messages.playersecondplace.replace("{RANK}", "").replace("{COLOR}", "") + "-");
 		}
 
 		if (places.get(3) != null) {
@@ -651,9 +651,9 @@ public class GameHandler {
 			String message = Messages.playerthirdplace.replace("{RANK}", Utils.getRank(Bukkit.getPlayer(playerName)))
 								.replace("{COLOR}", Utils.getColourMeta(Bukkit.getPlayer(playerName)));
 
-			sb.append("\n                " + message + playerName);
+			sb.append("\n" + message + playerName);
 		} else {
-			sb.append("\n                " + Messages.playerthirdplace.replace("{RANK}", "").replace("{COLOR}", "") + "-");
+			sb.append("\n" + Messages.playerthirdplace.replace("{RANK}", "").replace("{COLOR}", "") + "-");
 		}
 		sb.append("\n ");
 		sb.append("\n" + header);
