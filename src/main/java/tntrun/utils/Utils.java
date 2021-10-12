@@ -228,7 +228,8 @@ public class Utils {
 
 	/**
 	 * Get the player's rank or prefix.
-	 * Cache the player name with the rank, prefix or empty string.
+	 * If the rank is not cached, retrieve it and cache it.
+	 * If the player is offline retrieve it asynchronously and cache it.
 	 *
 	 * @param OfflinePlayer player
 	 */
@@ -297,7 +298,6 @@ public class Utils {
 
 	/**
 	 * Attempt to get a player's cached rank. This can be either the player's prefix or primary group.
-	 * If the rank is not cached, retrieve it asynchronously and cache it.
 	 *
 	 * @param player
 	 * @return player's rank.
@@ -328,6 +328,11 @@ public class Utils {
 			cachePlayerGroupData(player);
 		}
 		return "";
+	}
+
+	public static void removeRankFromCache(String playerName) {
+		ranks.remove(playerName);
+		colours.remove(playerName);
 	}
 
 	/**

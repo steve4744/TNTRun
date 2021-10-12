@@ -33,7 +33,7 @@ import tntrun.arena.Arena;
 public class SetupTabCompleter implements TabCompleter {
 
 	private static final List<String> COMMANDS = Arrays.asList("help", "create", "setlobby", "reloadbars", "reloadtitles", "reloadmsg", "reloadconfig",
-			"setbarcolor", "addkit", "deletekit", "deletelobby", "setp1", "setp2", "clear", "addtowhitelist", "setlanguage", "resetstats");
+			"setbarcolor", "addkit", "deletekit", "deletelobby", "setp1", "setp2", "clear", "addtowhitelist", "setlanguage", "resetstats", "resetcachedrank");
 
 	private static final List<String> ARENA_COMMANDS = Arrays.asList("setarena", "setloselevel", "setspawn", "addspawn", "setspectate", "finish",
 			"deletespectate", "deletespawnpoints", "setgameleveldestroydelay", "setregenerationdelay", "setmaxplayers", "setminplayers", "setvotepercent",

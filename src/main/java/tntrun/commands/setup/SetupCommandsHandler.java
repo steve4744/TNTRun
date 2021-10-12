@@ -63,6 +63,7 @@ import tntrun.commands.setup.kits.UnlinkKit;
 import tntrun.commands.setup.lobby.DeleteLobby;
 import tntrun.commands.setup.lobby.SetLobby;
 import tntrun.commands.setup.other.AddToWhitelist;
+import tntrun.commands.setup.other.ResetCachedRank;
 import tntrun.commands.setup.other.ResetStats;
 import tntrun.commands.setup.other.SetLanguage;
 import tntrun.commands.setup.reload.Migrate;
@@ -131,6 +132,7 @@ public class SetupCommandsHandler implements CommandExecutor {
 		commandHandlers.put("migrate", new Migrate(plugin));
 		commandHandlers.put("help", new SetupHelp(plugin));
 		commandHandlers.put("resetstats", new ResetStats(plugin));
+		commandHandlers.put("resetcachedrank", new ResetCachedRank(plugin));
 	}
 
 	@Override
