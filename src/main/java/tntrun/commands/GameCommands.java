@@ -304,6 +304,7 @@ public class GameCommands implements CommandExecutor {
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup deletespawnpoints", true), Utils.getTextComponent(Messages.setupdelspawns));
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup addtowhitelist", true), Utils.getTextComponent(Messages.setupwhitelist));
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup resetstats {player}", true), Utils.getTextComponent(Messages.setupresetstats));
+			player.spigot().sendMessage(Utils.getTextComponent("/trsetup resetcachedrank {player}", true), Utils.getTextComponent(Messages.setupresetrank));
 			player.spigot().sendMessage(Utils.getTextComponent("/trsetup help", true), Utils.getTextComponent(Messages.setuphelp));
 		}
 
