@@ -216,18 +216,23 @@ public class Utils {
 	}
 
 	/**
-	 * Cache the player's primary group or prefix on joining an arena.
+	 * Cache the player's primary group or prefix on joining an arena. If the player's
+	 * rank has changed then update the cache.
 	 *
 	 * @param player
 	 */
 	public static void cachePlayerGroupData(OfflinePlayer player) {
-		if (!ranks.containsKey(player.getName())) {
+		String rank = TNTRun.getInstance().getVaultHandler().getPermissions().getPrimaryGroup(null, player);
+		if (rank == null) {
+			return;
+		}
+		if (!rank.equalsIgnoreCase(ranks.get(player.getName()))) {
 			cacheRank(player);
 		}
 	}
 
 	/**
-	 * Get the player's rank or prefix.
+	 * Cache the player's rank or prefix.
 	 * If the rank is not cached, retrieve it and cache it.
 	 * If the player is offline retrieve it asynchronously and cache it.
 	 *
@@ -241,8 +246,7 @@ public class Utils {
 			if (player.isOnline()) {
 				rank = TNTRun.getInstance().getVaultHandler().getPermissions().getPrimaryGroup(null, player);
 				if (config.getBoolean("UseRankInChat.groupcolormeta")) {
-					cgmeta = TNTRun.getInstance().getVaultHandler().getChat().getGroupInfoString("",
-							TNTRun.getInstance().getVaultHandler().getPermissions().getPrimaryGroup(null, player), "tntrun-color", "");
+					cgmeta = TNTRun.getInstance().getVaultHandler().getChat().getGroupInfoString("", rank, "tntrun-color", "");
 				}
 				if (Utils.debug()) {
 					Bukkit.getLogger().info("[TNTRun_reloaded] Cached rank " + rank + " for online player " + player.getName());
@@ -258,8 +262,7 @@ public class Utils {
 						ranks.put(pn, rank != null ? rank : "");
 
 						if (config.getBoolean("UseRankInChat.groupcolormeta")) {
-							cgmeta = TNTRun.getInstance().getVaultHandler().getChat().getGroupInfoString("",
-									TNTRun.getInstance().getVaultHandler().getPermissions().getPrimaryGroup(null, player), "tntrun-color", "");
+							cgmeta = TNTRun.getInstance().getVaultHandler().getChat().getGroupInfoString("", rank, "tntrun-color", "");
 							colours.put(pn, cgmeta != null ? cgmeta : "");
 						}
 
@@ -307,7 +310,7 @@ public class Utils {
 			if (ranks.containsKey(player.getName())) {
 				return ranks.get(player.getName());
 			}
-			cachePlayerGroupData(player);
+			cacheRank(player);
 		}
 		return "";
 	}
@@ -325,7 +328,6 @@ public class Utils {
 			if (colours.containsKey(player.getName())) {
 				return colours.get(player.getName());
 			}
-			cachePlayerGroupData(player);
 		}
 		return "";
 	}

@@ -163,7 +163,7 @@ public class Stats {
 				} else {
 					lbentry = uuid;
 					lbrank = Utils.getRank(Bukkit.getPlayer(uuid));
-					lbcolour = Utils.getRank(Bukkit.getPlayer(uuid));
+					lbcolour = Utils.getColourMeta(Bukkit.getPlayer(uuid));
 				}
 				Messages.sendMessage(sender, Messages.leaderboard
 					.replace("{POSITION}", String.valueOf(getPosition(uuid, type)))
