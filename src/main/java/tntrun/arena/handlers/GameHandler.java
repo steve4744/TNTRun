@@ -226,7 +226,9 @@ public class GameHandler {
 			}
 		}
 
-		plugin.getStats().clearPlayedList();
+		if (plugin.useStats() && !arena.getStructureManager().isExcludeStats()) {
+			plugin.getStats().clearPlayedList();
+		}
 		signEditor.modifySigns(arena.getArenaName());
 
 		timeremaining = limit * 20;

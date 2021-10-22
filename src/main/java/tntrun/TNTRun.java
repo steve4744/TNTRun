@@ -357,18 +357,23 @@ public class TNTRun extends JavaPlugin {
 	}
 
 	private void setStorage() {
-		if (this.getConfig().getString("database").equals("file")) {
-			usestats = true;
-			file = true;
-		} else if (this.getConfig().getString("database").equals("sql")) {
-			this.connectToMySQL();
-			usestats = true;
-			file = false;
-		} else {
-			log.info("This database is not supported, supported database types: sql, file");
-			usestats = false;
-			file = false;
-			log.info("Disabling stats...");
+		String storage = this.getConfig().getString("database");
+		switch (storage) {
+			case "file" -> {
+				usestats = true;
+				file = true;
+			}
+			case "sql", "mysql" -> {
+				this.connectToMySQL();
+				usestats = true;
+				file = false;
+			}
+			default -> {
+				log.info("The database " + storage + " is not supported, supported database types: sql, mysql, file");
+				usestats = false;
+				file = false;
+				log.info("Disabling stats...");
+			}
 		}
 	}
 
