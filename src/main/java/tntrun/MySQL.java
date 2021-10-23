@@ -58,11 +58,11 @@ import java.util.logging.Logger;
 			this.c = DriverManager.getConnection(connectionString);
 			return c;
 		} catch (SQLException e) {
-			System.out.println("Could not connect to Database! because: " + e.getMessage());
+			logger.severe("Could not connect to Database! because: " + e.getMessage());
 		} catch (ClassNotFoundException e) {
-			System.out.println(driver + " not found!");
+			logger.severe(driver + " not found!");
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			logger.severe(e.getMessage());
 		}
 
 		return this.c;
