@@ -17,7 +17,6 @@
 
 package tntrun;
 
-import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.Connection;
@@ -29,12 +28,14 @@ import java.sql.Statement;
 import java.util.logging.Logger;
 
 	public class MySQL {
-	private static final Logger logger = Bukkit.getLogger();
 	protected boolean connected = false;
 	public Connection c = null;
 	private String driver;
 	private String connectionString;
 	private TNTRun pl;
+	private String username;
+	private String password;
+	private static Logger logger;
 
 	protected static enum Statements {
 		SELECT, INSERT, UPDATE, DELETE, DO, REPLACE, LOAD, HANDLER, CALL, CREATE, ALTER, DROP, TRUNCATE, RENAME, START,
@@ -44,18 +45,21 @@ import java.util.logging.Logger;
 
 	public MySQL(TNTRun plugin) {
 		this.pl = plugin;
+		logger = pl.getLogger();
 	}
 
 	public MySQL(String hostname, int port, String database, String username, String password, String useSSL, String flags, boolean legacyDriver, TNTRun plugin) {
 		driver = legacyDriver ? "com.mysql.jdbc.Driver" : "com.mysql.cj.jdbc.Driver";
-		connectionString = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?useSSL=" + useSSL + "&" + flags + "&user=" + username + "&password=" + password;
+		connectionString = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?useSSL=" + useSSL + "&" + flags;
+		this.username = username;
+		this.password = password;
 		this.pl = plugin;
 	}
 
 	public Connection open() {
 		try {
 			Class.forName(driver);
-			this.c = DriverManager.getConnection(connectionString);
+			this.c = DriverManager.getConnection(connectionString, username, password);
 			return c;
 		} catch (SQLException e) {
 			logger.severe("Could not connect to Database! because: " + e.getMessage());
@@ -78,7 +82,7 @@ import java.util.logging.Logger;
 				c.close();
 			}
 		} catch (SQLException ex) {
-			pl.getLogger().info(ex.getMessage());
+			logger.info(ex.getMessage());
 		}
 
 		c = null;
@@ -139,7 +143,7 @@ import java.util.logging.Logger;
 				statement.close();
 			}
 		} catch (SQLException ex) {
-			pl.getLogger().info(ex.getMessage());
+			logger.info(ex.getMessage());
 		}
 
 		return null;
