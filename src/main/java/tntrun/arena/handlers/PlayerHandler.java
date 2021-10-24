@@ -368,7 +368,7 @@ public class PlayerHandler {
 			oplayer.hidePlayer(plugin, player);
 		}
 
-		Messages.sendMessage(player, msgtoplayer.replace("{ARENA}", arena.getArenaName()));
+		Messages.sendMessage(player, getFormattedMessage(player, msgtoplayer));
 		plugin.getSignEditor().modifySigns(arena.getArenaName());
 
 		if (!isSpectatorOnly) {
@@ -454,7 +454,7 @@ public class PlayerHandler {
 			return;
 		}
 
-		Messages.sendMessage(player, msgtoplayer);
+		Messages.sendMessage(player, getFormattedMessage(player, msgtoplayer));
 		plugin.getSignEditor().modifySigns(arena.getArenaName());
 
 		if (!arena.getStatusManager().isArenaRunning()) {

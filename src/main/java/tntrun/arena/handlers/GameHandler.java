@@ -645,8 +645,8 @@ public class GameHandler {
 		if (places.get(2) != null) {
 			String playerName = places.get(2);
 			sb.append("\n" + Messages.playersecondplace.replace("{RANK}", Utils.getRank(Bukkit.getPlayer(playerName)))
-								.replace("{COLOR}", Utils.getColourMeta(Bukkit.getPlayer(playerName))
-								.replace("{PLAYER}", playerName)));
+								.replace("{COLOR}", Utils.getColourMeta(Bukkit.getPlayer(playerName)))
+								.replace("{PLAYER}", playerName));
 
 		} else {
 			sb.append("\n" + Messages.playersecondplace.replace("{RANK}", "").replace("{COLOR}", "").replace("{PLAYER}", "-"));
@@ -655,8 +655,8 @@ public class GameHandler {
 		if (places.get(3) != null) {
 			String playerName = places.get(3);
 			sb.append("\n" + Messages.playerthirdplace.replace("{RANK}", Utils.getRank(Bukkit.getPlayer(playerName)))
-								.replace("{COLOR}", Utils.getColourMeta(Bukkit.getPlayer(playerName))
-								.replace("{PLAYER}", playerName)));
+								.replace("{COLOR}", Utils.getColourMeta(Bukkit.getPlayer(playerName)))
+								.replace("{PLAYER}", playerName));
 
 		} else {
 			sb.append("\n" + Messages.playerthirdplace.replace("{RANK}", "").replace("{COLOR}", "").replace("{PLAYER}", "-"));
