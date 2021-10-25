@@ -54,6 +54,7 @@ import java.util.logging.Logger;
 		this.username = username;
 		this.password = password;
 		this.pl = plugin;
+		logger = pl.getLogger();
 	}
 
 	public Connection open() {
