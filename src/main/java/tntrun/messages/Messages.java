@@ -377,6 +377,18 @@ public class Messages {
 		partyban = config.getString("partyban", partyban);
 		partyinparty = config.getString("partyinparty", partyinparty);
 		partynotexist = config.getString("partynotexist", partynotexist);
+
+		// temp fix (v9.15) to not rely on manual updates to the messages file
+		if (!playerfirstplace.contains("{PLAYER}")) {
+			playerfirstplace += "{COLOR}{PLAYER}";
+		}
+		if (!playersecondplace.contains("{PLAYER}")) {
+			playersecondplace += "{COLOR}{PLAYER}";
+		}
+		if (!playerthirdplace.contains("{PLAYER}")) {
+			playerthirdplace += "{COLOR}{PLAYER}";
+		}
+
 		saveMessages(messageconfig);
 	}
 
