@@ -79,9 +79,9 @@
     </dependency>
     <!-- Vault API -->
     <dependency>
-        <groupId>net.milkbowl.vault</groupId>
+        <groupId>com.github.milkbowl</groupId>
         <artifactId>VaultAPI</artifactId>
-        <version>1.7</version>
+        <version>1.7.1</version>
         <scope>provided</scope>
     </dependency>
     <!-- PlaceholderAPI -->
@@ -102,7 +102,7 @@
     <dependency>
         <groupId>com.sk89q.worldedit</groupId>
         <artifactId>worldedit-bukkit</artifactId>
-        <version>7.2.6-SNAPSHOT</version>
+        <version>7.2.7-SNAPSHOT</version>
         <scope>provided</scope>
     </dependency>
     <!-- HeadsPlus -->
