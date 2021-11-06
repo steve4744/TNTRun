@@ -151,7 +151,7 @@ public class GameHandler {
 				double progressbar = (double) count / arena.getStructureManager().getCountdown();
 				Bars.setBar(arena, Bars.starting, 0, count, progressbar, plugin);
 
-				if (plugin.getConfig().getBoolean("special.UseExpBar")) {
+				if (plugin.getConfig().getBoolean("usexpbar.countdown")) {
 					for (Player player : arena.getPlayersManager().getPlayers()) {
 						player.setLevel(count);
 					}
@@ -208,6 +208,7 @@ public class GameHandler {
 
 		for (Player player : arena.getPlayersManager().getPlayers()) {
 			player.closeInventory();
+			player.setLevel(0);
 			if (plugin.useStats() && !arena.getStructureManager().isExcludeStats()) {
 				plugin.getStats().addPlayedGames(player, 1);
 			}
@@ -261,7 +262,7 @@ public class GameHandler {
 				}
 				Bars.setBar(arena, Bars.playing, arena.getPlayersManager().getPlayersCount(), seconds, progress, plugin);
 				for (Player player : arena.getPlayersManager().getPlayersCopy()) {
-					if (plugin.getConfig().getBoolean("special.UseExpBar")) {
+					if (plugin.getConfig().getBoolean("usexpbar.timelimit")) {
 						player.setLevel(seconds);
 					}
 					handlePlayer(player);

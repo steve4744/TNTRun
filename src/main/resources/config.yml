@@ -10,10 +10,12 @@ special:
   BossBarColor: RANDOM
   UseTitle: true
   UseScoreboard: true
-  UseExpBar: true
   UseDoubleJumpPermissions: false
   CheckForNewVersion: true
   Metrics: true
+usexpbar:
+  countdown: true
+  timelimit: true
 UseRankInChat:
   enabled: false
   usegroup: true
