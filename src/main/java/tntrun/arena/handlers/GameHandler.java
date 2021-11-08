@@ -106,6 +106,7 @@ public class GameHandler {
 		count = arena.getStructureManager().getCountdown();
 		arena.getStatusManager().setStarting(true);
 		signEditor.modifySigns(arena.getArenaName());
+		int antiCamping = Math.max(plugin.getConfig().getInt("anticamping.teleporttime"), 5);
 		runtaskid = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 			@Override
 			public void run() {
@@ -122,7 +123,7 @@ public class GameHandler {
 					startArena();
 					return;
 
-				} else if(count == 5) {
+				} else if(count == antiCamping) {
 					String message = Messages.arenacountdown;
 					message = message.replace("{COUNTDOWN}", String.valueOf(count));
 

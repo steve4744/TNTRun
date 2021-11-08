@@ -71,6 +71,7 @@ sounds:
     pitch: 1.0
 anticamping:
   enabled: true
+  teleporttime: 5
 leaderboard:
   maxentries: 10
 doublejumps:
