@@ -107,6 +107,7 @@ public class GameHandler {
 		arena.getStatusManager().setStarting(true);
 		signEditor.modifySigns(arena.getArenaName());
 		int antiCamping = Math.max(plugin.getConfig().getInt("anticamping.teleporttime"), 5);
+		int startVisibleCountdown = arena.getStructureManager().getStartVisibleCountdown();
 		runtaskid = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 			@Override
 			public void run() {
@@ -126,7 +127,6 @@ public class GameHandler {
 				} else if(count == antiCamping) {
 					String message = Messages.arenacountdown;
 					message = message.replace("{COUNTDOWN}", String.valueOf(count));
-
 					for (Player player : arena.getPlayersManager().getPlayers()) {
 						if (isAntiCamping() && !arena.getStructureManager().hasAdditionalSpawnPoints()) {
 							player.teleport(arena.getStructureManager().getSpawnPoint());
@@ -134,20 +134,14 @@ public class GameHandler {
 						displayCountdown(player, count, message);
 					}
 
-				} else if (count < 11) {
+				} else if (count <= startVisibleCountdown || count % 10 == 0) {
 					String message = Messages.arenacountdown;
 					message = message.replace("{COUNTDOWN}", String.valueOf(count));
 					for (Player player : arena.getPlayersManager().getPlayers()) {
 						displayCountdown(player, count, message);
 					}
-
-				} else if (count % 10 == 0) {
-					String message = Messages.arenacountdown;
-					message = message.replace("{COUNTDOWN}", String.valueOf(count));
-					for (Player all : arena.getPlayersManager().getPlayers()) {
-						displayCountdown(all, count, message);
-					}
 				}
+
 				arena.getScoreboardHandler().createWaitingScoreBoard();
 				double progressbar = (double) count / arena.getStructureManager().getCountdown();
 				Bars.setBar(arena, Bars.starting, 0, count, progressbar, plugin);
