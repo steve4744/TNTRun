@@ -79,7 +79,7 @@ public class Rewards {
 	}
 
 	public boolean isActiveReward(int place) {
-		return activereward.get(place);
+		return activereward.getOrDefault(place, false);
 	}
 
 	public void setMaterialReward(String item, String amount, boolean isFirstItem, int place) {
