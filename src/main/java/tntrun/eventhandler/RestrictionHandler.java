@@ -288,8 +288,17 @@ public class RestrictionHandler implements Listener {
 
 	@EventHandler
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-	    if (event.getDamager() instanceof Firework && event.getEntity() instanceof Player) {
-	        event.setCancelled(true);
-	    }
+		if (!(event.getEntity() instanceof Player)) {
+			return;
+		}
+		Player player = (Player) event.getEntity();
+		Arena arena = plugin.amanager.getPlayerArena(player.getName());
+		if (arena == null) {
+			return;
+		}
+
+		if (event.getDamager() instanceof Firework) {
+			event.setCancelled(true);
+		}
 	}
 }
