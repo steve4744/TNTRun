@@ -35,16 +35,16 @@ playerscountinarena: "&6 경기장의 현재 플레이어 수: {COUNT}명"
 limitreached: "&7 경기장이 가득 찼습니다."
 playerjoinedtoothers: "&c {RANK}&6{COLOR}{PLAYER} &7님이 경기장에 입장하였습니다. (&6{PS}&7/&6{MPS}&7)"
 playerjoininvite: "&c{RANK}&6{COLOR}{PLAYER} &7님이 &6{ARENA}&7에 입장하였습니다. &7,  [ 클릭하여
-  플레이하기 ]"
+  입장하기 ]"
 playerborderinvite: "&b---------------------------------------"
-playerclickinvite: 클릭하여 입장하기 {ARENA}
+playerclickinvite: 클릭하여 {ARENA}에 입장하기
 playerjoinedasspectator: "&7 당신은 관전자로 &6{ARENA}&7에 입장하였습니다."
 playerlefttoplayer: "&7 당신은 경기장을 떠났습니다."
 playerlefttoothers: "&c {RANK}&6{COLOR}{PLAYER}&7님이 게임에서 나갔습니다. (&6{PS}&7/&6{MPS}&7)"
 playernotplaying: "&c 대상 플레이어 &6{PLAYER} &cis가 더 이상 플레이되지 않음."
 playervotedforstart: "&f 게임 강제 시작하기를 투표했습니다."
 playeralreadyvotedforstart: "&c 당신은 이미 투표하셨습니다."
-playercannotvote: "&c 경기장을 강제 시작하기 위해 투표할 수 없습니다."
+playercannotvote: "&c 게임 강제 시작하기를 투표할 수 없습니다."
 arenastarted: "&7 경기가 시작되었습니다. 제한 시간은 {TIMELIMIT}초입니다."
 arenanolimit: "&7 경기가 시작되었습니다. 제한 시간은 없습니다."
 arenacountdown: "&7 경기가 {COUNTDOWN}초 후에 시작됩니다."
@@ -57,13 +57,14 @@ playerfirstplace: "&a1위: &f{RANK}{COLOR}{PLAYER}"
 playersecondplace: "&a2위: &f{RANK}{COLOR}{PLAYER}"
 playerthirdplace: "&a3위: &f{RANK}{COLOR}{PLAYER}"
 playerrewardmessage: "&7 당신은 보상을 받았습니다.: &6{REWARD}"
+playerrewardmaterial: "&6 재질: &f"
 playerrewardcommand: "&6 명령어: &f"
 playerrewardmoney: "&6 돈:    &f"
 playerrewardxp: "&6 경험치:      &l  &f"
 playerboughtitem: "&7 &6{ITEM} &7을(를) &6{MONEY}에 구매했습니다."
 playerboughtwait: "&7 게임이 시작되면 아이템을 얻을 수 있습니다."
 playerkit: "&6 {KIT} &7키트를 받았습니다."
-playersrequiredtostart: "&c 강제 시작하려면 경기장에 최소 2명의 플레이어가 있어야 합니다."
+playersrequiredtostart: "&c 강제 시작하려면 경기장에 설정된 최소 플레이어의 수가 있어야 합니다."
 notenoughmoney: "&c 이 항목을 구매하려면 {MONEY}이(가) 필요합니다."
 alreadyboughtitem: "&c 당신은 이미 상점 항목을 구입했습니다."
 shopnostock: "&c 이 상품은 현재 품절입니다."
@@ -71,7 +72,7 @@ maxdoublejumpsexceeded: "&c 허용되는 최대 더블 점프 횟수: {MAXJUMPS}
 playernotinarena: "&c 당신은 TNT Run 경기장에 있지 않습니다."
 playernotonline: "&6 {PLAYER}&7이(가) 현재 온라인 상태가 아닙니다."
 gamesplayed: "&b플레이한 게임&f:"
-gameswon: "&b승리&f:"
+gameswon: "&b승리&f: "
 gameslost: "&b패배&f: "
 statshead: "&7=========[&6TNT Run 통계&7]=========="
 rewardshead: "&7======[&6TNT Run 보상s&7 - &a{ARENA}&7]======"
@@ -90,7 +91,7 @@ helpjoin: 참가 메뉴 열기 또는 경기장 참가
 helpspectate: 관전자로 경기장에 참여
 helpautojoin: 사용 가능한 첫 번째 경기장에 자동으로 참여
 helpleave: 현재 경기장 나가기
-helpvote: 강제 시작에 투표
+helpvote: 게임 강제 시작에 투표
 helpcmds: 모든 TNT Run 명령어 보기
 helpinfo: 플러그인 정보 보기
 helpstats: 플레이어 통계 보기
