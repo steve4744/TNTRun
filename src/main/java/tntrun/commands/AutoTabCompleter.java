@@ -20,8 +20,10 @@ package tntrun.commands;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -74,6 +76,13 @@ public class AutoTabCompleter implements TabCompleter {
 					list.add("nopvp");
 					list.add("pvp");
 				}
+
+			} else if (args.length == 3 && args[0].equalsIgnoreCase("party")) {
+				if (args[1].equalsIgnoreCase("invite") || args[1].equalsIgnoreCase("unkick")) {
+					list.addAll(getOnlinePlayerNames());
+				} else if (args[1].equalsIgnoreCase("kick")) {
+					list.addAll(TNTRun.getInstance().getParties().getPartyMembers(sender.getName()));
+				}
 			}
 			for (String s : list) {
 				if (s.startsWith(args[args.length - 1])) {
@@ -84,5 +93,9 @@ public class AutoTabCompleter implements TabCompleter {
 
 		}
 		return null;
+	}
+
+	private List<String> getOnlinePlayerNames() {
+		return Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
 	}
 }

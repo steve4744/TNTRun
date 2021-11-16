@@ -41,26 +41,13 @@ public class Parties {
 
 	public void handleCommand(Player player, String[] args) {
 		switch(args[1]) {
-			case "create":
-				createParty(player);
-				break;
-			case "invite":
-				inviteToParty(player, args[2]);
-				break;
-			case "leave":
-				leaveParty(player);
-				break;
-			case "kick":
-				kickFromParty(player, args[2]);
-				break;
-			case "unkick":
-				unkickFromParty(player, args[2]);
-				break;
-			case "info":
-				displayPartyInfo(player);
-				break;
-			default:
-				Messages.sendMessage(player, "&c Invalid argument supplied");
+			case "create" -> createParty(player);
+			case "invite" -> inviteToParty(player, args[2]);
+			case "leave"  -> leaveParty(player);
+			case "kick"   -> kickFromParty(player, args[2]);
+			case "unkick" -> unkickFromParty(player, args[2]);
+			case "info"   -> displayPartyInfo(player);
+			default       -> Messages.sendMessage(player, "&c Invalid argument supplied");
 		}
 	}
 
@@ -218,8 +205,8 @@ public class Parties {
 			return;
 		}
 		String leader = getPartyLeader(player);
-		Messages.sendMessage(player, "Party leader: " + getPartyLeader(player));
-		Messages.sendMessage(player, "Party size: " + (getPartyMembers(leader).size() + 1));
-		Messages.sendMessage(player, "Party members: " + getPartyMembers(leader).toString());
+		Messages.sendMessage(player, " Party leader: " + getPartyLeader(player));
+		Messages.sendMessage(player, " Party size: " + (getPartyMembers(leader).size() + 1));
+		Messages.sendMessage(player, " Party members: " + getPartyMembers(leader).toString());
 	}
 }
