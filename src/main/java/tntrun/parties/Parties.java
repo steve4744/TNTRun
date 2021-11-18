@@ -205,7 +205,7 @@ public class Parties {
 			return;
 		}
 		String leader = getPartyLeader(player);
-		Messages.sendMessage(player, " Party leader: " + getPartyLeader(player));
+		Messages.sendMessage(player, " Party leader: " + leader);
 		Messages.sendMessage(player, " Party size: " + (getPartyMembers(leader).size() + 1));
 		Messages.sendMessage(player, " Party members: " + getPartyMembers(leader).toString());
 	}
