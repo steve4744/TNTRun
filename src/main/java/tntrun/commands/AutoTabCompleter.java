@@ -37,7 +37,7 @@ public class AutoTabCompleter implements TabCompleter {
 			"help", "lobby", "list", "join", "leave", "vote", "cmds", "info", "stats", "listkits", "autojoin", "leaderboard", "party");
 
 	private static final List<String> PARTY_COMMANDS = Arrays.asList(
-			"create", "info", "invite", "kick", "leave", "unkick");
+			"accept", "create", "decline", "info", "invite", "kick", "leave", "unkick");
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args) {
@@ -78,8 +78,9 @@ public class AutoTabCompleter implements TabCompleter {
 				}
 
 			} else if (args.length == 3 && args[0].equalsIgnoreCase("party")) {
-				if (args[1].equalsIgnoreCase("invite") || args[1].equalsIgnoreCase("unkick")) {
+				if (Stream.of("invite", "unkick", "accept", "decline").anyMatch(s -> s.equalsIgnoreCase(args[1]))) {
 					list.addAll(getOnlinePlayerNames());
+
 				} else if (args[1].equalsIgnoreCase("kick")) {
 					list.addAll(TNTRun.getInstance().getParties().getPartyMembers(sender.getName()));
 				}
