@@ -20,7 +20,6 @@ package tntrun.commands;
 import java.util.List;
 import java.util.StringJoiner;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -405,20 +404,6 @@ public class GameCommands implements CommandExecutor {
 			plugin.getParties().handleCommand(player, args);
 		}
 
-		// accept or decline party invitation (called from party message)
-		else if (args[0].equalsIgnoreCase("acceptpartyinvite")) {
-			if (args.length != 4) {
-				return false;
-			}
-			if(!args[1].equalsIgnoreCase("accept")) {
-				String msg = Messages.partydecline.replace("{PLAYER}", args[3]);
-				Messages.sendMessage(Bukkit.getPlayer(args[2]), msg);
-				Messages.sendMessage(Bukkit.getPlayer(args[3]), msg);
-				return false;
-			}
-			plugin.getParties().joinParty(args[2], args[3]);
-		}
-
 		else {
 			Messages.sendMessage(player, "&c Invalid argument supplied, please use &6/tr help");
 			return false;
@@ -430,10 +415,13 @@ public class GameCommands implements CommandExecutor {
 		if (args.length == 1) {
 			return false;
 		}
-		switch(args[1]) {
+
+		switch(args[1].toLowerCase()) {
 			case "invite":
 			case "unkick":
 			case "kick":
+			case "accept":
+			case "decline":
 				return args.length == 3;
 
 			case "create":

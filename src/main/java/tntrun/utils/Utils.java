@@ -404,7 +404,7 @@ public class Utils {
 		TextComponent component = new TextComponent(text);
 		component.setColor(ChatColor.GOLD);
 		component.setBold(true);
-		component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tntrun acceptpartyinvite " + text + " " + player.getName() + " " + target));
+		component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tntrun party " + text + " " + player.getName()));
 		component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, content));
 		return component;
 	}

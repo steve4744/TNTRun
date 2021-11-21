@@ -33,6 +33,7 @@ public class Parties {
 	private final TNTRun plugin;
 	private Map<String, List<String>> partyMap = new HashMap<>();
 	private Map<String, List<String>> kickedMap = new HashMap<>();
+	private Map<String, List<String>> invitedMap = new HashMap<>();
 	private String partyLeader;
 
 	public Parties(TNTRun plugin) {
@@ -40,17 +41,24 @@ public class Parties {
 	}
 
 	public void handleCommand(Player player, String[] args) {
-		switch(args[1]) {
-			case "create" -> createParty(player);
-			case "invite" -> inviteToParty(player, args[2]);
-			case "leave"  -> leaveParty(player);
-			case "kick"   -> kickFromParty(player, args[2]);
-			case "unkick" -> unkickFromParty(player, args[2]);
-			case "info"   -> displayPartyInfo(player);
-			default       -> Messages.sendMessage(player, "&c Invalid argument supplied");
+		switch(args[1].toLowerCase()) {
+			case "create"  -> createParty(player);
+			case "invite"  -> inviteToParty(player, args[2]);
+			case "leave"   -> leaveParty(player);
+			case "kick"    -> kickFromParty(player, args[2]);
+			case "unkick"  -> unkickFromParty(player, args[2]);
+			case "accept"  -> joinParty(player, args[2]);
+			case "decline" -> declinePartyInvite(player, args[2]);
+			case "info"    -> displayPartyInfo(player);
+			default        -> Messages.sendMessage(player, "&c Invalid argument supplied");
 		}
 	}
 
+	/**
+	 * Create a TNTRun party. The player creating the party is automatically the party leader.
+	 *
+	 * @param player The player creating the party.
+	 */
 	private void createParty(Player player) {
 		if (alreadyInParty(player)) {
 			Messages.sendMessage(player, Messages.partyinparty);
@@ -63,6 +71,11 @@ public class Parties {
 		}
 	}
 
+	/**
+	 * Leave the TNTRun party. If the party leader leaves, the party is automatically disbanded.
+	 *
+	 * @param player The player leaving the party.
+	 */
 	private void leaveParty(Player player) {
 		if (isPartyLeader(player)) {
 			for (String member : partyMap.get(player.getName())) {
@@ -89,6 +102,13 @@ public class Parties {
 		});
 	}
 
+	/**
+	 * Remove a player from the party. Once kicked from the party, the player can only rejoin if
+	 * un-kicked from the party.
+	 *
+	 * @param player The party leader.
+	 * @param targetName The player to kick
+	 */
 	private void kickFromParty(Player player, String targetName) {
 		if (!isPartyLeader(player)) {
 			Messages.sendMessage(player, Messages.partynotleader);
@@ -97,9 +117,17 @@ public class Parties {
 		if (partyMap.get(player.getName()).removeIf(list -> list.contains(targetName))) {
 			kickedMap.computeIfAbsent(player.getName(), k -> new ArrayList<>()).add(targetName);
 			Messages.sendMessage(player, Messages.partykick.replace("{PLAYER}", targetName));
+			Messages.sendMessage(Bukkit.getPlayer(targetName), Messages.partykick.replace("{PLAYER}", targetName));
 		}
 	}
 
+	/**
+	 * Remove the restriction preventing the player joining the party. A new invitation will be needed for
+	 * the player to rejoin the party.
+	 *
+	 * @param player The party leader.
+	 * @param targetName The player to un-kick from the party.
+	 */
 	private void unkickFromParty(Player player, String targetName) {
 		if (!isPartyLeader(player)) {
 			Messages.sendMessage(player, Messages.partynotleader);
@@ -111,6 +139,13 @@ public class Parties {
 		}
 	}
 
+	/**
+	 * Invite a player to join the party. The player will receive a clickable link in chat to accept or
+	 * decline the invitation.
+	 *
+	 * @param player The party leader.
+	 * @param targetName The player being invited to the party.
+	 */
 	private void inviteToParty(Player player, String targetName) {
 		if (!isPartyLeader(player)) {
 			Messages.sendMessage(player, Messages.partynotleader);
@@ -124,30 +159,63 @@ public class Parties {
 			Messages.sendMessage(player, Messages.playernotonline.replace("{PLAYER}", targetName));
 			return;
 		}
+		invitedMap.computeIfAbsent(player.getName(), k -> new ArrayList<>()).add(targetName);
+
 		Messages.sendMessage(Bukkit.getPlayer(targetName), Messages.partyinvite.replace("{PLAYER}", player.getName()));
 		Utils.displayPartyInvite(player, targetName, "");
 	}
 
-	public void joinParty(String playerName, String targetName) {
-		Player targetPlayer = Bukkit.getPlayer(targetName);
-		if (alreadyInParty(targetPlayer)) {
-			Messages.sendMessage(targetPlayer, Messages.partyinparty);
+	/**
+	 * Accept a party invitation. A player joins a party only when accepting an invitation
+	 * from the party leader.
+	 *
+	 * @param player player that wants to join the party
+	 * @param leaderName party leader's name
+	 */
+	private void joinParty(Player player, String leaderName) {
+		String playerName = player.getName();
+		if (alreadyInParty(player)) {
+			Messages.sendMessage(player, Messages.partyinparty);
 			return;
 		}
-		if (!partyExists(playerName)) {
-			Messages.sendMessage(targetPlayer, Messages.partynotexist);
+		if (!partyExists(leaderName)) {
+			Messages.sendMessage(player, Messages.partynotexist);
 			return;
 		}
-		if (isKicked(playerName, targetName)) {
-			Messages.sendMessage(targetPlayer, Messages.partyban);
+		if (isKicked(leaderName, playerName)) {
+			Messages.sendMessage(player, Messages.partyban);
 			return;
 		}
-		partyMap.computeIfAbsent(playerName, k -> new ArrayList<>()).add(targetName);
-		String msg = Messages.partyjoin.replace("{PLAYER}", targetName);
-		Messages.sendMessage(targetPlayer, msg);
-		Messages.sendMessage(Bukkit.getPlayer(playerName), msg);
+		if (!isInvited(leaderName, playerName)) {
+			Messages.sendMessage(player, Messages.partynoinvite);
+			return;
+		}
+		partyMap.computeIfAbsent(leaderName, k -> new ArrayList<>()).add(playerName);
+		invitedMap.get(leaderName).removeIf(list -> list.contains(playerName));
+
+		String msg = Messages.partyjoin.replace("{PLAYER}", playerName);
+		Messages.sendMessage(Bukkit.getPlayer(leaderName), msg);
+		Messages.sendMessage(player, msg);
 		if (Utils.debug()) {
-			plugin.getLogger().info(targetName + " has joined party created by " + playerName);
+			plugin.getLogger().info(playerName + " has joined party created by " + leaderName);
+		}
+	}
+
+	/**
+	 * Decline a party invitation. The invitation is removed and the party leader will have to
+	 * re-invite the player if you subsequently want to join the party.
+	 *
+	 * @param player
+	 * @param leaderName
+	 */
+	private void declinePartyInvite(Player player, String leaderName) {
+		String playerName = player.getName();
+		invitedMap.get(leaderName).removeIf(list -> list.contains(playerName));
+		String msg = Messages.partydecline.replace("{PLAYER}", playerName);
+		Messages.sendMessage(player, msg);
+		Messages.sendMessage(Bukkit.getPlayer(leaderName), msg);
+		if (Utils.debug()) {
+			plugin.getLogger().info(playerName + " has declined the party invitation from " + leaderName);
 		}
 	}
 
@@ -170,8 +238,16 @@ public class Parties {
 		return false;
 	}
 
+	private boolean isInvited(String playerName, String targetName) {
+		if (invitedMap.containsKey(playerName)) {
+			return invitedMap.get(playerName).contains(targetName);
+		}
+		return false;
+	}
+
 	private void removeParty(Player player) {
 		partyMap.remove(player.getName());
+		invitedMap.remove(player.getName());
 		Messages.sendMessage(player, Messages.partyleaderleave.replace("{PLAYER}", player.getName()));
 		if (Utils.debug()) {
 			plugin.getLogger().info("Party leader " + player.getName() + " has left party");
