@@ -283,6 +283,10 @@ public class StructureManager {
 		return spectatorspawn != null;
 	}
 
+	public boolean isPvpEnabled() {
+		return !getDamageEnabled().toString().equalsIgnoreCase("no");
+	}
+
 	public void setArenaFinished(boolean finished) {
 		this.finished = finished;
 	}

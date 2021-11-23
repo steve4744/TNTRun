@@ -123,6 +123,17 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 			Arena arena = getArenaFromPlaceholder(identifier, 2);
 			return arena != null ? arena.getStatusManager().getArenaStatusMesssage() : null;
 
+		} else if (identifier.startsWith("pvp_status")) {
+			Arena arena = getArenaFromPlaceholder(identifier, 3);
+			if (arena == null) {
+				return null;
+			}
+			return arena.getStructureManager().isPvpEnabled() ? "Enabled" : "Disabled";
+
+		} else if (identifier.startsWith("damage_status")) {
+			Arena arena = getArenaFromPlaceholder(identifier, 3);
+			return arena != null ? Utils.getTitleCase(arena.getStructureManager().getDamageEnabled().toString()) : null;
+
 		} else if (identifier.equals("doublejumps")) {
 			Arena arena = plugin.amanager.getPlayerArena(p.getName());
 			return arena != null ? String.valueOf(arena.getPlayerHandler().getDoubleJumps((Player) p)) : String.valueOf(getUncachedDoubleJumps(p));
