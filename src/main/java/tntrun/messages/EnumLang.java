@@ -15,7 +15,7 @@ public enum EnumLang {
 	German("de", true),
 	Italian("it", false),
 	Japanese("ja", false),
-	Korean("ko", false),
+	Korean("ko", true),
 	Norwegian("no", true),
 	Polish("pl", false),
 	Portugese("pt", false),
