@@ -106,6 +106,8 @@ public class GameHandler {
 		count = arena.getStructureManager().getCountdown();
 		arena.getStatusManager().setStarting(true);
 		signEditor.modifySigns(arena.getArenaName());
+		int antiCamping = Math.max(plugin.getConfig().getInt("anticamping.teleporttime"), 5);
+		int startVisibleCountdown = arena.getStructureManager().getStartVisibleCountdown();
 		runtaskid = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 			@Override
 			public void run() {
@@ -122,10 +124,9 @@ public class GameHandler {
 					startArena();
 					return;
 
-				} else if(count == 5) {
+				} else if(count == antiCamping) {
 					String message = Messages.arenacountdown;
 					message = message.replace("{COUNTDOWN}", String.valueOf(count));
-
 					for (Player player : arena.getPlayersManager().getPlayers()) {
 						if (isAntiCamping() && !arena.getStructureManager().hasAdditionalSpawnPoints()) {
 							player.teleport(arena.getStructureManager().getSpawnPoint());
@@ -133,25 +134,19 @@ public class GameHandler {
 						displayCountdown(player, count, message);
 					}
 
-				} else if (count < 11) {
+				} else if (count <= startVisibleCountdown || count % 10 == 0) {
 					String message = Messages.arenacountdown;
 					message = message.replace("{COUNTDOWN}", String.valueOf(count));
 					for (Player player : arena.getPlayersManager().getPlayers()) {
 						displayCountdown(player, count, message);
 					}
-
-				} else if (count % 10 == 0) {
-					String message = Messages.arenacountdown;
-					message = message.replace("{COUNTDOWN}", String.valueOf(count));
-					for (Player all : arena.getPlayersManager().getPlayers()) {
-						displayCountdown(all, count, message);
-					}
 				}
+
 				arena.getScoreboardHandler().createWaitingScoreBoard();
 				double progressbar = (double) count / arena.getStructureManager().getCountdown();
 				Bars.setBar(arena, Bars.starting, 0, count, progressbar, plugin);
 
-				if (plugin.getConfig().getBoolean("special.UseExpBar")) {
+				if (plugin.getConfig().getBoolean("usexpbar.countdown")) {
 					for (Player player : arena.getPlayersManager().getPlayers()) {
 						player.setLevel(count);
 					}
@@ -208,6 +203,7 @@ public class GameHandler {
 
 		for (Player player : arena.getPlayersManager().getPlayers()) {
 			player.closeInventory();
+			player.setLevel(0);
 			if (plugin.useStats() && !arena.getStructureManager().isExcludeStats()) {
 				plugin.getStats().addPlayedGames(player, 1);
 			}
@@ -261,7 +257,7 @@ public class GameHandler {
 				}
 				Bars.setBar(arena, Bars.playing, arena.getPlayersManager().getPlayersCount(), seconds, progress, plugin);
 				for (Player player : arena.getPlayersManager().getPlayersCopy()) {
-					if (plugin.getConfig().getBoolean("special.UseExpBar")) {
+					if (plugin.getConfig().getBoolean("usexpbar.timelimit")) {
 						player.setLevel(seconds);
 					}
 					handlePlayer(player);
@@ -346,7 +342,7 @@ public class GameHandler {
 	 * @param playerName
 	 */
 	public void setPlaces(String playerName) {
-		if (places.containsValue(playerName) || arena.getPlayersManager().isSpectator(playerName)) {
+		if (places.containsValue(playerName) || arena.getPlayersManager().isSpectator(playerName) || !arena.getStatusManager().isArenaRunning()) {
 			return;
 		}
 		int remainingPlayers = arena.getPlayersManager().getPlayersCount();
@@ -639,13 +635,13 @@ public class GameHandler {
 		String header = Messages.resultshead.replace("{ARENA}", arena.getArenaName());
 		sb.append("\n" + header);
 		sb.append("\n ");
-		sb.append("\n" + Messages.playerfirstplace.replace("{RANK}", Utils.getRank(winner))
+		sb.append("\n" + Messages.playerfirstplace.replace("{RANK}", Utils.getRank(winner.getName()))
 								.replace("{COLOR}", Utils.getColourMeta(winner)).replace("{PLAYER}", winner.getName()));
 
 		if (places.get(2) != null) {
 			String playerName = places.get(2);
-			sb.append("\n" + Messages.playersecondplace.replace("{RANK}", Utils.getRank(Bukkit.getPlayer(playerName)))
-								.replace("{COLOR}", Utils.getColourMeta(Bukkit.getPlayer(playerName)))
+			sb.append("\n" + Messages.playersecondplace.replace("{RANK}", Utils.getRank(playerName))
+								.replace("{COLOR}", Utils.getColourMeta(playerName))
 								.replace("{PLAYER}", playerName));
 
 		} else {
@@ -654,8 +650,8 @@ public class GameHandler {
 
 		if (places.get(3) != null) {
 			String playerName = places.get(3);
-			sb.append("\n" + Messages.playerthirdplace.replace("{RANK}", Utils.getRank(Bukkit.getPlayer(playerName)))
-								.replace("{COLOR}", Utils.getColourMeta(Bukkit.getPlayer(playerName)))
+			sb.append("\n" + Messages.playerthirdplace.replace("{RANK}", Utils.getRank(playerName))
+								.replace("{COLOR}", Utils.getColourMeta(playerName))
 								.replace("{PLAYER}", playerName));
 
 		} else {

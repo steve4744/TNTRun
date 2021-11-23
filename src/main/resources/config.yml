@@ -10,10 +10,12 @@ special:
   BossBarColor: RANDOM
   UseTitle: true
   UseScoreboard: true
-  UseExpBar: true
   UseDoubleJumpPermissions: false
   CheckForNewVersion: true
   Metrics: true
+usexpbar:
+  countdown: true
+  timelimit: true
 UseRankInChat:
   enabled: false
   usegroup: true
@@ -69,6 +71,7 @@ sounds:
     pitch: 1.0
 anticamping:
   enabled: true
+  teleporttime: 5
 leaderboard:
   maxentries: 10
 doublejumps:

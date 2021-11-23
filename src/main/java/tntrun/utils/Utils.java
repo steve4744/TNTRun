@@ -316,6 +316,19 @@ public class Utils {
 	}
 
 	/**
+	 * Get a player's cached rank. This can be either the player's prefix or primary group.
+	 *
+	 * @param player name
+	 * @return player's rank.
+	 */
+	public static String getRank(String playerName) {
+		if (!TNTRun.getInstance().getConfig().getBoolean("UseRankInChat.enabled")) {
+			return "";
+		}
+		return ranks.getOrDefault(playerName, "");
+	}
+
+	/**
 	 * Attempt to get a player's cached colour meta. The colour is applied to players of the same rank/group.
 	 * If the rank is not cached, retrieve it asynchronously and cache it.
 	 *
@@ -328,6 +341,20 @@ public class Utils {
 			if (colours.containsKey(player.getName())) {
 				return colours.get(player.getName());
 			}
+		}
+		return "";
+	}
+
+	/**
+	 * Get a player's cached colour meta. The colour is applied to players of the same rank/group.
+	 *
+	 * @param player name
+	 * @return player's rank.
+	 */
+	public static String getColourMeta(String playerName) {
+		FileConfiguration config = TNTRun.getInstance().getConfig();
+		if (config.getBoolean("UseRankInChat.enabled") && config.getBoolean("UseRankInChat.groupcolormeta")) {
+			return colours.get(playerName) != null ? colours.get(playerName) : "";
 		}
 		return "";
 	}
@@ -377,7 +404,7 @@ public class Utils {
 		TextComponent component = new TextComponent(text);
 		component.setColor(ChatColor.GOLD);
 		component.setBold(true);
-		component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tntrun acceptpartyinvite " + text + " " + player.getName() + " " + target));
+		component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tntrun party " + text + " " + player.getName()));
 		component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, content));
 		return component;
 	}

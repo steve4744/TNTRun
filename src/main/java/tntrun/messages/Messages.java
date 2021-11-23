@@ -194,6 +194,7 @@ public class Messages {
 	public static String partyban = "&c You are currently kicked from this party";
 	public static String partyinparty = "&c You are already in a party";
 	public static String partynotexist = "&c The selected party does not exist";
+	public static String partynoinvite = "&c You do not have an invitation to this party";
 	
 	public static void sendMessage(CommandSender sender, String message) {
 		sendMessage(sender, message, true);
@@ -377,6 +378,7 @@ public class Messages {
 		partyban = config.getString("partyban", partyban);
 		partyinparty = config.getString("partyinparty", partyinparty);
 		partynotexist = config.getString("partynotexist", partynotexist);
+		partynoinvite = config.getString("partynoinvite", partynoinvite);
 
 		// temp fix (v9.15) to not rely on manual updates to the messages file
 		if (!playerfirstplace.contains("{PLAYER}")) {
@@ -552,6 +554,7 @@ public class Messages {
 		config.set("partyban", partyban);
 		config.set("partyinparty", partyinparty);
 		config.set("partynotexist", partynotexist);
+		config.set("partynoinvite", partynoinvite);
 		try {
 			config.save(messageconfig);
 		} catch (IOException e) {

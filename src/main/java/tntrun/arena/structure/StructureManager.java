@@ -54,6 +54,7 @@ public class StructureManager {
 	private double votesPercent = 0.75;
 	private int timelimit = 300;
 	private int countdown = 10;
+	private int startVisibleCountdown = 10;
 	private Rewards rewards = new Rewards();
 	private TeleportDestination teleportDest = TeleportDestination.PREVIOUS;
 	private DamageEnabled damageEnabled = DamageEnabled.NO;
@@ -150,6 +151,10 @@ public class StructureManager {
 
 	public int getCountdown() {
 		return countdown;
+	}
+
+	public int getStartVisibleCountdown() {
+		return startVisibleCountdown;
 	}
 
 	public Rewards getRewards() {
@@ -276,6 +281,10 @@ public class StructureManager {
 
 	public boolean isSpectatorSpawnSet() {
 		return spectatorspawn != null;
+	}
+
+	public boolean isPvpEnabled() {
+		return !getDamageEnabled().toString().equalsIgnoreCase("no");
 	}
 
 	public void setArenaFinished(boolean finished) {
@@ -447,6 +456,7 @@ public class StructureManager {
 		config.set("votePercent", votesPercent);
 		config.set("timelimit", timelimit);
 		config.set("countdown", countdown);
+		config.set("startVisibleCountdown", startVisibleCountdown);
 		config.set("teleportto", teleportDest.toString());
 		config.set("damageenabled", damageEnabled.toString());
 		config.set("kits.enabled", kitsEnabled);
@@ -486,6 +496,7 @@ public class StructureManager {
 		votesPercent = config.getDouble("votePercent", votesPercent);
 		timelimit = config.getInt("timelimit", timelimit);
 		countdown = config.getInt("countdown", countdown);
+		startVisibleCountdown = config.getInt("startVisibleCountdown", startVisibleCountdown);
 		teleportDest = TeleportDestination.valueOf(config.getString("teleportto", TeleportDestination.PREVIOUS.toString()));
 		damageEnabled = DamageEnabled.valueOf(config.getString("damageenabled", DamageEnabled.NO.toString()));
 		rewards.loadFromConfig(config);

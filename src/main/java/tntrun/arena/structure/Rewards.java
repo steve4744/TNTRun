@@ -79,7 +79,7 @@ public class Rewards {
 	}
 
 	public boolean isActiveReward(int place) {
-		return activereward.get(place);
+		return activereward.getOrDefault(place, false);
 	}
 
 	public void setMaterialReward(String item, String amount, boolean isFirstItem, int place) {
@@ -260,7 +260,7 @@ public class Rewards {
 				sb.setLength(sb.length() - 2);
 			}
 			if (sb.length() != 0) {
-				sb.insert(0, places.get(i-1).replace("{RANK}", "").replace("{COLOR}", ""));
+				sb.insert(0, places.get(i-1).replace("{RANK}", "").replace("{COLOR}", "").replace("{PLAYER}", ""));
 				Messages.sendMessage(player, sb.toString(), false);
 			}
 		});

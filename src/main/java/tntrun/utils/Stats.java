@@ -341,28 +341,24 @@ public class Stats {
 	}
 
 	private List<String> getWorkingList(String type) {
-		switch(type.toLowerCase()) {
-		case "wins":
-			if (sortedWins.isEmpty()) {
-				sortedWins = createSortedList(wmap);
-			}
-			return sortedWins;
+		return switch(type.toLowerCase()) {
+			case "wins"   -> getSortedWins();
+			case "played" -> getSortedPlayed();
+			case "losses" -> getSortedLosses();
+			default       -> List.of();
+		};
+	}
 
-		case "played":
-			if (sortedPlayed.isEmpty()) {
-				sortedPlayed = createSortedList(pmap);
-			}
-			return sortedPlayed;
+	private List<String> getSortedWins() {
+		return sortedWins.isEmpty() ? createSortedList(wmap) : sortedWins;
+	}
 
-		case "losses":
-			if (sortedLosses.isEmpty()) {
-				sortedLosses = createSortedList(getLossMap());
-			}
-			return sortedLosses;
+	private List<String> getSortedPlayed() {
+		return sortedPlayed.isEmpty() ? createSortedList(pmap) : sortedPlayed;
+	}
 
-		default:
-			return List.of();
-		}
+	private List<String> getSortedLosses() {
+		return sortedLosses.isEmpty() ? createSortedList(getLossMap()) : sortedLosses;
 	}
 
 	private List<String> createSortedList(Map<String, Integer> map) {
