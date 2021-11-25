@@ -1,0 +1,164 @@
+---
+trprefix: "&7[&6TNTRun_reloaded&7]"
+menutitle: "&1TNTRun_reloaded areny"
+menuarenaname: "&a{ARENA}"
+menutext: "&5Gracze: &6{PS}/{MPS}"
+menufee: "&5Opłata za dołączenie: &6{FEE}"
+menupvp: "&5PVP: &6Włączone"
+menutracker: "&1TNTRun śledzenie gracza"
+nopermission: "&c Nie masz uprawnień"
+nolobby: "&c Globalne lobby nie jest ustawione, wpisz komendę &6/trsetup setlobby
+  &c aby ustawić lobby"
+lobbyunloaded: "&c Świat z lobby nie jest załadowany lub nie istnieje "
+teleporttolobby: "&7 Przeteleportowano do lobby"
+arenanotexist: "&c Arena &6{ARENA}&c nie istnieje"
+noarenas: "&c Nie ma dostępnych aren, do których można dołączyć"
+arenanotdisabled: "&c Wyłącz arenę za pomocą komendy: &6/trsetup disable {ARENA}"
+arenanospectatorspawn: "&c Nie ustawiono punktu odrodzenia dla widzów na arenie &6{ARENA}"
+availablearenas: "&7 Dostępne areny: {COUNT}"
+availablekits: "&7 Dostępne zestawy: {COUNT}"
+arenawolrdna: "&7 Świat z areną nie jest załadowany"
+arenanobounds: "&7 Nie ustawiono granicy areny"
+arenadisabled: "&7 Arena jest wyłączona"
+arenarunning: "&7 Na arenie trwa rozgrywka"
+arenaregenerating: "&7 Trwa odbudowa areny"
+arenavehicle: "&c Nie możesz dołączyć do gry siedząc w pojeździe"
+arenajoined: "&c Dołączyłeś już do areny"
+arenadisabling: "&6 Arena jest w trakcie wyłączania"
+arenastarting: "&6 Rozgrywka na arenie już się zaczyna"
+signcreate: "&7 Pomyślnie utworzono tabliczkę"
+signremove: "&7 Pomyślnie usunięto tabliczkę"
+signfail: "&7 Musisz patrzeć na tabliczkę, aby utworzyć tabliczkę do dołączenie"
+arenafee: "&7 Pobrano &6{FEE} &7za wejście na arenę"
+arenanofee: "&c Wymagana jest opłata w wysokości &6{FEE} &c, aby wejść na arenę"
+arenawaiting: "&6 Czeka na dołączenie graczy"
+playerscountinarena: "&6 Aktualna liczba graczy na arenie: {COUNT} gracz/y"
+limitreached: "&7 Arena jest pełna."
+playerjoinedtoothers: "&c {RANK}&6{COLOR}{PLAYER} &7joined the arena (&6{PS}&7/&6{MPS}&7)"
+playerjoininvite: "&c{RANK}&6{COLOR}{PLAYER} &7has joined TNTRun arena &6{ARENA}&7,
+  click to play"
+playerborderinvite: "&b---------------------------------------"
+playerclickinvite: Kliknij, aby dołączyć do {ARENA}
+playerjoinedasspectator: "&7 Dołączyłeś do areny &6{ARENA} &7jako widz"
+playerlefttoplayer: "&7 Opuściłeś arenę"
+playerlefttoothers: "&c {RANK}&6{COLOR}{PLAYER} &7opuścił grę (&6{PS}&7/&6{MPS}&7)"
+playernotplaying: "&c Wybrany gracz &6{PLAYER} &cjuż nie gra"
+playervotedforstart: "&f Zagłosowałeś za wymuszeniem rozpoczęcia gry"
+playeralreadyvotedforstart: "&c Już zagłosowałeś"
+playercannotvote: "&c Nie możesz głosować na wymuszenie uruchomienia areny"
+arenastarted: "&7 Gra rozpoczęta. Limit czasu to {TIMELIMIT} sekund"
+arenanolimit: "&7 Gra rozpoczęta. Bez limitu czasu"
+arenacountdown: "&7 Gra rozpocznie się za {COUNTDOWN} sekund"
+arenatimeout: "&7 Czas minął. Koniec gry"
+playerwontoplayer: "&7 Wygrałeś grę!"
+playerfinishedtestmode: "&7 Gra testowa zakończona!"
+playerlosttoplayer: "&7 Przegrałeś grę"
+playerlosttoothers: "&c {RANK}&6{COLOR}{PLAYER} &7przegrał (&6{PS}&7/&6{MPS}&7)"
+playerfirstplace: "&aMiejsce 1: &f{RANK}{COLOR}{PLAYER}"
+playersecondplace: "&aMiejsce 2: &f{RANK}{COLOR}{PLAYER}"
+playerthirdplace: "&aMiejsce 3: &f{RANK}{COLOR}{PLAYER}"
+playerrewardmessage: "&7 Dostałeś nagrodę: &6{REWARD}"
+playerrewardmaterial: "&6 Materiał: &f"
+playerrewardcommand: "&6 Komenda: &f"
+playerrewardmoney: "&6 Pieniądze: &f"
+playerrewardxp: "&6 XP :      &l  &f"
+playerboughtitem: "&7 Kupiłeś przedmiot &6{ITEM} &7za &6{MONEY}"
+playerboughtwait: "&7 Otrzymasz swoje przedmioty, gdy gra się rozpocznie"
+playerkit: "&7 Otrzymałeś zestaw &6{KIT}"
+playersrequiredtostart: "&c Aby wymusić start, na arenie musi być co najmniej 2 graczy"
+notenoughmoney: "&c Potrzebujesz {MONEY}, aby kupić ten przedmiot"
+alreadyboughtitem: "&c Kupiłeś już przedmiot w sklepie"
+shopnostock: "&c Ten produkt jest obecnie niedostępny"
+maxdoublejumpsexceeded: "&c Nie możesz przekroczyć maksymalnej dozwolonej liczby podwójnych
+  skoków ({MAXJUMPS})"
+playernotinarena: "&c Nie jesteś na arenie TNTRun"
+playernotonline: "&6 {PLAYER} &7 nie jest obecnie online"
+gamesplayed: "&bRozegrane gry &f:"
+gameswon: "&bWygrane &f:"
+gameslost: "&bPrzegrane &f:"
+statshead: "&7=========[&6Statystyki TNTRun&7]========="
+rewardshead: "&7======[&6Nagrody TNTRun&7 - &a{ARENA}&7]======"
+leaderhead: "&7======[&6Tabela wyników TNTRun&7]======"
+resultshead: "&7============[&6TNTRun&7]============"
+leaderboard: "{POSITION}) &c{RANK}&b{COLOR}{PLAYER} &f: Wygrane &3{WINS}"
+leadersign: "&1{PLAYER} &4{WINS}"
+shopmoneyheader: "&fTNTRun Shop Account"
+shopmoneybalance: "&5Twoje saldo wynosi &6{BAL}"
+statsdisabled: "&c Statystyki są obecnie wyłączone"
+helplobby: Teleportuj się do lobby
+helplist: Wyświetl wszystkie areny LUB Wyświetl szczegóły aren
+helplistkit: Wymień wszystkie zestawy LUB Wyświetl szczegóły zestawu
+helplistrewards: Wymień nagrody za arenę
+helpjoin: Otwórz menu dołączania LUB Dołącz do areny
+helpspectate: Dołącz do areny jako widz
+helpautojoin: Automatycznie dołącz do pierwszej dostępnej areny
+helpleave: Opuść obecną arenę
+helpvote: Zagłosuj za wymuszeniem rozpoczęcia obecnej areny
+helpcmds: Zobacz wszystkie polecenia TNTRun
+helpinfo: Wyświetl informacje o wtyczce
+helpstats: Zobacz statystyki gracza
+helplb: Wyświetl tabelę wyników TNTRun
+helpstart: Wymuś uruchomienie areny
+setuplobby: Ustaw globalne lobby w swojej obecnej lokalizacji
+setupdellobby: Usuń globalne lobby
+setupcreate: Stwórz nową arenę
+setupconfigure: Otwórz menu, aby skonfigurować arenę
+setupbounds: Wyznacz granice areny
+setuploselevel: Set loselevel point at your feet
+setupspawn: Ustaw punkt odrodzenia na arenie
+setupspectate: Ustaw punkt odradzania widza
+setupaddspawn: Ustaw dodatkowy punkt odradzania
+setupdelspawns: Usuń wszystkie punkty odradzania utworzone za pomocą polecenia addspawn
+setupfinish: Ukończ arenę i zapisz
+setupdelspectate: Usuń punkt odrodzenia widzów na arenie
+setupdelay: Ustaw opóźnienie usuwania bloku, gdy gracz na niego wejdzie
+setupregendelay: 'Ustaw opóźnienie, zanim gracze będą mogli ponownie dołączyć do areny
+  (Domyślnie: 60)'
+setupmax: 'Ustaw maksymalną liczbę graczy na arenie (domyślnie: 15)'
+setupmin: 'Ustaw minimalną liczbę graczy na arenie (domyślnie: 2)'
+setupvote: 'Ustaw procent głosów, aby wymusić rozpoczęcie areny (domyślnie: 0,75)'
+setuptimelimit: 'Ustaw limit czasu dla areny (domyślnie: 300 sekund)'
+setupcountdown: 'Ustaw odliczanie dla areny (domyślnie: 15 sekund)'
+setupmoney: Ustaw nagrodę pieniężną dla zwycięskiego gracza
+setupteleport: Ustaw teleportację, gdy przegrasz lub wygrasz na arenie
+setupdamage: Włącz/wyłącz PVP na arenie
+setupbarcolor: Ustaw kolor BossBar
+setupreloadbars: Komunikaty przeładowania
+setupreloadtitles: Przeładuj wiadomości tytułów
+setupreloadmsg: Przeładuj wiadomości z areny
+setupreloadconfig: Przeładuj plik konfiguracyjny
+setupenable: Włącz arenę
+setupdisable: Wyłącz arenę
+setupdelete: Usuń arenę
+setupreward: Ustaw nagrody za arenę
+setupfee: Ustaw koszt dołączenia do areny
+setupcurrency: Ustaw walutę, aby dołączyć do areny
+setuphelp: Polecenia wymagane do skonfigurowania nowej areny
+setupenablekits: Włącz zestawy dla areny
+setupdisablekits: Wyłącz zestawy dla areny
+setupaddkit: Utwórz zestaw TNTRun
+setupdelkit: Usuń zestaw TNTRun
+setupp1: Set targeted block as first selection point
+setupp2: Set targeted block as second selection point
+setupclear: Wyczyść punkty wyboru
+setupwhitelist: Umieść na białej liście polecenie do użycia w grze
+setupresetstats: Usuń wszystkie statystyki TNTRun dla gracza
+setupresetrank: Usuń rangę gracza z pamięci podręcznej
+kitexists: "&c Określony zestaw już istnieje: &6{KIT}"
+kitnotexists: "&c Określony zestaw nie istnieje: &6{KIT}"
+partycreate: "&7 Drużyna utworzona"
+partyjoin: "&6 {PLAYER} &7 dołączył do drużyny"
+partydecline: "&6 {PLAYER} &7 odrzucił zaproszenie do drużyny"
+partyleave: "&6 {PLAYER} &7 opuścił drużynę"
+partyleaderleave: "&7 Lider drużyny &6{PLAYER} &7 opuścił drużynę - drużyna została
+  usunięta"
+partynotmember: "&c Nie jesteś członkiem żadnej drużyny"
+partynotleader: "&c Nie jesteś liderem drużyny"
+partykick: "&6 {PLAYER} &7 został wyrzucony z drużyny"
+partyunkick: "&6 {PLAYER} &7może dołączyć do Twojej drużyny"
+partyinviteself: "&c Nie możesz zaprosić samego siebie do drużyny "
+partyinvite: "&6 {PLAYER} &7 zaprosił Cię do drużyny"
+partyban: "&c Zostałeś wyrzucony z drużyny"
+partyinparty: "&c Jesteś już w drużynie"
+partynotexist: "&c Wybrana drużyna nie istnieje"
+partynoinvite: "&c Nie masz zaproszenia do tej drużyny"
