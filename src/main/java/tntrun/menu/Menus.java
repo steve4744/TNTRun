@@ -65,7 +65,7 @@ public class Menus {
 		//TODO provide permanent fix for > 28 arenas
 		arenas.entrySet().stream().limit(28).forEach(e -> {
 			Arena arena = e.getValue();
-			boolean isPvp = !arena.getStructureManager().isPvpEnabled();
+			boolean isPvp = arena.getStructureManager().isPvpEnabled();
 			List<String> lores = new ArrayList<>();
 			ItemStack is = new ItemStack(getMenuItem(isPvp));
 			ItemMeta im = is.getItemMeta();
