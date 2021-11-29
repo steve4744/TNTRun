@@ -60,6 +60,9 @@ public class PlayerLeaveArenaChecker implements Listener {
 		if (arena == null) {
 			return;
 		}
+		if (!plugin.getConfig().getBoolean("ondeath.dropitems", true)) {
+			e.getDrops().clear();
+		}
 		arena.getGameHandler().setPlaces(player.getName());
 		arena.getPlayerHandler().dispatchPlayer(player);
 	}

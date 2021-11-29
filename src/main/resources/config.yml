@@ -171,5 +171,7 @@ bungeecord:
 currency:
   prefix: ''
   suffix: ' coins'
+ondeath:
+  dropitems: true
 language: en-GB
 debug: false
