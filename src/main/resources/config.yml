@@ -173,5 +173,6 @@ currency:
   suffix: ' coins'
 ondeath:
   dropitems: true
+removearrows: false
 language: en-GB
 debug: false

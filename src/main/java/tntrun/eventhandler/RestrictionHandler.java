@@ -24,8 +24,11 @@ import java.util.HashSet;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
+import org.bukkit.entity.Trident;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -33,6 +36,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -110,6 +114,7 @@ public class RestrictionHandler implements Listener {
 		e.setCancelled(true);
 	}
 
+	// player interaction with hotbar items
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		final Player player = e.getPlayer();
@@ -207,6 +212,7 @@ public class RestrictionHandler implements Listener {
 
 	public ArrayList<String> u = new ArrayList<>();
 
+	// handle fly and doublejumps
 	@EventHandler
 	public void onFly(PlayerToggleFlightEvent e) {
 		final Player player = e.getPlayer();
@@ -287,6 +293,7 @@ public class RestrictionHandler implements Listener {
 		}.runTaskAsynchronously(plugin);
 	}
 
+	// prevent firework damage
 	@EventHandler
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		if (!(event.getEntity() instanceof Player)) {
@@ -303,6 +310,7 @@ public class RestrictionHandler implements Listener {
 		}
 	}
 
+	// prevent movement of items within inventory
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
@@ -311,5 +319,28 @@ public class RestrictionHandler implements Listener {
 			return;
 		}
 		event.setCancelled(true);
+	}
+
+	// remove arrows and tridents that have missed their target
+	@EventHandler
+	public void onProjectileImpact(ProjectileHitEvent e) {
+		Projectile projectile = e.getEntity();
+		if (!(projectile.getShooter() instanceof Player)) {
+			return;
+		}
+		Player player = (Player) projectile.getShooter();
+		Arena arena = plugin.amanager.getPlayerArena(player.getName());
+		if (arena == null) {
+			return;
+		}
+		if (!plugin.getConfig().getBoolean("removearrows")) {
+			return;
+		}
+		if (e.getHitBlock() == null) {
+			return;
+		}
+		if (projectile instanceof Arrow || projectile instanceof Trident) {
+			projectile.remove();
+		}
 	}
 }
