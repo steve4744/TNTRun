@@ -16,6 +16,9 @@
  */
 package tntrun.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.entity.Player;
 
 import tntrun.TNTRun;
@@ -23,18 +26,23 @@ import tntrun.TNTRun;
 public class PartyAPI {
 
 	private static final String[] CREATE = {"party", "create"};
-	private static final String[] JOIN = {"party", "accept"};
 	private static final String[] LEAVE = {"party", "leave"};
 
 	public static void createParty(Player player) {
 		TNTRun.getInstance().getParties().handleCommand(player, CREATE);
 	}
 
-	public static void joinParty(Player player) {
-		TNTRun.getInstance().getParties().handleCommand(player, JOIN);
-	}
-
 	public static void leaveParty(Player player) {
 		TNTRun.getInstance().getParties().handleCommand(player, LEAVE);
+	}
+
+	public static void joinParty(Player player, String target) {
+		List<String> join = new ArrayList<>(List.of("party", "accept", target));
+		TNTRun.getInstance().getParties().handleCommand(player, join.toArray(String[]::new));
+	}
+
+	public static void inviteToParty(Player player, String target) {
+		List<String> invite = new ArrayList<>(List.of("party", "invite", target));
+		TNTRun.getInstance().getParties().handleCommand(player, invite.toArray(String[]::new));
 	}
 }
