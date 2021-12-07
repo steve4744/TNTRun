@@ -86,13 +86,10 @@ public class Menus {
 			im.setLore(lores);
 			is.setItemMeta(im);
 
-			// put the arenas in the centre rows of the inventory
 			switch (keyPos) {
-				case 16 : case 25 : case 34 : case 43 :
-					keyPos+=3;
-					break;
-				default :  keyPos++;
-			}
+				case 16, 25, 34, 43 -> keyPos+=3;
+				default             -> keyPos++;
+			};
 			inv.setItem(keyPos,is);
 		});
 
@@ -319,16 +316,17 @@ public class Menus {
 		Arena autoarena = null;
 		int playercount = -1;
 
-		switch (type.toLowerCase()) {
-			case "pvp":
-				arenas = plugin.amanager.getPvpArenas();
-				break;
-			case "nopvp":
-				arenas = plugin.amanager.getNonPvpArenas();
-				break;
-			default:
-				arenas = plugin.amanager.getArenas();
-		}
+		arenas = switch (type.toLowerCase()) {
+			case "pvp" -> {
+				yield plugin.amanager.getPvpArenas();
+			}
+			case "nopvp" -> {
+				yield plugin.amanager.getNonPvpArenas();
+			}
+			default -> {
+				yield plugin.amanager.getArenas();
+			}
+		};
 
 		List<Arena> arenalist = new ArrayList<>(arenas);
 		Collections.shuffle(arenalist);
