@@ -146,7 +146,7 @@ MySQL:
   pass: password
   useSSL: false
   flags: allowPublicKeyRetrieval=true
-  legacyDriver: true
+  legacyDriver: false
 signs:
   prefix: '&6&lTNTRun'
   join: '[Join]'
