@@ -1,6 +1,6 @@
 name: TNTRun_reloaded
 main: tntrun.TNTRun
-softdepend: [WorldEdit, Vault, HeadsPlus, mcMMO, PlaceholderAPI]
+softdepend: [WorldEdit, Vault, HeadsPlus, mcMMO, PlaceholderAPI, Parties]
 version: ${project.version}
 api-version: 1.16
 author: [steve4744]
@@ -41,4 +41,7 @@ permissions:
     default: op
   tntrun.listrewards:
     description: allow players to list the arena rewards
+    default: true
+  tntrun.party:
+    description: allow players to create and join TNTRun parties
     default: true

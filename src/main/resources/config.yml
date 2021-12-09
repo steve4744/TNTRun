@@ -48,6 +48,7 @@ invitationmessage:
   excludeoriginator: false
 parties:
   enabled: true
+  usePartiesPlugin: false
 menu:
   item: TNT
   pvpitem: IRON_BLOCK

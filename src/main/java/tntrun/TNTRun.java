@@ -69,6 +69,7 @@ public class TNTRun extends JavaPlugin {
 	private boolean usestats = false;
 	private boolean needupdate = false;
 	private boolean placeholderapi = false;
+	private boolean adpParties = false;
 	private boolean file = false;
 	private VaultHandler vaultHandler;
 	private BungeeHandler bungeeHandler;
@@ -187,6 +188,10 @@ public class TNTRun extends JavaPlugin {
 		return getConfig().getBoolean("parties.enabled");
 	}
 
+	public boolean isAdpParties() {
+		return adpParties && getConfig().getBoolean("parties.usePartiesPlugin") && !isParties();
+	}
+
 	public boolean useStats() {
 		return usestats;
 	}
@@ -301,6 +306,11 @@ public class TNTRun extends JavaPlugin {
 			placeholderapi = true;
 			log.info("Successfully linked with PlaceholderAPI, version " + PlaceholderAPI.getDescription().getVersion());
 			new TNTRunPlaceholders(this).register();
+		}
+		Plugin Parties = getServer().getPluginManager().getPlugin("Parties");
+		if (Parties != null && Parties.isEnabled()) {
+			adpParties = true;
+			log.info("Successfully linked with Parties, version " + Parties.getDescription().getVersion());
 		}
 
 		vaultHandler = new VaultHandler(this);

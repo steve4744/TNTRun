@@ -68,6 +68,11 @@
 	    <id>jitpack.io</id>
 	    <url>https://jitpack.io</url>
 	</repository>
+	<!-- AlessioDP Parties Repo -->
+    <repository>
+        <id>alessiodp-repo</id>
+        <url>https://repo.alessiodp.com/releases/</url>
+    </repository>
   </repositories>
   <dependencies>
     <!-- Spigot API -->
@@ -117,6 +122,13 @@
         <groupId>com.gmail.nossr50.mcMMO</groupId>
         <artifactId>mcMMO</artifactId>
         <version>2.1.200</version>
+        <scope>provided</scope>
+    </dependency>
+    <!-- Parties -->
+    <dependency>
+        <groupId>com.alessiodp.parties</groupId>
+        <artifactId>parties-api</artifactId>
+        <version>3.1.13</version>
         <scope>provided</scope>
     </dependency>
   </dependencies>

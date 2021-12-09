@@ -195,6 +195,7 @@ public class Messages {
 	public static String partyinparty = "&c You are already in a party";
 	public static String partynotexist = "&c The selected party does not exist";
 	public static String partynoinvite = "&c You do not have an invitation to this party";
+	public static String partynotenabled = "&c TNTRun parties are not currently enabled";
 	
 	public static void sendMessage(CommandSender sender, String message) {
 		sendMessage(sender, message, true);
@@ -379,6 +380,7 @@ public class Messages {
 		partyinparty = config.getString("partyinparty", partyinparty);
 		partynotexist = config.getString("partynotexist", partynotexist);
 		partynoinvite = config.getString("partynoinvite", partynoinvite);
+		partynotenabled = config.getString("partynotenabled", partynotenabled);
 
 		// temp fix (v9.15) to not rely on manual updates to the messages file
 		if (!playerfirstplace.contains("{PLAYER}")) {
@@ -555,6 +557,7 @@ public class Messages {
 		config.set("partyinparty", partyinparty);
 		config.set("partynotexist", partynotexist);
 		config.set("partynoinvite", partynoinvite);
+		config.set("partynotenabled", partynotenabled);
 		try {
 			config.save(messageconfig);
 		} catch (IOException e) {

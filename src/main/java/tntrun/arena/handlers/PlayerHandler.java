@@ -23,6 +23,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -34,6 +36,11 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import com.alessiodp.parties.api.Parties;
+import com.alessiodp.parties.api.interfaces.PartiesAPI;
+import com.alessiodp.parties.api.interfaces.Party;
+import com.alessiodp.parties.api.interfaces.PartyPlayer;
 import com.gmail.nossr50.api.PartyAPI;
 
 import tntrun.TNTRun;
@@ -314,8 +321,10 @@ public class PlayerHandler {
 		if (plugin.isBungeecord()) {
 			return;
 		}
-		if (plugin.getConfig().getBoolean("parties.enabled")) {
+		if (plugin.isParties()) {
 			joinPartyMembers(player);
+		} else if (plugin.isAdpParties()) {
+			joinAdpPartyMembers(player);
 		}
 	} 
 
@@ -942,6 +951,42 @@ public class PlayerHandler {
 		}
 		plugin.getParties().getPartyMembers(player.getName()).forEach(member -> {
 			Player p = Bukkit.getPlayer(member);
+			if (p != null && checkJoin(p)) {
+				spawnPlayer(p, Messages.playerjoinedtoothers);
+			}
+		});
+	}
+
+	/**
+	 * If the player is an ADP party leader, then spawn the other party members in the arena.
+	 *
+	 * @param player
+	 */
+	private void joinAdpPartyMembers(Player player) {
+		PartiesAPI api = Parties.getApi();
+		UUID uuid = player.getUniqueId();
+
+		PartyPlayer partyPlayer = api.getPartyPlayer(uuid);
+		if (partyPlayer == null || !partyPlayer.isInParty()) {
+			return;
+		}
+
+		String partyName = partyPlayer.getPartyName();
+		if (partyName.isEmpty()) {
+			return;
+		}
+
+		Party party = api.getParty(partyName);
+		if (!uuid.equals(party.getLeader())) {
+			return;
+		}
+
+		party.getOnlineMembers().forEach(member -> {
+			if (member.equals(partyPlayer)) {
+				//ignore party leader
+				return;
+			}
+			Player p = Bukkit.getPlayer(member.getPlayerUUID());
 			if (p != null && checkJoin(p)) {
 				spawnPlayer(p, Messages.playerjoinedtoothers);
 			}

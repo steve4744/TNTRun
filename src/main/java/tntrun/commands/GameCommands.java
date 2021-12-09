@@ -393,10 +393,14 @@ public class GameCommands implements CommandExecutor {
 
 		// party
 		else if(args[0].equalsIgnoreCase("party")) {
-			/*if (!player.hasPermission("tntrun.party")) {
+			if (!player.hasPermission("tntrun.party")) {
 				Messages.sendMessage(player, Messages.nopermission);
 				return false;
-			}*/
+			}
+			if (!plugin.isParties()) {
+				Messages.sendMessage(player, Messages.partynotenabled);
+				return false;
+			}
 			if (!validatePartyArgs(args)) {
 				Messages.sendMessage(player, "&c Invalid number of arguments supplied");
 				return false;
