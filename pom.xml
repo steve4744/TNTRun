@@ -79,7 +79,7 @@
     <dependency>
         <groupId>org.spigotmc</groupId>
         <artifactId>spigot-api</artifactId>
-        <version>1.18-R0.1-SNAPSHOT</version>
+        <version>1.18.1-R0.1-SNAPSHOT</version>
         <scope>provided</scope>
     </dependency>
     <!-- Vault API -->
@@ -107,14 +107,14 @@
     <dependency>
         <groupId>com.sk89q.worldedit</groupId>
         <artifactId>worldedit-bukkit</artifactId>
-        <version>7.2.7-SNAPSHOT</version>
+        <version>7.2.8-SNAPSHOT</version>
         <scope>provided</scope>
     </dependency>
     <!-- HeadsPlus -->
     <dependency>
         <groupId>io.github.thatsmusic99</groupId>
         <artifactId>headsplus</artifactId>
-        <version>7.0.0-BETA-1</version>
+        <version>7.0.2</version>
         <scope>provided</scope>
     </dependency>
     <!-- mcMMO -->
@@ -128,7 +128,7 @@
     <dependency>
         <groupId>com.alessiodp.parties</groupId>
         <artifactId>parties-api</artifactId>
-        <version>3.1.13</version>
+        <version>3.1.14</version>
         <scope>provided</scope>
     </dependency>
   </dependencies>
