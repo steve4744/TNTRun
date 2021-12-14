@@ -313,7 +313,7 @@ public class GameHandler {
 			return;
 		}
 
-		if (arena.getStructureManager().getLoseLevel().isLooseLocation(plloc)) {
+		if (arena.getStructureManager().getLoseLevel().isLoseLocation(plloc)) {
 			if (arena.getPlayersManager().getPlayersCount() == 1) {
 				// arena must be in test mode
 				startEnding(player);

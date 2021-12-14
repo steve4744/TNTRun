@@ -38,11 +38,11 @@ public class LoseLevel {
 		return p1 != null;
 	}
 
-	public boolean isLooseLocation(Location loc) {
+	public boolean isLoseLocation(Location loc) {
 		return loc.getY() < p1.getBlockY() + 1;
 	}
 
-	public void setLooseLocation(Location p1) {
+	public void setLoseLocation(Location p1) {
 		this.p1 = p1.toVector();
 	}
 

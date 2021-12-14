@@ -301,9 +301,9 @@ public class StructureManager {
 		gameleveldestroydelay = delay;
 	}
 
-	public boolean setLooseLevel(Location loc1) {
+	public boolean setLoseLevel(Location loc1) {
 		if (isInArenaBounds(loc1)) {
-			loselevel.setLooseLocation(loc1);
+			loselevel.setLoseLocation(loc1);
 			return true;
 		}
 		return false;

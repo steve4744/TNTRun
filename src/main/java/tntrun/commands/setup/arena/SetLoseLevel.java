@@ -50,7 +50,7 @@ public class SetLoseLevel implements CommandHandlerInterface {
 		}
 
 		Location loc = player.getLocation();
-		if (arena.getStructureManager().setLooseLevel(loc)) {
+		if (arena.getStructureManager().setLoseLevel(loc)) {
 			Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 Loselevel set to Y: " + loc.getY());
 		} else {
 			Messages.sendMessage(player, "&c Arena &6" + args[0] + "&c Error: Loselevel is not within the bounds of the arena");
