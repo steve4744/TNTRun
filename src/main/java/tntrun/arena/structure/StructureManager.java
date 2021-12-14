@@ -47,7 +47,7 @@ public class StructureManager {
 	private Vector p2 = null;
 	private int gameleveldestroydelay = 8;
 	private LoseLevel loselevel = new LoseLevel();
-	private Vector spectatorspawn = null;
+	private SpectatorSpawn spectatorspawn = new SpectatorSpawn();
 	private Vector spawnpoint = null;
 	private int minPlayers = 2;
 	private int maxPlayers = 15;
@@ -103,12 +103,12 @@ public class StructureManager {
 	}
 
 	public Vector getSpectatorSpawnVector() {
-		return spectatorspawn;
+		return spectatorspawn.getVector();
 	}
 
 	public Location getSpectatorSpawn() {
-		if (spectatorspawn != null) {
-			return new Location(getWorld(), spectatorspawn.getX(), spectatorspawn.getY(), spectatorspawn.getZ());
+		if (spectatorspawn.isConfigured()) {
+			return new Location(getWorld(), spectatorspawn.getVector().getX(), spectatorspawn.getVector().getY(), spectatorspawn.getVector().getZ());
 		}
 		return null;
 	}
@@ -280,7 +280,7 @@ public class StructureManager {
 	}
 
 	public boolean isSpectatorSpawnSet() {
-		return spectatorspawn != null;
+		return spectatorspawn.isConfigured();
 	}
 
 	public boolean isPvpEnabled() {
@@ -319,7 +319,7 @@ public class StructureManager {
 
 	public boolean setSpectatorsSpawn(Location loc) {
 		if (isInArenaBounds(loc)) {
-			spectatorspawn = loc.toVector();
+			spectatorspawn.setSpectatorSpawn(loc);
 			return true;
 		}
 		return false;
@@ -339,7 +339,7 @@ public class StructureManager {
 	}
 
 	public void removeSpectatorsSpawn() {
-		spectatorspawn = null;
+		spectatorspawn.remove();
 	}
 
 	public void removeAdditionalSpawnPoints() {
@@ -448,7 +448,7 @@ public class StructureManager {
 		} catch (Exception e) {
 		}
 		try {
-			config.set("spectatorspawn", spectatorspawn);
+			spectatorspawn.saveToConfig(config);
 		} catch (Exception e) {
 		}
 		config.set("maxPlayers", maxPlayers);
@@ -490,7 +490,7 @@ public class StructureManager {
 		gameleveldestroydelay = config.getInt("gameleveldestroydelay", gameleveldestroydelay);
 		loselevel.loadFromConfig(config);
 		spawnpoint = config.getVector("spawnpoint", null);
-		spectatorspawn = config.getVector("spectatorspawn", null);
+		spectatorspawn.loadFromConfig(config);
 		maxPlayers = config.getInt("maxPlayers", maxPlayers);
 		minPlayers = config.getInt("minPlayers", minPlayers);
 		votesPercent = config.getDouble("votePercent", votesPercent);
