@@ -24,17 +24,29 @@ import org.bukkit.util.Vector;
 public class SpectatorSpawn {
 
 	private Vector p1 = null;
+	private float yaw;
+	private float pitch;
 
 	protected Vector getVector() {
 		return p1;
+	}
+
+	protected float getYaw() {
+		return yaw;
+	}
+
+	protected float getPitch() {
+		return pitch;
 	}
 
 	protected boolean isConfigured() {
 		return p1 != null;
 	}
 
-	protected void setSpectatorSpawn(Location p1) {
-		this.p1 = p1.toVector();
+	protected void setSpectatorSpawn(Location loc) {
+		p1 = loc.toVector();
+		yaw = loc.getYaw();
+		pitch = loc.getPitch();
 	}
 
 	protected void remove() {
@@ -47,7 +59,13 @@ public class SpectatorSpawn {
 	 * @param config
 	 */
 	protected void saveToConfig(FileConfiguration config) {
+		if (!isConfigured()) {
+			config.set("spectatorspawn", null);
+			return;
+		}
 		config.set("spectatorspawn.p1", p1);
+		config.set("spectatorspawn.yaw", yaw);
+		config.set("spectatorspawn.pitch", pitch);
 	}
 
 	/**
@@ -62,5 +80,7 @@ public class SpectatorSpawn {
 		} else {
 			p1 = config.getVector("spectatorspawn", null);
 		}
+		yaw = (float) config.getDouble("spectatorspawn.yaw", 0.0);
+		pitch = (float) config.getDouble("spectatorspawn.pitch", 0.0);
 	}
 }

@@ -108,7 +108,12 @@ public class StructureManager {
 
 	public Location getSpectatorSpawn() {
 		if (spectatorspawn.isConfigured()) {
-			return new Location(getWorld(), spectatorspawn.getVector().getX(), spectatorspawn.getVector().getY(), spectatorspawn.getVector().getZ());
+			return new Location(getWorld(),
+								spectatorspawn.getVector().getX(),
+								spectatorspawn.getVector().getY(),
+								spectatorspawn.getVector().getZ(),
+								spectatorspawn.getYaw(),
+								spectatorspawn.getPitch());
 		}
 		return null;
 	}
