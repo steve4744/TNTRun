@@ -26,14 +26,6 @@ public class LoseLevel {
 	private Vector p1 = null;
 	private Vector p2 = null;
 
-	public Vector getP1() {
-		return p1;
-	}
-
-	public Vector getP2() {
-		return p2;
-	}
-
 	public boolean isConfigured() {
 		return p1 != null;
 	}
@@ -42,7 +34,7 @@ public class LoseLevel {
 		return loc.getY() < p1.getBlockY() + 1;
 	}
 
-	public void setLoseLocation(Location p1) {
+	protected void setLoseLocation(Location p1) {
 		this.p1 = p1.toVector();
 	}
 
@@ -51,7 +43,7 @@ public class LoseLevel {
 	 *
 	 * @param config
 	 */
-	public void saveToConfig(FileConfiguration config) {
+	protected void saveToConfig(FileConfiguration config) {
 		config.set("loselevel.p1", p1);
 		config.set("loselevel.p2", null);
 	}
@@ -62,7 +54,7 @@ public class LoseLevel {
 	 *
 	 * @param config
 	 */
-	public void loadFromConfig(FileConfiguration config) {
+	protected void loadFromConfig(FileConfiguration config) {
 		p1 = config.getVector("loselevel.p1", null);
 		p2 = config.getVector("loselevel.p2", null);
 		if (p2 != null) {
