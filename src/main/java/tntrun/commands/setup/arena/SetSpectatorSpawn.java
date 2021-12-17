@@ -44,9 +44,9 @@ public class SetSpectatorSpawn implements CommandHandlerInterface {
 				return true;
 			}
 			if (arena.getStructureManager().setSpectatorsSpawn(player.getLocation())) {
-				Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 SpectatorSpawn set to &6X: &7" + Math.round(player.getLocation().getX()) + " &6Y: &7" + Math.round(player.getLocation().getY()) + " &6Z: &7" + Math.round(player.getLocation().getZ()));
+				Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 Spectator spawn set to &6X: &7" + Math.round(player.getLocation().getX()) + " &6Y: &7" + Math.round(player.getLocation().getY()) + " &6Z: &7" + Math.round(player.getLocation().getZ()));
 			} else {
-				Messages.sendMessage(player, "&c Arena &6" + args[0] + "&c SpectatorSpawn must be in arena bounds");
+				Messages.sendMessage(player, "&c Arena &6" + args[0] + "&c Spectator spawn must be inside arena bounds");
 			}
 		} else {
 			Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[0]));

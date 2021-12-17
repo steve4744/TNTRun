@@ -363,6 +363,8 @@ public class Messages {
 		setupwhitelist = config.getString("setupwhitelist", setupwhitelist);
 		setupresetstats = config.getString("setupresetstats", setupresetstats);
 		setupresetrank = config.getString("setupresetrank", setupresetrank);
+		kitadd = config.getString("kitadd", kitadd);
+		kitdel = config.getString("kitdel", kitdel);
 		kitexists = config.getString("kitexists", kitexists);
 		kitnotexists = config.getString("kitnotexists", kitnotexists);
 		partycreate = config.getString("partycreate", partycreate);
@@ -540,6 +542,8 @@ public class Messages {
 		config.set("setupwhitelist", setupwhitelist);
 		config.set("setupresetstats", setupresetstats);
 		config.set("setupresetrank", setupresetrank);
+		config.set("kitadd", kitadd);
+		config.set("kitdel", kitdel);
 		config.set("kitexists", kitexists);
 		config.set("kitnotexists", kitnotexists);
 		config.set("partycreate", partycreate);
