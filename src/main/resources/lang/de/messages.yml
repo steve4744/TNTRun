@@ -1,10 +1,11 @@
 ---
 trprefix: "&7[&6TNTRun_reloaded&7]"
-menutitle: "&1TNTRun_reloaded Arenas"
+menutitle: "&1TNTRun_reloaded Arenen"
 menuarenaname: "&a{ARENA}"
 menutext: "&5Spieler: &6{PS}/{MPS}"
 menufee: "&5Beitrittsgebühr: &6{FEE}"
 menupvp: "&5PVP: &6Aktiviert"
+menutracker: "&1TNTRun Spieler-Tracker"
 nopermission: "&c Sie haben keine Berechtigung dafür"
 nolobby: "&c Globale Lobby ist nicht eingerichtet, führen Sie &6/trsetup setlobby
   aus"
@@ -42,6 +43,7 @@ playerclickinvite: Klicken, um {ARENA} beizutreten
 playerjoinedasspectator: "&7 Sie sind der Arena &6{ARENA} &7als Zuschauer beigetreten"
 playerlefttoplayer: "&7 Du hast die Arena verlassen"
 playerlefttoothers: "&c {RANK}&6{COLOR}{PLAYER} &7hat das Spiel verlassen (&6{PS}&7/&6{MPS}&7)"
+playernotplaying: "&c Zielspieler &6{PLAYER} &cSpielt nicht mehr"
 playervotedforstart: "&f Du hast dafür gestimmt, den Spielstart zu erzwingen"
 playeralreadyvotedforstart: "&c Sie haben bereits abgestimmt"
 playercannotvote: "&c Du kannst nicht abstimmen, um die Arena zum Starten zu erzwingen"
@@ -144,6 +146,10 @@ setupp1: Zielblock als ersten Auswahlpunkt festlegen
 setupp2: Zielblock als zweiten Auswahlpunkt festlegen
 setupclear: Auswahlpunkte löschen
 setupwhitelist: Einen Befehl zur Verwendung im Spiel auf die Whitelist setzen
+setupresetstats: Entferne alle TNTRun-Statistiken für den Spieler
+setupresetrank: Rang des Spielers aus dem Cache entfernen
+kitadd: "&7 Das Kit &6{KIT} &7wurde erstellt"
+kitdel: "&7 Das Kit &6{KIT} &7wurde gelöscht"
 kitexists: "&c Das angegebene Kit existiert bereits : &6{KIT}"
 kitnotexists: "&c Das angegebene Kit existiert nicht : &6{KIT}"
 partycreate: "&7 Party erstellt"
@@ -160,3 +166,5 @@ partyinvite: "&6 {PLAYER} &7hat Sie zu einer Party eingeladen"
 partyban: "&c Du wirst derzeit aus dieser Party geworfen"
 partyinparty: "&c Du bist bereits in einer Party"
 partynotexist: "&c Die ausgewählte Partei existiert nicht"
+partynoinvite: "&c Du hast keine Einladung zu dieser Party"
+partynotenabled: "&c TNTRun-Partys sind derzeit nicht aktiviert"
