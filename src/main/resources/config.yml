@@ -169,6 +169,7 @@ bungeecord:
   randomarena: true
   stopserver: false
   useUUID: false
+  teleporttohub: true
 currency:
   prefix: ''
   suffix: ' coins'

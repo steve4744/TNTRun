@@ -532,7 +532,7 @@ public class PlayerHandler {
 		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 80, 80, true));
 		arena.getScoreboardHandler().restorePrejoinScoreboard(player);
 
-		if (plugin.isBungeecord()) {
+		if (plugin.isBungeecord() && plugin.getConfig().getBoolean("bungeecord.teleporttohub", true)) {
 			plugin.getBungeeHandler().connectToHub(player);
 		} else {
 			connectToLobby(player);
@@ -574,11 +574,13 @@ public class PlayerHandler {
 
 	/**
 	 * On a multiworld server, return the player to the lobby or previous location.
+	 * On a bungeecord server, 'teleporttohub' is false so return the player to the lobby, overriding the arena 'teleportto' option.
 	 *
 	 * @param player
 	 */
 	private void connectToLobby(Player player) {
-		if (arena.getStructureManager().getTeleportDestination() == TeleportDestination.LOBBY && plugin.getGlobalLobby().isLobbyLocationWorldAvailable()) {
+		if ((arena.getStructureManager().getTeleportDestination() == TeleportDestination.LOBBY || plugin.isBungeecord()) &&
+				plugin.getGlobalLobby().isLobbyLocationWorldAvailable()) {
 			player.teleport(plugin.getGlobalLobby().getLobbyLocation());
 			plugin.getPData().clearPlayerLocation(player);
 		} else {
