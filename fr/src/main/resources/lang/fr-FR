@@ -1,0 +1,162 @@
+---
+trprefix: '&7[&6TNTRun_reloaded&7]'
+menutitle: '&1TNTRun_reloaded Arenas'
+menuarenaname: '&a{ARENA}'
+menutext: '&5Players: &6{PS}/{MPS}'
+menufee: '&5Join Fee: &6{FEE}'
+menupvp: '&5PVP: &6Enabled'
+menutracker: '&1TNTRun player tracker'
+nopermission: '&c You don''t have permission to do this'
+nolobby: '&c Global lobby isn''t set, run &6/trsetup setlobby'
+lobbyunloaded: '&c Lobby world is unloaded or doesn''t exist'
+teleporttolobby: '&7 Teleported to lobby'
+arenanotexist: '&c Arena &6{ARENA}&c doesn''t exist'
+noarenas: '&c There are no arenas available to join'
+arenanotdisabled: '&c Please disable arena: &6/trsetup disable {ARENA}'
+arenanospectatorspawn: '&c No spectator spawn set for arena &6{ARENA}'
+availablearenas: '&7 Available arenas: {COUNT}'
+availablekits: '&7 Available kits: {COUNT}'
+arenawolrdna: '&7 Arena world is not loaded'
+arenanobounds: '&7 Arena bounds not set'
+arenadisabled: '&7 Arena is disabled'
+arenarunning: '&7 Arena already running'
+arenaregenerating: '&7 Arena is regenerating'
+arenavehicle: '&c You can''t join the game while sitting inside a vehicle'
+arenajoined: '&c You have already joined an arena'
+arenadisabling: '&6 Arena is disabling'
+arenastarting: '&6 Arena already starting'
+signcreate: '&7 Sign successfully created'
+signremove: '&7 Sign successfully removed'
+signfail: '&7 You must be looking at a sign to create the join sign'
+arenafee: '&7 You have been charged &6{FEE} &7to enter the arena'
+arenanofee: '&c You require a fee of &6{FEE} &cto enter the arena'
+arenawaiting: '&6 Arena is waiting'
+playerscountinarena: '&6 Current number of players in arena: {COUNT} players'
+limitreached: '&7 Arena is full.'
+playerjoinedtoothers: '&c {RANK}&6{COLOR}{PLAYER} &7joined the arena (&6{PS}&7/&6{MPS}&7)'
+playerjoininvite: '&c{RANK}&6{COLOR}{PLAYER} &7has joined TNTRun arena &6{ARENA}&7, click to play'
+playerborderinvite: '&b---------------------------------------'
+playerclickinvite: Click to join {ARENA}
+playerjoinedasspectator: '&7 You joined arena &6{ARENA} &7as a spectator'
+playerlefttoplayer: '&7 You left the arena'
+playerlefttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7left the game (&6{PS}&7/&6{MPS}&7)'
+playernotplaying: '&c Targeted player &6{PLAYER} &cis no longer playing'
+playervotedforstart: '&f You voted to force-start the game'
+playeralreadyvotedforstart: '&c You have already voted'
+playercannotvote: '&c You cannot vote to force-start the arena'
+arenastarted: '&7 Arena started. Time limit is {TIMELIMIT} seconds'
+arenanolimit: '&7 Arena started. No time limit'
+arenacountdown: '&7 Arena starts in {COUNTDOWN} seconds'
+arenatimeout: '&7 Time is up. Ending game'
+playerwontoplayer: '&7 You won the game!'
+playerfinishedtestmode: '&7 Test game completed!'
+playerlosttoplayer: '&7 You lost the game'
+playerlosttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7lost the game (&6{PS}&7/&6{MPS}&7)'
+playerfirstplace: '&a1st place: &f{RANK}{COLOR}{PLAYER}'
+playersecondplace: '&a2nd place: &f{RANK}{COLOR}{PLAYER}'
+playerthirdplace: '&a3rd place: &f{RANK}{COLOR}{PLAYER}'
+playerrewardmessage: '&7 You have been rewarded: &6{REWARD}'
+playerrewardmaterial: '&6 Material :  &f'
+playerrewardcommand: '&6 Command : &f'
+playerrewardmoney: '&6 Money :    &f'
+playerrewardxp: '&6 XP :      &l  &f'
+playerboughtitem: '&7 You have bought item &6{ITEM} &7for &6{MONEY}'
+playerboughtwait: '&7 You will get your items when the game starts'
+playerkit: '&7 You have been given kit &6{KIT}'
+playersrequiredtostart: '&c There must be at least 2 players in the arena to force-start'
+notenoughmoney: '&c You need {MONEY} to buy this item'
+alreadyboughtitem: '&c You have already bought a shop item'
+shopnostock: '&c This item is currently out of stock'
+maxdoublejumpsexceeded: '&c You cannot exceed the maximum doublejumps allowed ({MAXJUMPS})'
+playernotinarena: '&c You are not in a TNTRun arena'
+playernotonline: '&6 {PLAYER} &7is not currently online'
+gamesplayed: '&bGames played &f: '
+gameswon: '&bWins &f: '
+gameslost: '&bLosses &f: '
+statshead: '&7=========[&6TNTRun Stats&7]========='
+rewardshead: '&7======[&6TNTRun Rewards&7 - &a{ARENA}&7]======'
+leaderhead: '&7======[&6TNTRun Leaderboard&7]======'
+resultshead: '&7============[&6TNTRun&7]============'
+leaderboard: '{POSITION}) &c{RANK}&b{COLOR}{PLAYER} &f: Wins &3{WINS}'
+leadersign: '&1{PLAYER} &4{WINS}'
+shopmoneyheader: '&fTNTRun Shop Account'
+shopmoneybalance: '&5Your balance is &6{BAL}'
+statsdisabled: '&c Stats are currently disabled'
+helplobby: Teleport to lobby
+helplist: List all arenas OR List arena details
+helplistkit: List all kits OR List kit details
+helplistrewards: List the rewards for the arena
+helpjoin: Open join menu OR Join the arena
+helpspectate: Join the arena as a spectator
+helpautojoin: Automatically join the first available arena
+helpleave: Leave the current arena
+helpvote: Vote to force-start current arena
+helpcmds: View all TNTRun commands
+helpinfo: View plugin info
+helpstats: View player stats
+helplb: Display the TNTRun leaderboard
+helpstart: Force-start the arena
+setuplobby: Set the global lobby at your current location
+setupdellobby: Delete the global lobby
+setupcreate: Create a new arena
+setupconfigure: Open menu to configure arena
+setupbounds: Set bounds for arena
+setuploselevel: Set loselevel point at your feet
+setupspawn: Set arena spawn at your feet
+setupspectate: Set spectator spawn point
+setupaddspawn: Set an additional spawn at your feet
+setupdelspawns: Delete all spawn points created with the addspawn command
+setupfinish: Finish arena and save
+setupdelspectate: Delete spectator spawn for arena
+setupdelay: Set delay for removing block when player steps on it
+setupregendelay: 'Set delay before players can re-join arena (Default: 60)'
+setupmax: 'Set maximum players for arena (Default: 15)'
+setupmin: 'Set minimum players for arena (Default: 2)'
+setupvote: 'Set vote percentage to force-start arena (Default: 0.75)'
+setuptimelimit: 'Set a time limit for arena (Default: 300 seconds)'
+setupcountdown: 'Set a countdown for arena (Default: 15 seconds)'
+setupmoney: Set a money reward for winning player
+setupteleport: Set teleport when you lose or win in arena
+setupdamage: Enable/disable PVP for the arena
+setupbarcolor: Set the BossBar color
+setupreloadbars: Reload Bar messages
+setupreloadtitles: Reload Title messages
+setupreloadmsg: Reload arena messages
+setupreloadconfig: Reload config file
+setupenable: Enable arena
+setupdisable: Disable arena
+setupdelete: Delete arena
+setupreward: Set the rewards for the arena
+setupfee: Set the cost to join the arena
+setupcurrency: Set the currency to join the arena
+setuphelp: Commands required to setup a new arena
+setupenablekits: Enable kits for the arena
+setupdisablekits: Disable kits for the arena
+setupaddkit: Create a TNTRun kit
+setupdelkit: Delete a TNTRun kit
+setupp1: Set targeted block as first selection point
+setupp2: Set targeted block as second selection point
+setupclear: Clear selection points
+setupwhitelist: Whitelist a command for use in-game
+setupresetstats: Remove all TNTRun stats for the player
+setupresetrank: Remove player's rank from the cache
+kitadd: '&7 The kit &6{KIT} &7has been created'
+kitdel: '&7 The kit &6{KIT} &7has been deleted'
+kitexists: '&c The specified kit already exists : &6{KIT}'
+kitnotexists: '&c The specified kit does not exist : &6{KIT}'
+partycreate: '&7 Party created'
+partyjoin: '&6 {PLAYER} &7has joined the party'
+partydecline: '&6 {PLAYER} &7has declined the party invitation'
+partyleave: '&6 {PLAYER} &7has left the party'
+partyleaderleave: '&7 Party leader &6{PLAYER} &7has left - the party has been deleted'
+partynotmember: '&c You are not a member of any party'
+partynotleader: '&c You are not a party leader'
+partykick: '&6 {PLAYER} &7has been kicked from the party'
+partyunkick: '&6 {PLAYER} &7is allowed to join your party'
+partyinviteself: '&c You cannot invite yourself'
+partyinvite: '&6 {PLAYER} &7has invited you to join a party'
+partyban: '&c You are currently kicked from this party'
+partyinparty: '&c You are already in a party'
+partynotexist: '&c The selected party does not exist'
+partynoinvite: '&c You do not have an invitation to this party'
+partynotenabled: '&c TNTRun parties are not currently enabled'
