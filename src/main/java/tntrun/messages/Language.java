@@ -48,15 +48,34 @@ public class Language {
 		return plugin.getConfig().getString("language", "en-GB");
 	}
 
-	public void setLang(String langCode) {
-		plugin.getConfig().set("language", langCode);
+	public void setLang(String langDesc) {
+		plugin.getConfig().set("language", getLangCode(langDesc));
 		plugin.saveConfig();
 	}
 
+	/**
+	 * Get the descriptive names of all the supported languages.
+	 *
+	 * @return List of supported languages
+	 */
 	public List<String> getTranslatedLanguages() {
 		return Stream.of(EnumLang.values())
 				.filter(EnumLang::isSupported)
-				.map(EnumLang::getName)
+				.map(EnumLang::getDesc)
 				.collect(Collectors.toList());
+	}
+
+	/**
+	 * Get the associated language code from the description.
+	 *
+	 * @param langDesc language descriptive name
+	 * @return language code
+	 */
+	private String getLangCode(String langDesc) {
+		return Stream.of(EnumLang.values())
+			.filter(e -> e.getDesc().equals(langDesc))
+			.map(EnumLang::getCode)
+			.findFirst()
+			.orElse("en-GB");
 	}
 }

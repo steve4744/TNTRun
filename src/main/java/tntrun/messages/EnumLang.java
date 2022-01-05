@@ -2,33 +2,35 @@ package tntrun.messages;
 
 public enum EnumLang {
 
-	Arabic("ar", false),
-	Chinese_CN("zh-CN", true),
-	Chinese_TZ("zh-TZ", true),
-	Czech("cs", false),
-	Danish("da", false),
-	Dutch("nl", false),
-	English("en-GB", true),
-	English_US("en-US", false),
-	Finnish("fi", false),
-	French("fr", true),
-	German("de", true),
-	Italian("it", false),
-	Japanese("ja", false),
-	Korean("ko", true),
-	Norwegian("no", true),
-	Polish("pl", true),
-	Portugese("pt", false),
-	Russian("ru", false),
-	Spanish("es", true),
-	Swedish("sv", false),
-	Welsh("cy", true);
+	Arabic("ar-SA", "Arabic", false),
+	Chinese_CN("zh-CN", "Chinese", true),
+	Chinese_TW("zh-TW", "Chinese(Taiwan)", true),
+	Czech("cs-CZ", "Czech", false),
+	Danish("da-DK", "Danish", false),
+	Dutch("nl-NL", "Dutch", false),
+	English("en-GB", "English(UK)", true),
+	English_US("en-US", "English(US)", false),
+	Finnish("fi-FI", "Finnish", false),
+	French("fr-FR", "French", true),
+	German("de-DE", "German", true),
+	Italian("it-IT", "Italian", false),
+	Japanese("ja-JP", "Japanese", false),
+	Korean("ko-KR", "Korean", true),
+	Norwegian("no-NO", "Norwegian", true),
+	Polish("pl-PL", "Polish", true),
+	Portugese("pt-PT", "Portugese", false),
+	Russian("ru-RU", "Russian", false),
+	Spanish("es-ES", "Spanish(Spain)", true),
+	Swedish("sv-SE", "Swedish", false),
+	Welsh("cy-GB", "Welsh", true);
 
-	private final String name;
+	private final String code;
+	private final String description;
 	private final boolean supported;
 
-	EnumLang(String name, boolean supported) {
-		this.name = name;
+	EnumLang(String code, String description, boolean supported) {
+		this.code = code;
+		this.description = description;
 		this.supported = supported;
 	}
 
@@ -36,7 +38,11 @@ public enum EnumLang {
 		return supported;
 	}
 
-	public String getName() {
-		return name;
+	public String getDesc() {
+		return description;
+	}
+
+	public String getCode() {
+		return code;
 	}
 }
