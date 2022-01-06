@@ -1,88 +1,87 @@
 ---
-trprefix: "&7[&6TNT Run Reloaded&7]"
-menutitle: "&1TNT Run Reloaded 경기장"
-menuarenaname: "&a{ARENA}"
-menutext: "&5플레이어: &6{PS}/{MPS}"
-menufee: "&5가입비: &6{FEE}"
-menupvp: "&5PVP: &6활성화"
-menutracker: "&1TNT Run 플레이어 추적기"
-nopermission: "&c 당신은 권한이 없습니다."
-nolobby: "&c 로비가 설정되지 않았습니다. / 다음 명령어를 실행하십시오. &6/trsetup setlobby"
-lobbyunloaded: "&c 로비 월드가 존재하지 않거나 로딩이 되지 않습니다."
-teleporttolobby: "&7 로비로 순간이동 되었습니다."
-arenanotexist: "&c 경기장 이름: &6{ARENA}&c이(가) 존재하지 않습니다."
-noarenas: "&c 입장 할 수 있는 경기장이 없습니다."
-arenanotdisabled: "&c 다음 명령어를 사용하여 경기장을 비활성화하십시오.: &6/trsetup disable {ARENA}"
-arenanospectatorspawn: "&6 {ARENA}&c에 대한 관전자 스폰 설정이 없습니다."
-availablearenas: "&7 사용 가능한 경기장: {COUNT}"
-availablekits: "&7 사용 가능한 키트: {COUNT}"
-arenawolrdna: "&7 경기장 월드가 로딩되지 않았습니다."
-arenanobounds: "&7 경기장 경계가 설정되지 않았습니다."
-arenadisabled: "&7 경기장이 비활성화되었습니다."
-arenarunning: "&7 경기장이 이미 실행중입니다."
-arenaregenerating: "&7 경기장이 재생성중입니다."
-arenavehicle: "&c 탈 것에 타고 있을 때는 게임에 참여할 수 없습니다."
-arenajoined: "&c 당신은 이미 경기장에 입장을 하였습니다."
-arenadisabling: "&6 경기장이 비활성화 되어있습니다."
-arenastarting: "&6 경기장이 이미 시작되어있습니다."
-signcreate: "&7 표지판이 성공적으로 생성되었습니다."
-signremove: "&7 표지판이 성공적으로 삭제되었습니다."
-signfail: "&7 경기장 입장 표지판을 만들기 위해서는 당신은 표지판을 보고 있어야 합니다."
-arenafee: "&7 경기장에 입장하기 위해 &6{FEE} &7이(가) 지불되었습니다."
-arenanofee: "&c 경기장에 입장하려면 &6{FEE} &c의 수수료가 필요합니다."
-arenawaiting: "&6 대기중"
-playerscountinarena: "&6 경기장의 현재 플레이어 수: {COUNT}명"
-limitreached: "&7 경기장이 가득 찼습니다."
-playerjoinedtoothers: "&c {RANK}&6{COLOR}{PLAYER} &7님이 경기장에 입장하였습니다. (&6{PS}&7/&6{MPS}&7)"
-playerjoininvite: "&c{RANK}&6{COLOR}{PLAYER} &7님이 &6{ARENA}&7에 입장하였습니다. &7,  [ 클릭하여
-  입장하기 ]"
-playerborderinvite: "&b---------------------------------------"
+trprefix: '&7[&6TNT Run Reloaded&7]'
+menutitle: '&1TNT Run Reloaded 경기장'
+menuarenaname: '&a{ARENA}'
+menutext: '&5플레이어: &6{PS}/{MPS}'
+menufee: '&5가입비: &6{FEE}'
+menupvp: '&5PVP: &6활성화'
+menutracker: '&1TNT Run 플레이어 추적기'
+nopermission: '&c 당신은 권한이 없습니다.'
+nolobby: '&c 로비가 설정되지 않았습니다. / 다음 명령어를 실행하십시오. &6/trsetup setlobby'
+lobbyunloaded: '&c 로비 월드가 존재하지 않거나 로딩이 되지 않습니다.'
+teleporttolobby: '&7 로비로 순간이동 되었습니다.'
+arenanotexist: '&c 경기장 이름: &6{ARENA}&c이(가) 존재하지 않습니다.'
+noarenas: '&c 입장 할 수 있는 경기장이 없습니다.'
+arenanotdisabled: '&c 다음 명령어를 사용하여 경기장을 비활성화하십시오.: &6/trsetup disable {ARENA}'
+arenanospectatorspawn: '&6 {ARENA}&c에 대한 관전자 스폰 설정이 없습니다.'
+availablearenas: '&7 사용 가능한 경기장: {COUNT}'
+availablekits: '&7 사용 가능한 키트: {COUNT}'
+arenawolrdna: '&7 경기장 월드가 로딩되지 않았습니다.'
+arenanobounds: '&7 경기장 경계가 설정되지 않았습니다.'
+arenadisabled: '&7 경기장이 비활성화되었습니다.'
+arenarunning: '&7 경기장이 이미 실행중입니다.'
+arenaregenerating: '&7 경기장이 재생성중입니다.'
+arenavehicle: '&c 탈 것에 타고 있을 때는 게임에 참여할 수 없습니다.'
+arenajoined: '&c 당신은 이미 경기장에 입장을 하였습니다.'
+arenadisabling: '&6 경기장이 비활성화 되어있습니다.'
+arenastarting: '&6 경기장이 이미 시작되어있습니다.'
+signcreate: '&7 표지판이 성공적으로 생성되었습니다.'
+signremove: '&7 표지판이 성공적으로 삭제되었습니다.'
+signfail: '&7 경기장 입장 표지판을 만들기 위해서는 당신은 표지판을 보고 있어야 합니다.'
+arenafee: '&7 경기장에 입장하기 위해 &6{FEE} &7이(가) 지불되었습니다.'
+arenanofee: '&c 경기장에 입장하려면 &6{FEE} &c의 수수료가 필요합니다.'
+arenawaiting: '&6 대기중'
+playerscountinarena: '&6 경기장의 현재 플레이어 수: {COUNT}명'
+limitreached: '&7 경기장이 가득 찼습니다.'
+playerjoinedtoothers: '&c {RANK}&6{COLOR}{PLAYER} &7님이 경기장에 입장하였습니다. (&6{PS}&7/&6{MPS}&7)'
+playerjoininvite: '&c{RANK}&6{COLOR}{PLAYER} &7님이 &6{ARENA}&7에 입장하였습니다. &7,  [ 클릭하여 입장하기 ]'
+playerborderinvite: '&b---------------------------------------'
 playerclickinvite: 클릭하여 {ARENA}에 입장하기
-playerjoinedasspectator: "&7 당신은 관전자로 &6{ARENA}&7에 입장하였습니다."
-playerlefttoplayer: "&7 당신은 경기장을 떠났습니다."
-playerlefttoothers: "&c {RANK}&6{COLOR}{PLAYER}&7님이 게임에서 나갔습니다. (&6{PS}&7/&6{MPS}&7)"
-playernotplaying: "&c 대상 플레이어 &6{PLAYER} &cis가 더 이상 플레이되지 않음."
-playervotedforstart: "&f 게임 강제 시작하기를 투표했습니다."
-playeralreadyvotedforstart: "&c 당신은 이미 투표하셨습니다."
-playercannotvote: "&c 게임 강제 시작하기를 투표할 수 없습니다."
-arenastarted: "&7 경기가 시작되었습니다. 제한 시간은 {TIMELIMIT}초입니다."
-arenanolimit: "&7 경기가 시작되었습니다. 제한 시간은 없습니다."
-arenacountdown: "&7 경기가 {COUNTDOWN}초 후에 시작됩니다."
-arenatimeout: "&7 제한 시간이 모두 소진되었습니다. / 게임 종료"
-playerwontoplayer: "&7 당신은 게임에서 이겼습니다!"
-playerfinishedtestmode: "&7 테스트 게임 완료!"
-playerlosttoplayer: "&7 당신은 게임에서 졌습니다."
-playerlosttoothers: "&c {RANK}&6{COLOR}{PLAYER}&7님이 게임에서 졌습니다. (&6{PS}&7/&6{MPS}&7)"
-playerfirstplace: "&a1위: &f{RANK}{COLOR}{PLAYER}"
-playersecondplace: "&a2위: &f{RANK}{COLOR}{PLAYER}"
-playerthirdplace: "&a3위: &f{RANK}{COLOR}{PLAYER}"
-playerrewardmessage: "&7 당신은 보상을 받았습니다.: &6{REWARD}"
-playerrewardmaterial: "&6 재질: &f"
-playerrewardcommand: "&6 명령어: &f"
-playerrewardmoney: "&6 돈:    &f"
-playerrewardxp: "&6 경험치:      &l  &f"
-playerboughtitem: "&7 &6{ITEM} &7을(를) &6{MONEY}에 구매했습니다."
-playerboughtwait: "&7 게임이 시작되면 아이템을 얻을 수 있습니다."
-playerkit: "&6 {KIT} &7키트를 받았습니다."
-playersrequiredtostart: "&c 강제 시작하려면 경기장에 설정된 최소 플레이어의 수가 있어야 합니다."
-notenoughmoney: "&c 이 항목을 구매하려면 {MONEY}이(가) 필요합니다."
-alreadyboughtitem: "&c 당신은 이미 상점 항목을 구입했습니다."
-shopnostock: "&c 이 상품은 현재 품절입니다."
-maxdoublejumpsexceeded: "&c 허용되는 최대 더블 점프 횟수: {MAXJUMPS}를 초과할 수 없습니다."
-playernotinarena: "&c 당신은 TNT Run 경기장에 있지 않습니다."
-playernotonline: "&6 {PLAYER}&7이(가) 현재 온라인 상태가 아닙니다."
-gamesplayed: "&b플레이한 게임&f:"
-gameswon: "&b승리&f: "
-gameslost: "&b패배&f: "
-statshead: "&7=========[&6TNT Run 통계&7]=========="
-rewardshead: "&7======[&6TNT Run 보상s&7 - &a{ARENA}&7]======"
-leaderhead: "&7======[&6TNT Run 리더보드&7]======"
-resultshead: "&7============[&6TNT Run&7]============"
-leaderboard: "{POSITION}) &c{RANK}&b{COLOR}{PLAYER} &f: 승리 &3{WINS}"
-leadersign: "&1{PLAYER} &4{WINS}"
-shopmoneyheader: "&fTNT Run 상점 계정"
-shopmoneybalance: "&5잔액은 &6{BAL}입니다."
-statsdisabled: "&c 통계는 현재 비활성화되어 있습니다."
+playerjoinedasspectator: '&7 당신은 관전자로 &6{ARENA}&7에 입장하였습니다.'
+playerlefttoplayer: '&7 당신은 경기장을 떠났습니다.'
+playerlefttoothers: '&c {RANK}&6{COLOR}{PLAYER}&7님이 게임에서 나갔습니다. (&6{PS}&7/&6{MPS}&7)'
+playernotplaying: '&c 대상 플레이어 &6{PLAYER} &cis가 더 이상 플레이되지 않음.'
+playervotedforstart: '&f 게임 강제 시작하기를 투표했습니다.'
+playeralreadyvotedforstart: '&c 당신은 이미 투표하셨습니다.'
+playercannotvote: '&c 게임 강제 시작하기를 투표할 수 없습니다.'
+arenastarted: '&7 경기가 시작되었습니다. 제한 시간은 {TIMELIMIT}초입니다.'
+arenanolimit: '&7 경기가 시작되었습니다. 제한 시간은 없습니다.'
+arenacountdown: '&7 경기가 {COUNTDOWN}초 후에 시작됩니다.'
+arenatimeout: '&7 제한 시간이 모두 소진되었습니다. / 게임 종료'
+playerwontoplayer: '&7 당신은 게임에서 이겼습니다!'
+playerfinishedtestmode: '&7 테스트 게임 완료!'
+playerlosttoplayer: '&7 당신은 게임에서 졌습니다.'
+playerlosttoothers: '&c {RANK}&6{COLOR}{PLAYER}&7님이 게임에서 졌습니다. (&6{PS}&7/&6{MPS}&7)'
+playerfirstplace: '&a1위: &f{RANK}{COLOR}{PLAYER}'
+playersecondplace: '&a2위: &f{RANK}{COLOR}{PLAYER}'
+playerthirdplace: '&a3위: &f{RANK}{COLOR}{PLAYER}'
+playerrewardmessage: '&7 당신은 보상을 받았습니다.: &6{REWARD}'
+playerrewardmaterial: '&6 재질: &f'
+playerrewardcommand: '&6 명령어: &f'
+playerrewardmoney: '&6 돈:    &f'
+playerrewardxp: '&6 경험치:      &l  &f'
+playerboughtitem: '&7 &6{ITEM} &7을(를) &6{MONEY}에 구매했습니다.'
+playerboughtwait: '&7 게임이 시작되면 아이템을 얻을 수 있습니다.'
+playerkit: '&6 {KIT} &7키트를 받았습니다.'
+playersrequiredtostart: '&c 강제 시작하려면 경기장에 설정된 최소 플레이어의 수가 있어야 합니다.'
+notenoughmoney: '&c 이 항목을 구매하려면 {MONEY}이(가) 필요합니다.'
+alreadyboughtitem: '&c 당신은 이미 상점 항목을 구입했습니다.'
+shopnostock: '&c 이 상품은 현재 품절입니다.'
+maxdoublejumpsexceeded: '&c 허용되는 최대 더블 점프 횟수: {MAXJUMPS}를 초과할 수 없습니다.'
+playernotinarena: '&c 당신은 TNT Run 경기장에 있지 않습니다.'
+playernotonline: '&6 {PLAYER}&7이(가) 현재 온라인 상태가 아닙니다.'
+gamesplayed: '&b플레이한 게임&f:'
+gameswon: '&b승리&f: '
+gameslost: '&b패배&f: '
+statshead: '&7=========[&6TNT Run 통계&7]=========='
+rewardshead: '&7======[&6TNT Run 보상s&7 - &a{ARENA}&7]======'
+leaderhead: '&7======[&6TNT Run 리더보드&7]======'
+resultshead: '&7============[&6TNT Run&7]============'
+leaderboard: '{POSITION}) &c{RANK}&b{COLOR}{PLAYER} &f: 승리 &3{WINS}'
+leadersign: '&1{PLAYER} &4{WINS}'
+shopmoneyheader: '&fTNT Run 상점 계정'
+shopmoneybalance: '&5잔액은 &6{BAL}입니다.'
+statsdisabled: '&c 통계는 현재 비활성화되어 있습니다.'
 helplobby: 로비로 순간이동
 helplist: 모든 경기장 나열 또는 경기장 세부 정보 나열
 helplistkit: 모든 키트 나열 또는 키트 세부 정보 나열
@@ -141,19 +140,23 @@ setupclear: 선택 포인트 지우기
 setupwhitelist: 게임 내에서 사용할 명령어를 허용 목록에 추가
 setupresetstats: 플레이어에 대한 모든 TNT Run 통계 제거
 setupresetrank: 캐시에서 플레이어의 순위를 제거합니다.
-kitexists: "&c 지정된 키트가 이미 존재함: &6{KIT}"
-kitnotexists: "&c 지정된 키트가 존재하지 않습니다: &6{KIT}"
-partycreate: "&7 파티 생성됨"
-partyjoin: "&6 {PLAYER}&7이(가) 파티에 참가했습니다."
-partydecline: "&6 {PLAYER}&7이(가) 파티 초대를 거부했습니다."
-partyleave: "&6 {PLAYER}&7이(가) 파티를 떠났습니다."
-partyleaderleave: "&7 파티장인 &6{PLAYER}&7이(가) 떠났습니다. - 파티가 삭제되었습니다."
-partynotmember: "&c 당신은 어떤 파티의 구성원이 아닙니다"
-partynotleader: "&c 당신은 파티장이 아닙니다"
-partykick: "&6 {PLAYER}&7이(가) 파티에서 쫓겨났습니다."
-partyunkick: "&6 {PLAYER}&7이(가) 파티에 참가할 수 있습니다."
-partyinviteself: "&c 자신을 초대할 수 없습니다."
-partyinvite: "&6 {PLAYER}&7이(가) 당신을 파티에 초대했습니다"
-partyban: "&c 당신은 현재 이 파티에서 추방되었습니다."
-partyinparty: "&c 당신은 이미 파티에 있습니다"
-partynotexist: "&c 선택한 당사자가 존재하지 않습니다"
+kitadd: '&7 The kit &6{KIT} &7has been created'
+kitdel: '&7 The kit &6{KIT} &7has been deleted'
+kitexists: '&c 지정된 키트가 이미 존재함: &6{KIT}'
+kitnotexists: '&c 지정된 키트가 존재하지 않습니다: &6{KIT}'
+partycreate: '&7 파티 생성됨'
+partyjoin: '&6 {PLAYER}&7이(가) 파티에 참가했습니다.'
+partydecline: '&6 {PLAYER}&7이(가) 파티 초대를 거부했습니다.'
+partyleave: '&6 {PLAYER}&7이(가) 파티를 떠났습니다.'
+partyleaderleave: '&7 파티장인 &6{PLAYER}&7이(가) 떠났습니다. - 파티가 삭제되었습니다.'
+partynotmember: '&c 당신은 어떤 파티의 구성원이 아닙니다'
+partynotleader: '&c 당신은 파티장이 아닙니다'
+partykick: '&6 {PLAYER}&7이(가) 파티에서 쫓겨났습니다.'
+partyunkick: '&6 {PLAYER}&7이(가) 파티에 참가할 수 있습니다.'
+partyinviteself: '&c 자신을 초대할 수 없습니다.'
+partyinvite: '&6 {PLAYER}&7이(가) 당신을 파티에 초대했습니다'
+partyban: '&c 당신은 현재 이 파티에서 추방되었습니다.'
+partyinparty: '&c 당신은 이미 파티에 있습니다'
+partynotexist: '&c 선택한 당사자가 존재하지 않습니다'
+partynoinvite: '&c You do not have an invitation to this party'
+partynotenabled: '&c TNTRun parties are not currently enabled'
