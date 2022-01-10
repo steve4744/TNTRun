@@ -95,6 +95,11 @@ public class TNTRun extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 		log = getLogger();
+
+		saveDefaultConfig();
+		getConfig().options().copyDefaults(true);
+		saveConfig();
+
 		signEditor = new SignEditor(this);
 		globallobby = new GlobalLobby(this);
 		kitmanager = new Kits();
@@ -108,10 +113,6 @@ public class TNTRun extends JavaPlugin {
 		parties = new Parties(this);
 
 		setupPlugin();
-
-		saveDefaultConfig();
-		getConfig().options().copyDefaults(true);
-		saveConfig();
 
 		updateScoreboardList();
 		loadArenas();
