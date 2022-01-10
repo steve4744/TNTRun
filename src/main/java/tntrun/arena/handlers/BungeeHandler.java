@@ -65,6 +65,9 @@ public class BungeeHandler implements Listener {
 		if (!plugin.isBungeecord()) {
 			return;
 		}
+		if (!plugin.getConfig().getBoolean("bungeecord.teleporttohub")) {
+			return;
+		}
 		Arena arena = plugin.amanager.getBungeeArena();
 		if (arena == null || (!event.getPlayer().hasPermission("tntrun.spectate") && !arena.getPlayerHandler().checkJoin(event.getPlayer())) ){
 			event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "You cannot join the arena at this time");
@@ -74,6 +77,10 @@ public class BungeeHandler implements Listener {
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
 		if (!plugin.isBungeecord()) {
+			return;
+		}
+		if (!plugin.getConfig().getBoolean("bungeecord.teleporttohub")) {
+			plugin.getGlobalLobby().joinLobby(event.getPlayer());
 			return;
 		}
 		Arena arena = plugin.amanager.getBungeeArena();
