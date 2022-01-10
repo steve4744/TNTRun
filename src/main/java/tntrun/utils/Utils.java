@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -40,13 +41,16 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Content;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import tntrun.TNTRun;
+import tntrun.VersionChecker;
 import tntrun.arena.Arena;
 import tntrun.messages.Messages;
 
 public class Utils {
 
+	private static String[] version = {"Nothing", "Nothing"};
 	private static Map<String, String> ranks = new HashMap<>();
 	private static Map<String, String> colours = new HashMap<>();
+	private static final Logger log = TNTRun.getInstance().getLogger();
 
 	public static boolean isNumber(String text) {
         try {
@@ -98,6 +102,44 @@ public class Utils {
 		return names;
 	}
 
+	/**
+	 * Compare the current version of the plugin with the latest version available on SpigotMC.
+	 *
+	 * @param current version of this plugin
+	 */
+	public static void checkUpdate(String current) {
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				log.info("Checking plugin version...");
+				new VersionChecker();
+				version = VersionChecker.get().getVersion().split(";");
+
+				if (version[0].equalsIgnoreCase("error")) {
+					throw new NullPointerException("An error was occured while checking version! Please report this here: https://www.spigotmc.org/threads/tntrun_reloaded.303586/");
+
+				} else if (version[0].equalsIgnoreCase(current)) {
+					log.info("You are running the most recent version");
+					TNTRun.getInstance().setNeedUpdate(false);
+
+				} else if (current.toLowerCase().contains("beta") || current.toLowerCase().contains("snapshot")) {
+					log.info("You are running a dev build: " + current);
+					log.info("Latest public release      : " + version[0]);
+					TNTRun.getInstance().setNeedUpdate(false);
+
+				} else {
+					log.info("Your version: " + current);
+					log.info("New version : " + version[0]);
+					log.info("New version available! Download now: https://www.spigotmc.org/resources/tntrun_reloaded.53359/");
+					TNTRun.getInstance().setNeedUpdate(true);
+					for (Player p : Bukkit.getOnlinePlayers()) {
+						Utils.displayUpdate(p);
+					}
+				}
+			}
+		}.runTaskLaterAsynchronously(TNTRun.getInstance(), 30L);
+	}
+
 	public static void displayInfo(CommandSender sender) {
 		Messages.sendMessage(sender, "&7============" + Messages.trprefix + "============", false);
 		Messages.sendMessage(sender, "&bPlugin Version: &f" + TNTRun.getInstance().getDescription().getVersion(), false);
@@ -138,7 +180,7 @@ public class Utils {
 
 	private static ComponentBuilder getUpdateMessage() {
 		ComponentBuilder cb = new ComponentBuilder("Current version : ").color(ChatColor.AQUA).append(TNTRun.getInstance().getDescription().getVersion()).color(ChatColor.GOLD);
-		cb.append("\nLatest version : ").color(ChatColor.AQUA).append(TNTRun.getInstance().version[0]).color(ChatColor.GOLD);
+		cb.append("\nLatest version : ").color(ChatColor.AQUA).append(version[0]).color(ChatColor.GOLD);
 		return cb;
 	}
 
@@ -249,8 +291,8 @@ public class Utils {
 					cgmeta = TNTRun.getInstance().getVaultHandler().getChat().getGroupInfoString("", rank, "tntrun-color", "");
 				}
 				if (Utils.debug()) {
-					Bukkit.getLogger().info("[TNTRun_reloaded] Cached rank " + rank + " for online player " + player.getName());
-					Bukkit.getLogger().info("[TNTRun_reloaded] Cached colour " + cgmeta + " for online player " + player.getName());
+					log.info("[TNTRun_reloaded] Cached rank " + rank + " for online player " + player.getName());
+					log.info("[TNTRun_reloaded] Cached colour " + cgmeta + " for online player " + player.getName());
 				}
 			} else {
 				final String pn = player.getName();
@@ -267,8 +309,8 @@ public class Utils {
 						}
 
 						if (Utils.debug()) {
-							Bukkit.getLogger().info("[TNTRun_reloaded] Cached rank " + rank + " for offline player " + pn);
-							Bukkit.getLogger().info("[TNTRun_reloaded] Cached colour " + cgmeta + " for offline player " + pn);
+							log.info("[TNTRun_reloaded] Cached rank " + rank + " for offline player " + pn);
+							log.info("[TNTRun_reloaded] Cached colour " + cgmeta + " for offline player " + pn);
 						}
 					}
 				}.runTaskAsynchronously(TNTRun.getInstance());
@@ -278,7 +320,7 @@ public class Utils {
 			if (player.isOnline()) {
 				rank = TNTRun.getInstance().getVaultHandler().getChat().getPlayerPrefix(null, player);
 				if (Utils.debug()) {
-					Bukkit.getLogger().info("[TNTRun_reloaded] Cached prefix " + rank + " for online player " + player.getName());
+					log.info("[TNTRun_reloaded] Cached prefix " + rank + " for online player " + player.getName());
 				}
 			} else {
 				final String pn = player.getName();
@@ -289,7 +331,7 @@ public class Utils {
 						ranks.put(pn, rank != null ? rank : "");
 
 						if (Utils.debug()) {
-							Bukkit.getLogger().info("[TNTRun_reloaded] Cached prefix " + rank + "for offline player " + pn);
+							log.info("[TNTRun_reloaded] Cached prefix " + rank + "for offline player " + pn);
 						}
 					}
 				}.runTaskAsynchronously(TNTRun.getInstance());
