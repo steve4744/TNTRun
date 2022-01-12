@@ -116,15 +116,15 @@ public class Utils {
 				version = VersionChecker.get().getVersion().split(";");
 
 				if (version[0].equalsIgnoreCase("error")) {
-					throw new NullPointerException("An error was occured while checking version! Please report this here: https://www.spigotmc.org/threads/tntrun_reloaded.303586/");
+					throw new NullPointerException("An error has occurred while checking the version! Please report this here: https://www.spigotmc.org/threads/tntrun_reloaded.303586/");
 
 				} else if (version[0].equalsIgnoreCase(current)) {
 					log.info("You are running the most recent version");
 					TNTRun.getInstance().setNeedUpdate(false);
 
 				} else if (current.toLowerCase().contains("beta") || current.toLowerCase().contains("snapshot")) {
-					log.info("You are running a dev build: " + current);
-					log.info("Latest public release      : " + version[0]);
+					log.info("You are running dev build: " + current);
+					log.info("Latest public release    : " + version[0]);
 					TNTRun.getInstance().setNeedUpdate(false);
 
 				} else {
