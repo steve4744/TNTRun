@@ -1,162 +1,162 @@
 ---
 trprefix: '&7[&6TNTRun_reloaded&7]'
-menutitle: '&1TNTRun_reloaded Arenas'
+menutitle: '&1TNTRun_reloaded Areny'
 menuarenaname: '&a{ARENA}'
-menutext: '&5Players: &6{PS}/{MPS}'
-menufee: '&5Join Fee: &6{FEE}'
-menupvp: '&5PVP: &6Enabled'
-menutracker: '&1TNTRun player tracker'
-nopermission: '&c You don''t have permission to do this'
-nolobby: '&c Global lobby isn''t set, run &6/trsetup setlobby'
-lobbyunloaded: '&c Lobby world is unloaded or doesn''t exist'
-teleporttolobby: '&7 Teleported to lobby'
-arenanotexist: '&c Arena &6{ARENA}&c doesn''t exist'
-noarenas: '&c There are no arenas available to join'
-arenanotdisabled: '&c Please disable arena: &6/trsetup disable {ARENA}'
-arenanospectatorspawn: '&c No spectator spawn set for arena &6{ARENA}'
-availablearenas: '&7 Available arenas: {COUNT}'
-availablekits: '&7 Available kits: {COUNT}'
-arenawolrdna: '&7 Arena world is not loaded'
-arenanobounds: '&7 Arena bounds not set'
-arenadisabled: '&7 Arena is disabled'
-arenarunning: '&7 Arena already running'
-arenaregenerating: '&7 Arena is regenerating'
-arenavehicle: '&c You can''t join the game while sitting inside a vehicle'
-arenajoined: '&c You have already joined an arena'
-arenadisabling: '&6 Arena is disabling'
-arenastarting: '&6 Arena already starting'
-signcreate: '&7 Sign successfully created'
-signremove: '&7 Sign successfully removed'
-signfail: '&7 You must be looking at a sign to create the join sign'
-arenafee: '&7 You have been charged &6{FEE} &7to enter the arena'
-arenanofee: '&c You require a fee of &6{FEE} &cto enter the arena'
-arenawaiting: '&6 Arena is waiting'
-playerscountinarena: '&6 Current number of players in arena: {COUNT} players'
-limitreached: '&7 Arena is full.'
-playerjoinedtoothers: '&c {RANK}&6{COLOR}{PLAYER} &7joined the arena (&6{PS}&7/&6{MPS}&7)'
-playerjoininvite: '&c{RANK}&6{COLOR}{PLAYER} &7has joined TNTRun arena &6{ARENA}&7, click to play'
-playerborderinvite: '&b---------------------------------------'
-playerclickinvite: Click to join {ARENA}
-playerjoinedasspectator: '&7 You joined arena &6{ARENA} &7as a spectator'
-playerlefttoplayer: '&7 You left the arena'
-playerlefttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7left the game (&6{PS}&7/&6{MPS}&7)'
-playernotplaying: '&c Targeted player &6{PLAYER} &cis no longer playing'
-playervotedforstart: '&f You voted to force-start the game'
-playeralreadyvotedforstart: '&c You have already voted'
-playercannotvote: '&c You cannot vote to force-start the arena'
-arenastarted: '&7 Arena started. Time limit is {TIMELIMIT} seconds'
-arenanolimit: '&7 Arena started. No time limit'
-arenacountdown: '&7 Arena starts in {COUNTDOWN} seconds'
-arenatimeout: '&7 Time is up. Ending game'
-playerwontoplayer: '&7 You won the game!'
-playerfinishedtestmode: '&7 Test game completed!'
-playerlosttoplayer: '&7 You lost the game'
-playerlosttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7lost the game (&6{PS}&7/&6{MPS}&7)'
-playerfirstplace: '&a1st place: &f{RANK}{COLOR}{PLAYER}'
-playersecondplace: '&a2nd place: &f{RANK}{COLOR}{PLAYER}'
-playerthirdplace: '&a3rd place: &f{RANK}{COLOR}{PLAYER}'
-playerrewardmessage: '&7 You have been rewarded: &6{REWARD}'
-playerrewardmaterial: '&6 Material :  &f'
-playerrewardcommand: '&6 Command : &f'
-playerrewardmoney: '&6 Money :    &f'
+menutext: '&5Hráči: &6{PS}/{MPS}'
+menufee: '&5Poplatek za Pripojeni: &6{FEE}'
+menupvp: '&5PVP: &6Povoleno'
+menutracker: '&1TNTRun sledovani hracu'
+nopermission: '&c Nemas Pravomoce na tuhle cinnost'
+nolobby: '&c Hlavní lobby neni nastavena, napis &6/trsetup setlobby'
+lobbyunloaded: '&c Svět s Lobby je nenačtený nebo neexistuje'
+teleporttolobby: '&Teleportování do lobby'
+arenanotexist: '&c Aréna &6{ARENA}&c neexistuje'
+noarenas: '&c Nejsou žádné volné arény na připojení'
+arenanotdisabled: '&c Prosím vypněte arénu &6/trsetup disable {ARENA}'
+arenanospectatorspawn: '&c Žádný spawn pro diváky nebyl nastaven pro arénu &6{ARENA}'
+availablearenas: '&7 Dostupné arény: {COUNT}'
+availablekits: '&7 Dostupné kity: {COUNT}'
+arenawolrdna: '&7 Svět s Arénou není načten'
+arenanobounds: '&7 Hranice Arény nebyly nastaveny'
+arenadisabled: '&7 Aréna je vyplá'
+arenarunning: '&7 aréna je již spuštěna'
+arenaregenerating: '&7 Aréna se regeneruje'
+arenavehicle: '&c Nemůžeš se připojit ke hře, když sedíš uvnitř vozidla'
+arenajoined: '&c Už jsi v aréně'
+arenadisabling: '&6 Aréna se vypíná'
+arenastarting: '&6 Aréna se momentálně zapíná'
+signcreate: '&7 Cedulka Úspěšně vytvořena'
+signremove: '&7 Cedulka úspěšně Smazána'
+signfail: '&7 Musíš se dívat na cedulku pro vytvoření připojovací cedulky'
+arenafee: '&7 Zaplatil si &6{FEE} &7 Pro vstup do arény'
+arenanofee: '&c Musíš zaplatit poplatek &6{FEE} &cpro vstup do arény'
+arenawaiting: '&6 Aréna čeká na hráče'
+playerscountinarena: '&6 Aktuální počet hráčů v aréně: {COUNT} hráčů'
+limitreached: '&7 Aréna je plná.'
+playerjoinedtoothers: '&c{RANK} &6{COLOR}{PLAYER} &7Se připojil do arény (&6{PS}&7/&6{MPS}&7)'
+playerjoininvite: '&c{RANK}&6{COLOR}{PLAYER} &7se připojil do arény &6{ARENA}&7, klikni pro připojení'
+playerborderinvite: '&b-----------------------------------------'
+playerclickinvite: Klikni pro připojení do {ARENA}
+playerjoinedasspectator: '&7 Připojili jste se do areny &6{ARENA} &7 jako divák'
+playerlefttoplayer: '&7 Opustil jsi arénu'
+playerlefttoothers: '&c{RANK} &6{COLOR}{PLAYER} &7Se odpojil z arény (&6{PS}&7/&6{MPS}&7)'
+playernotplaying: '&c Hráč &6{PLAYER} &codešel'
+playervotedforstart: '&f Hlasoval si pro vynucený start hry'
+playeralreadyvotedforstart: '&c Už si hlasoval pro vynucený start hry'
+playercannotvote: '&c Nemůžeš hlasovat pro vynucený start arény'
+arenastarted: '&7 Aréna začala. Časový limit je {TIMELIMIT} vteřin'
+arenanolimit: '&7 Aréna začala. Není nastavený žádný časový limit'
+arenacountdown: '&7 Aréna začíná za {COUNTDOWN} sekund'
+arenatimeout: '&7 Čas Vypršel. Konec Hry'
+playerwontoplayer: '&7 Vyhrál si!'
+playerfinishedtestmode: '&7 Testovací hra dokončena!'
+playerlosttoplayer: '&7 Prohrál si'
+playerlosttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7prohrál (&6{PS}&7/&6{MPS}&7)'
+playerfirstplace: '&aPrvní Místo: &f{RANK}{COLOR}{PLAYER}'
+playersecondplace: '&aDruhé Místo: &f{RANK}{COLOR}{PLAYER}'
+playerthirdplace: '&aTřetí místo: &f{RANK}{COLOR}{PLAYER}'
+playerrewardmessage: '&7 Byl si odměněn: &6{REWARD}'
+playerrewardmaterial: '&6 Materiál : &f'
+playerrewardcommand: '&6 Příkaz: &f'
+playerrewardmoney: '&6 Peníze : &f'
 playerrewardxp: '&6 XP :      &l  &f'
-playerboughtitem: '&7 You have bought item &6{ITEM} &7for &6{MONEY}'
-playerboughtwait: '&7 You will get your items when the game starts'
-playerkit: '&7 You have been given kit &6{KIT}'
-playersrequiredtostart: '&c There must be at least 2 players in the arena to force-start'
-notenoughmoney: '&c You need {MONEY} to buy this item'
-alreadyboughtitem: '&c You have already bought a shop item'
-shopnostock: '&c This item is currently out of stock'
-maxdoublejumpsexceeded: '&c You cannot exceed the maximum doublejumps allowed ({MAXJUMPS})'
-playernotinarena: '&c You are not in a TNTRun arena'
-playernotonline: '&6 {PLAYER} &7is not currently online'
-gamesplayed: '&bGames played &f: '
-gameswon: '&bWins &f: '
-gameslost: '&bLosses &f: '
-statshead: '&7=========[&6TNTRun Stats&7]========='
-rewardshead: '&7======[&6TNTRun Rewards&7 - &a{ARENA}&7]======'
-leaderhead: '&7======[&6TNTRun Leaderboard&7]======'
+playerboughtitem: '&7 Zakoupil si item &6{ITEM} &7za &6{MONEY}'
+playerboughtwait: '&7 Sve itemy dostanes pri startu hry'
+playerkit: '&7 Dostal si kit &6{KIT}'
+playersrequiredtostart: '&c K vynucenému spuštění musí být nejméně 2 hráči v aréně'
+notenoughmoney: '&c Potřebuješ {MONEY} pro nákup této položky'
+alreadyboughtitem: '&c Již sis koupil tento item z obchodu'
+shopnostock: '&c Tento item je vyprodán'
+maxdoublejumpsexceeded: '&c Nemůžeš překročit maximální počet dvoj-skoků, který je {MAXJUMPS}'
+playernotinarena: '&c Nejsi v TNTRun Aréně'
+playernotonline: '&6 {PLAYER} &7 není v aréně'
+gamesplayed: '&b Odehraných her&f: '
+gameswon: '&bVýhry &f: '
+gameslost: '&bProhry &f: '
+statshead: '&7=========[&6TNTRun Staty&7]========='
+rewardshead: '&7======[&6TNTRun Odměny&7 - &a{ARENA}&7]======'
+leaderhead: '&7======[&6TNTRun Žebříček&7]======'
 resultshead: '&7============[&6TNTRun&7]============'
-leaderboard: '{POSITION}) &c{RANK}&b{COLOR}{PLAYER} &f: Wins &3{WINS}'
+leaderboard: '{POSITION}) &c{RANK}&b{COLOR}{PLAYER} &f: Výhry &3{WINS}'
 leadersign: '&1{PLAYER} &4{WINS}'
-shopmoneyheader: '&fTNTRun Shop Account'
-shopmoneybalance: '&5Your balance is &6{BAL}'
-statsdisabled: '&c Stats are currently disabled'
-helplobby: Teleport to lobby
-helplist: List all arenas OR List arena details
-helplistkit: List all kits OR List kit details
-helplistrewards: List the rewards for the arena
-helpjoin: Open join menu OR Join the arena
-helpspectate: Join the arena as a spectator
-helpautojoin: Automatically join the first available arena
-helpleave: Leave the current arena
-helpvote: Vote to force-start current arena
-helpcmds: View all TNTRun commands
-helpinfo: View plugin info
-helpstats: View player stats
-helplb: Display the TNTRun leaderboard
-helpstart: Force-start the arena
-setuplobby: Set the global lobby at your current location
-setupdellobby: Delete the global lobby
-setupcreate: Create a new arena
-setupconfigure: Open menu to configure arena
-setupbounds: Set bounds for arena
-setuploselevel: Set loselevel point at your feet
-setupspawn: Set arena spawn at your feet
-setupspectate: Set spectator spawn point
-setupaddspawn: Set an additional spawn at your feet
-setupdelspawns: Delete all spawn points created with the addspawn command
-setupfinish: Finish arena and save
-setupdelspectate: Delete spectator spawn for arena
-setupdelay: Set delay for removing block when player steps on it
-setupregendelay: 'Set delay before players can re-join arena (Default: 60)'
-setupmax: 'Set maximum players for arena (Default: 15)'
-setupmin: 'Set minimum players for arena (Default: 2)'
-setupvote: 'Set vote percentage to force-start arena (Default: 0.75)'
-setuptimelimit: 'Set a time limit for arena (Default: 300 seconds)'
-setupcountdown: 'Set a countdown for arena (Default: 15 seconds)'
-setupmoney: Set a money reward for winning player
-setupteleport: Set teleport when you lose or win in arena
-setupdamage: Enable/disable PVP for the arena
-setupbarcolor: Set the BossBar color
-setupreloadbars: Reload Bar messages
-setupreloadtitles: Reload Title messages
-setupreloadmsg: Reload arena messages
-setupreloadconfig: Reload config file
-setupenable: Enable arena
-setupdisable: Disable arena
-setupdelete: Delete arena
-setupreward: Set the rewards for the arena
-setupfee: Set the cost to join the arena
-setupcurrency: Set the currency to join the arena
-setuphelp: Commands required to setup a new arena
-setupenablekits: Enable kits for the arena
-setupdisablekits: Disable kits for the arena
-setupaddkit: Create a TNTRun kit
-setupdelkit: Delete a TNTRun kit
-setupp1: Set targeted block as first selection point
-setupp2: Set targeted block as second selection point
-setupclear: Clear selection points
-setupwhitelist: Whitelist a command for use in-game
-setupresetstats: Remove all TNTRun stats for the player
-setupresetrank: Remove player's rank from the cache
-kitadd: '&7 The kit &6{KIT} &7has been created'
-kitdel: '&7 The kit &6{KIT} &7has been deleted'
-kitexists: '&c The specified kit already exists : &6{KIT}'
-kitnotexists: '&c The specified kit does not exist : &6{KIT}'
-partycreate: '&7 Party created'
-partyjoin: '&6 {PLAYER} &7has joined the party'
-partydecline: '&6 {PLAYER} &7has declined the party invitation'
-partyleave: '&6 {PLAYER} &7has left the party'
-partyleaderleave: '&7 Party leader &6{PLAYER} &7has left - the party has been deleted'
-partynotmember: '&c You are not a member of any party'
-partynotleader: '&c You are not a party leader'
-partykick: '&6 {PLAYER} &7has been kicked from the party'
-partyunkick: '&6 {PLAYER} &7is allowed to join your party'
-partyinviteself: '&c You cannot invite yourself'
-partyinvite: '&6 {PLAYER} &7has invited you to join a party'
-partyban: '&c You are currently kicked from this party'
-partyinparty: '&c You are already in a party'
-partynotexist: '&c The selected party does not exist'
-partynoinvite: '&c You do not have an invitation to this party'
-partynotenabled: '&c TNTRun parties are not currently enabled'
+shopmoneyheader: '&fTNTRun Účet Obchodu'
+shopmoneybalance: '&5Tvuj zustatek je &6{BAL}'
+statsdisabled: '&c Staty jsou momentálně vypnuté'
+helplobby: Teleportování do lobby
+helplist: List všech arén nebo List detailů určité arény
+helplistkit: List všech kitů nebo List detailů kitu
+helplistrewards: Listovat výhry konkrétní arény
+helpjoin: Otevřít připojovací arény nebo připojení se do arény
+helpspectate: Připojit se do arény jako divák
+helpautojoin: Automaticky se připojit do první dostupné arény
+helpleave: Opustit momentální arénu
+helpvote: Hlasovat pro vynucení startu momentální arény
+helpcmds: Zobrazit všechny TNTRun příkazy
+helpinfo: Zobrazit info pluginu
+helpstats: Zobrazit statistiku hráče
+helplb: Zobrazit TNTRun žebříček
+helpstart: Vynutit spuštění arény
+setuplobby: Nastavení globální lobby na vaší aktuální pozici
+setupdellobby: Vymazání Globální lobby
+setupcreate: Vytvoření nové arény
+setupconfigure: Otevření meny pro konfiguraci arény
+setupbounds: Nastavit hranice pro arénu
+setuploselevel: Nastavení úrovně pro prohru na pozici vašich noh
+setupspawn: Nastavení spawnu arény u vašich noh
+setupspectate: Nastavení spawn pointu pro diváky
+setupaddspawn: Nastavení dodatečného spawnu u vašich noh
+setupdelspawns: Vymazat všechny spawn místa vytvořené addspawn příkazem
+setupfinish: Dokončit arénu a uložit
+setupdelspectate: Vymazat spawn vaší arény pro diváky
+setupdelay: Nastavit zpoždění pro zničení bloku, když na něj hráč šlápne
+setupregendelay: 'Nastavit zpoždění před tím, než se hráči mohou znova připojit (Výchozí: 60)'
+setupmax: 'Nastavení maximálního limitu hráčů v aréně (Výchozí: 15)'
+setupmin: 'Nastavení Minimálního limitu hráčů v aréně (Výchozí: 2)'
+setupvote: 'Nastavení procenta hlasu na vynucený start areny (výchozí: 0.75)'
+setuptimelimit: 'Nastavení časového limitu pro arénu (Výchozí: 300 vteřin)'
+setupcountdown: 'Nastavení odpočtu pro arénu (Výchozí: 15 vteřin)'
+setupmoney: Nastavení peněžní odměny pro výherce
+setupteleport: Nastavení teleportu, když prohraješ/vyhraješ v aréně
+setupdamage: Povolit/zakázat PVP v aréně
+setupbarcolor: Nastavit barvu v BossBaru
+setupreloadbars: Znovunačtení zpráv v BossBaru
+setupreloadtitles: Znovunačtení zpráv v titulku
+setupreloadmsg: Znovunačtení zpráv pro arénu
+setupreloadconfig: Znovunačtení souboru s konfigurací
+setupenable: Zapnutí arény
+setupdisable: Vypnutí Arény
+setupdelete: Vymazání arény
+setupreward: Nastavení odměn pro arénu
+setupfee: Nastavení ceny pro připojení do arény
+setupcurrency: Nastavení měny pro připojení do arény
+setuphelp: Příkazy nutné pro nastavení nové arény
+setupenablekits: Povolení kitů v aréně
+setupdisablekits: Zakázání kitů v aréně
+setupaddkit: Vytvoření nového TNTRun Kitu
+setupdelkit: Vymazání TNTRun Kitu
+setupp1: Nastavit cílený blok jako první bod výběru
+setupp2: Nastavit cílený blok jako druhý bod výběru
+setupclear: Vymazat vybrané body
+setupwhitelist: Povolení příkazu pro použití ve hře
+setupresetstats: Smazání všech TNTRun statistik pro hráče
+setupresetrank: Vymazání ranku hráče z cache
+kitadd: '&7 Kit s názvem &6{KIT} &7Byl vytvořen'
+kitdel: '&7 Kit s názvem &6{KIT} &7byl vymazán'
+kitexists: '&c Tento kit už existuje s názvem : &6{KIT}'
+kitnotexists: '&c Tento kit neexistuje s názvem : &6{KIT}'
+partycreate: '&7 Párty vytvořena'
+partyjoin: '&6 {PLAYER} &7 se připojil do party'
+partydecline: '&6 {PLAYER} &7zamítl nabídku o připojení se do party'
+partyleave: '&6 {PLAYER} &7se odpojil z party'
+partyleaderleave: '&7 Velitel party &6{PLAYER} se odpojil - party byla rozpuštěna'
+partynotmember: '&c Nejsi členem žádné party'
+partynotleader: '&c Nejsi leader tvojí party'
+partykick: '&6 {PLAYER} &7byl/a vyhozen/a z párty'
+partyunkick: '&6 {PLAYER} &7má povolení se připojit do vaší party'
+partyinviteself: '&c Nemůžeš se sám sama pozvat'
+partyinvite: '&6 {PLAYER} &7 tě pozval do party'
+partyban: '&c Byl si vyhozen z této party'
+partyinparty: '&c Už si v partě'
+partynotexist: '&c Zvolená parta neexistuje'
+partynoinvite: '&c Nemáš pozvánku do této party'
+partynotenabled: '&c TNTRun party nejsou momentálně zaplé'
