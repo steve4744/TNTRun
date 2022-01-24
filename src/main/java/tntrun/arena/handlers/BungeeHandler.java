@@ -88,15 +88,23 @@ public class BungeeHandler implements Listener {
 			return;
 		}
 		Player player = event.getPlayer();
+		// player doesn't have permission and we know he can join because of onLogin check
 		if (!player.hasPermission("tntrun.spectate")) {
 			arena.getPlayerHandler().spawnPlayer(player, Messages.playerjoinedtoothers);
 			return;
 		}
+		// player has permission and has the 'playorspectate' option, so do join checks
+		if (plugin.getConfig().getBoolean("bungeecord.playorspectate") && arena.getPlayerHandler().checkJoin(player)) {
+			arena.getPlayerHandler().spawnPlayer(player, Messages.playerjoinedtoothers);
+			return;
+		}
+
 		if (!arena.getPlayerHandler().canSpectate(player)) {
 			plugin.getServer().getScheduler().runTaskLater(plugin, () ->
 					connectToHub(player), 20L);
 			return;
 		}
+
 		arena.getPlayerHandler().spectatePlayer(player, Messages.playerjoinedasspectator, "");
 	}
 }

@@ -235,13 +235,22 @@ signs:
 #
 # bungeecord settings
 bungeecord:
+  # enable if part of bungeecord network
   enabled: false
+  # name of hub server
   hub: lobby
+  # get arena status using MOTD
   useMOTD: true
+  # set to true to select a random arena after every game
   randomarena: true
+  # set to true to stop the server at the end of a game
   stopserver: false
+  # if true players real UUIDs will be used (if forwarded by the proxy server)
   useUUID: false
+  # if false players will join the tntrun lobby when joining the server and at the end of a game
   teleporttohub: true
+  # if true players with 'spectate' permission will join as a player if the arena has not started
+  playorspectate: false
 #
 # currency symbols to use with message strings
 currency:
