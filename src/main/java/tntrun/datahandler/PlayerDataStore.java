@@ -95,7 +95,7 @@ public class PlayerDataStore {
 
 	public void storePlayerGameMode(Player player) {
 		plgamemode.put(player.getName(), player.getGameMode());
-		player.setGameMode(GameMode.SURVIVAL);
+		player.setGameMode(getGameMode());
 	}
 
 	public void storePlayerLevel(Player player) {
@@ -179,5 +179,13 @@ public class PlayerDataStore {
 
 	public boolean hasStoredDoubleJumps(Player player) {
 		return getDoubleJumpsFromFile(player) > 0;
+	}
+
+	private GameMode getGameMode() {
+		String gamemode = plugin.getConfig().getString("gamemode", "SURVIVAL");
+		if (!gamemode.equalsIgnoreCase("ADVENTURE")) {
+			gamemode = "SURVIVAL";
+		}
+		return GameMode.valueOf(gamemode.toUpperCase());
 	}
 }

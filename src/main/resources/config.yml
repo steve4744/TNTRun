@@ -42,6 +42,9 @@ UseRankInChat:
   groupcolormeta: false
   useprefix: false
 #
+# the gamemode to use while in the arena, survival(default) or adventure
+gamemode: SURVIVAL
+#
 # in-game shop configuration
 shop:
   enabled: true
