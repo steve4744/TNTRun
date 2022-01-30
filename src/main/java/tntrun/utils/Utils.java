@@ -224,10 +224,7 @@ public class Utils {
 		Content content = new Text("Click to select");
 		TextComponent tc = new TextComponent(text);
 		if (click) {
-			String splitter = "[";
-			if (text.contains("{")) {
-				splitter = "{";
-			}
+			String splitter = text.contains("{") ? "{" : "[";
 			tc.setColor(ChatColor.GOLD);
 			tc.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, StringUtils.substringBefore(text, splitter)));
 			tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, content));

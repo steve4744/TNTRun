@@ -19,6 +19,7 @@ package tntrun.arena.handlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -125,8 +126,7 @@ public class GameHandler {
 					return;
 
 				} else if(count == antiCamping) {
-					String message = Messages.arenacountdown;
-					message = message.replace("{COUNTDOWN}", String.valueOf(count));
+					String message = Messages.arenacountdown.replace("{COUNTDOWN}", String.valueOf(count));
 					for (Player player : arena.getPlayersManager().getPlayers()) {
 						if (isAntiCamping() && !arena.getStructureManager().hasAdditionalSpawnPoints()) {
 							player.teleport(arena.getStructureManager().getSpawnPoint());
@@ -135,8 +135,7 @@ public class GameHandler {
 					}
 
 				} else if (count <= startVisibleCountdown || count % 10 == 0) {
-					String message = Messages.arenacountdown;
-					message = message.replace("{COUNTDOWN}", String.valueOf(count));
+					String message = Messages.arenacountdown.replace("{COUNTDOWN}", String.valueOf(count));
 					for (Player player : arena.getPlayersManager().getPlayers()) {
 						displayCountdown(player, count, message);
 					}
@@ -580,13 +579,8 @@ public class GameHandler {
 	 * @return boolean
 	 */
 	private boolean isArmor(ItemStack item) {
-		String[] armor = new String[] {"HELMET", "CHESTPLATE", "LEGGINGS", "BOOTS"};
-		for (String s : armor) {
-			if (item.toString().contains(s)) {
-				return true;
-			}
-		}
-		return false;
+		final List<String> armor = List.of("HELMET", "CHESTPLATE", "LEGGINGS", "BOOTS");
+		return armor.stream().anyMatch(item.getType().toString()::contains);
 	}
 
 	/**
