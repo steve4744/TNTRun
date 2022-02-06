@@ -64,6 +64,7 @@ public class StructureManager {
 	private List<String> linkedKits = new ArrayList<>();
 	private boolean testmode = false;
 	private boolean excludeStats = false;
+	private boolean allowDoublejumps = true;
 	private int regenerationdelay = 60;
 	private String currency;
 	private double fee = 0;
@@ -196,6 +197,10 @@ public class StructureManager {
 
 	public boolean isExcludeStats() {
 		return excludeStats;
+	}
+
+	public boolean isAllowDoublejumps() {
+		return allowDoublejumps;
 	}
 
 	public boolean isShopEnabled() {
@@ -470,6 +475,7 @@ public class StructureManager {
 		config.set("punchDamage", punchDamage);
 		config.set("testmode", testmode);
 		config.set("excludeStats", excludeStats);
+		config.set("allowDoublejumps", allowDoublejumps);
 		config.set("regenerationdelay", regenerationdelay);
 		config.set("joinfee", fee);
 		config.set("currency", currency);
@@ -511,6 +517,7 @@ public class StructureManager {
 		punchDamage = config.getBoolean("punchDamage", true);
 		testmode = config.getBoolean("testmode");
 		excludeStats = config.getBoolean("excludeStats");
+		allowDoublejumps = config.getBoolean("allowDoublejumps", true);
 		regenerationdelay = config.getInt("regenerationdelay", regenerationdelay);
 		fee = config.getDouble("joinfee", fee);
 		currency = config.getString("currency", null);
