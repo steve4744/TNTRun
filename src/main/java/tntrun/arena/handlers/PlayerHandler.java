@@ -721,7 +721,6 @@ public class PlayerHandler {
 	 * @param player
 	 */
 	public void allocateKits(Player player) {
-		String kit = null;
 		List<String> kitnames = new ArrayList<>();
 		if (arena.getStructureManager().hasLinkedKits()) {
 			if (arena.getStructureManager().isRandomKit() || getLinkedKitName() == null) {
@@ -736,7 +735,7 @@ public class PlayerHandler {
 			plugin.getLogger().info("kitnames = " + kitnames.toString());
 		}
 
-		kit = kitnames.size() > 1 ? getRandomKitName(kitnames) : kitnames.get(0);
+		String kit = kitnames.size() > 1 ? getRandomKitName(kitnames) : kitnames.get(0);
 		if (plugin.getKitManager().kitExists(kit)) {
 			giveKitToPlayer(kit, player);
 		} else {

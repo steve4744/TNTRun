@@ -5,55 +5,111 @@
 #                                        #
 # TNTRun_reloaded author steve4744       #
 #                                        #
+
 special:
+  #
+  # use bossbar to display arena messages and countdown
   UseBossBar: true
+  #
+  # set the bossbar color, or have random colors
   BossBarColor: RANDOM
+  #
+  # use splash titles for join/leave
   UseTitle: true
+  #
+  # use scoreboard to display in-game stats
   UseScoreboard: true
+  #
+  # using permission "tntrun.doublejumps.n" where n is an integer will limit the number of doublejumps
+  # a player will receive up to the max allowed. Applies to free and shop doublejumps
   UseDoubleJumpPermissions: false
+  #
+  # check for new version of TNTRun_reloaded on SpigotMC.org
   CheckForNewVersion: true
+  #
+  # enable metrics (bStats)
   Metrics: true
+#
+# use the player's exp bar to display the countdown and/or time remaining
 usexpbar:
   countdown: true
   timelimit: true
+#
+# use player's rank in chat messages
 UseRankInChat:
   enabled: false
   usegroup: true
   groupcolormeta: false
   useprefix: false
+#
+# the gamemode to use while in the arena, survival(default) or adventure
+gamemode: SURVIVAL
+#
+# in-game shop configuration
 shop:
   enabled: true
   name: '&6&lTNTRun &f&lSHOP'
   size: 27
   doublejump:
     maxdoublejumps: 10
+  #
+  # log every shop purchase to console
   logpurchases: false
+  #
+  # remove player's purchase if player leaves before game starts
   onleave:
     removepurchase: false
+  #
+  # item to use to show player's monetary balance in shop
   showmoneyitem: GOLD_INGOT
+#
+# give players free doublejumps when arena starts
 freedoublejumps:
   enabled: false
   amount: 10
+#
+# run server commands on win
+# setting to "- null" will disable the message
 commandsonwin:
 - say {PLAYER} won TNTRun on {ARENA}
 - say Congratulations...
+#
+# set duration (seconds) for fireworks on win
 fireworksonwin:
   enabled: true
   duration: 4
+#
+# broadcast win to whom:
+# 2 = server, 1 = only arena players, 0 = no broadcast message
 broadcastwinlevel: 2
+#
+# broadcast clickable invitation to join arena message when first player joins an arena
 invitationmessage:
   enabled: false
+  #
+  # if true, players join as spectators if arena is already running
   allowspectate: false
+  #
+  # if true, players already playing TNTRun will not receive the message
   excludeplayers: false
+  #
+  # if true, the originating player will not receive the message
   excludeoriginator: false
+#
+# if enabled players can create and join TNTRun parties
+# alternatively, the AlessioDP Parties plugin can be used
 parties:
   enabled: true
   usePartiesPlugin: false
+#
+# configure arena join menu
 menu:
   item: TNT
   pvpitem: IRON_BLOCK
   panecolor: LIGHT_BLUE
   includedisabled: false
+#
+# configure sounds
 sounds:
   arenastart:
     enabled: true
@@ -70,14 +126,22 @@ sounds:
     sound: BLOCK_SAND_BREAK
     volume: 5
     pitch: 1.0
+#
+# if enabled, all players in arena teleport to arena spawn when countdown = 5 seconds
 anticamping:
   enabled: true
   teleporttime: 5
+#
+# set max entries displayed by leaderboard command
 leaderboard:
   maxentries: 10
+#
+# control the size of the doublejumps
 doublejumps:
   multiplier: 1.5
   height: 0.7
+#
+# set GUI items while waiting for arena start
 items:
   vote:
     use: true
@@ -114,6 +178,8 @@ items:
     material: COMPASS
     name: '&e&lPlayer Tracker'
     slot: 5
+#
+# set scoreboard text
 scoreboard:
   header: '&6&lTNTRUN'
   displaydoublejumps: false
@@ -137,7 +203,11 @@ scoreboard:
   - '&fLost Players: &a&l{LOST}'
   - '&d '
   - '&fEnd in: &c&l{LIMIT}'
+#
+# configure stats - set database to 'file' (to use stats.yml) or 'sql' (to use a MySQL database)
 database: file
+#
+# MySQL database configuration
 MySQL:
   host: host
   port: 12345
@@ -148,6 +218,9 @@ MySQL:
   useSSL: false
   flags: allowPublicKeyRetrieval=true
   legacyDriver: false
+#
+# set sign text. If a join sign is placed on a STAINED_GLASS block, the colour of the block
+# can be configured to reflect the status of the arena
 signs:
   prefix: '&6&lTNTRun'
   join: '[Join]'
@@ -162,19 +235,40 @@ signs:
     starting: ''
     waiting: ''
   allowspectate: false
+#
+# bungeecord settings
 bungeecord:
+  # enable if part of bungeecord network
   enabled: false
+  # name of hub server
   hub: lobby
+  # get arena status using MOTD
   useMOTD: true
+  # set to true to select a random arena after every game
   randomarena: true
+  # set to true to stop the server at the end of a game
   stopserver: false
+  # if true players real UUIDs will be used (if forwarded by the proxy server)
   useUUID: false
+  # if false players will join the tntrun lobby when joining the server and at the end of a game
   teleporttohub: true
+  # if true players with 'spectate' permission will join as a player if the arena has not started
+  playorspectate: false
+#
+# currency symbols to use with message strings
 currency:
   prefix: ''
   suffix: ' coins'
+#
+# should a player's inventory be dropped if the player dies in the arena
 ondeath:
   dropitems: true
+#
+# setting this to true will prevent arrows being picked up and re-used
 removearrows: false
+#
+# specify language file to use from those supplied with the plugin
 language: en-GB
+#
+# set to true to log more verbose messages to console
 debug: false

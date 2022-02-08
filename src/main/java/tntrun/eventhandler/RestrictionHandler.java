@@ -234,6 +234,9 @@ public class RestrictionHandler implements Listener {
 		if (!arena.getStatusManager().isArenaRunning()) {
 			return;
 		}
+		if (!arena.getStructureManager().isAllowDoublejumps()) {
+			return;
+		}
 		if (u.contains(player.getName())) {
 			return;
 		}

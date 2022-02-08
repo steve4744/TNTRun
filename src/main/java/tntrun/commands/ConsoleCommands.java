@@ -205,14 +205,13 @@ public class ConsoleCommands implements CommandExecutor {
 				return false;
 			}
 
-			String arenatype = "";
 			if (args.length == 3) {
 				if (!args[1].equalsIgnoreCase("pvp") && !args[1].equalsIgnoreCase("nopvp")) {
 					Messages.sendMessage(sender, "&c Invalid argument supplied");
 					return false;
 				}
-				arenatype = args[1];
 			}
+			String arenatype = (args.length == 3) ? args[1] : "";
 			plugin.getMenus().autoJoin(player, arenatype);
 			return true;
 		}

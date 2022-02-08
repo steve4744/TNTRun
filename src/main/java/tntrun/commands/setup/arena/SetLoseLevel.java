@@ -17,6 +17,9 @@
 
 package tntrun.commands.setup.arena;
 
+import java.text.DecimalFormat;
+import java.util.StringJoiner;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -51,11 +54,19 @@ public class SetLoseLevel implements CommandHandlerInterface {
 
 		Location loc = player.getLocation();
 		if (arena.getStructureManager().setLoseLevel(loc)) {
-			Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 Loselevel set to Y: " + loc.getY());
+			Messages.sendMessage(player, "&7 Arena &6" + args[0] + "&7 loselevel set:\n&6Y = " + loc.getY());
 		} else {
-			Messages.sendMessage(player, "&c Arena &6" + args[0] + "&c Error: Loselevel is not within the bounds of the arena");
+			Messages.sendMessage(player, "&c Arena &6" + args[0] + "&c error: loselevel (&6" + displayLocation(loc) + "&c) is not within the bounds of the arena:\n" +
+					"P1 = &6" + arena.getStructureManager().getP1() + "\n&cP2 = &6" + arena.getStructureManager().getP2());
 		}
 		return true;
+	}
+
+	private String displayLocation(Location loc) {
+		StringJoiner msg = new StringJoiner(", ");
+		DecimalFormat df = new DecimalFormat("#.#");
+		msg.add(df.format(loc.getX())).add(df.format(loc.getY())).add(df.format(loc.getZ()));
+		return msg.toString();
 	}
 
 	@Override

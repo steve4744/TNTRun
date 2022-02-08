@@ -24,7 +24,6 @@ import java.util.logging.Logger;
 
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -85,7 +84,6 @@ public class TNTRun extends JavaPlugin {
 	private MySQL mysql;
 
 	public ArenasManager amanager;
-	public String[] version = {"Nothing", "Nothing"};
 	public Shop shop;
 
 	private static TNTRun instance;
@@ -95,6 +93,11 @@ public class TNTRun extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 		log = getLogger();
+
+		saveDefaultConfig();
+		getConfig().options().copyDefaults(true);
+		saveConfig();
+
 		signEditor = new SignEditor(this);
 		globallobby = new GlobalLobby(this);
 		kitmanager = new Kits();
@@ -108,10 +111,6 @@ public class TNTRun extends JavaPlugin {
 		parties = new Parties(this);
 
 		setupPlugin();
-
-		saveDefaultConfig();
-		getConfig().options().copyDefaults(true);
-		saveConfig();
 
 		updateScoreboardList();
 		loadArenas();
@@ -204,6 +203,10 @@ public class TNTRun extends JavaPlugin {
 		return needupdate;
 	}
 
+	public void setNeedUpdate(boolean needupdate) {
+		this.needupdate = needupdate;
+	}
+
 	public boolean isFile() {
 		return file;
 	}
@@ -217,35 +220,9 @@ public class TNTRun extends JavaPlugin {
 	}
 
 	private void checkUpdate() {
-		if (!getConfig().getBoolean("special.CheckForNewVersion", true)) {
-			return;
+		if (getConfig().getBoolean("special.CheckForNewVersion", true)) {
+			Utils.checkUpdate(getDescription().getVersion());
 		}
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				String thisVersion = getDescription().getVersion();
-				log.info("Checking plugin version...");
-				new VersionChecker();
-				version = VersionChecker.get().getVersion().split(";");
-				if (version[0].equalsIgnoreCase("error")) {
-					throw new NullPointerException("An error was occured while checking version! Please report this here: https://www.spigotmc.org/threads/tntrun_reloaded.303586/");
-				} else if (version[0].equalsIgnoreCase(thisVersion)) {
-					log.info("You are running the most recent version");
-					needupdate = false;
-				} else if (thisVersion.toLowerCase().contains("beta") || thisVersion.toLowerCase().contains("snapshot")) {
-					log.info("You are running a dev release");
-					needupdate = false;
-				} else {
-					log.info("Your version: " + getDescription().getVersion());
-					log.info("New version : " + version[0]);
-					log.info("New version available! Download now: https://www.spigotmc.org/resources/tntrun_reloaded.53359/");
-					needupdate = true;
-					for (Player p : Bukkit.getOnlinePlayers()) {
-						Utils.displayUpdate(p);
-					}
-				}
-			}
-		}.runTaskLaterAsynchronously(this, 30L);
 	}
 
 	private void connectToMySQL() {

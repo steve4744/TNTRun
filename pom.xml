@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.steve4744</groupId>
   <artifactId>TNTRun_reloaded</artifactId>
-  <version>9.18-locales</version>
+  <version>9.18-SNAPSHOT</version>
   <name>TNTRun_reloaded</name>
   <description>A Minecraft mini-game plugin</description>
   <packaging>jar</packaging>
@@ -52,16 +52,6 @@
     <repository>
         <id>sk89q-repo</id>
         <url>https://maven.enginehub.org/repo/</url>
-    </repository>
-    <repository>
-        <id>sk89q-snapshots</id>
-        <url>http://maven.sk89q.com/artifactory/repo</url>
-        <releases>
-            <enabled>true</enabled> <!-- releases enabled: this specific repository also hosts release versions -->
-        </releases>
-        <snapshots>
-            <enabled>true</enabled> <!-- snapshots enabled: we declare a SNAPSHOT repository because we need to download a SNAPSHOT dependency -->
-        </snapshots>
     </repository>
     <!-- Vault Repo -->
     <repository>
@@ -123,6 +113,20 @@
         <artifactId>mcMMO</artifactId>
         <version>2.1.200</version>
         <scope>provided</scope>
+        <exclusions>
+          <exclusion>
+              <groupId>com.sk89q.worldguard</groupId>
+              <artifactId>worldguard-core</artifactId>
+          </exclusion>
+          <exclusion>
+              <groupId>com.sk89q.worldguard</groupId>
+              <artifactId>worldguard-legacy</artifactId>
+          </exclusion>
+          <exclusion>
+              <groupId>org.apache.maven.scm</groupId>
+              <artifactId>maven-scm-provider-gitexe</artifactId>
+          </exclusion>
+        </exclusions>
     </dependency>
     <!-- Parties -->
     <dependency>

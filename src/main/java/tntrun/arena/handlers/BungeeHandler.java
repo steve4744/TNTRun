@@ -65,6 +65,9 @@ public class BungeeHandler implements Listener {
 		if (!plugin.isBungeecord()) {
 			return;
 		}
+		if (!plugin.getConfig().getBoolean("bungeecord.teleporttohub")) {
+			return;
+		}
 		Arena arena = plugin.amanager.getBungeeArena();
 		if (arena == null || (!event.getPlayer().hasPermission("tntrun.spectate") && !arena.getPlayerHandler().checkJoin(event.getPlayer())) ){
 			event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "You cannot join the arena at this time");
@@ -76,20 +79,32 @@ public class BungeeHandler implements Listener {
 		if (!plugin.isBungeecord()) {
 			return;
 		}
+		if (!plugin.getConfig().getBoolean("bungeecord.teleporttohub")) {
+			plugin.getGlobalLobby().joinLobby(event.getPlayer());
+			return;
+		}
 		Arena arena = plugin.amanager.getBungeeArena();
 		if (arena == null) {
 			return;
 		}
 		Player player = event.getPlayer();
+		// player doesn't have permission and we know he can join because of onLogin check
 		if (!player.hasPermission("tntrun.spectate")) {
 			arena.getPlayerHandler().spawnPlayer(player, Messages.playerjoinedtoothers);
 			return;
 		}
+		// player has permission and has the 'playorspectate' option, so do join checks
+		if (plugin.getConfig().getBoolean("bungeecord.playorspectate") && arena.getPlayerHandler().checkJoin(player)) {
+			arena.getPlayerHandler().spawnPlayer(player, Messages.playerjoinedtoothers);
+			return;
+		}
+
 		if (!arena.getPlayerHandler().canSpectate(player)) {
 			plugin.getServer().getScheduler().runTaskLater(plugin, () ->
 					connectToHub(player), 20L);
 			return;
 		}
+
 		arena.getPlayerHandler().spectatePlayer(player, Messages.playerjoinedasspectator, "");
 	}
 }
