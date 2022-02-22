@@ -87,7 +87,7 @@ broadcastwinlevel: 2
 invitationmessage:
   enabled: false
   #
-  # if true, players join as spectators if arena is already running
+  # if true, players that join will join as spectators if arena is already running
   allowspectate: false
   #
   # if true, players already playing TNTRun will not receive the message
@@ -125,6 +125,11 @@ sounds:
     enabled: true
     sound: BLOCK_SAND_BREAK
     volume: 5
+    pitch: 1.0
+  invitationmessage:
+    enabled: false
+    sound: ENTITY_PLAYER_LEVELUP
+    volume: 10
     pitch: 1.0
 #
 # if enabled, all players in arena teleport to arena spawn when countdown = 5 seconds

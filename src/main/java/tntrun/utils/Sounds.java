@@ -25,6 +25,7 @@ public abstract class Sounds {
 	public abstract void NOTE_PLING(Player p, float volume, float pitch);
 	public abstract void ARENA_START(Player p);
 	public abstract void ITEM_SELECT(Player p);
+	public abstract void INVITE_MESSAGE(Player p);
 	public abstract void BLOCK_BREAK(Block block);
 
 }

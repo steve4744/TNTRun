@@ -53,6 +53,13 @@ public class SoundHandler extends Sounds {
 	}
 
 	@Override
+	public void INVITE_MESSAGE(Player p) {
+		if (isSoundEnabled("invitationmessage")) {
+			p.playSound(p.getLocation(), getSound("invitationmessage"), getVolume("invitationmessage"), getPitch("invitationmessage"));
+		}
+	}
+
+	@Override
 	public void BLOCK_BREAK(Block fblock) {
 		if (isSoundEnabled("blockbreak")) {
 			fblock.getWorld().playSound(fblock.getLocation(), getSound("blockbreak"), getVolume("blockbreak"), getPitch("blockbreak"));
