@@ -200,7 +200,6 @@ public class Utils {
 		jointc.addExtra(getJoinTextComponent(joinMessage, arenaname));
 		jointc.addExtra(new TextComponent(TextComponent.fromLegacyText("\n" + border)));
 		player.spigot().sendMessage(jointc);
-		TNTRun.getInstance().getSound().INVITE_MESSAGE(player);
 	}
 
 	private static TextComponent getJoinTextComponent(String text, String arenaname) {

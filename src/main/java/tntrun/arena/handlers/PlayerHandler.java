@@ -915,6 +915,7 @@ public class PlayerHandler {
 			for (Player aplayer : Bukkit.getOnlinePlayers()) {
 				if (!excludedPlayers.contains(aplayer.getName())) {
 					Utils.displayJoinMessage(aplayer, arena.getArenaName(), welcomeJoinMessage);
+					plugin.getSound().INVITE_MESSAGE(player);
 				}
 			}
 		}
