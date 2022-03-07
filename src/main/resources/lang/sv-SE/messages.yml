@@ -1,54 +1,54 @@
 ---
 trprefix: '&7[&6TNTRun_reloaded&7]'
-menutitle: '&1TNTRun_reloaded Arenas'
+menutitle: '&1TNTRun_reloaded Arenor'
 menuarenaname: '&a{ARENA}'
-menutext: '&5Players: &6{PS}/{MPS}'
-menufee: '&5Join Fee: &6{FEE}'
-menupvp: '&5PVP: &6Enabled'
-menutracker: '&1TNTRun player tracker'
-nopermission: '&c You don''t have permission to do this'
-nolobby: '&c Global lobby isn''t set, run &6/trsetup setlobby'
-lobbyunloaded: '&c Lobby world is unloaded or doesn''t exist'
-teleporttolobby: '&7 Teleported to lobby'
-arenanotexist: '&c Arena &6{ARENA}&c doesn''t exist'
-noarenas: '&c There are no arenas available to join'
-arenanotdisabled: '&c Please disable arena: &6/trsetup disable {ARENA}'
-arenanospectatorspawn: '&c No spectator spawn set for arena &6{ARENA}'
-availablearenas: '&7 Available arenas: {COUNT}'
-availablekits: '&7 Available kits: {COUNT}'
-arenawolrdna: '&7 Arena world is not loaded'
-arenanobounds: '&7 Arena bounds not set'
-arenadisabled: '&7 Arena is disabled'
-arenarunning: '&7 Arena already running'
-arenaregenerating: '&7 Arena is regenerating'
-arenavehicle: '&c You can''t join the game while sitting inside a vehicle'
-arenajoined: '&c You have already joined an arena'
-arenadisabling: '&6 Arena is disabling'
-arenastarting: '&6 Arena already starting'
-signcreate: '&7 Sign successfully created'
-signremove: '&7 Sign successfully removed'
-signfail: '&7 You must be looking at a sign to create the join sign'
-arenafee: '&7 You have been charged &6{FEE} &7to enter the arena'
-arenanofee: '&c You require a fee of &6{FEE} &cto enter the arena'
-arenawaiting: '&6 Arena is waiting'
-playerscountinarena: '&6 Current number of players in arena: {COUNT} players'
-limitreached: '&7 Arena is full.'
-playerjoinedtoothers: '&c {RANK}&6{COLOR}{PLAYER} &7joined the arena (&6{PS}&7/&6{MPS}&7)'
-playerjoininvite: '&c{RANK}&6{COLOR}{PLAYER} &7has joined TNTRun arena &6{ARENA}&7, click to play'
+menutext: '&5Spelare: &6{PS}/{MPS}'
+menufee: '&5Delta i avgift: &6{FEE}'
+menupvp: '&5PVP: &6Aktiverad'
+menutracker: '&1TNTRun spelarspårare'
+nopermission: '&c Du saknar rättigheter till att göra detta'
+nolobby: '&c Global lobby är inte satt, kör &6/trsetup setlobby'
+lobbyunloaded: '&c Lobbyvärlden är oladdad eller existerar inte'
+teleporttolobby: '&7 Teleporterade till lobbyn'
+arenanotexist: '&c Arena &6{ARENA}&c existerar inte'
+noarenas: '&c Det finns inga arenor att ansluta till'
+arenanotdisabled: '&c Vänligen inaktivera arena: &6/trsetup disable {ARENA}'
+arenanospectatorspawn: '&c Ingen spawnplats för åskådare för arenan &6{ARENA}'
+availablearenas: '&7 Tillgängliga arenor: {COUNT}'
+availablekits: '&7 Tillgängliga kit: {COUNT}'
+arenawolrdna: '&7 Arenavärlden är inte laddad'
+arenanobounds: '&7 Arenans gränser har inte angetts'
+arenadisabled: '&7 Arenan är inaktiverad'
+arenarunning: '&7 Arenan är redan igång'
+arenaregenerating: '&7 Arenan regenererar'
+arenavehicle: '&c Du kan inte gå med i spelet när du sitter inuti ett fordon'
+arenajoined: '&c Du har redan gått med i en arena'
+arenadisabling: '&6 Arenan inaktiveras'
+arenastarting: '&6 Arenan startar redan'
+signcreate: '&7 Skylten har skapats'
+signremove: '&7 Skylten har tagits bort'
+signfail: '&7 Du måste titta på en skylt för att skapa en anslutningsskylt'
+arenafee: '&7 Du har debiterats &6{FEE} &7för att komma in på arenan'
+arenanofee: '&c Du behöver en avgift på &6{FEE} &cför att komma in på arenan'
+arenawaiting: '&6 Arenan väntar'
+playerscountinarena: '&6 Nuvarande antal spelare i arena: {COUNT} spelare'
+limitreached: '&7 Arenan är full.'
+playerjoinedtoothers: '&c {RANK}&6{COLOR}{PLAYER} &7gick med i arenan (&6{PS}&7/&6{MPS}&7)'
+playerjoininvite: '&c{RANK}&6{COLOR}{PLAYER} &7har anslutit sig till TNTRun arenan &6{ARENA}&7, klicka för att spela'
 playerborderinvite: '&b---------------------------------------'
-playerclickinvite: Click to join {ARENA}
-playerjoinedasspectator: '&7 You joined arena &6{ARENA} &7as a spectator'
-playerlefttoplayer: '&7 You left the arena'
-playerlefttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7left the game (&6{PS}&7/&6{MPS}&7)'
-playernotplaying: '&c Targeted player &6{PLAYER} &cis no longer playing'
-playervotedforstart: '&f You voted to force-start the game'
-playeralreadyvotedforstart: '&c You have already voted'
+playerclickinvite: Klicka för att ansluta till {ARENA}
+playerjoinedasspectator: '&7 Du gick med i arenan &6{ARENA} &7som åskådare'
+playerlefttoplayer: '&7 Du lämnade arenan'
+playerlefttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7lämnade spelet (&6{PS}&7/&6{MPS}&7)'
+playernotplaying: '&c Målinriktad spelare &6{PLAYER} &cspelar inte längre'
+playervotedforstart: '&f Du röstade för att tvångsstarta spelet'
+playeralreadyvotedforstart: '&c Du har redan röstat'
 playercannotvote: '&c Du kan inte rösta till tvångsstarta arenan'
-arenastarted: '&7 Arena started. Time limit is {TIMELIMIT} seconds'
-arenanolimit: '&7 Arena started. No time limit'
-arenacountdown: '&7 Arena starts in {COUNTDOWN} seconds'
-arenatimeout: '&7 Time is up. Ending game'
-playerwontoplayer: '&7 You won the game!'
+arenastarted: '&7 Arenan startades. Tidsgränsen är {TIMELIMIT} sekunder'
+arenanolimit: '&7 Arenan startades. Ingen tidsgräns'
+arenacountdown: '&7 Arenan startar om {COUNTDOWN} sekunder'
+arenatimeout: '&7 Tiden är slut. Avslutar spelet'
+playerwontoplayer: '&7 Du vann matchen!'
 playerfinishedtestmode: '&7 Test game completed!'
 playerlosttoplayer: '&7 You lost the game'
 playerlosttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7lost the game (&6{PS}&7/&6{MPS}&7)'
@@ -99,15 +99,15 @@ helpstart: Force-start the arena
 setuplobby: Set the global lobby at your current location
 setupdellobby: Delete the global lobby
 setupcreate: Create a new arena
-setupconfigure: Open menu to configure arena
-setupbounds: Set bounds for arena
-setuploselevel: Set loselevel point at your feet
-setupspawn: Set arena spawn at your feet
-setupspectate: Set spectator spawn point
-setupaddspawn: Set an additional spawn at your feet
-setupdelspawns: Delete all spawn points created with the addspawn command
-setupfinish: Finish arena and save
-setupdelspectate: Delete spectator spawn for arena
+setupconfigure: Öppna menyn för att konfigurera arenan
+setupbounds: Ange gränser för arenan
+setuploselevel: Ställ in nivån där spelare ska förlora vid dina fötter
+setupspawn: Ställ in arenans startpunkt vid fötterna
+setupspectate: Ställ in startpunkt för åskådare
+setupaddspawn: Ställ in ytterligare en startpunkt vid fötterna
+setupdelspawns: Ta bort alla startpunkter som skapats med kommandot addspawn
+setupfinish: Slutför arenan och spara
+setupdelspectate: Ta bort åskådarens startpunkt för arenan
 setupdelay: Set delay for removing block when player steps on it
 setupregendelay: 'Set delay before players can re-join arena (Default: 60)'
 setupmax: 'Set maximum players for arena (Default: 15)'
