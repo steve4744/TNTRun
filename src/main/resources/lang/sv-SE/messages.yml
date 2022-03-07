@@ -43,7 +43,7 @@ playerlefttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7left the game (&6{PS}&7/&6{MPS
 playernotplaying: '&c Targeted player &6{PLAYER} &cis no longer playing'
 playervotedforstart: '&f You voted to force-start the game'
 playeralreadyvotedforstart: '&c You have already voted'
-playercannotvote: '&c You cannot vote to force-start the arena'
+playercannotvote: '&c Du kan inte rösta till tvångsstarta arenan'
 arenastarted: '&7 Arena started. Time limit is {TIMELIMIT} seconds'
 arenanolimit: '&7 Arena started. No time limit'
 arenacountdown: '&7 Arena starts in {COUNTDOWN} seconds'
