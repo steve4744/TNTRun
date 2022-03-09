@@ -28,6 +28,7 @@ public class PlayersManager {
 
 	private HashMap<String, Player> players = new HashMap<>();
 	private HashMap<String, Player> spectators = new HashMap<>();
+	private String winner;
 
 	public boolean isInArena(String name) {
 		return players.containsKey(name) || spectators.containsKey(name);
@@ -80,4 +81,11 @@ public class PlayersManager {
 		return new HashSet<Player>(spectators.values());
 	}
 
+	public void setWinner(String playername) {
+		winner = playername;
+	}
+
+	public boolean isWinner(String playername) {
+		return playername.equals(winner);
+	}
 }

@@ -287,6 +287,7 @@ public class GameHandler {
 		forceStartByCmd = false;
 		places.clear();
 		arena.getPlayerHandler().clearRewardedPlayers();
+		arena.getPlayersManager().setWinner(null);
 		Bukkit.getScheduler().cancelTask(arenahandler);
 		Bukkit.getScheduler().cancelTask(arena.getScoreboardHandler().getPlayingTask());
 		signEditor.modifySigns(arena.getArenaName());
@@ -400,6 +401,7 @@ public class GameHandler {
 		if (plugin.useStats() && !arena.getStructureManager().isExcludeStats()) {
 			plugin.getStats().addWins(player, 1);
 		}
+		arena.getPlayersManager().setWinner(player.getName());
 		TitleMsg.sendFullTitle(player, TitleMsg.win, TitleMsg.subwin, 20, 60, 20, plugin);
 		arena.getPlayerHandler().clearPotionEffects(player);
 

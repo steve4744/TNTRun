@@ -225,7 +225,7 @@ public class RestrictionHandler implements Listener {
 			player.setAllowFlight(true);
 			return;
 		}
-		if (arena.getPlayersManager().isSpectator(player.getName())) {
+		if (arena.getPlayersManager().isSpectator(player.getName()) || arena.getPlayersManager().isWinner(player.getName())) {
 			e.setCancelled(false);
 			player.setFlying(true);
 			return;
