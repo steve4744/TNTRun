@@ -76,6 +76,7 @@ public class ShopFiles {
 		cfg.addDefault("2.name", "&fSwordsman");
 		cfg.addDefault("2.cost", Integer.valueOf(250));
 		cfg.addDefault("2.material", "IRON_SWORD");
+		cfg.addDefault("2.glow", false);
 		cfg.addDefault("2.amount", Integer.valueOf(1));
 		cfg.addDefault("2.permission", "tntrun.shop.2");
 		lore = new ArrayList<String>();
@@ -97,6 +98,7 @@ public class ShopFiles {
 		cfg.addDefault("3.name", "&fProtection Plus");
 		cfg.addDefault("3.cost", Integer.valueOf(300));
 		cfg.addDefault("3.material", "GOLDEN_CHESTPLATE");
+		cfg.addDefault("3.glow", false);
 		cfg.addDefault("3.amount", Integer.valueOf(1));
 		cfg.addDefault("3.permission", "tntrun.shop.3");
 		lore = new ArrayList<String>();
@@ -118,6 +120,7 @@ public class ShopFiles {
 		cfg.addDefault("4.name", "&fSword and Helmet");
 		cfg.addDefault("4.cost", Integer.valueOf(300));
 		cfg.addDefault("4.material", "GOLDEN_SWORD");
+		cfg.addDefault("4.glow", false);
 		cfg.addDefault("4.amount", Integer.valueOf(1));
 		cfg.addDefault("4.permission", "tntrun.shop.4");
 		lore = new ArrayList<String>();
@@ -148,6 +151,7 @@ public class ShopFiles {
 		cfg.addDefault("5.name", "&fSnowballs x 20");
 		cfg.addDefault("5.cost", Integer.valueOf(50));
 		cfg.addDefault("5.material", "SNOWBALL");
+		cfg.addDefault("5.glow", false);
 		cfg.addDefault("5.amount", Integer.valueOf(20));
 		cfg.addDefault("5.permission", "tntrun.shop.5");
 		lore = new ArrayList<String>();

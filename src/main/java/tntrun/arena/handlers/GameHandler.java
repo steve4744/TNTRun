@@ -17,7 +17,6 @@
 
 package tntrun.arena.handlers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -546,7 +545,7 @@ public class GameHandler {
 			return;
 		}
 		if (plugin.shop.getPlayersItems().containsKey(player.getName())) {
-			ArrayList<ItemStack> items = plugin.shop.getPlayersItems().get(player.getName());
+			List<ItemStack> items = plugin.shop.getPlayersItems().get(player.getName());
 			if (items != null) {
 				for (ItemStack item : items) {
 					if (isArmor(item)) {

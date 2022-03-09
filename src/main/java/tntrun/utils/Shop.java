@@ -52,7 +52,7 @@ public class Shop {
 	private ShopFiles shopFiles;
 	private List<String> buyers = new ArrayList<>();
 	private Map<Integer, Integer> itemSlot = new HashMap<>();
-	private Map<String, ArrayList<ItemStack>> pitems = new HashMap<>(); // player-name -> items
+	private Map<String, List<ItemStack>> pitems = new HashMap<>(); // player-name -> items
 	private Map<String, List<PotionEffect>> potionMap = new HashMap<>();  // player-name -> effects
 	private Map<String, String> commandMap = new HashMap<>();  // player-name -> command
 	private boolean doublejumpPurchase;
@@ -70,8 +70,6 @@ public class Shop {
 
 	public void giveItem(int slot, Player player, String title) {
 		int kit = itemSlot.get(slot);		
-		ArrayList<ItemStack> item = new ArrayList<>();
-		List<PotionEffect> pelist = new ArrayList<>();
 
 		if (doublejumpPurchase) {
 			int quantity = cfg.getInt(kit + ".items." + kit + ".amount", 1);
@@ -83,11 +81,15 @@ public class Shop {
 
 		if (isCommandPurchase(kit)) {
 			List<String> lore = cfg.getStringList(kit + ".lore");
-			String cmd = FormattingCodesParser.parseFormattingCodes(lore.get(0));
+			String cmd = ChatColor.stripColor(FormattingCodesParser.parseFormattingCodes(lore.get(0)));
 			commandMap.put(player.getName(), cmd);
 			player.closeInventory();
 			return;
 		}
+
+		List<ItemStack> itemlist = new ArrayList<>();
+		List<PotionEffect> pelist = new ArrayList<>();
+
 		for (String items : cfg.getConfigurationSection(kit + ".items").getKeys(false)) {
 			try {				
 				Material material = Material.getMaterial(cfg.getString(kit + ".items." + items + ".material"));
@@ -110,9 +112,9 @@ public class Shop {
 				List<String> lore = cfg.getStringList(kit + ".items." + items + ".lore");
 
 				if (material.toString().equalsIgnoreCase("SPLASH_POTION")) {
-					item.add(getPotionItem(material, amount, displayname, lore, enchantments));
+					itemlist.add(getPotionItem(material, amount, displayname, lore, enchantments));
 				} else {
-					item.add(getItem(material, amount, displayname, lore, enchantments));
+					itemlist.add(getItem(material, amount, displayname, lore, enchantments));
 				}
 			} catch(Exception e) {
 				e.printStackTrace();
@@ -120,7 +122,7 @@ public class Shop {
 		}
 		player.updateInventory();
 		player.closeInventory();
-		pitems.put(player.getName(), item);
+		pitems.put(player.getName(), itemlist);
 		potionMap.put(player.getName(), pelist);
 	}
 
@@ -163,29 +165,33 @@ public class Shop {
 		meta.setDisplayName(displayname);
 
 		if (lore != null && !lore.isEmpty()) {
-			meta.setLore(lore);
+			meta.setLore(getFormattedLore(lore));
 		}
 		if (enchantments != null && !enchantments.isEmpty()) {
-			for (String enchs : enchantments) {
-				String[] array = enchs.split("#");
-				String ench = array[0].toUpperCase();
-
-				// get the enchantment level
-				int level = 1;
-				if (array.length > 1 && Utils.isNumber(array[1])) {
-					level = Integer.valueOf(array[1]).intValue();
-				}
-				Enchantment realEnch = getEnchantmentFromString(ench);
-				if (realEnch != null) {
-					meta.addEnchant(realEnch, level, true);
-				}
-				if (material == Material.SNOWBALL && ench.equalsIgnoreCase("knockback")) {
-					knockback = level;
-				}
-			}
+			addEnchantmentsToMeta(material, enchantments, meta);
 		}
 		item.setItemMeta(meta);
 		return item;
+	}
+
+	private void addEnchantmentsToMeta(Material material, List<String> enchantments, ItemMeta meta) {
+		for (String enchs : enchantments) {
+			String[] array = enchs.split("#");
+			String ench = array[0].toUpperCase();
+
+			// get the enchantment level
+			int level = 1;
+			if (array.length > 1 && Utils.isNumber(array[1])) {
+				level = Integer.valueOf(array[1]).intValue();
+			}
+			Enchantment realEnch = getEnchantmentFromString(ench);
+			if (realEnch != null) {
+				meta.addEnchant(realEnch, level, true);
+			}
+			if (material == Material.SNOWBALL && ench.equalsIgnoreCase("knockback")) {
+				knockback = level;
+			}
+		}
 	}
 
 	private ItemStack getPotionItem(Material material, int amount, String displayname, List<String> lore, List<String> enchantments) {
@@ -196,7 +202,7 @@ public class Shop {
 		potionmeta.setColor(Color.RED);
 
 		if (lore != null && !lore.isEmpty()) {
-			potionmeta.setLore(lore);
+			potionmeta.setLore(getFormattedLore(lore));
 		}
 		if (enchantments != null && !enchantments.isEmpty()) {
 			for (String peffects : enchantments) {
@@ -236,21 +242,25 @@ public class Shop {
 		return maxjumps >= (arena.getPlayerHandler().getDoubleJumps(p) + quantity);
 	}
 
+	/**
+	 * Set the display items in the shop menu.
+	 *
+	 * @param inventory
+	 * @param player
+	 */
 	public void setItems(Inventory inventory, Player player) {
 		int slot = 0;
 		for (String kitCounter : cfg.getConfigurationSection("").getKeys(false)) {
 			String title = FormattingCodesParser.parseFormattingCodes(cfg.getString(kitCounter + ".name"));
-			List<String> lore = new ArrayList<>();
-			for (String loreLines : cfg.getStringList(kitCounter + ".lore")) {
-				lore.add(FormattingCodesParser.parseFormattingCodes(loreLines));
-			}
+			List<String> lore = cfg.getStringList(kitCounter + ".lore");
+			boolean isGlowing = cfg.getBoolean(kitCounter + ".glow");
 			Material material = Material.getMaterial(cfg.getString(kitCounter + ".material"));		      
 			int amount = cfg.getInt(kitCounter + ".amount");
 
 			if (material.toString().equalsIgnoreCase("POTION") || material.toString().equalsIgnoreCase("SPLASH_POTION")) {
 				inventory.setItem(slot, getShopPotionItem(material, title, lore, amount));
 			} else {
-				inventory.setItem(slot, getShopItem(material, title, lore, amount));
+				inventory.setItem(slot, getShopItem(material, title, lore, amount, isGlowing));
 			}
 			itemSlot.put(Integer.valueOf(slot), Integer.valueOf(kitCounter));
 			slot++;
@@ -266,17 +276,21 @@ public class Shop {
 		List<String> lore = new ArrayList<>();
 
 		lore.add(FormattingCodesParser.parseFormattingCodes(Messages.shopmoneybalance).replace("{BAL}", Utils.getFormattedCurrency(balance)));
-		return getShopItem(material, title, lore, 1);
+		return getShopItem(material, title, lore, 1, false);
 	}
 
-	private ItemStack getShopItem(Material material, String title, List<String> lore, int amount) {
+	private ItemStack getShopItem(Material material, String title, List<String> lore, int amount, boolean isGlowing) {
 		ItemStack item = new ItemStack(material, amount);
 		ItemMeta meta = item.getItemMeta();
 
 		if (meta != null) {
 			meta.setDisplayName(title);
-			if ((lore != null) && (!lore.isEmpty())) {
-				meta.setLore(lore);
+			if (lore != null && !lore.isEmpty()) {
+				meta.setLore(getFormattedLore(lore));
+			}
+			if (isGlowing) {
+				meta.addEnchant(Enchantment.DURABILITY, 2, true);
+				meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 			}
 			item.setItemMeta(meta);
 		}
@@ -294,7 +308,7 @@ public class Shop {
 		}
 		potionmeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
 		if ((lore != null) && (!lore.isEmpty())) {
-			potionmeta.setLore(lore);
+			potionmeta.setLore(getFormattedLore(lore));
 		}
 		item.setItemMeta(potionmeta);
 		return item;
@@ -320,7 +334,7 @@ public class Shop {
 		return invsize;
 	}
 
-	public Map<String, ArrayList<ItemStack>> getPlayersItems() {
+	public Map<String, List<ItemStack>> getPlayersItems() {
 		return pitems;
 	}
 
@@ -393,5 +407,13 @@ public class Shop {
 
 	private boolean isCommandPurchase(int kit) {
 		return cfg.getString(kit + ".items.1.material").equalsIgnoreCase("command");
+	}
+
+	private List<String> getFormattedLore(List<String> lore) {
+		List<String> formattedLore = new ArrayList<>();
+		for (String loreline : lore) {
+			formattedLore.add(FormattingCodesParser.parseFormattingCodes(loreline));
+		}
+		return formattedLore;
 	}
 }

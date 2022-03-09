@@ -68,6 +68,7 @@ public class SoundHandler extends Sounds {
 	/**
 	 * Get the sound to be played.
 	 * Will return null if invalid.
+	 *
 	 * @param string path
 	 * @return sound
 	 */
@@ -78,6 +79,7 @@ public class SoundHandler extends Sounds {
 	/**
 	 * Get the volume of the sound to be played.
 	 * Default is 1.0F
+	 *
 	 * @param string path
 	 * @return volume
 	 */
@@ -89,6 +91,7 @@ public class SoundHandler extends Sounds {
 	/**
 	 * Get the pitch of the sound to be played.
 	 * Default is 1.0F
+	 *
 	 * @param string path
 	 * @return pitch
 	 */
