@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.ConsoleCommandSender;
@@ -176,14 +175,9 @@ public class Shop {
 
 	private void addEnchantmentsToMeta(Material material, List<String> enchantments, ItemMeta meta) {
 		for (String enchs : enchantments) {
-			String[] array = enchs.split("#");
-			String ench = array[0].toUpperCase();
+			String ench = getEnchantmentName(enchs);
+			int level = getEnchantmentLevel(enchs);
 
-			// get the enchantment level
-			int level = 1;
-			if (array.length > 1 && Utils.isNumber(array[1])) {
-				level = Integer.valueOf(array[1]).intValue();
-			}
 			Enchantment realEnch = getEnchantmentFromString(ench);
 			if (realEnch != null) {
 				meta.addEnchant(realEnch, level, true);
@@ -194,21 +188,32 @@ public class Shop {
 		}
 	}
 
+	/**
+	 * Get the splash potion item to give to the player.
+	 *
+	 * @param material
+	 * @param amount
+	 * @param displayname
+	 * @param lore
+	 * @param enchantments
+	 * @return
+	 */
 	private ItemStack getPotionItem(Material material, int amount, String displayname, List<String> lore, List<String> enchantments) {
 		ItemStack item = new ItemStack(material, amount);
 		PotionMeta potionmeta = (PotionMeta) item.getItemMeta();
 
 		potionmeta.setDisplayName(displayname);
-		potionmeta.setColor(Color.RED);
 
 		if (lore != null && !lore.isEmpty()) {
 			potionmeta.setLore(getFormattedLore(lore));
 		}
+
 		if (enchantments != null && !enchantments.isEmpty()) {
 			for (String peffects : enchantments) {
 				PotionEffect effect = createPotionEffect(peffects);
 				if (effect != null) {
 					potionmeta.addCustomEffect(effect, true);
+					potionmeta.setColor(PotionEffectType.getByName(getEnchantmentName(peffects)).getColor());
 				}
 			}
 		}
@@ -217,16 +222,10 @@ public class Shop {
 	}
 
 	private PotionEffect createPotionEffect(String effect) {
-		String[] array = effect.split("#");
-		String name = array[0].toUpperCase();
-		int duration = 30;
-		if (array.length > 1 && Utils.isNumber(array[1])) {
-			duration = Integer.valueOf(array[1]).intValue();
-		}
-		int amplifier = 1;
-		if (array.length > 2 && Utils.isNumber(array[2])) {
-			amplifier = Integer.valueOf(array[2]).intValue();
-		}
+		String name = getEnchantmentName(effect);
+		int duration = getEnchantmentDuration(effect);
+		int amplifier = getEnchantmentAmplifier(effect);
+
 		PotionEffect peffect = new PotionEffect(PotionEffectType.getByName(name), duration * 20, amplifier);
 		return peffect;
 	}
@@ -253,12 +252,16 @@ public class Shop {
 		for (String kitCounter : cfg.getConfigurationSection("").getKeys(false)) {
 			String title = FormattingCodesParser.parseFormattingCodes(cfg.getString(kitCounter + ".name"));
 			List<String> lore = cfg.getStringList(kitCounter + ".lore");
+
+			List<String> enchantments = cfg.getStringList(kitCounter + ".items.1.enchantments");
+			String firstEnchantment = (enchantments != null && !enchantments.isEmpty()) ? enchantments.get(0) : "";
+
 			boolean isGlowing = cfg.getBoolean(kitCounter + ".glow");
 			Material material = Material.getMaterial(cfg.getString(kitCounter + ".material"));		      
 			int amount = cfg.getInt(kitCounter + ".amount");
 
 			if (material.toString().equalsIgnoreCase("POTION") || material.toString().equalsIgnoreCase("SPLASH_POTION")) {
-				inventory.setItem(slot, getShopPotionItem(material, title, lore, amount));
+				inventory.setItem(slot, getShopPotionItem(material, title, lore, amount, firstEnchantment));
 			} else {
 				inventory.setItem(slot, getShopItem(material, title, lore, amount, isGlowing));
 			}
@@ -297,16 +300,19 @@ public class Shop {
 		return item;
 	}
 
-	private ItemStack getShopPotionItem(Material material, String title, List<String> lore, int amount) {
+	private ItemStack getShopPotionItem(Material material, String title, List<String> lore, int amount, String enchantment) {
 		ItemStack item = new ItemStack(material, amount);
 		PotionMeta potionmeta = (PotionMeta) item.getItemMeta();
 
 		potionmeta.setDisplayName(title);
-		potionmeta.setColor(Color.BLUE);
-		if (material.toString().equalsIgnoreCase("SPLASH_POTION")) {
-			potionmeta.setColor(Color.RED);
+
+		PotionEffect effect = createPotionEffect(enchantment);
+		if (effect != null) {
+			potionmeta.addCustomEffect(effect, true);
+			potionmeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+			potionmeta.setColor(PotionEffectType.getByName(getEnchantmentName(enchantment)).getColor());
 		}
-		potionmeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+
 		if ((lore != null) && (!lore.isEmpty())) {
 			potionmeta.setLore(getFormattedLore(lore));
 		}
@@ -415,5 +421,25 @@ public class Shop {
 			formattedLore.add(FormattingCodesParser.parseFormattingCodes(loreline));
 		}
 		return formattedLore;
+	}
+
+	private String getEnchantmentName(String enchant) {
+		String[] array = enchant.split("#");
+		return array[0].toUpperCase();
+	}
+
+	private int getEnchantmentLevel(String enchant) {
+		String[] array = enchant.split("#");
+		return (array.length > 1 && Utils.isNumber(array[1])) ? Integer.valueOf(array[1]) : 1;
+	}
+
+	private int getEnchantmentDuration(String enchant) {
+		String[] array = enchant.split("#");
+		return (array.length > 1 && Utils.isNumber(array[1])) ? Integer.valueOf(array[1]) : 30;
+	}
+
+	private int getEnchantmentAmplifier(String enchant) {
+		String[] array = enchant.split("#");
+		return (array.length > 2 && Utils.isNumber(array[2])) ? Integer.valueOf(array[2]) : 1;
 	}
 }
