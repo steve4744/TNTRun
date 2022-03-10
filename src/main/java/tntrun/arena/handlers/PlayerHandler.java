@@ -330,15 +330,17 @@ public class PlayerHandler {
 
 	/**
 	 * Teleport the player to the spectator spawn point. For players joining the arena as spectators, store their
-	 * data for restore later.
+	 * data for restore later. If an existing spectator leaves bounds, send back to spectator spawn. Allow flight for
+	 * players that died in pvp and rejoined as spectators.
 	 *
 	 * @param player
 	 * @param msgtoplayer
 	 * @param msgtoarenaplayers
 	 */
 	public void spectatePlayer(final Player player, String msgtoplayer, String msgtoarenaplayers) {
-		// if existing spectator leaves bounds, send back to spectator spawn
 		if (arena.getPlayersManager().isSpectator(player.getName())) {
+			player.setAllowFlight(true);
+			player.setFlying(true);
 			player.teleport(arena.getStructureManager().getSpectatorSpawn());
 			return;
 		}
