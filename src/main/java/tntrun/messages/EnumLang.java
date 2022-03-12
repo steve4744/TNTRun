@@ -19,9 +19,10 @@ public enum EnumLang {
 	Norwegian("no-NO", "Norwegian", true),
 	Polish("pl-PL", "Polish", true),
 	Portugese("pt-PT", "Portugese", false),
-	Russian("ru-RU", "Russian", false),
+	Russian("ru-RU", "Russian", true),
 	Spanish("es-ES", "Spanish(Spain)", true),
-	Swedish("sv-SE", "Swedish", false),
+	Swedish("sv-SE", "Swedish", true),
+	Ukranian("uk-UA", "Ukranian", false),
 	Welsh("cy-GB", "Welsh", true);
 
 	private final String code;
