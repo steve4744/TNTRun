@@ -6,6 +6,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
@@ -79,6 +80,9 @@ public class BungeeHandler implements Listener {
 		if (!plugin.isBungeecord()) {
 			return;
 		}
+		if (!plugin.getConfig().getBoolean("bungeecord.showdefaultjoinmessage")) {
+			event.setJoinMessage(null);
+		}
 		if (!plugin.getConfig().getBoolean("bungeecord.teleporttohub")) {
 			plugin.getGlobalLobby().joinLobby(event.getPlayer());
 			return;
@@ -106,5 +110,15 @@ public class BungeeHandler implements Listener {
 		}
 
 		arena.getPlayerHandler().spectatePlayer(player, Messages.playerjoinedasspectator, "");
+	}
+
+	@EventHandler
+	public void onQuit(PlayerQuitEvent event) {
+		if (!plugin.isBungeecord()) {
+			return;
+		}
+		if (!plugin.getConfig().getBoolean("bungeecord.showdefaultjoinmessage")) {
+			event.setQuitMessage(null);
+		}
 	}
 }

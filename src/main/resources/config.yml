@@ -259,6 +259,8 @@ bungeecord:
   teleporttohub: true
   # if true players with 'spectate' permission will join as a player if the arena has not started
   playorspectate: false
+  # if false the default Bukkit join message will not be displayed
+  showdefaultjoinmessage: true
 #
 # currency symbols to use with message strings
 currency:
