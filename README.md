@@ -88,17 +88,16 @@ Links to download each plugin are available on TNTRun_reloaded's Spigot page.
 
 The latest version of TNTRun_reloaded has been tested with the following versions of these plugins:
 
-    WorldEdit 7.2.8 (optional, internal commands setP1 and setP2 can be used to set arena bounds)
+    WorldEdit 7.2.9 (optional, internal commands setP1 and setP2 can be used to set arena bounds)
     Vault 1.7.1 (optional, required to use economy)
-    HeadsPlus 7.0.2 (optional, allow players to buy and run around wearing different heads)
-    mcMMO 2.1.200 (optional, will allow players in same mcMMO party to PVP in arena)
-    PlaceholderAPI 2.10.11 (optional, needed to use placeholders)
+    HeadsPlus 7.0.3 (optional, allow players to buy and run around wearing different heads)
+    mcMMO 2.1.209 (optional, will allow players in same mcMMO party to PVP in arena)
+    PlaceholderAPI 2.11.1 (optional, needed to use placeholders)
     AlessioDP Parties 3.1.14 (optional, can be used in place of native tntrun parties)
     
-Although not required to compile the plugin, the following plugins (or similar) are required to create Holographic Leaderboards for TNTRun_reloaded.
+The following plugin (or similar) is required to create Holographic Leaderboards for TNTRun_reloaded (see wiki for details and example).
     
-    HolographicDisplays (optional, an example plugin needed to create holograms)
-    HolographicExtension (optional, needed with HolographicDisplays to create holograms using placeholders. Also requires ProtolcolLib)
+    HolographicDisplays 3.0.0 (optional, an example plugin needed to create holograms)
 
 If you are interested in recording the amount of time players spend playing TNTRun_reloaded, with the option to reward players in-game for surviving a set amount of time (includes its own leaderboards and placeholders):
 
@@ -116,4 +115,4 @@ For legacy Minecraft 1.12.2 and below:
 <br />
 <br />
 <br />
-Updated steve4744 - 1st January 2022
+Updated steve4744 - 18th March 2022
