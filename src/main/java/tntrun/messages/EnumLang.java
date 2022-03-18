@@ -7,7 +7,7 @@ public enum EnumLang {
 	Chinese_TW("zh-TW", "Chinese(Taiwan)", true),
 	Czech("cs-CZ", "Czech", true),
 	Danish("da-DK", "Danish", false),
-	Dutch("nl-NL", "Dutch", false),
+	Dutch("nl-NL", "Dutch", true),
 	English("en-GB", "English(UK)", true),
 	English_US("en-US", "English(US)", false),
 	Finnish("fi-FI", "Finnish", false),
