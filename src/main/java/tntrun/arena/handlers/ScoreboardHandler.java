@@ -140,6 +140,9 @@ public class ScoreboardHandler {
 	}
 
 	public void removeScoreboard(Player player) {
+		if (!plugin.getConfig().getBoolean("special.UseScoreboard")) {
+			return;
+		}
 		scoreboardMap.remove(player.getName());
 		player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 	}
@@ -185,10 +188,16 @@ public class ScoreboardHandler {
 	}
 
 	public void storePrejoinScoreboard(Player player) {
+		if (!plugin.getConfig().getBoolean("special.UseScoreboard")) {
+			return;
+		}
 		prejoinScoreboards.put(player.getName(), player.getScoreboard());
 	}
 
 	public void restorePrejoinScoreboard(Player player) {
+		if (!plugin.getConfig().getBoolean("special.UseScoreboard")) {
+			return;
+		}
 		if (prejoinScoreboards.get(player.getName()) != null) {
 			player.setScoreboard(prejoinScoreboards.remove(player.getName()));
 		}
