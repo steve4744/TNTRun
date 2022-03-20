@@ -17,7 +17,9 @@
 
 package tntrun.arena.handlers;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -29,6 +31,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scoreboard.Scoreboard;
 
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
@@ -43,6 +46,7 @@ public class PlayerHandler {
 	private TNTRun plugin;
 	private Arena arena;
 	private String version = Bukkit.getBukkitVersion().split("-")[0];
+	private Map<String, Scoreboard> prejoinScoreboards = new HashMap<String, Scoreboard>();
 
 	public PlayerHandler(TNTRun plugin, Arena arena) {
 		this.plugin = plugin;
@@ -116,6 +120,7 @@ public class PlayerHandler {
 		plugin.pdata.storePlayerHunger(player);
 		// update inventory
 		player.updateInventory();
+		storePrejoinScoreboard(player);
 		//set full countdown
 		if(!arena.getStatusManager().isArenaStarting()){
 			arena.getGameHandler().count = arena.getStructureManager().getCountdown();
@@ -335,6 +340,7 @@ public class PlayerHandler {
 		plugin.pdata.restorePlayerLevel(player);
 		// add player damage resistance
 		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 80, 80, true), true);
+		restorePrejoinScoreboard(player);
 		// restore location or teleport to lobby
 		if (arena.getStructureManager().getTeleportDestination() == TeleportDestination.LOBBY && plugin.globallobby.isLobbyLocationWorldAvailable()) {
 			player.teleport(plugin.globallobby.getLobbyLocation());
@@ -452,6 +458,25 @@ public class PlayerHandler {
 	}
 
 	private void removeScoreboard(Player player) {
+		if(!plugin.getConfig().getBoolean("special.UseScoreboard")) {
+			return;
+		}
 		player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+	}
+
+	public void storePrejoinScoreboard(Player player) {
+		if (!plugin.getConfig().getBoolean("special.UseScoreboard")) {
+			return;
+		}
+		prejoinScoreboards.put(player.getName(), player.getScoreboard());
+	}
+
+	public void restorePrejoinScoreboard(Player player) {
+		if(!plugin.getConfig().getBoolean("special.UseScoreboard")) {
+			return;
+		}
+		if (prejoinScoreboards.get(player.getName()) != null) {
+			player.setScoreboard(prejoinScoreboards.remove(player.getName()));
+		}
 	}
 }
