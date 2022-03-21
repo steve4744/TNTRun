@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.steve4744</groupId>
   <artifactId>TNTRun_reloaded</artifactId>
-  <version>6.8.7</version>
+  <version>6.8.8</version>
   <name>TNTRun_reloaded</name>
   <description>A Minecraft mini-game plugin</description>
   <packaging>jar</packaging>
@@ -25,36 +25,27 @@
         <id>spigot-repo</id>
         <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
     </repository>
-    <!-- bStats & mcMMO Repo -->
-    <repository>
-        <id>CodeMC</id>
-        <url>https://repo.codemc.org/repository/maven-public/</url>
-    </repository>
     <!-- PlaceholderAPI Repo -->
     <repository>
         <id>placeholderapi-repo</id>
-        <url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
     </repository>
     <!-- BarAPI Repo -->
     <repository>
         <id>confuser-repo</id>
-        <url>http://ci.frostcast.net/plugin/repository/everything</url>
+        <url>https://ci.frostcast.net/plugin/repository/everything</url>
     </repository>
     <!-- WorldEdit Repo -->  
     <repository>
         <id>sk89q-repo</id>
         <url>>https://maven.enginehub.org/repo/</url>
-    </repository>
-    <repository>
-        <id>sk89q-snapshots</id>
-        <url>http://maven.sk89q.com/artifactory/repo</url>
         <releases>
-            <enabled>true</enabled> <!-- releases enabled: this specific repository also hosts release versions -->
+            <enabled>true</enabled>
         </releases>
         <snapshots>
-            <enabled>true</enabled> <!-- snapshots enabled: we declare a SNAPSHOT repository because we need to download a SNAPSHOT dependency -->
+            <enabled>true</enabled>
         </snapshots>
-  </repository>
+    </repository>
     <!-- Vault & HeadsPlus Repo -->
     <repository>
 	    <id>jitpack.io</id>
@@ -71,9 +62,9 @@
     </dependency>
     <!-- Vault API -->
     <dependency>
-        <groupId>net.milkbowl.vault</groupId>
+        <groupId>com.github.milkbowl</groupId>
         <artifactId>VaultAPI</artifactId>
-        <version>1.7</version>
+        <version>1.7.1</version>
         <scope>provided</scope>
     </dependency>
     <!-- PlaceholderAPI -->
@@ -94,7 +85,7 @@
     <dependency>
         <groupId>org.bstats</groupId>
         <artifactId>bstats-bukkit</artifactId>
-        <version>1.8</version>
+        <version>3.0.0</version>
         <scope>compile</scope>
     </dependency>
     <!-- WorldEdit -->
