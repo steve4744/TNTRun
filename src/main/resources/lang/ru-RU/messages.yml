@@ -12,8 +12,8 @@ lobbyunloaded: '&c Лобби мир выгружен или не существ
 teleporttolobby: '&7 телепортирован в лобби'
 arenanotexist: '&c Арена &6{ARENA}&c не существует'
 noarenas: '&c Нет доступных аренд для входа'
-arenanotdisabled: '&c Пожалуйста отключите арену: &6/trsetup disable {ARENA}'
-arenanospectatorspawn: '&c Не установлен спавн для зрителей на арене: &6{ARENA}'
+arenanotdisabled: '&c Пожалуйста, отключите арену: &6/trsetup disable {ARENA}'
+arenanospectatorspawn: '&c Не установлена точка появления для зрителей на арене: &6{ARENA}'
 availablearenas: '&7 Арен доступно: {COUNT}'
 availablekits: '&7 Наборов доступно: {COUNT}'
 arenawolrdna: '&7 Мир для арены не загружен'
@@ -34,45 +34,45 @@ arenawaiting: '&6 Арена в ожидании'
 playerscountinarena: '&6 Сейчас на арене: {COUNT} игроков'
 limitreached: '&7 Арена заполнена.'
 playerjoinedtoothers: '&c {RANK}&6{COLOR}{PLAYER} &7зашел на арену (&6{PS}&7/&6{MPS}&7)'
-playerjoininvite: '&c{RANK}&6{COLOR}{PLAYER} &7has joined TNTRun arena &6{ARENA}&7, click to play'
+playerjoininvite: '&c{RANK}&6{COLOR}{PLAYER} &7присоединился к арене TNTRun &6{ARENA}&7, нажмите для воспроизведения'
 playerborderinvite: '&b---------------------------------------'
-playerclickinvite: Click to join {ARENA}
-playerjoinedasspectator: '&7 You joined arena &6{ARENA} &7as a spectator'
-playerlefttoplayer: '&7 You left the arena'
-playerlefttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7left the game (&6{PS}&7/&6{MPS}&7)'
-playernotplaying: '&c Targeted player &6{PLAYER} &cis no longer playing'
-playervotedforstart: '&f You voted to force-start the game'
-playeralreadyvotedforstart: '&c You have already voted'
-playercannotvote: '&c You cannot vote to force-start the arena'
-arenastarted: '&7 Arena started. Time limit is {TIMELIMIT} seconds'
-arenanolimit: '&7 Arena started. No time limit'
-arenacountdown: '&7 Arena starts in {COUNTDOWN} seconds'
-arenatimeout: '&7 Time is up. Ending game'
+playerclickinvite: Нажмите, чтобы присоединиться к {ARENA}
+playerjoinedasspectator: '&7 Вы присоединились к арене &6{ARENA} &7в качестве наблюдателя'
+playerlefttoplayer: 'Вы покинули арену'
+playerlefttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7зашел на арену (&6{PS}&7/&6{MPS}&7)'
+playernotplaying: '&c Выбранный игрок &6{PLAYER} &cбольше не играет'
+playervotedforstart: '&f Вы проголосовали за принудительное создание игры'
+playeralreadyvotedforstart: '&c Вы уже проголосовали'
+playercannotvote: '&c Вы не можете голосовать за принудительное создание арены'
+arenastarted: '&7 Арена запущена. Лимит времени {TIMELIMIT} секунд'
+arenanolimit: '&7 Арена запущена. Без ограничения по времени'
+arenacountdown: '&7 Арена начнется через {COUNTDOWN} секунд'
+arenatimeout: '&7 Время истекло. Завершение игры'
 playerwontoplayer: '&7 Вы выиграли игру!'
-playerfinishedtestmode: '&7 Test game completed!'
-playerlosttoplayer: '&7 You lost the game'
-playerlosttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7lost the game (&6{PS}&7/&6{MPS}&7)'
-playerfirstplace: '&a1st place: &f{RANK}{COLOR}{PLAYER}'
-playersecondplace: '&a2nd place: &f{RANK}{COLOR}{PLAYER}'
-playerthirdplace: '&a3rd place: &f{RANK}{COLOR}{PLAYER}'
-playerrewardmessage: '&7 You have been rewarded: &6{REWARD}'
-playerrewardmaterial: '&6 Material :  &f'
-playerrewardcommand: '&6 Command : &f'
-playerrewardmoney: '&6 Money :    &f'
-playerrewardxp: '&6 XP :      &l  &f'
-playerboughtitem: '&7 You have bought item &6{ITEM} &7for &6{MONEY}'
-playerboughtwait: '&7 You will get your items when the game starts'
-playerkit: '&7 You have been given kit &6{KIT}'
-playersrequiredtostart: '&c There must be at least 2 players in the arena to force-start'
-notenoughmoney: '&c You need {MONEY} to buy this item'
-alreadyboughtitem: '&c You have already bought a shop item'
-shopnostock: '&c This item is currently out of stock'
-maxdoublejumpsexceeded: '&c You cannot exceed the maximum doublejumps allowed ({MAXJUMPS})'
-playernotinarena: '&c You are not in a TNTRun arena'
-playernotonline: '&6 {PLAYER} &7is not currently online'
-gamesplayed: '&bGames played &f: '
-gameswon: '&bWins &f: '
-gameslost: '&bLosses &f: '
+playerfinishedtestmode: '&7 Тестовая игра завершена!'
+playerlosttoplayer: '&7 Вы проиграли игру'
+playerlosttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7проиграл игру (&6{PS}&7/&6{MPS}&7)'
+playerfirstplace: '&aПервое место: &f{RANK}{COLOR}{PLAYER}'
+playersecondplace: '&aВторое место: &f{RANK}{COLOR}{PLAYER}'
+playerthirdplace: '&aТретье место: &f{RANK}{COLOR}{PLAYER}'
+playerrewardmessage: '&7 Вы получили награду: &6{REWARD}'
+playerrewardmaterial: '&6 Материал: &f'
+playerrewardcommand: '&6 Команда: &f'
+playerrewardmoney: '&6 Деньги: &f'
+playerrewardxp: '&6 Опыт :      &l  &f'
+playerboughtitem: '&7 Вы купили предмет &6{ITEM} &7за &6{MONEY}'
+playerboughtwait: '&7 Вы получите предметы после начала игры'
+playerkit: '&7 Вы получили набор &6{KIT}'
+playersrequiredtostart: '&c Для принудительного старта на арене должно быть не менее 2 игроков'
+notenoughmoney: '&c Вам нужно {MONEY} для покупки этого элемента'
+alreadyboughtitem: '&c Вы уже купили предмет магазина'
+shopnostock: '&c В настоящее время этого товара нет'
+maxdoublejumpsexceeded: '&c Вы не можете превышать максимально допустимый двойной прыжок ({MAXJUMPS})'
+playernotinarena: '&c Вы не находитесь на TNTRun'
+playernotonline: '&6 {PLAYER} &7сейчас не в сети'
+gamesplayed: '&bИгры сыграно &f: '
+gameswon: '&bВыигрыши &f: '
+gameslost: '&bПроигрыши &f: '
 statshead: '&7=========[&6TNTRun Stats&7]========='
 rewardshead: '&7======[&6TNTRun Rewards&7 - &a{ARENA}&7]======'
 leaderhead: '&7======[&6TNTRun Leaderboard&7]======'
@@ -84,7 +84,7 @@ shopmoneybalance: '&5Your balance is &6{BAL}'
 statsdisabled: '&c Stats are currently disabled'
 helplobby: Teleport to lobby
 helplist: List all arenas OR List arena details
-helplistkit: List all kits OR List kit details
+helplistkit: Список всех наборов ИЛИ Список Список деталей
 helplistrewards: List the rewards for the arena
 helpjoin: Open join menu OR Join the arena
 helpspectate: Join the arena as a spectator
@@ -93,70 +93,70 @@ helpleave: Leave the current arena
 helpvote: Vote to force-start current arena
 helpcmds: View all TNTRun commands
 helpinfo: View plugin info
-helpstats: View player stats
-helplb: Display the TNTRun leaderboard
+helpstats: Показать статистику игрока
+helplb: Отобразить таблицу лидеров TNTRun
 helpstart: Force-start the arena
-setuplobby: Set the global lobby at your current location
-setupdellobby: Delete the global lobby
-setupcreate: Create a new arena
+setuplobby: Установить общее лобби в вашем текущем местоположении
+setupdellobby: Удалить лобби
+setupcreate: Создать новую арену
 setupconfigure: Открыть меню для настройки арены
-setupbounds: Set bounds for arena
-setuploselevel: Set loselevel point at your feet
-setupspawn: Set arena spawn at your feet
-setupspectate: Set spectator spawn point
-setupaddspawn: Set an additional spawn at your feet
-setupdelspawns: Delete all spawn points created with the addspawn command
-setupfinish: Finish arena and save
-setupdelspectate: Delete spectator spawn for arena
-setupdelay: Set delay for removing block when player steps on it
-setupregendelay: 'Set delay before players can re-join arena (Default: 60)'
-setupmax: 'Set maximum players for arena (Default: 15)'
-setupmin: 'Set minimum players for arena (Default: 2)'
-setupvote: 'Set vote percentage to force-start arena (Default: 0.75)'
-setuptimelimit: 'Set a time limit for arena (Default: 300 seconds)'
-setupcountdown: 'Set a countdown for arena (Default: 15 seconds)'
-setupmoney: Set a money reward for winning player
-setupteleport: Set teleport when you lose or win in arena
-setupdamage: Enable/disable PVP for the arena
-setupbarcolor: Set the BossBar color
-setupreloadbars: Reload Bar messages
-setupreloadtitles: Reload Title messages
-setupreloadmsg: Reload arena messages
-setupreloadconfig: Reload config file
-setupenable: Enable arena
-setupdisable: Disable arena
-setupdelete: Delete arena
-setupreward: Set the rewards for the arena
-setupfee: Set the cost to join the arena
-setupcurrency: Set the currency to join the arena
-setuphelp: Commands required to setup a new arena
-setupenablekits: Enable kits for the arena
-setupdisablekits: Disable kits for the arena
-setupaddkit: Create a TNTRun kit
-setupdelkit: Delete a TNTRun kit
-setupp1: Set targeted block as first selection point
-setupp2: Set targeted block as second selection point
-setupclear: Clear selection points
-setupwhitelist: Whitelist a command for use in-game
-setupresetstats: Remove all TNTRun stats for the player
-setupresetrank: Remove player's rank from the cache
-kitadd: '&7 The kit &6{KIT} &7has been created'
-kitdel: '&7 The kit &6{KIT} &7has been deleted'
-kitexists: '&c The specified kit already exists : &6{KIT}'
-kitnotexists: '&c The specified kit does not exist : &6{KIT}'
-partycreate: '&7 Party created'
-partyjoin: '&6 {PLAYER} &7has joined the party'
-partydecline: '&6 {PLAYER} &7has declined the party invitation'
-partyleave: '&6 {PLAYER} &7has left the party'
-partyleaderleave: '&7 Party leader &6{PLAYER} &7has left - the party has been deleted'
-partynotmember: '&c You are not a member of any party'
-partynotleader: '&c You are not a party leader'
-partykick: '&6 {PLAYER} &7has been kicked from the party'
-partyunkick: '&6 {PLAYER} &7is allowed to join your party'
-partyinviteself: '&c You cannot invite yourself'
-partyinvite: '&6 {PLAYER} &7has invited you to join a party'
-partyban: '&c You are currently kicked from this party'
-partyinparty: '&c You are already in a party'
-partynotexist: '&c The selected party does not exist'
-partynoinvite: '&c You do not have an invitation to this party'
-partynotenabled: '&c TNTRun parties are not currently enabled'
+setupbounds: Установить границы для арены
+setuploselevel: Установить точку появления для проигравших
+setupspawn: Установить точку появления арены
+setupspectate: Установить точку появления наблюдателя
+setupaddspawn: Установить точку появления арены
+setupdelspawns: Удалить все точки появления, созданные командой /addspawn
+setupfinish: Завершить арену и сохранить
+setupdelspectate: Удалить точку появления наблюдателя для арены
+setupdelay: Задержка удаления блока при шагах игрока
+setupregendelay: 'Задержка перед повторным присоединением игроков к арене (по умолчанию: 60)'
+setupmax: 'Установить максимальное количество игроков для арены (по умолчанию: 15)'
+setupmin: 'Установить максимальное количество игроков для арены (по умолчанию: 2)'
+setupvote: 'Установить процент голосования в режим принудительного старта (По умолчанию: 0.75)'
+setuptimelimit: 'Установите ограничение по времени для арены (По умолчанию: 300 секунд)'
+setupcountdown: 'Установите ограничение по времени до запуска для арены (По умолчанию: 15 секунд)'
+setupmoney: Установить денежную награду победившему игроку
+setupteleport: Установка телепортации при проигрыше или победе на арене
+setupdamage: Включить/выключить PVP для арены
+setupbarcolor: Установить цвет боссбара
+setupreloadbars: Перезагрузить сообщения Bossbar(а)
+setupreloadtitles: Перезагрузить сообщения TitleBar(а)
+setupreloadmsg: Перезагрузить сообщения арен
+setupreloadconfig: Перезагрузка конфигурационного файла
+setupenable: Включить арену
+setupdisable: Включить арену
+setupdelete: Удалить арену
+setupreward: Задать награды для арены
+setupfee: Установить стоимость для участия в арене
+setupcurrency: Установить валюту для участия в арене
+setuphelp: Команды, необходимые для установки новой арены
+setupenablekits: Включить наборы для арены
+setupdisablekits: Выключить наборы для арены
+setupaddkit: Создать набор TNTRun
+setupdelkit: Удалить набор TNTRun
+setupp1: Установить целевой блок как первую точку выделения
+setupp2: Установить целевой блок как вторую точку выделения
+setupclear: Очистить выделенные точки
+setupwhitelist: Белый список команд для использования в игре
+setupresetstats: Удалить всю статистику TNTRun игрока
+setupresetrank: Удалить ранг игрока из кэша
+kitadd: '&7 Набор &6{KIT} &7был создан'
+kitdel: '&7 Набор &6{KIT} &7был удален'
+kitexists: '&c Указанный набор уже существует: &6{KIT}'
+kitnotexists: '&c Указанного набора не существует: &6{KIT}'
+partycreate: '&7 Создана группа'
+partyjoin: '&6 {PLAYER} &7покинул группу'
+partydecline: '&6 {PLAYER} &7отклонил приглашение в группу'
+partyleave: '&6 {PLAYER} &7покинул группу'
+partyleaderleave: '&7 Лидер группы &6{PLAYER} &7покинул её! Группа удалена'
+partynotmember: '&c Вы не являетесь участником ни одной группы'
+partynotleader: 'Вы не являетесь лидером группы'
+partykick: '&6 {PLAYER} выгнан из группы'
+partyunkick: '&6 {PLAYER} &7разрешено присоединиться к вашей группе'
+partyinviteself: '&c Вы не можете пригласить себя'
+partyinvite: '&6 {PLAYER} &7пригласил вас присоединиться к группе'
+partyban: '&c В данный момент вы выгнаны из этой группы'
+partyinparty: '&c Вы уже находитесь в группы'
+partynotexist: '&c Выбранной группы не существует'
+partynoinvite: '&c У вас нет приглашений в группу'
+partynotenabled: '&c Группы в данный момент не включены'
