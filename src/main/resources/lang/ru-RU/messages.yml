@@ -73,29 +73,29 @@ playernotonline: '&6 {PLAYER} &7сейчас не в сети'
 gamesplayed: '&bИгры сыграно &f: '
 gameswon: '&bВыигрыши &f: '
 gameslost: '&bПроигрыши &f: '
-statshead: '&7=========[&6TNTRun Stats&7]========='
-rewardshead: '&7======[&6TNTRun Rewards&7 - &a{ARENA}&7]======'
-leaderhead: '&7======[&6TNTRun Leaderboard&7]======'
+statshead: '&7=========[&6TNTRun Статистика&7]========='
+rewardshead: '&7======[&6TNTRun Награды&7 - &a{ARENA}&7]======'
+leaderhead: '&7======[&6TNTRun Лидеры&7]========'
 resultshead: '&7============[&6TNTRun&7]============'
-leaderboard: '{POSITION}) &c{RANK}&b{COLOR}{PLAYER} &f: Wins &3{WINS}'
+leaderboard: '{POSITION}) &c{RANK}&b{COLOR}{PLAYER} &f: Победы &3{WINS}'
 leadersign: '&1{PLAYER} &4{WINS}'
-shopmoneyheader: '&fTNTRun Shop Account'
-shopmoneybalance: '&5Your balance is &6{BAL}'
-statsdisabled: '&c Stats are currently disabled'
-helplobby: Teleport to lobby
-helplist: List all arenas OR List arena details
+shopmoneyheader: '&fTNTRun Магазин'
+shopmoneybalance: '&5Ваш баланс: &6{BAL}'
+statsdisabled: '&c Статистика в настоящее время отключена'
+helplobby: Телепортироваться в лобби
+helplist: Список всех атрибутов ИЛИ Список Арен
 helplistkit: Список всех наборов ИЛИ Список Список деталей
-helplistrewards: List the rewards for the arena
-helpjoin: Open join menu OR Join the arena
-helpspectate: Join the arena as a spectator
-helpautojoin: Automatically join the first available arena
-helpleave: Leave the current arena
-helpvote: Vote to force-start current arena
-helpcmds: View all TNTRun commands
-helpinfo: View plugin info
+helplistrewards: Список наград для арены
+helpjoin: Откройте меню входа в арену ИЛИ Присоединитесь к арене
+helpspectate: Присоединиться к арене как наблюдатель
+helpautojoin: Автоматически присоединяйтесь к первой доступной арене
+helpleave: Покинуть текущую арену
+helpvote: Голосование для принудительного запуска текущей арены
+helpcmds: Посмотреть все команды TNTRun
+helpinfo: Информация о плагине
 helpstats: Показать статистику игрока
 helplb: Отобразить таблицу лидеров TNTRun
-helpstart: Force-start the arena
+helpstart: Принудительный запуск арены
 setuplobby: Установить общее лобби в вашем текущем местоположении
 setupdellobby: Удалить лобби
 setupcreate: Создать новую арену
