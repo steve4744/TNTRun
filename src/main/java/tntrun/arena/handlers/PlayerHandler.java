@@ -50,6 +50,7 @@ import tntrun.arena.structure.StructureManager.TeleportDestination;
 import tntrun.events.PlayerJoinArenaEvent;
 import tntrun.events.PlayerLeaveArenaEvent;
 import tntrun.events.PlayerSpectateArenaEvent;
+import tntrun.events.RewardWinnerEvent;
 import tntrun.utils.Bars;
 import tntrun.utils.FormattingCodesParser;
 import tntrun.utils.TitleMsg;
@@ -542,6 +543,7 @@ public class PlayerHandler {
 
 		// reward players before restoring gamemode
 		if (winner) {
+			plugin.getServer().getPluginManager().callEvent(new RewardWinnerEvent(player, arena));
 			arena.getStructureManager().getRewards().rewardPlayer(player, 1);
 
 		} else if (arena.getGameHandler().getPlaces().containsValue(player.getName()) && !rewardedPlayers.contains(player.getName())) {
