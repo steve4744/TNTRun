@@ -461,6 +461,8 @@ public class PlayerHandler {
 
 		arena.getScoreboardHandler().removeScoreboard(player);
 		removePlayerFromArenaAndRestoreState(player, false);
+		plugin.getServer().getPluginManager().callEvent(new PlayerLeaveArenaEvent(player, arena));
+
 		// should not send messages and other things when player is a spectator
 		if (spectator) {
 			return;
@@ -485,7 +487,6 @@ public class PlayerHandler {
 				Bars.setBar(arena, Bars.waiting, arena.getPlayersManager().getPlayersCount(), 0, progress, plugin);
 			}
 		}
-		plugin.getServer().getPluginManager().callEvent(new PlayerLeaveArenaEvent(player, arena));
 	}
 
 	/**
