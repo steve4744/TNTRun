@@ -1,5 +1,5 @@
 ---
-trprefix: '&7[&6TNTRun_recarregados&7]'
+trprefix: '&7[&6TNTRun_reloaded&7]'
 menutitle: '&1TNTRun_reloaded Arenas'
 menuarenaname: '&a{ARENA}'
 menutext: '&5Jogadores: &6{PS}/{MPS}'
@@ -7,7 +7,7 @@ menufee: '&5Taxa de entrada: &6{FEE}'
 menupvp: '&5PVP: &6Ativado'
 menutracker: '&1TNTRun tracker de jogador'
 nopermission: 'Não tem permissão para fazer isso'
-nolobby: '&c Lobby Global não está definido, execute o &6/trsetup setlobby'
+nolobby: '&c Lobby global não está definido, execute o &6/trsetup setlobby'
 lobbyunloaded: 'O mundo Lobby &c foi descarregado ou não existe'
 teleporttolobby: '&7 Teleportado para o lobby'
 arenanotexist: '&c Arena &6{ARENA}&c não existe'
@@ -54,109 +54,109 @@ playerlosttoplayer: '&7 Perdeste a partida'
 playerlosttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7entrou na arena (&6{PS}&7/&6{MPS}&7)'
 playerfirstplace: '&a1° lugar: &f{RANK}{COLOR}{PLAYER}'
 playersecondplace: '&a2º lugar: &f{RANK}{COLOR}{PLAYER}'
-playerthirdplace: '&a3rd place: &f{RANK}{COLOR}{PLAYER}'
-playerrewardmessage: '&7 You have been rewarded: &6{REWARD}'
+playerthirdplace: '&a3rd lugar: &f{RANK}{COLOR}{PLAYER}'
+playerrewardmessage: '&7 Você foi recompensado: &6{REWARD}'
 playerrewardmaterial: '&6 Material: &f'
-playerrewardcommand: '&6 Command : &f'
-playerrewardmoney: '&6 Money :    &f'
+playerrewardcommand: '&6 Comando : &f'
+playerrewardmoney: '&6 Dinheiro: &f'
 playerrewardxp: '&6 XP :      &l  &f'
-playerboughtitem: '&7 You have bought item &6{ITEM} &7for &6{MONEY}'
-playerboughtwait: '&7 You will get your items when the game starts'
-playerkit: '&7 You have been given kit &6{KIT}'
-playersrequiredtostart: '&c There must be at least 2 players in the arena to force-start'
-notenoughmoney: '&c You need {MONEY} to buy this item'
-alreadyboughtitem: '&c You have already bought a shop item'
-shopnostock: '&c This item is currently out of stock'
-maxdoublejumpsexceeded: '&c You cannot exceed the maximum doublejumps allowed ({MAXJUMPS})'
-playernotinarena: '&c You are not in a TNTRun arena'
-playernotonline: '&6 {PLAYER} &7is not currently online'
-gamesplayed: '&bGames played &f: '
-gameswon: '&bWins &f: '
-gameslost: '&bLosses &f: '
+playerboughtitem: '&7 Você comprou o item &6{ITEM} &7for &6{MONEY}'
+playerboughtwait: '&7 Você receberá seus itens quando o jogo começar'
+playerkit: '&7 Você recebeu um kit &6{KIT}'
+playersrequiredtostart: '&c deve haver pelo menos 2 jogadores na arena para forçar o início'
+notenoughmoney: '&c Você precisa de {MONEY} para comprar este item'
+alreadyboughtitem: '&c Você já comprou um item da loja'
+shopnostock: '&c Este item está atualmente fora de stock'
+maxdoublejumpsexceeded: '&c Você não pode exceder o número máximo de duplo saltos permitidos ({MAXJUMPS})'
+playernotinarena: '&c Você não está numa arena TNTRun'
+playernotonline: '&6 {PLAYER} &7não está online'
+gamesplayed: '&bJogos jogados &f: '
+gameswon: '&bGanhou &f: '
+gameslost: '&bPerdeu &f: '
 statshead: '&7=========[&6TNTRun Stats&7]========='
-rewardshead: '&7======[&6TNTRun Rewards&7 - &a{ARENA}&7]======'
-leaderhead: '&7======[&6TNTRun Leaderboard&7]======'
+rewardshead: '&7======[&6TNTRun Recompensas&7 - &a{ARENA}&7]======'
+leaderhead: '&7======[&6TNTRun Placar&7]======'
 resultshead: '&7============[&6TNTRun&7]============'
-leaderboard: '{POSITION}) &c{RANK}&b{COLOR}{PLAYER} &f: Wins &3{WINS}'
+leaderboard: '{POSITION}) &c{RANK}&b{COLOR}{PLAYER} &f: Vitórias &3{WINS}'
 leadersign: '&1{PLAYER} &4{WINS}'
-shopmoneyheader: '&fTNTRun Shop Account'
-shopmoneybalance: '&5Your balance is &6{BAL}'
-statsdisabled: '&c Stats are currently disabled'
-helplobby: Teleport to lobby
-helplist: List all arenas OR List arena details
-helplistkit: List all kits OR List kit details
-helplistrewards: List the rewards for the arena
-helpjoin: Open join menu OR Join the arena
-helpspectate: Join the arena as a spectator
-helpautojoin: Automatically join the first available arena
-helpleave: Leave the current arena
-helpvote: Vote to force-start current arena
-helpcmds: View all TNTRun commands
-helpinfo: View plugin info
-helpstats: View player stats
-helplb: Display the TNTRun leaderboard
-helpstart: Force-start the arena
-setuplobby: Set the global lobby at your current location
-setupdellobby: Delete the global lobby
-setupcreate: Create a new arena
-setupconfigure: Open menu to configure arena
-setupbounds: Set bounds for arena
-setuploselevel: Set loselevel point at your feet
-setupspawn: Set arena spawn at your feet
-setupspectate: Set spectator spawn point
-setupaddspawn: Set an additional spawn at your feet
-setupdelspawns: Delete all spawn points created with the addspawn command
-setupfinish: Finish arena and save
-setupdelspectate: Delete spectator spawn for arena
-setupdelay: Set delay for removing block when player steps on it
-setupregendelay: 'Set delay before players can re-join arena (Default: 60)'
-setupmax: 'Set maximum players for arena (Default: 15)'
-setupmin: 'Set minimum players for arena (Default: 2)'
-setupvote: 'Set vote percentage to force-start arena (Default: 0.75)'
-setuptimelimit: 'Set a time limit for arena (Default: 300 seconds)'
-setupcountdown: 'Set a countdown for arena (Default: 15 seconds)'
-setupmoney: Set a money reward for winning player
-setupteleport: Set teleport when you lose or win in arena
-setupdamage: Enable/disable PVP for the arena
-setupbarcolor: Set the BossBar color
-setupreloadbars: Reload Bar messages
-setupreloadtitles: Reload Title messages
-setupreloadmsg: Reload arena messages
-setupreloadconfig: Reload config file
-setupenable: Enable arena
-setupdisable: Disable arena
-setupdelete: Delete arena
-setupreward: Set the rewards for the arena
-setupfee: Set the cost to join the arena
-setupcurrency: Set the currency to join the arena
-setuphelp: Commands required to setup a new arena
-setupenablekits: Enable kits for the arena
-setupdisablekits: Disable kits for the arena
-setupaddkit: Create a TNTRun kit
-setupdelkit: Delete a TNTRun kit
-setupp1: Set targeted block as first selection point
-setupp2: Set targeted block as second selection point
-setupclear: Clear selection points
-setupwhitelist: Whitelist a command for use in-game
-setupresetstats: Remove all TNTRun stats for the player
-setupresetrank: Remove player's rank from the cache
-kitadd: '&7 The kit &6{KIT} &7has been created'
-kitdel: '&7 The kit &6{KIT} &7has been deleted'
-kitexists: '&c The specified kit already exists : &6{KIT}'
-kitnotexists: '&c The specified kit does not exist : &6{KIT}'
-partycreate: '&7 Party created'
-partyjoin: '&6 {PLAYER} &7has joined the party'
-partydecline: '&6 {PLAYER} &7has declined the party invitation'
-partyleave: '&6 {PLAYER} &7has left the party'
-partyleaderleave: '&7 Party leader &6{PLAYER} &7has left - the party has been deleted'
-partynotmember: '&c You are not a member of any party'
-partynotleader: '&c You are not a party leader'
-partykick: '&6 {PLAYER} &7has been kicked from the party'
-partyunkick: '&6 {PLAYER} &7is allowed to join your party'
-partyinviteself: '&c You cannot invite yourself'
-partyinvite: '&6 {PLAYER} &7has invited you to join a party'
-partyban: '&c You are currently kicked from this party'
-partyinparty: '&c You are already in a party'
-partynotexist: '&c The selected party does not exist'
-partynoinvite: '&c You do not have an invitation to this party'
-partynotenabled: '&c TNTRun parties are not currently enabled'
+shopmoneyheader: '&fTNTRun Conta para compras'
+shopmoneybalance: '&5Seu saldo é &6{BAL}'
+statsdisabled: '&c Estatísticas estão desativadas no momento'
+helplobby: Teleporte para sala de espera {0}
+helplist: Listar todas as arenas ou Listar detalhes da arena
+helplistkit: Listar todos os kits OU detalhes do kit
+helplistrewards: Listar as recompensas da arena
+helpjoin: Abra o menu de entrada OU Entre na arena
+helpspectate: Entre na arena como um espectador
+helpautojoin: Entrar automaticamente na primeira arena disponível
+helpleave: Sair da arena atual
+helpvote: Vote para forçar iniciar a arena atual
+helpcmds: Ver todos os comandos TNTRun
+helpinfo: Ver informações do plug-in
+helpstats: Ver estatísticas do jogador
+helplb: Mostrar o placar TNTRun
+helpstart: Forçar início da arena
+setuplobby: Define o lobby global no seu local atual
+setupdellobby: Apagar o lobby global
+setupcreate: Crie uma nova arena
+setupconfigure: Abrir menu para configurar a arena
+setupbounds: Define limites para a arena
+setuploselevel: Define a altura para perder nos seus pés
+setupspawn: Defina o spawn da arena nos seus pés
+setupspectate: Definir ponto de spawn do espectador
+setupaddspawn: Defina um spawn adicional onde está
+setupdelspawns: Eliminar todos os pontos de spawn criados com o comando de pawn
+setupfinish: Terminar arena e guardar
+setupdelspectate: Apagar o Spawn de espetador da arena
+setupdelay: Defina o atraso para remover o bloco quando o jogador pisar nele
+setupregendelay: 'Defina o atraso antes que jogadores possam entrar novamente na arena (Padrão: 60)'
+setupmax: 'Define o número máximo de jogadores para a arena (Padrão: 15)'
+setupmin: 'Define jogadores mínimos para a arena (padrão: 2)'
+setupvote: 'Defina a percentagem de voto para forçar início da arena (Padrão: 0.75)'
+setuptimelimit: 'Defina um limite de tempo para a arena (Padrão: 300 segundos)'
+setupcountdown: 'Definir uma contagem regressiva para a arena (Padrão: 15 segundos)'
+setupmoney: Defina uma recompensa para vencedor
+setupteleport: Defina o teleporte quando você perder ou ganhar na arena
+setupdamage: Ativar/desativar PVP para a arena
+setupbarcolor: Define a cor da BossBar
+setupreloadbars: Recarregar barra de mensagens
+setupreloadtitles: Recarregar mensagens Título
+setupreloadmsg: Recarregar mensagens de arena
+setupreloadconfig: Recarregar ficheiro de configuração
+setupenable: Ativar arena
+setupdisable: Desativar arena
+setupdelete: Apagar arena
+setupreward: Define as recompensas para a arena
+setupfee: Definir o custo para entrar na arena
+setupcurrency: Definir a moeda para entrar na arena
+setuphelp: Comandos necessários para criar uma nova arena
+setupenablekits: Habilitar kits para a arena
+setupdisablekits: Desativar kits para a arena
+setupaddkit: Crie um kit TNTRun
+setupdelkit: Apagar um kit TNTRun
+setupp1: Definir o bloco alvo como primeiro ponto de seleção
+setupp2: Definir bloco alvo como segundo ponto de seleção
+setupclear: Apagar pontos de seleção
+setupwhitelist: Colocar comando em lista permitida
+setupresetstats: Remover todas estatísticas de TNTRun para o jogador
+setupresetrank: Remover rank do jogador da cache
+kitadd: '&7 O kit &6{KIT} &7foi criado'
+kitdel: '&7 O kit &6{KIT} &7foi removido'
+kitexists: '&c O kit especificado já existe: & 6{KIT}'
+kitnotexists: '&c O kit especificado não existe. &6{KIT}'
+partycreate: 'Grupo & 7 criado'
+partyjoin: '&6 {PLAYER} &7 juntou-se ao grupo'
+partydecline: '&6 {PLAYER} &7recusou o convite de grupo'
+partyleave: '&6 {PLAYER} &7saiu do grupo'
+partyleaderleave: '&7 Líder da party &6{PLAYER} &7saiu - a party foi terminada'
+partynotmember: 'Não és membro de nenhum grupo'
+partynotleader: '&c Você não é um líder do grupo'
+partykick: '&6 {PLAYER} &7foi expulso da party'
+partyunkick: '&6 {PLAYER} &7está autorizado a entrar no seu grupo'
+partyinviteself: 'Você não pode convidar a si mesmo'
+partyinvite: '&6 {PLAYER} &7convidou-te para entrar num grupo'
+partyban: '&c Você foi expulso deste grupo'
+partyinparty: '&c Você já está num grupo'
+partynotexist: '&c O grupo selecionado não existe'
+partynoinvite: '&c Você não tem um convite para este grupo'
+partynotenabled: '&c Grupos TNTRun não estão ativados'

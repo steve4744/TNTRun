@@ -50,55 +50,55 @@ arenacountdown: '&7 Arenan startar om {COUNTDOWN} sekunder'
 arenatimeout: '&7 Tiden är slut. Avslutar spelet'
 playerwontoplayer: '&7 Du vann matchen!'
 playerfinishedtestmode: '&7 Test game completed!'
-playerlosttoplayer: '&7 You lost the game'
-playerlosttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7lost the game (&6{PS}&7/&6{MPS}&7)'
-playerfirstplace: '&a1st place: &f{RANK}{COLOR}{PLAYER}'
-playersecondplace: '&a2nd place: &f{RANK}{COLOR}{PLAYER}'
-playerthirdplace: '&a3rd place: &f{RANK}{COLOR}{PLAYER}'
-playerrewardmessage: '&7 You have been rewarded: &6{REWARD}'
+playerlosttoplayer: '&7 Du förlorade matchen'
+playerlosttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7förlorade spelet (&6{PS}&7/&6{MPS}&7)'
+playerfirstplace: '&a1st plats: &f{RANK}{COLOR}{PLAYER}'
+playersecondplace: '&a2nd plats: &f{RANK}{COLOR}{PLAYER}'
+playerthirdplace: '&a3rd plats: &f{RANK}{COLOR}{PLAYER}'
+playerrewardmessage: '&7 Du har blivit belönad: &6{REWARD}'
 playerrewardmaterial: '&6 Material :  &f'
 playerrewardcommand: '&6 Command : &f'
 playerrewardmoney: '&6 Money :    &f'
 playerrewardxp: '&6 XP :      &l  &f'
-playerboughtitem: '&7 You have bought item &6{ITEM} &7for &6{MONEY}'
-playerboughtwait: '&7 You will get your items when the game starts'
-playerkit: '&7 You have been given kit &6{KIT}'
-playersrequiredtostart: '&c There must be at least 2 players in the arena to force-start'
-notenoughmoney: '&c You need {MONEY} to buy this item'
-alreadyboughtitem: '&c You have already bought a shop item'
-shopnostock: '&c This item is currently out of stock'
-maxdoublejumpsexceeded: '&c You cannot exceed the maximum doublejumps allowed ({MAXJUMPS})'
-playernotinarena: '&c You are not in a TNTRun arena'
-playernotonline: '&6 {PLAYER} &7is not currently online'
+playerboughtitem: '&7 Du har köpt en vara &6{ITEM} &7för &6{MONEY}'
+playerboughtwait: '&7 Du kommer att få dina föremål när spelet startar'
+playerkit: '&7 Du har fått kit &6{KIT}'
+playersrequiredtostart: '&c Det måste finnas minst 2 spelare på arenan för att tvångs-starta'
+notenoughmoney: '&c Du behöver {MONEY} att köpa denna vara'
+alreadyboughtitem: '&c Du har redan köpt en butiksvara'
+shopnostock: '&c Denna vara är för närvarande slut i lager'
+maxdoublejumpsexceeded: '&c Du kan inte överskrida de högsta tillåtna dubbelhoppen ({MAXJUMPS})'
+playernotinarena: '&c Du är inte i en TNTRun arena'
+playernotonline: '&6 {PLAYER} &7är inte online just nu'
 gamesplayed: '&bGames played &f: '
 gameswon: '&bWins &f: '
 gameslost: '&bLosses &f: '
-statshead: '&7=========[&6TNTRun Stats&7]========='
-rewardshead: '&7======[&6TNTRun Rewards&7 - &a{ARENA}&7]======'
+statshead: '&7=========[&6TNTRun Statistik&7]========='
+rewardshead: '&7======[&6TNTRun Belöningar&7 - &a{ARENA}&7]======'
 leaderhead: '&7======[&6TNTRun Leaderboard&7]======'
 resultshead: '&7============[&6TNTRun&7]============'
-leaderboard: '{POSITION}) &c{RANK}&b{COLOR}{PLAYER} &f: Wins &3{WINS}'
+leaderboard: '{POSITION}) &c{RANK}&b{COLOR}{PLAYER} &f: Vinner &3{WINS}'
 leadersign: '&1{PLAYER} &4{WINS}'
-shopmoneyheader: '&fTNTRun Shop Account'
-shopmoneybalance: '&5Your balance is &6{BAL}'
-statsdisabled: '&c Stats are currently disabled'
-helplobby: Teleport to lobby
-helplist: List all arenas OR List arena details
-helplistkit: List all kits OR List kit details
-helplistrewards: List the rewards for the arena
-helpjoin: Open join menu OR Join the arena
-helpspectate: Join the arena as a spectator
-helpautojoin: Automatically join the first available arena
-helpleave: Leave the current arena
-helpvote: Vote to force-start current arena
-helpcmds: View all TNTRun commands
-helpinfo: View plugin info
-helpstats: View player stats
-helplb: Display the TNTRun leaderboard
-helpstart: Force-start the arena
-setuplobby: Set the global lobby at your current location
-setupdellobby: Delete the global lobby
-setupcreate: Create a new arena
+shopmoneyheader: '&fTNTRun Butiks konto'
+shopmoneybalance: '&5Ditt saldo är &6{BAL}'
+statsdisabled: '&c Statistik är för närvarande inaktiverad'
+helplobby: Teleportera till lobbyn
+helplist: Lista alla arenor ELLER Lista arenadetaljer
+helplistkit: Lista alla kit ELLER Lista kitdetaljer
+helplistrewards: Lista belöningarna för arenan
+helpjoin: Öppna gå med-menyn ELLER Gå med i arenan
+helpspectate: Gå med på arenan som åskådare
+helpautojoin: Gå automatiskt med i den första tillgängliga arenan
+helpleave: Lämna den nuvarande arenan
+helpvote: Rösta för att tvångs-starta nuvarande arena
+helpcmds: Visa alla TNTRun kommandon
+helpinfo: Visa plugin-information
+helpstats: Se spelarstatistik
+helplb: Visa TNTRun topplista
+helpstart: Tvinga igång arenan
+setuplobby: Ställ in den globala lobbyn på din nuvarande plats
+setupdellobby: Ta bort den globala lobbyn
+setupcreate: Skapa en ny arena
 setupconfigure: Öppna menyn för att konfigurera arenan
 setupbounds: Ange gränser för arenan
 setuploselevel: Ställ in nivån där spelare ska förlora vid dina fötter
@@ -108,55 +108,55 @@ setupaddspawn: Ställ in ytterligare en startpunkt vid fötterna
 setupdelspawns: Ta bort alla startpunkter som skapats med kommandot addspawn
 setupfinish: Slutför arenan och spara
 setupdelspectate: Ta bort åskådarens startpunkt för arenan
-setupdelay: Set delay for removing block when player steps on it
+setupdelay: Ställ in fördröjning för att ta bort blocket när spelaren kliver på det
 setupregendelay: 'Set delay before players can re-join arena (Default: 60)'
 setupmax: 'Set maximum players for arena (Default: 15)'
 setupmin: 'Set minimum players for arena (Default: 2)'
 setupvote: 'Set vote percentage to force-start arena (Default: 0.75)'
 setuptimelimit: 'Set a time limit for arena (Default: 300 seconds)'
 setupcountdown: 'Set a countdown for arena (Default: 15 seconds)'
-setupmoney: Set a money reward for winning player
-setupteleport: Set teleport when you lose or win in arena
-setupdamage: Enable/disable PVP for the arena
-setupbarcolor: Set the BossBar color
-setupreloadbars: Reload Bar messages
-setupreloadtitles: Reload Title messages
-setupreloadmsg: Reload arena messages
-setupreloadconfig: Reload config file
-setupenable: Enable arena
-setupdisable: Disable arena
-setupdelete: Delete arena
-setupreward: Set the rewards for the arena
-setupfee: Set the cost to join the arena
-setupcurrency: Set the currency to join the arena
-setuphelp: Commands required to setup a new arena
-setupenablekits: Enable kits for the arena
-setupdisablekits: Disable kits for the arena
-setupaddkit: Create a TNTRun kit
-setupdelkit: Delete a TNTRun kit
-setupp1: Set targeted block as first selection point
-setupp2: Set targeted block as second selection point
-setupclear: Clear selection points
-setupwhitelist: Whitelist a command for use in-game
-setupresetstats: Remove all TNTRun stats for the player
-setupresetrank: Remove player's rank from the cache
-kitadd: '&7 The kit &6{KIT} &7has been created'
-kitdel: '&7 The kit &6{KIT} &7has been deleted'
-kitexists: '&c The specified kit already exists : &6{KIT}'
-kitnotexists: '&c The specified kit does not exist : &6{KIT}'
-partycreate: '&7 Party created'
-partyjoin: '&6 {PLAYER} &7has joined the party'
-partydecline: '&6 {PLAYER} &7has declined the party invitation'
-partyleave: '&6 {PLAYER} &7has left the party'
-partyleaderleave: '&7 Party leader &6{PLAYER} &7has left - the party has been deleted'
-partynotmember: '&c You are not a member of any party'
-partynotleader: '&c You are not a party leader'
-partykick: '&6 {PLAYER} &7has been kicked from the party'
-partyunkick: '&6 {PLAYER} &7is allowed to join your party'
-partyinviteself: '&c You cannot invite yourself'
-partyinvite: '&6 {PLAYER} &7has invited you to join a party'
-partyban: '&c You are currently kicked from this party'
-partyinparty: '&c You are already in a party'
-partynotexist: '&c The selected party does not exist'
-partynoinvite: '&c You do not have an invitation to this party'
-partynotenabled: '&c TNTRun parties are not currently enabled'
+setupmoney: Ställ in en pengabelöning för vinnande spelare
+setupteleport: Ställ in teleport när du förlorar eller vinner i arenan
+setupdamage: Enable/disable PVP för arenan
+setupbarcolor: Ställ in BossBar-färgen
+setupreloadbars: Ladda om Bar meddelanden
+setupreloadtitles: Ladda om titelmeddelanden
+setupreloadmsg: Ladda om arenameddelanden
+setupreloadconfig: Ladda om konfigurationsfilen
+setupenable: Aktivera arena
+setupdisable: Inaktivera arenan
+setupdelete: Ta bort arena
+setupreward: Ställ in belöningarna för arenan
+setupfee: Ställ in kostnaden för att gå med på arenan
+setupcurrency: Ställ in valutan för att gå med i arenan
+setuphelp: Kommandon som krävs för att skapa en ny arena
+setupenablekits: Aktivera kit för arenan
+setupdisablekits: Inaktivera kit för arenan
+setupaddkit: Skapa en TNTRun kit
+setupdelkit: Ta bort a TNTRun kit
+setupp1: Ställ in målblock som första urvalspunkt
+setupp2: Ställ in målblocket som andra urvalspunkt
+setupclear: Rensa urvalspunkter
+setupwhitelist: Vitlista ett kommando för användning i spelet
+setupresetstats: Ta bort alla TNTRun statistik för spelaren
+setupresetrank: Ta bort spelarens rang från cachen
+kitadd: '&7 De kit &6{KIT} &7Har skapats'
+kitdel: '&7 De kit &6{KIT} &7har blivit raderad'
+kitexists: '&c Det angivna kitet finns redan : &6{KIT}'
+kitnotexists: '&c Det angivna kitet finns inte : &6{KIT}'
+partycreate: '&7 Party skapat'
+partyjoin: '&6 {PLAYER} &7har gått med i party'
+partydecline: '&6 {PLAYER} &7har avböjt party inbjudan'
+partyleave: '&6 {PLAYER} &7har lämnat party'
+partyleaderleave: '&7 Party ledare &6{PLAYER} &7har lämnat - de party har blivit raderad'
+partynotmember: '&c Du är inte medlem i någon party'
+partynotleader: '&c Du är inte en party ledare'
+partykick: '&6 {PLAYER} &7har blivit sparkad från party'
+partyunkick: '&6 {PLAYER} &7får gå med i din party'
+partyinviteself: '&c Du kan inte bjuda in dig själv'
+partyinvite: '&6 {PLAYER} &7har bjudit in dig att gå med i en party'
+partyban: '&c Du är för närvarande sparkad från detta party'
+partyinparty: '&c Du är redan i en party'
+partynotexist: '&c Den valda party existerar inte'
+partynoinvite: '&c Du har ingen inbjudan till detta party'
+partynotenabled: '&c TNTRun parties är för närvarande inte aktiverade'
