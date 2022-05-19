@@ -262,7 +262,7 @@ public class GameHandler {
 				}
 				timeremaining--;
 			}
-		}, 0, 1);
+		}, plugin.getConfig().getInt("onstart.delay", 0) * 20, 1);
 	}
 
 	/**
