@@ -123,6 +123,14 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 			Arena arena = getArenaFromPlaceholder(identifier, 2);
 			return arena != null ? arena.getStatusManager().getArenaStatusMesssage() : null;
 
+		} else if (identifier.startsWith("seconds_remaining")) {
+			Arena arena = getArenaFromPlaceholder(identifier, 3);
+			return arena != null ? String.valueOf(arena.getGameHandler().getTimeRemaining() / 20) : null;
+
+		} else if (identifier.startsWith("time_remaining")) {
+			Arena arena = getArenaFromPlaceholder(identifier, 3);
+			return arena != null ? Utils.getFormattedTime(arena.getGameHandler().getTimeRemaining() / 20) : null;
+
 		} else if (identifier.startsWith("pvp_status")) {
 			Arena arena = getArenaFromPlaceholder(identifier, 3);
 			if (arena == null) {

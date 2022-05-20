@@ -284,6 +284,7 @@ public class GameHandler {
 			arena.getPlayerHandler().leavePlayer(player, "", "");
 		}
 		lostPlayers = 0;
+		timeremaining = 0;
 		forceStartByCmd = false;
 		places.clear();
 		arena.getPlayerHandler().clearRewardedPlayers();

@@ -68,6 +68,13 @@ public class Utils {
 		return false;
 	}
 
+	public static String getFormattedTime(int totalSeconds) {
+		int hours = totalSeconds / 3600;
+		int minutes = (totalSeconds % 3600) / 60;
+		int seconds = totalSeconds % 60;
+		return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+	}
+
 	public static int playerCount() {
 		int pCount = 0;
 		for (Arena arena : TNTRun.getInstance().amanager.getArenas()) {
