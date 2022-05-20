@@ -115,6 +115,14 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 			Arena arena = getArenaFromPlaceholder(identifier, 2);
 			return arena != null ? getNames(arena.getPlayersManager().getSpectatorsCopy()) : null;
 
+		} else if (identifier.startsWith("maxplayers")) {
+			Arena arena = getArenaFromPlaceholder(identifier, 2);
+			return arena != null ? String.valueOf(arena.getStructureManager().getMaxPlayers()) : null;
+
+		} else if (identifier.startsWith("minplayers")) {
+			Arena arena = getArenaFromPlaceholder(identifier, 2);
+			return arena != null ? String.valueOf(arena.getStructureManager().getMinPlayers()) : null;
+
 		} else if (identifier.startsWith("player_count")) {
 			Arena arena = getArenaFromPlaceholder(identifier, 3);
 			return arena != null ? String.valueOf(arena.getPlayersManager().getPlayersCount()) : null;
