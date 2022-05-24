@@ -114,8 +114,8 @@ public class GameCommands implements CommandExecutor {
 				if (arena.getStructureManager().isTestMode()) {
 					player.sendMessage(ChatColor.GOLD + "Test Mode " + ChatColor.DARK_GRAY + "..................." + bigspace + ChatColor.RED + "Enabled");
 				}
-				if (arena.getStructureManager().isExcludeStats()) {
-					player.sendMessage(ChatColor.GOLD + "Exclude Stats " + ChatColor.DARK_GRAY + "........." + bigspace + ChatColor.RED + "True");
+				if (arena.getStructureManager().isArenaStatsEnabled()) {
+					player.sendMessage(ChatColor.GOLD + "Arena Stats " + ChatColor.DARK_GRAY + ".............." + bigspace + ChatColor.RED + "Enabled");
 				}
 				return true;
 			}

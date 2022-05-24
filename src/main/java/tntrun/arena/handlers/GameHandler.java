@@ -49,6 +49,7 @@ public class GameHandler {
 	private TNTRun plugin;
 	private Arena arena;
 	public int lostPlayers = 0;
+	private boolean activeStats = true;
 	private Map<Integer, String> places = new HashMap<>();
 	private SignEditor signEditor;
 
@@ -175,7 +176,7 @@ public class GameHandler {
 	 */
 	private void startArena() {
 		arena.getStatusManager().setRunning(true);
-		if (Utils.debug() ) {
+		if (Utils.debug()) {
 			plugin.getLogger().info("Arena " + arena.getArenaName() + " started");
 			plugin.getLogger().info("Players in arena: " + arena.getPlayersManager().getPlayersCount());
 		}
@@ -187,6 +188,7 @@ public class GameHandler {
 		}
 
 		arena.getStructureManager().getRewards().setActiveRewards(arena.getPlayersManager().getPlayersCount());
+		setActiveStats(arena.getPlayersManager().getPlayersCount());
 
 		String message = Messages.trprefix;
 		int limit = arena.getStructureManager().getTimeLimit();
@@ -202,7 +204,7 @@ public class GameHandler {
 		for (Player player : arena.getPlayersManager().getPlayers()) {
 			player.closeInventory();
 			player.setLevel(0);
-			if (plugin.useStats() && !arena.getStructureManager().isExcludeStats()) {
+			if (plugin.useStats() && isStatsActive()) {
 				plugin.getStats().addPlayedGames(player, 1);
 			}
 			if (arena.getPlayerHandler().hasDoubleJumps(player)) {
@@ -220,7 +222,7 @@ public class GameHandler {
 			}
 		}
 
-		if (plugin.useStats() && !arena.getStructureManager().isExcludeStats()) {
+		if (plugin.useStats() && isStatsActive()) {
 			plugin.getStats().clearPlayedList();
 		}
 		signEditor.modifySigns(arena.getArenaName());
@@ -399,7 +401,7 @@ public class GameHandler {
 	 * @param player
 	 */
 	private void startEnding(final Player player) {
-		if (plugin.useStats() && !arena.getStructureManager().isExcludeStats()) {
+		if (plugin.useStats() && isStatsActive()) {
 			plugin.getStats().addWins(player, 1);
 		}
 		arena.getPlayersManager().setWinner(player.getName());
@@ -667,5 +669,20 @@ public class GameHandler {
 	public void executeCommandOnStop(Player player) {
 		Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(),
 				arena.getStructureManager().getCommandOnStop().replace("%PLAYER%", player.getName()));
+	}
+
+	private void setActiveStats(int playercount) {
+		if (!arena.getStructureManager().isArenaStatsEnabled()) {
+			activeStats = false;
+			return;
+		}
+		activeStats = playercount >= arena.getStructureManager().getStatsMinPlayers();
+		if (Utils.debug()) {
+			plugin.getLogger().info("Stats active: " + activeStats + ", min players = " + arena.getStructureManager().getStatsMinPlayers());
+		}
+	}
+
+	private boolean isStatsActive() {
+		return activeStats;
 	}
 }
