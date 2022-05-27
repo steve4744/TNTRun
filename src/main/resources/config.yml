@@ -278,6 +278,9 @@ onstart:
 # setting this to true will prevent arrows being picked up and re-used
 removearrows: false
 #
+# disable player collisions
+disablecollisions: false
+#
 # specify language file to use from those supplied with the plugin
 language: en-GB
 #

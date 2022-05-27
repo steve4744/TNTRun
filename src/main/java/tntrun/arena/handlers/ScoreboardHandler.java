@@ -29,6 +29,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import tntrun.TNTRun;
@@ -39,6 +40,7 @@ public class ScoreboardHandler {
 
 	private final TNTRun plugin;
 	private Scoreboard scoreboard;
+	private final String PLUGIN_NAME = "TNTRun";
 	private Map<String, Scoreboard> scoreboardMap = new HashMap<>();
 	private Map<String, Scoreboard> prejoinScoreboards = new HashMap<>();
 	private int playingtask;
@@ -54,7 +56,7 @@ public class ScoreboardHandler {
 		Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
 		if (config.getBoolean("special.UseScoreboard")) {
-			Objective o = scoreboard.registerNewObjective("TNTRun", "waiting", "TNTRun");
+			Objective o = scoreboard.registerNewObjective(PLUGIN_NAME, "waiting", PLUGIN_NAME);
 			o.setDisplaySlot(DisplaySlot.SIDEBAR);
 
 			String header = FormattingCodesParser.parseFormattingCodes(config.getString("scoreboard.header", ChatColor.GOLD.toString() + ChatColor.BOLD + "TNTRUN"));
@@ -106,6 +108,11 @@ public class ScoreboardHandler {
 			scoreboard = scoreboardMap.get(player.getName());
 		} else {
 			scoreboard = buildScoreboard();
+			if (plugin.getConfig().getBoolean("disablecollisions")) {
+				Team team = scoreboard.registerNewTeam(PLUGIN_NAME);
+				team.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER);
+				team.addEntry(player.getName());
+			}
 			scoreboardMap.put(player.getName(), scoreboard);
 			player.setScoreboard(scoreboard);
 		}
