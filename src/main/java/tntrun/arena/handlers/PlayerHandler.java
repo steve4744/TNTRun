@@ -50,6 +50,7 @@ import tntrun.arena.structure.StructureManager.TeleportDestination;
 import tntrun.events.PlayerJoinArenaEvent;
 import tntrun.events.PlayerLeaveArenaEvent;
 import tntrun.events.PlayerSpectateArenaEvent;
+import tntrun.events.RewardWinnerEvent;
 import tntrun.utils.Bars;
 import tntrun.utils.FormattingCodesParser;
 import tntrun.utils.TitleMsg;
@@ -460,6 +461,8 @@ public class PlayerHandler {
 
 		arena.getScoreboardHandler().removeScoreboard(player);
 		removePlayerFromArenaAndRestoreState(player, false);
+		plugin.getServer().getPluginManager().callEvent(new PlayerLeaveArenaEvent(player, arena));
+
 		// should not send messages and other things when player is a spectator
 		if (spectator) {
 			return;
@@ -484,7 +487,6 @@ public class PlayerHandler {
 				Bars.setBar(arena, Bars.waiting, arena.getPlayersManager().getPlayersCount(), 0, progress, plugin);
 			}
 		}
-		plugin.getServer().getPluginManager().callEvent(new PlayerLeaveArenaEvent(player, arena));
 	}
 
 	/**
@@ -542,6 +544,7 @@ public class PlayerHandler {
 
 		// reward players before restoring gamemode
 		if (winner) {
+			plugin.getServer().getPluginManager().callEvent(new RewardWinnerEvent(player, arena));
 			arena.getStructureManager().getRewards().rewardPlayer(player, 1);
 
 		} else if (arena.getGameHandler().getPlaces().containsValue(player.getName()) && !rewardedPlayers.contains(player.getName())) {

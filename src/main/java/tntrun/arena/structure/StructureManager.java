@@ -64,6 +64,8 @@ public class StructureManager {
 	private List<String> linkedKits = new ArrayList<>();
 	private boolean testmode = false;
 	private boolean excludeStats = false;
+	private boolean statsEnabled = true;
+	private int statsMinPlayers = 0;
 	private boolean allowDoublejumps = true;
 	private int regenerationdelay = 60;
 	private String currency;
@@ -195,8 +197,12 @@ public class StructureManager {
 		return testmode;
 	}
 
-	public boolean isExcludeStats() {
-		return excludeStats;
+	public boolean isArenaStatsEnabled() {
+		return statsEnabled;
+	}
+
+	public int getStatsMinPlayers() {
+		return statsMinPlayers;
 	}
 
 	public boolean isAllowDoublejumps() {
@@ -474,7 +480,9 @@ public class StructureManager {
 		config.set("kits.randomLinkedKit", linkedRandom);
 		config.set("punchDamage", punchDamage);
 		config.set("testmode", testmode);
-		config.set("excludeStats", excludeStats);
+		config.set("excludeStats", null);
+		config.set("stats.enabled", statsEnabled);
+		config.set("stats.minPlayers", statsMinPlayers);
 		config.set("allowDoublejumps", allowDoublejumps);
 		config.set("regenerationdelay", regenerationdelay);
 		config.set("joinfee", fee);
@@ -517,6 +525,8 @@ public class StructureManager {
 		punchDamage = config.getBoolean("punchDamage", true);
 		testmode = config.getBoolean("testmode");
 		excludeStats = config.getBoolean("excludeStats");
+		statsEnabled = excludeStats ? false : config.getBoolean("stats.enabled", true);
+		statsMinPlayers = config.getInt("stats.minPlayers", statsMinPlayers);
 		allowDoublejumps = config.getBoolean("allowDoublejumps", true);
 		regenerationdelay = config.getInt("regenerationdelay", regenerationdelay);
 		fee = config.getDouble("joinfee", fee);

@@ -271,8 +271,15 @@ currency:
 ondeath:
   dropitems: true
 #
+# number of seconds after game starts before blocks start to break
+onstart:
+  delay: 0
+#
 # setting this to true will prevent arrows being picked up and re-used
 removearrows: false
+#
+# disable player collisions
+disablecollisions: false
 #
 # specify language file to use from those supplied with the plugin
 language: en-GB
