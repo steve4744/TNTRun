@@ -85,6 +85,7 @@ public class TNTRun extends JavaPlugin {
 
 	public ArenasManager amanager;
 	public Shop shop;
+	private ScoreboardManager scoreboardManager;
 
 	private static TNTRun instance;
 	private static final int BSTATS_PLUGIN_ID = 2192;
@@ -111,8 +112,8 @@ public class TNTRun extends JavaPlugin {
 		parties = new Parties(this);
 
 		setupPlugin();
+		setupScoreboards();
 
-		updateScoreboardList();
 		loadArenas();
 		checkUpdate();
 		sound = new SoundHandler(this);
@@ -396,27 +397,18 @@ public class TNTRun extends JavaPlugin {
 		return signEditor;
 	}
 
+	public ScoreboardManager getScoreboardManager() {
+		return scoreboardManager;
+	}
+
 	public MySQL getMysql() {
 		return mysql;
 	}
 
-	public void updateScoreboardList() {
-		if (!getConfig().getBoolean("scoreboard.displaydoublejumps")) {
+	public void setupScoreboards() {
+		if (!getConfig().getBoolean("special.UseScoreboard")) {
 			return;
 		}
-		List<String> ps = getConfig().getStringList("scoreboard.playing");
-		if (ps.stream().noneMatch(s -> s.contains("{DJ}"))) {
-			ps.add("&e ");
-			ps.add("&fDouble Jumps: &6&l{DJ}");
-			getConfig().set("scoreboard.playing", ps);
-			saveConfig();
-		}
-		List<String> ws = getConfig().getStringList("scoreboard.waiting");
-		if (ws.stream().noneMatch(s -> s.contains("{DJ}"))) {
-			ws.add("&e ");
-			ws.add("&fDouble Jumps: &6&l{DJ}");
-			getConfig().set("scoreboard.waiting", ws);
-			saveConfig();
-		}
+		scoreboardManager = new ScoreboardManager(this);
 	}
 }

@@ -16,22 +16,11 @@
  */
 package tntrun.arena.handlers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.Team;
-
-import me.clip.placeholderapi.PlaceholderAPI;
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.utils.FormattingCodesParser;
@@ -39,30 +28,12 @@ import tntrun.utils.FormattingCodesParser;
 public class ScoreboardHandler {
 
 	private final TNTRun plugin;
-	private Scoreboard scoreboard;
-	private final String PLUGIN_NAME = "TNTRun";
-	private Map<String, Scoreboard> scoreboardMap = new HashMap<>();
-	private Map<String, Scoreboard> prejoinScoreboards = new HashMap<>();
 	private int playingtask;
 	private Arena arena;
 
 	public ScoreboardHandler(TNTRun plugin, Arena arena) {
 		this.plugin = plugin;
 		this.arena = arena;
-	}
-
-	private Scoreboard buildScoreboard() {
-		FileConfiguration config = plugin.getConfig();
-		Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-
-		if (config.getBoolean("special.UseScoreboard")) {
-			Objective o = scoreboard.registerNewObjective(PLUGIN_NAME, "waiting", PLUGIN_NAME);
-			o.setDisplaySlot(DisplaySlot.SIDEBAR);
-
-			String header = FormattingCodesParser.parseFormattingCodes(config.getString("scoreboard.header", ChatColor.GOLD.toString() + ChatColor.BOLD + "TNTRUN"));
-			o.setDisplayName(header);
-		}
-		return scoreboard;
 	}
 
 	/**
@@ -79,7 +50,7 @@ public class ScoreboardHandler {
 	}
 
 	public void updateWaitingScoreboard(Player player) {
-		resetScoreboard(player);
+		Scoreboard scoreboard = plugin.getScoreboardManager().resetScoreboard(player);
 		Objective o = scoreboard.getObjective(DisplaySlot.SIDEBAR);
 
 		try {
@@ -92,7 +63,7 @@ public class ScoreboardHandler {
 				s = s.replace("{COUNT}", arena.getGameHandler().count + "");
 				s = s.replace("{VOTES}", getVotesRequired(arena) + "");
 				s = s.replace("{DJ}", arena.getPlayerHandler().getDoubleJumps(player) + "");
-				s = getPlaceholderString(s, player);
+				s = plugin.getScoreboardManager().getPlaceholderString(s, player);
 				o.getScore(s).setScore(size);
 				size--;
 			}
@@ -100,41 +71,6 @@ public class ScoreboardHandler {
 
 		} catch (NullPointerException ex) {
 
-		}
-	}
-
-	private void getPlayerScoreboard(Player player) {
-		if (scoreboardMap.containsKey(player.getName())) {
-			scoreboard = scoreboardMap.get(player.getName());
-		} else {
-			scoreboard = buildScoreboard();
-			if (plugin.getConfig().getBoolean("disablecollisions")) {
-				Team team = scoreboard.registerNewTeam(PLUGIN_NAME);
-				team.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER);
-				team.addEntry(player.getName());
-			}
-			scoreboardMap.put(player.getName(), scoreboard);
-			player.setScoreboard(scoreboard);
-		}
-	}
-
-	private boolean isPlaceholderString(String s) {
-		return StringUtils.substringBetween(s, "%") != null && !StringUtils.substringBetween(s, "%").isEmpty();
-	}
-
-	private String getPlaceholderString(String s, OfflinePlayer player) {
-		if (!plugin.isPlaceholderAPI() || !isPlaceholderString(s)) {
-			return s;
-		}
-		String[] a = s.split("%");
-		return a[0] + PlaceholderAPI.setPlaceholders(player, "%" + a[1] + "%");
-	}
-
-	private void resetScoreboard(Player player) {
-		getPlayerScoreboard(player);
-		scoreboard = scoreboardMap.get(player.getName());
-		for (String entry : new ArrayList<String>(scoreboard.getEntries())) {
-			scoreboard.resetScores(entry);
 		}
 	}
 
@@ -150,7 +86,7 @@ public class ScoreboardHandler {
 		if (!plugin.getConfig().getBoolean("special.UseScoreboard")) {
 			return;
 		}
-		scoreboardMap.remove(player.getName());
+		plugin.getScoreboardManager().removeScoreboardFromMap(player);
 		player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 	}
 
@@ -173,7 +109,7 @@ public class ScoreboardHandler {
 	}
 
 	private void updatePlayingScoreboard(Player player) {
-		resetScoreboard(player);
+		Scoreboard scoreboard = plugin.getScoreboardManager().resetScoreboard(player);
 		Objective o = scoreboard.getObjective(DisplaySlot.SIDEBAR);
 
 		int size = plugin.getConfig().getStringList("scoreboard.playing").size();
@@ -184,7 +120,7 @@ public class ScoreboardHandler {
 			s = s.replace("{LOST}", arena.getGameHandler().lostPlayers + "");
 			s = s.replace("{LIMIT}", arena.getGameHandler().getTimeRemaining()/20 + "");
 			s = s.replace("{DJ}", arena.getPlayerHandler().getDoubleJumps(player) + "");
-			s = getPlaceholderString(s, player);
+			s = plugin.getScoreboardManager().getPlaceholderString(s, player);
 			o.getScore(s).setScore(size);
 			size--;
 		}
@@ -192,21 +128,5 @@ public class ScoreboardHandler {
 
 	public int getPlayingTask() {
 		return playingtask;
-	}
-
-	public void storePrejoinScoreboard(Player player) {
-		if (!plugin.getConfig().getBoolean("special.UseScoreboard")) {
-			return;
-		}
-		prejoinScoreboards.put(player.getName(), player.getScoreboard());
-	}
-
-	public void restorePrejoinScoreboard(Player player) {
-		if (!plugin.getConfig().getBoolean("special.UseScoreboard")) {
-			return;
-		}
-		if (prejoinScoreboards.get(player.getName()) != null) {
-			player.setScoreboard(prejoinScoreboards.remove(player.getName()));
-		}
 	}
 }

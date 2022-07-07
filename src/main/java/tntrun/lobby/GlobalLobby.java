@@ -32,10 +32,12 @@ import tntrun.messages.Messages;
 public class GlobalLobby {
 
 	private File lobbyFile;
+	private LobbyScoreboard lobbysb;
 	private LobbyLocation lobbyLocation;
 
 	public GlobalLobby(TNTRun plugin) {
 		lobbyFile = new File(plugin.getDataFolder() + File.separator + "lobby.yml");
+		lobbysb = new LobbyScoreboard(plugin);
 	}
 
 	public boolean isLobbyLocationWorldAvailable() {
@@ -50,16 +52,18 @@ public class GlobalLobby {
 	}
 
 	public void joinLobby(Player player) {
-		if (isLobbyLocationSet()) {
-			if (isLobbyLocationWorldAvailable()) {
-				player.teleport(getLobbyLocation());
-				Messages.sendMessage(player, Messages.teleporttolobby);
-			} else {
-				Messages.sendMessage(player, Messages.lobbyunloaded);
-			}
-		} else {
+		if (!isLobbyLocationSet()) {
 			Messages.sendMessage(player, Messages.nolobby);
+			return;
 		}
+		if (!isLobbyLocationWorldAvailable()) {
+			Messages.sendMessage(player, Messages.lobbyunloaded);
+			return;
+		}
+		player.teleport(getLobbyLocation());
+		Messages.sendMessage(player, Messages.teleporttolobby);
+
+		lobbysb.createLobbyScoreboard(player);
 	}
 
 	public Location getLobbyLocation() {

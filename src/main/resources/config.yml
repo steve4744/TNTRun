@@ -189,6 +189,7 @@ scoreboard:
   header: '&6&lTNTRUN'
   displaydoublejumps: false
   removefromspectators: true
+  enablelobbyscoreboard: false
   waiting:
   - '&fWelcome to TNTRun'
   - '&a '
@@ -208,6 +209,15 @@ scoreboard:
   - '&fLost Players: &a&l{LOST}'
   - '&d '
   - '&fEnd in: &c&l{LIMIT}'
+  lobby:
+  - '&fWelcome to the TNTRun lobby'
+  - '&a '
+  - '&fNumber of Arenas: %tntrun_arena_count%'
+  - '&b '
+  - '&fGames played: %tntrun_played%'
+  - '&fGames won: %tntrun_wins%'
+  - '&c '
+  - '&fTNTRun_reloaded v%tntrun_version%'
 #
 # configure stats - set database to 'file' (to use stats.yml) or 'sql' (to use a MySQL database)
 database: file

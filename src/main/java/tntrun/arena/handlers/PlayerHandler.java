@@ -534,7 +534,7 @@ public class PlayerHandler {
 		plugin.getPData().restorePlayerInventory(player);
 		plugin.getPData().restorePlayerLevel(player);
 		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 80, 80, true));
-		arena.getScoreboardHandler().restorePrejoinScoreboard(player);
+		plugin.getScoreboardManager().restorePrejoinScoreboard(player);
 
 		if (plugin.isBungeecord() && plugin.getConfig().getBoolean("bungeecord.teleporttohub", true)) {
 			plugin.getBungeeHandler().connectToHub(player);
@@ -584,9 +584,8 @@ public class PlayerHandler {
 	 * @param player
 	 */
 	private void connectToLobby(Player player) {
-		if ((arena.getStructureManager().getTeleportDestination() == TeleportDestination.LOBBY || plugin.isBungeecord()) &&
-				plugin.getGlobalLobby().isLobbyLocationWorldAvailable()) {
-			player.teleport(plugin.getGlobalLobby().getLobbyLocation());
+		if (arena.getStructureManager().getTeleportDestination() == TeleportDestination.LOBBY || plugin.isBungeecord()) {
+			plugin.getGlobalLobby().joinLobby(player);
 			plugin.getPData().clearPlayerLocation(player);
 		} else {
 			plugin.getPData().restorePlayerLocation(player);
@@ -892,8 +891,7 @@ public class PlayerHandler {
 		plugin.getPData().storePlayerPotionEffects(player);
 		plugin.getPData().storePlayerHunger(player);
 		player.updateInventory();
-
-		arena.getScoreboardHandler().storePrejoinScoreboard(player);
+		plugin.getScoreboardManager().storePrejoinScoreboard(player);
 	}
 
 	private String getFormattedMessage(Player player, String message) {
