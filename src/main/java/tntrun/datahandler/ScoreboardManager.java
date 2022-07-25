@@ -1,4 +1,4 @@
-package tntrun;
+package tntrun.datahandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +17,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
 import me.clip.placeholderapi.PlaceholderAPI;
+import tntrun.TNTRun;
 import tntrun.utils.FormattingCodesParser;
 
 public class ScoreboardManager {

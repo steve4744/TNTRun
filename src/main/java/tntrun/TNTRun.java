@@ -46,6 +46,7 @@ import tntrun.commands.setup.SetupCommandsHandler;
 import tntrun.commands.setup.SetupTabCompleter;
 import tntrun.datahandler.ArenasManager;
 import tntrun.datahandler.PlayerDataStore;
+import tntrun.datahandler.ScoreboardManager;
 import tntrun.eventhandler.HeadsPlusHandler;
 import tntrun.eventhandler.MenuHandler;
 import tntrun.eventhandler.PlayerLeaveArenaChecker;
