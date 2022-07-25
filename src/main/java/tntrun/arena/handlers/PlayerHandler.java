@@ -825,8 +825,10 @@ public class PlayerHandler {
 	}
 
 	private void updateWinStreak(Player player, boolean winner) {
-		int amount = winner ? plugin.getPData().getWinStreak(player) + 1 : 0;
-		plugin.getPData().setWinStreak(player, amount);
+		if (arena.getGameHandler().isStatsActive()) {
+			int amount = winner ? plugin.getPData().getWinStreak(player) + 1 : 0;
+			plugin.getPData().setWinStreak(player, amount);
+		}
 	}
 
 	/**

@@ -682,7 +682,7 @@ public class GameHandler {
 		}
 	}
 
-	private boolean isStatsActive() {
+	protected boolean isStatsActive() {
 		return activeStats;
 	}
 }

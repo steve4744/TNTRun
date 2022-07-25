@@ -90,6 +90,9 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 		} else if (identifier.equals("losses")) {
 			return String.valueOf(plugin.getStats().getLosses(uuid));
 
+		} else if (identifier.equals("winstreak")) {
+			return String.valueOf(plugin.getPData().getWinStreak(p));
+
 		} else if (identifier.equals("current_arena")) {
 			Arena arena = plugin.amanager.getPlayerArena(p.getName());
 			return arena != null ? arena.getArenaName() : FormattingCodesParser.parseFormattingCodes(Messages.playernotinarena);
