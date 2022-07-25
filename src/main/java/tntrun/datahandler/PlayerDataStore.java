@@ -22,10 +22,10 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -141,7 +141,7 @@ public class PlayerDataStore {
 
 	public void saveDoubleJumpsToFile(OfflinePlayer player, int amount) {
 		String uuid = plugin.useUuid() ? player.getUniqueId().toString() : player.getName();
-		saveConfigFile(uuid, amount);
+		saveConfigFile(uuid, ".doublejumps", amount);
 	}
 
 	/**
@@ -150,15 +150,25 @@ public class PlayerDataStore {
 	 * @param amount of doublejumps
 	 */
 	public void saveDoubleJumpsToFile(String name, int amount) {
-		saveConfigFile(name, amount);
+		saveConfigFile(name, ".doublejumps", amount);
 	}
 
-	private void saveConfigFile(String uuid, int amount) {
+	public void setWinStreak(OfflinePlayer player, int amount) {
+		String uuid = plugin.useUuid() ? player.getUniqueId().toString() : player.getName();
+		saveConfigFile(uuid, ".winstreak", amount);
+	}
+
+	private void saveConfigFile(String uuid, String path, int amount) {
 		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 		if (amount == 0) {
-			config.set(uuid, null);
+			config.set(uuid + path, null);
+			ConfigurationSection section = config.getConfigurationSection(uuid);
+			if (section != null && section.getKeys(false).isEmpty()) {
+				config.set(uuid, null);
+			}
+
 		} else {
-			config.set(uuid + ".doublejumps", amount);
+			config.set(uuid + path, amount);
 		}
 		try {
 			config.save(file);
@@ -175,6 +185,16 @@ public class PlayerDataStore {
 	public int getDoubleJumpsFromFile(String name) {
 		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 		return config.getInt(name + ".doublejumps", 0);
+	}
+
+	public int getWinStreak(OfflinePlayer player) {
+		String uuid = plugin.useUuid() ? player.getUniqueId().toString() : player.getName();
+		return getWinStreakFromFile(uuid);
+	}
+
+	private int getWinStreakFromFile(String name) {
+		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+		return config.getInt(name + ".winstreak", 0);
 	}
 
 	public boolean hasStoredDoubleJumps(Player player) {

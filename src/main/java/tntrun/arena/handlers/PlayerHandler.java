@@ -517,6 +517,7 @@ public class PlayerHandler {
 		votes.remove(player.getName());
 		Bars.removeBar(player, arena.getArenaName());
 		resetDoubleJumps(player);
+		updateWinStreak(player, winner);
 		arena.getPlayersManager().remove(player);
 		clearPotionEffects(player);
 		if (arena.getStructureManager().hasCommandOnStop()) {
@@ -821,6 +822,11 @@ public class PlayerHandler {
 			plugin.getPData().saveDoubleJumpsToFile(player, getDoubleJumps(player));
 		}
 		doublejumps.remove(player.getName());
+	}
+
+	private void updateWinStreak(Player player, boolean winner) {
+		int amount = winner ? plugin.getPData().getWinStreak(player) + 1 : 0;
+		plugin.getPData().setWinStreak(player, amount);
 	}
 
 	/**
