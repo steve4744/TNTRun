@@ -177,37 +177,40 @@ public class Menus {
 			case 11:
 				im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 				im.setDisplayName(ChatColor.GREEN + "Set arena bounds");
-				lores.add(ChatColor.GRAY + "Set the corner points of a cuboid which completely encloses the arena.");
+				lores.add(ChatColor.GRAY + "Set the corner points of a cuboid which");
+				lores.add(ChatColor.GRAY + "completely encloses the arena.");
 				lores.add(status + (arena.getStructureManager().isArenaBoundsSet() ? done : todo));
 				break;
 			case 12:
 				im.setDisplayName(ChatColor.GREEN + "Set lose level");
-				lores.add(ChatColor.GRAY + "Set the point at which players lose to your current Y location.");
-				lores.add(ChatColor.GRAY + "You must be within the arena bounds to set the lose level.");
+				lores.add(ChatColor.GRAY + "Set the point at which players lose to your");
+				lores.add(ChatColor.GRAY + "current Y location. You must be within");
+				lores.add(ChatColor.GRAY + "the arena bounds to set the lose level.");
 				lores.add(status + (arena.getStructureManager().getLoseLevel().isConfigured() ? done : todo));
 				break;
 			case 14:
 				im.setDisplayName(ChatColor.GREEN + "Set arena spawn point");
-				lores.add(ChatColor.GRAY + "Set the point at your current location where ");
-				lores.add(ChatColor.GRAY + "players joining the arena will spawn.");
+				lores.add(ChatColor.GRAY + "Set the point that players joining the arena");
+				lores.add(ChatColor.GRAY + "will spawn to your current location.");
 				lores.add(status + (arena.getStructureManager().isSpawnpointSet() ? done : todo));
 				break;
 			case 15:
 				im.setDisplayName(ChatColor.GREEN + "Set spectator spawn point");
-				lores.add(ChatColor.GRAY + "Set the point at you current location where ");
-				lores.add(ChatColor.GRAY + "spectators will spawn.");
+				lores.add(ChatColor.GRAY + "Set the point that spectators will spawn");
+				lores.add(ChatColor.GRAY + "to your current location.");
 				lores.add(status + (arena.getStructureManager().isSpectatorSpawnSet() ? done : todo));
 				break;
 			case 16:
 				im.setDisplayName(ChatColor.GREEN + "Set teleport location");
-				lores.add(ChatColor.GRAY + "When the game ends players will teleport to either ");
+				lores.add(ChatColor.GRAY + "When the game ends players will teleport to either");
 				lores.add(ChatColor.GRAY + "their previous location or to the lobby.");
 				lores.add(ChatColor.GRAY + "Click to toggle between LOBBY and PREVIOUS location.");
 				lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getTeleportDestination()));
 				break;
 			case 19:
 				im.setDisplayName(ChatColor.GREEN + "Set damage (PVP)");
-				lores.add(ChatColor.GRAY + "Enable or disable PVP in the arena by setting the damage indicator.");
+				lores.add(ChatColor.GRAY + "Enable or disable PVP in the arena by setting");
+				lores.add(ChatColor.GRAY + "the damage indicator.");
 				lores.add(ChatColor.GRAY + "Click to toggle between YES, NO and ZERO.");
 				lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getDamageEnabled()));
 				break;
