@@ -109,6 +109,10 @@ menu:
   panecolor: LIGHT_BLUE
   includedisabled: false
 #
+# arena config menu
+configmenu:
+  lore: true
+#
 # configure sounds
 sounds:
   arenastart:
