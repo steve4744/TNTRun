@@ -45,3 +45,5 @@ permissions:
   tntrun.party:
     description: allow players to create and join TNTRun parties
     default: true
+libraries:
+  - org.apache.commons:commons-lang3:3.12.0
