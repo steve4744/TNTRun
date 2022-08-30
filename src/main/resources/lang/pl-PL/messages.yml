@@ -33,8 +33,8 @@ arenanofee: '&c Wymagana jest opłata w wysokości &6{FEE} &c, aby wejść na ar
 arenawaiting: '&6 Czeka na dołączenie graczy'
 playerscountinarena: '&6 Aktualna liczba graczy na arenie: {COUNT} gracz/y'
 limitreached: '&7 Arena jest pełna.'
-playerjoinedtoothers: '&c {RANK}&6{COLOR}{PLAYER} &7joined the arena (&6{PS}&7/&6{MPS}&7)'
-playerjoininvite: '&c{RANK}&6{COLOR}{PLAYER} &7has joined TNTRun arena &6{ARENA}&7, click to play'
+playerjoinedtoothers: '&c {RANK}&6{COLOR}{PLAYER} &7dołączył do areny (&6{PS}&7/&6{MPS}&7)'
+playerjoininvite: '&c{RANK}&6{COLOR}{PLAYER} &7dołączył do areny TNTRun &6{ARENA}&7, kliknij, aby zagrać'
 playerborderinvite: '&b---------------------------------------'
 playerclickinvite: Kliknij, aby dołączyć do {ARENA}
 playerjoinedasspectator: '&7 Dołączyłeś do areny &6{ARENA} &7jako widz'
@@ -79,7 +79,7 @@ leaderhead: '&7======[&6Tabela wyników TNTRun&7]======'
 resultshead: '&7============[&6TNTRun&7]============'
 leaderboard: '{POSITION}) &c{RANK}&b{COLOR}{PLAYER} &f: Wygrane &3{WINS}'
 leadersign: '&1{PLAYER} &4{WINS}'
-shopmoneyheader: '&fTNTRun Shop Account'
+shopmoneyheader: '&fKonto sklepu TNTRun'
 shopmoneybalance: '&5Twoje saldo wynosi &6{BAL}'
 statsdisabled: '&c Statystyki są obecnie wyłączone'
 helplobby: Teleportuj się do lobby
@@ -101,7 +101,7 @@ setupdellobby: Usuń globalne lobby
 setupcreate: Stwórz nową arenę
 setupconfigure: Otwórz menu, aby skonfigurować arenę
 setupbounds: Wyznacz granice areny
-setuploselevel: Set loselevel point at your feet
+setuploselevel: Ustaw loselevel na twoich stopach
 setupspawn: Ustaw punkt odrodzenia na arenie
 setupspectate: Ustaw punkt odradzania widza
 setupaddspawn: Ustaw dodatkowy punkt odradzania
@@ -134,14 +134,14 @@ setupenablekits: Włącz zestawy dla areny
 setupdisablekits: Wyłącz zestawy dla areny
 setupaddkit: Utwórz zestaw TNTRun
 setupdelkit: Usuń zestaw TNTRun
-setupp1: Set targeted block as first selection point
-setupp2: Set targeted block as second selection point
+setupp1: Ustaw wybrany blok jako pierwszy punkt zaznaczenia
+setupp2: Ustaw wybrany blok jako drugi punkt zaznaczenia
 setupclear: Wyczyść punkty wyboru
 setupwhitelist: Umieść na białej liście polecenie do użycia w grze
 setupresetstats: Usuń wszystkie statystyki TNTRun dla gracza
 setupresetrank: Usuń rangę gracza z pamięci podręcznej
-kitadd: '&7 The kit &6{KIT} &7has been created'
-kitdel: '&7 The kit &6{KIT} &7has been deleted'
+kitadd: '&7 Zestaw &6{KIT} &7został utworzony'
+kitdel: '&7 Zestaw &6{KIT} &7został usunięty'
 kitexists: '&c Określony zestaw już istnieje: &6{KIT}'
 kitnotexists: '&c Określony zestaw nie istnieje: &6{KIT}'
 partycreate: '&7 Drużyna utworzona'
@@ -159,4 +159,4 @@ partyban: '&c Zostałeś wyrzucony z drużyny'
 partyinparty: '&c Jesteś już w drużynie'
 partynotexist: '&c Wybrana drużyna nie istnieje'
 partynoinvite: '&c Nie masz zaproszenia do tej drużyny'
-partynotenabled: '&c TNTRun parties are not currently enabled'
+partynotenabled: '&c Party TNTRun nie są aktualnie włączone'
