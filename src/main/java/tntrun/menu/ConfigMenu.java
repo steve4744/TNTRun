@@ -32,7 +32,8 @@ public enum ConfigMenu {
 	REDSTONE(20),
 	GLOWSTONE_DUST(21),
 	OAK_SIGN(23),
-	DIAMOND(25);
+	DIAMOND(25),
+	ARROW(35);
 
 	private int slot;
 

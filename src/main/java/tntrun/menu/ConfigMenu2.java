@@ -15,37 +15,38 @@
  *
  */
 
-package tntrun.commands.setup.arena;
+package tntrun.menu;
 
-import org.bukkit.entity.Player;
+import java.util.Arrays;
 
-import tntrun.TNTRun;
-import tntrun.arena.Arena;
-import tntrun.commands.setup.CommandHandlerInterface;
-import tntrun.messages.Messages;
+public enum ConfigMenu2 {
 
-public class Configure implements CommandHandlerInterface{
+	RED_WOOL(4),
+	RED_CARPET(10),
+	WHITE_CARPET(11),
+	ORANGE_CARPET(12),
+	MAGENTA_CARPET(14),
+	LIGHT_BLUE_CARPET(15),
+	YELLOW_CARPET(16),
+	LIME_CARPET(19),
+	PINK_CARPET(20),
+	CYAN_CARPET(21),
+	BLACK_CARPET(23),
+	PURPLE_CARPET(24),
+	BLUE_CARPET(25),
+	ARROW(27);
 
-	private TNTRun plugin;
+	private int slot;
 
-	public Configure(TNTRun plugin) {
-		this.plugin = plugin;
+	ConfigMenu2(int slot) {
+		this.slot = slot;
 	}
 
-	@Override
-	public boolean handleCommand(Player player, String[] args) {
-		Arena arena = plugin.amanager.getArenaByName(args[0]);
-		if (arena != null) {
-			plugin.getMenus().buildConfigMenu(player, arena, 1);
-		} else {
-			Messages.sendMessage(player, Messages.arenanotexist.replace("{ARENA}", args[0]));
-			return false;
-		}
-		return true;
+	public int getSlot() {
+		return slot;
 	}
 
-	@Override
-	public int getMinArgsLength() {
-		return 1;
+	public static ConfigMenu2 getName(int slot){
+	    return Arrays.stream(values()).filter(value -> value.getSlot() == slot).findFirst().orElse(null);
 	}
 }

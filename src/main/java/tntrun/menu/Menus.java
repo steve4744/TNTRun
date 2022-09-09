@@ -128,15 +128,25 @@ public class Menus {
 	 *
 	 * @param player
 	 * @param arena
+	 * @param page number
 	 */
-	public void buildConfigMenu(Player player, Arena arena) {
+	public void buildConfigMenu(Player player, Arena arena, int page) {
 		final int size = 36;
-		Inventory inv = Bukkit.createInventory(player, size, "TNTRun setup - " + arena.getArenaName());
+		String title = "TNTRun setup {PAGE}/2 - ".replace("{PAGE}", String.valueOf(page)) + arena.getArenaName();
 
-		Stream.of(ConfigMenu.values()).forEach(item -> {
-			int slot = item.getSlot();
-			inv.setItem(slot, createConfigItem(Material.getMaterial(String.valueOf(item)), slot, arena));
-		});
+		Inventory inv = Bukkit.createInventory(player, size, title);
+
+		if (page == 1) {
+			Stream.of(ConfigMenu.values()).forEach(item -> {
+				int slot = item.getSlot();
+				inv.setItem(slot, createConfigItem(Material.getMaterial(String.valueOf(item)), slot, arena, page));
+			});
+		} else {
+			Stream.of(ConfigMenu2.values()).forEach(item -> {
+				int slot = item.getSlot();
+				inv.setItem(slot, createConfigItem(Material.getMaterial(String.valueOf(item)), slot, arena, page));
+			});
+		}
 
 		fillEmptySlots(inv, size);
 		player.openInventory(inv);
@@ -149,9 +159,10 @@ public class Menus {
 	 * @param material
 	 * @param slot
 	 * @param arena
+	 * @param page number
 	 * @return ItemStack
 	 */
-	private ItemStack createConfigItem(Material material, int slot, Arena arena) {
+	private ItemStack createConfigItem(Material material, int slot, Arena arena, int page) {
 		String done = ChatColor.GREEN + "Complete";
 		String todo = ChatColor.RED + "Not set";
 		String status = ChatColor.GOLD + "Status: ";
@@ -173,93 +184,145 @@ public class Menus {
 				lores.add(status + ChatColor.GREEN + (arena.getStatusManager().isArenaEnabled() ? "Enabled" : "Disabled"));
 				break;
 			case 10:
-				im.setDisplayName(ChatColor.GREEN + "Set global lobby");
-				if (showhelp) {
-					lores.add(ChatColor.GRAY + "Set the TNTRun lobby at your current location.");
-					lores.add(ChatColor.GRAY + "This is the lobby players will return to after the game.");
+				if (page == 1) {
+					im.setDisplayName(ChatColor.GREEN + "Set global lobby");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Set the TNTRun lobby at your current location.");
+						lores.add(ChatColor.GRAY + "This is the lobby players will return to after the game.");
+					}
+					lores.add(status + (plugin.getGlobalLobby().isLobbyLocationSet() ? done : todo));
+				} else {
+					
 				}
-				lores.add(status + (plugin.getGlobalLobby().isLobbyLocationSet() ? done : todo));
 				break;
 			case 11:
-				im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-				im.setDisplayName(ChatColor.GREEN + "Set arena bounds");
-				if (showhelp) {
-					lores.add(ChatColor.GRAY + "Set the corner points of a cuboid which");
-					lores.add(ChatColor.GRAY + "completely encloses the arena.");
+				if (page == 1) {
+					im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+					im.setDisplayName(ChatColor.GREEN + "Set arena bounds");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Set the corner points of a cuboid which");
+						lores.add(ChatColor.GRAY + "completely encloses the arena.");
+					}
+					lores.add(status + (arena.getStructureManager().isArenaBoundsSet() ? done : todo));
+				} else {
+					
 				}
-				lores.add(status + (arena.getStructureManager().isArenaBoundsSet() ? done : todo));
 				break;
 			case 12:
-				im.setDisplayName(ChatColor.GREEN + "Set lose level");
-				if (showhelp) {
-					lores.add(ChatColor.GRAY + "Set the point at which players lose to your");
-					lores.add(ChatColor.GRAY + "current Y location. You must be within");
-					lores.add(ChatColor.GRAY + "the arena bounds to set the lose level.");
+				if (page == 1) {
+					im.setDisplayName(ChatColor.GREEN + "Set lose level");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Set the point at which players lose to your");
+						lores.add(ChatColor.GRAY + "current Y location. You must be within");
+						lores.add(ChatColor.GRAY + "the arena bounds to set the lose level.");
+					}
+					lores.add(status + (arena.getStructureManager().getLoseLevel().isConfigured() ? done : todo));
+				} else {
+					
 				}
-				lores.add(status + (arena.getStructureManager().getLoseLevel().isConfigured() ? done : todo));
 				break;
 			case 14:
-				im.setDisplayName(ChatColor.GREEN + "Set arena spawn point");
-				if (showhelp) {
-					lores.add(ChatColor.GRAY + "Set the point that players joining the arena");
-					lores.add(ChatColor.GRAY + "will spawn to your current location.");
+				if (page == 1) {
+					im.setDisplayName(ChatColor.GREEN + "Set arena spawn point");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Set the point that players joining the arena");
+						lores.add(ChatColor.GRAY + "will spawn to your current location.");
+					}
+					lores.add(status + (arena.getStructureManager().isSpawnpointSet() ? done : todo));
+				} else {
+					
 				}
-				lores.add(status + (arena.getStructureManager().isSpawnpointSet() ? done : todo));
 				break;
 			case 15:
-				im.setDisplayName(ChatColor.GREEN + "Set spectator spawn point");
-				if (showhelp) {
-					lores.add(ChatColor.GRAY + "Set the point that spectators will spawn");
-					lores.add(ChatColor.GRAY + "to your current location.");
+				if (page == 1) {
+					im.setDisplayName(ChatColor.GREEN + "Set spectator spawn point");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Set the point that spectators will spawn");
+						lores.add(ChatColor.GRAY + "to your current location.");
+					}
+					lores.add(status + (arena.getStructureManager().isSpectatorSpawnSet() ? done : todo));
+				} else {
+					
 				}
-				lores.add(status + (arena.getStructureManager().isSpectatorSpawnSet() ? done : todo));
 				break;
 			case 16:
-				im.setDisplayName(ChatColor.GREEN + "Set teleport location");
-				if (showhelp) {
-					lores.add(ChatColor.GRAY + "When the game ends players will teleport to either");
-					lores.add(ChatColor.GRAY + "their previous location or to the lobby.");
-					lores.add(ChatColor.GRAY + "Click to toggle between LOBBY and PREVIOUS location.");
+				if (page == 1) {
+					im.setDisplayName(ChatColor.GREEN + "Set teleport location");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "When the game ends players will teleport to either");
+						lores.add(ChatColor.GRAY + "their previous location or to the lobby.");
+						lores.add(ChatColor.GRAY + "Click to toggle between LOBBY and PREVIOUS location.");
+					}
+					lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getTeleportDestination()));
+				} else {
+					
 				}
-				lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getTeleportDestination()));
 				break;
 			case 19:
-				im.setDisplayName(ChatColor.GREEN + "Set damage (PVP)");
-				if (showhelp) {
-					lores.add(ChatColor.GRAY + "Enable or disable PVP in the arena by setting");
-					lores.add(ChatColor.GRAY + "the damage indicator.");
-					lores.add(ChatColor.GRAY + "Click to toggle between YES, NO and ZERO.");
+				if (page == 1) {
+					im.setDisplayName(ChatColor.GREEN + "Set damage (PVP)");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Enable or disable PVP in the arena by setting");
+						lores.add(ChatColor.GRAY + "the damage indicator.");
+						lores.add(ChatColor.GRAY + "Click to toggle between YES, NO and ZERO.");
+					}
+					lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getDamageEnabled()));
+				} else {
+					
 				}
-				lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getDamageEnabled()));
 				break;
 			case 20:
-				im.setDisplayName(ChatColor.GREEN + "Set the minimum number of players");
-				if (showhelp) {
-					lores.add(ChatColor.GRAY + "Left click to increase, right click to decrease.");
+				if (page == 1) {
+					im.setDisplayName(ChatColor.GREEN + "Set the minimum number of players");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Left click to increase, right click to decrease.");
+					}
+					lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getMinPlayers()));
+					is.setAmount(arena.getStructureManager().getMinPlayers());
+				} else {
+					
 				}
-				lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getMinPlayers()));
-				is.setAmount(arena.getStructureManager().getMinPlayers());
 				break;
 			case 21:
-				im.setDisplayName(ChatColor.GREEN + "Set the maximum number of players");
-				if (showhelp) {
-					lores.add(ChatColor.GRAY + "Left click to increase, right click to decrease.");
+				if (page == 1) {
+					im.setDisplayName(ChatColor.GREEN + "Set the maximum number of players");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Left click to increase, right click to decrease.");
+					}
+					lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getMaxPlayers()));
+					is.setAmount(arena.getStructureManager().getMaxPlayers());
+				} else {
+					
 				}
-				lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getMaxPlayers()));
-				is.setAmount(arena.getStructureManager().getMaxPlayers());
 				break;
 			case 23:
-				im.setDisplayName(ChatColor.GREEN + "Create a join sign");
-				if (showhelp) {
-					lores.add(ChatColor.GRAY + "Target a sign and click to create a join sign.");
+				if (page == 1) {
+					im.setDisplayName(ChatColor.GREEN + "Create a join sign");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Target a sign and click to create a join sign.");
+					}
+				} else {
+					
 				}
 				break;
+			case 24:
+				break;
 			case 25:
-				im.setDisplayName(ChatColor.GREEN + "Finish configuring the arena");
-				if (showhelp) {
-					lores.add(ChatColor.GRAY + "Save the settings and enable the arena.");
+				if (page == 1) {
+					im.setDisplayName(ChatColor.GREEN + "Finish configuring the arena");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Save the settings and enable the arena.");
+					}
+					lores.add(status + (arena.getStructureManager().isArenaFinished() ? done : todo));
+				} else {
+					
 				}
-				lores.add(status + (arena.getStructureManager().isArenaFinished() ? done : todo));
+				break;
+			case 27:
+				im.setDisplayName(ChatColor.GREEN + "<- Back");
+				break;
+			case 35:
+				im.setDisplayName(ChatColor.GREEN + "Next ->");
 		}
 
 		im.setLore(lores);
@@ -274,10 +337,11 @@ public class Menus {
 	 * @param inv
 	 * @param slot
 	 * @param arena
+	 * @param page number
 	 */
-	public void updateConfigItem(Inventory inv, int slot, Arena arena) {
-		Material material = Material.getMaterial(String.valueOf(ConfigMenu.getName(slot)));
-		inv.setItem(slot, createConfigItem(material, slot, arena));
+	public void updateConfigItem(Inventory inv, int slot, Arena arena, int page) {
+		String itemName = (page == 1) ? String.valueOf(ConfigMenu.getName(slot)) : String.valueOf(ConfigMenu2.getName(slot));
+		inv.setItem(slot, createConfigItem(Material.getMaterial(itemName), slot, arena, page));
 	}
 
 	/**

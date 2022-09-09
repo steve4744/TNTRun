@@ -129,80 +129,115 @@ public class MenuHandler implements Listener {
 
 		Player player = (Player) e.getWhoClicked();
 		boolean leftclick = e.getClick().isLeftClick();
+		int page = Character.getNumericValue(title.charAt(title.indexOf("/") - 1));
 		int slot = e.getRawSlot();
 		switch (slot) {
 			case 4:
 				String status = arena.getStatusManager().isArenaEnabled() ? "Enabled" : "Disabled";
 				status = status.equalsIgnoreCase("Enabled") ? "disable " : "enable ";
 				Bukkit.dispatchCommand(player, "trsetup " + status + arenaname);
-				plugin.getMenus().updateConfigItem(inv, slot, arena);
+				plugin.getMenus().updateConfigItem(inv, slot, arena, page);
 				player.updateInventory();
 				break;
 			case 10:
-				Bukkit.dispatchCommand(player, "trsetup setlobby");
-				player.closeInventory();
+				if (page == 1) {
+					Bukkit.dispatchCommand(player, "trsetup setlobby");
+					player.closeInventory();
+				}
 				break;
 			case 11:
-				Bukkit.dispatchCommand(player, "trsetup setarena " + arenaname);
-				player.closeInventory();
+				if (page == 1) {
+					Bukkit.dispatchCommand(player, "trsetup setarena " + arenaname);
+					player.closeInventory();
+				}
 				break;
 			case 12:
-				Bukkit.dispatchCommand(player, "trsetup setloselevel " + arenaname);
-				player.closeInventory();
+				if (page == 1) {
+					Bukkit.dispatchCommand(player, "trsetup setloselevel " + arenaname);
+					player.closeInventory();
+				}
 				break;
 			case 14:
-				Bukkit.dispatchCommand(player, "trsetup setspawn " + arenaname);
-				player.closeInventory();
+				if (page == 1) {
+					Bukkit.dispatchCommand(player, "trsetup setspawn " + arenaname);
+					player.closeInventory();
+				}
 				break;
 			case 15:
-				Bukkit.dispatchCommand(player, "trsetup setspectate " + arenaname);
-				player.closeInventory();
+				if (page == 1) {
+					Bukkit.dispatchCommand(player, "trsetup setspectate " + arenaname);
+					player.closeInventory();
+				}
 				break;
 			case 16:
-				String dest = arena.getStructureManager().getTeleportDestination().toString();
-				dest = dest.equalsIgnoreCase("LOBBY") ? " PREVIOUS" : " LOBBY";
-				Bukkit.dispatchCommand(player, "trsetup setteleport " + arenaname + dest);
-				plugin.getMenus().updateConfigItem(inv, slot, arena);
-				player.updateInventory();
+				if (page == 1) {
+					String dest = arena.getStructureManager().getTeleportDestination().toString();
+					dest = dest.equalsIgnoreCase("LOBBY") ? " PREVIOUS" : " LOBBY";
+					Bukkit.dispatchCommand(player, "trsetup setteleport " + arenaname + dest);
+					plugin.getMenus().updateConfigItem(inv, slot, arena, page);
+					player.updateInventory();
+				}
 				break;
 			case 19:
-				String damage = arena.getStructureManager().getDamageEnabled().toString();
-				if (damage.equalsIgnoreCase("NO")) {
-					damage = " YES";
-				} else if (damage.equalsIgnoreCase("YES")) {
-					damage = " ZERO";
-				} else {
-					damage = " NO";
+				if (page == 1) {
+					String damage = arena.getStructureManager().getDamageEnabled().toString();
+					if (damage.equalsIgnoreCase("NO")) {
+						damage = " YES";
+					} else if (damage.equalsIgnoreCase("YES")) {
+						damage = " ZERO";
+					} else {
+						damage = " NO";
+					}
+					Bukkit.dispatchCommand(player, "trsetup setdamage " + arenaname + damage);
+					plugin.getMenus().updateConfigItem(inv, slot, arena, page);
+					player.updateInventory();
 				}
-				Bukkit.dispatchCommand(player, "trsetup setdamage " + arenaname + damage);
-				plugin.getMenus().updateConfigItem(inv, slot, arena);
-				player.updateInventory();
 				break;
 			case 20:
-				int minplayers = leftclick ? (is.getAmount() + 1) : (is.getAmount() - 1);
-				Bukkit.dispatchCommand(player, "trsetup setminplayers " + arenaname + " " + minplayers);
-				plugin.getMenus().updateConfigItem(inv, slot, arena);
-				player.updateInventory();
+				if (page == 1) {
+					int minplayers = leftclick ? (is.getAmount() + 1) : (is.getAmount() - 1);
+					Bukkit.dispatchCommand(player, "trsetup setminplayers " + arenaname + " " + minplayers);
+					plugin.getMenus().updateConfigItem(inv, slot, arena, page);
+					player.updateInventory();
+				}
 				break;
 			case 21:
-				int maxplayers = leftclick ? (is.getAmount() + 1) : (is.getAmount() - 1);
-				Bukkit.dispatchCommand(player, "trsetup setmaxplayers " + arenaname + " " + maxplayers);
-				plugin.getMenus().updateConfigItem(inv, slot, arena);
-				player.updateInventory();
+				if (page == 1) {
+					int maxplayers = leftclick ? (is.getAmount() + 1) : (is.getAmount() - 1);
+					Bukkit.dispatchCommand(player, "trsetup setmaxplayers " + arenaname + " " + maxplayers);
+					plugin.getMenus().updateConfigItem(inv, slot, arena, page);
+					player.updateInventory();
+				}
 				break;
 			case 23:
-				Block block = player.getTargetBlock(null, 5);
-				if (block.getState() instanceof Sign) {
-					plugin.getSignEditor().createJoinSign(block, arenaname);
-					Messages.sendMessage(player, Messages.signcreate);
-				} else {
-					Messages.sendMessage(player, Messages.signfail);
+				if (page == 1) {
+					Block block = player.getTargetBlock(null, 5);
+					if (block.getState() instanceof Sign) {
+						plugin.getSignEditor().createJoinSign(block, arenaname);
+						Messages.sendMessage(player, Messages.signcreate);
+					} else {
+						Messages.sendMessage(player, Messages.signfail);
+					}
+					player.closeInventory();
 				}
-				player.closeInventory();
 				break;
 			case 25:
-				Bukkit.dispatchCommand(player, "trsetup finish " + arenaname);
-				player.closeInventory();
+				if (page == 1) {
+					Bukkit.dispatchCommand(player, "trsetup finish " + arenaname);
+					player.closeInventory();
+				}
+				break;
+			case 27:
+				if (page == 2) {
+					player.closeInventory();
+					plugin.getMenus().buildConfigMenu(player, arena, 1);
+				}
+				break;
+			case 35:
+				if (page == 1) {
+					player.closeInventory();
+					plugin.getMenus().buildConfigMenu(player, arena, 2);
+				}
 		}
 	}
 
