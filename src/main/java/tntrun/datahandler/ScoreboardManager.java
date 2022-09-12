@@ -77,8 +77,6 @@ public class ScoreboardManager {
 			team.addEntry(player.getName());
 		}
 		scoreboardMap.put(player.getName(), scoreboard);
-		//TODO should we set this here?
-		player.setScoreboard(scoreboard);
 		return scoreboard;
 	}
 
@@ -108,16 +106,10 @@ public class ScoreboardManager {
 	}
 
 	public void storePrejoinScoreboard(Player player) {
-		if (!plugin.getConfig().getBoolean("special.UseScoreboard")) {
-			return;
-		}
 		prejoinScoreboards.putIfAbsent(player.getName(), player.getScoreboard());
 	}
 
 	public void restorePrejoinScoreboard(Player player) {
-		if (!plugin.getConfig().getBoolean("special.UseScoreboard")) {
-			return;
-		}
 		if (prejoinScoreboards.get(player.getName()) != null) {
 			player.setScoreboard(prejoinScoreboards.remove(player.getName()));
 		}

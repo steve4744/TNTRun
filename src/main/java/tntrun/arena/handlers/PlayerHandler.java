@@ -366,7 +366,9 @@ public class PlayerHandler {
 				arena.getGameHandler().count = arena.getStructureManager().getCountdown();
 			}
 			if (!arena.getStatusManager().isArenaRunning() && !arena.getStatusManager().isArenaRegenerating()) {
-				arena.getScoreboardHandler().updateWaitingScoreboard(player);
+				if(plugin.getConfig().getBoolean("special.UseScoreboard")) {
+					arena.getScoreboardHandler().updateWaitingScoreboard(player);
+				}
 			}
 		}
 
@@ -535,7 +537,9 @@ public class PlayerHandler {
 		plugin.getPData().restorePlayerInventory(player);
 		plugin.getPData().restorePlayerLevel(player);
 		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 80, 80, true));
-		plugin.getScoreboardManager().restorePrejoinScoreboard(player);
+		if (plugin.getConfig().getBoolean("special.UseScoreboard")) {
+			plugin.getScoreboardManager().restorePrejoinScoreboard(player);
+		}
 
 		if (plugin.isBungeecord() && plugin.getConfig().getBoolean("bungeecord.teleporttohub", true)) {
 			plugin.getBungeeHandler().connectToHub(player);
@@ -899,7 +903,9 @@ public class PlayerHandler {
 		plugin.getPData().storePlayerPotionEffects(player);
 		plugin.getPData().storePlayerHunger(player);
 		player.updateInventory();
-		plugin.getScoreboardManager().storePrejoinScoreboard(player);
+		if (plugin.getConfig().getBoolean("special.UseScoreboard")) {
+			plugin.getScoreboardManager().storePrejoinScoreboard(player);
+		}
 	}
 
 	private String getFormattedMessage(Player player, String message) {
