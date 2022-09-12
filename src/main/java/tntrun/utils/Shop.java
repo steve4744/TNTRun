@@ -139,11 +139,10 @@ public class Shop {
 		} else {
 			Arena arena = plugin.amanager.getPlayerArena(player.getName());
 			arena.getPlayerHandler().incrementDoubleJumps(player, quantity);
-			if(!plugin.getConfig().getBoolean("special.UseScoreboard")) {
-				return;
-			}
 			if (!arena.getStatusManager().isArenaStarting() && plugin.getConfig().getBoolean("scoreboard.displaydoublejumps")) {
-				arena.getScoreboardHandler().updateWaitingScoreboard(player);
+				if(plugin.getConfig().getBoolean("special.UseScoreboard")) {
+					arena.getScoreboardHandler().updateWaitingScoreboard(player);
+				}
 			}
 		}
 		Inventory inv = player.getOpenInventory().getTopInventory();
