@@ -446,7 +446,7 @@ public class PlayerHandler {
 	public void leavePlayer(Player player, String msgtoplayer, String msgtoarenaplayers) {
 		boolean spectator = arena.getPlayersManager().isSpectator(player.getName());
 		if (spectator) {
-			arena.getPlayersManager().removeSpecator(player.getName());
+			arena.getPlayersManager().removeSpectator(player.getName());
 			for (Player oplayer : Bukkit.getOnlinePlayers()) {
 				oplayer.showPlayer(plugin, player);
 			}

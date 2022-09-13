@@ -72,7 +72,7 @@ public class PlayersManager {
 		spectators.put(player.getName(), player);
 	}
 
-	public void removeSpecator(String name) {
+	public void removeSpectator(String name) {
 		spectators.remove(name);
 	}
 
