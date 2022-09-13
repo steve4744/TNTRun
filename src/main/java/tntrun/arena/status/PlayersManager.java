@@ -17,10 +17,12 @@
 
 package tntrun.arena.status;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 import org.bukkit.entity.Player;
 
@@ -28,6 +30,7 @@ public class PlayersManager {
 
 	private HashMap<String, Player> players = new HashMap<>();
 	private HashMap<String, Player> spectators = new HashMap<>();
+	private List<String> spectatoronly = new ArrayList<>();
 	private String winner;
 
 	public boolean isInArena(String name) {
@@ -87,5 +90,19 @@ public class PlayersManager {
 
 	public boolean isWinner(String playername) {
 		return playername.equals(winner);
+	}
+
+	public void addSpectatorOnly(String name) {
+		if (!isSpectatorOnly(name)) {
+			spectatoronly.add(name);
+		}
+	}
+
+	public void removeSpectatorOnly(String name) {
+		spectatoronly.removeIf(name::equals);
+	}
+
+	public boolean isSpectatorOnly(String name) {
+		return spectatoronly.contains(name);
 	}
 }

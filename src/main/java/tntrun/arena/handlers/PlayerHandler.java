@@ -350,6 +350,7 @@ public class PlayerHandler {
 		if (!arena.getPlayersManager().getPlayers().contains(player)) {
 			isSpectatorOnly = true;
 			plugin.getPData().storePlayerLocation(player);
+			arena.getPlayersManager().addSpectatorOnly(player.getName());
 		}
 
 		player.teleport(arena.getStructureManager().getSpectatorSpawn());
@@ -521,6 +522,7 @@ public class PlayerHandler {
 		resetDoubleJumps(player);
 		updateWinStreak(player, winner);
 		arena.getPlayersManager().remove(player);
+		arena.getPlayersManager().removeSpectatorOnly(player.getName());
 		clearPotionEffects(player);
 		if (arena.getStructureManager().hasCommandOnStop()) {
 			arena.getGameHandler().executeCommandOnStop(player);
@@ -829,10 +831,11 @@ public class PlayerHandler {
 	}
 
 	private void updateWinStreak(Player player, boolean winner) {
-		if (arena.getGameHandler().isStatsActive()) {
-			int amount = winner ? plugin.getPData().getWinStreak(player) + 1 : 0;
-			plugin.getPData().setWinStreak(player, amount);
+		if (arena.getPlayersManager().isSpectatorOnly(player.getName()) || !arena.getGameHandler().isStatsActive()) {
+			return;
 		}
+		int amount = winner ? plugin.getPData().getWinStreak(player) + 1 : 0;
+		plugin.getPData().setWinStreak(player, amount);
 	}
 
 	/**
