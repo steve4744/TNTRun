@@ -3,15 +3,15 @@ trprefix: '&7[&6TNTRun_reloaded&7]'
 menutitle: '&1Arene Tntrun_reloaded'
 menuarenaname: '&a{ARENA}'
 menutext: '&5Giocatori: &6{PS}/{MPS}'
-menufee: 'Quota di adesione'
+menufee: '&5Quota di adesione: &6{FEE}'
 menupvp: '&5PVP: &6 Abilitato'
 menutracker: '&1TNTRun tracker giocatore'
-nopermission: '&7Non hai i permessi per eseguire questa azione'
+nopermission: '&c Non hai i permessi per eseguire questa azione'
 nolobby: '&c La lobby globale non è impostata, esegui &6/trsetup setlobby'
-lobbyunloaded: 'Il mondo della lobby non è stato caricato o non esiste'
+lobbyunloaded: '&c Il mondo della lobby non è stato caricato o non esiste'
 teleporttolobby: '&7 Teletrasportato nella lobby'
 arenanotexist: '&c L''Arena &6{ARENA}&c non esiste'
-noarenas: 'Non ci sono arene disponibili a cui unirsi'
+noarenas: '&c Non ci sono arene disponibili a cui unirsi'
 arenanotdisabled: '&c Disabilita arena: &6/trsetup disattiva {ARENA}'
 arenanospectatorspawn: '&c Nessun spawn spettatore impostato per l''arena &6{ARENA}'
 availablearenas: '&7 Arene disponibili: {COUNT}'
@@ -48,8 +48,8 @@ arenastarted: '&7 Arena iniziata. Il limite di tempo è di {TIMELIMIT} secondi'
 arenanolimit: '&7 Arena iniziata. Nessun limite di tempo'
 arenacountdown: '&7 La partità inizia tra {COUNTDOWN} secondi'
 arenatimeout: '&7 Tempo scaduto. Fine della partita'
-playerwontoplayer: 'Hai vinto il gioco!'
-playerfinishedtestmode: '&7 Test game completato!'
+playerwontoplayer: '&7 Hai vinto il gioco!'
+playerfinishedtestmode: '&7Partita di Prova completata!'
 playerlosttoplayer: '&7 Hai perso la partita'
 playerlosttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7ha perso la partita (&6{PS}&7/&6{MPS}&7)'
 playerfirstplace: '&a1° posto: &f{RANK}{COLOR}{PLAYER}'
@@ -104,7 +104,7 @@ setupbounds: Imposta limiti dell'arena
 setuploselevel: Imposta il punto di perdita sotto ai tuoi piedi
 setupspawn: Metti lo spawn dell'arena ai tuoi piedi
 setupspectate: Imposta il punto di spawn dello spettatore
-setupaddspawn: Metti lo spawn dell'arena ai tuoi piedi
+setupaddspawn: Imposta il punto di rigenerazione dell'arena ai tuoi piedi
 setupdelspawns: Elimina tutti i punti di spawn creati con il comando addspawn
 setupfinish: Termina l'arena e salva
 setupdelspectate: Elimina spawn dello spettatore per l'arena corrente
