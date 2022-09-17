@@ -260,19 +260,6 @@ public class Menus {
 				break;
 			case 19:
 				if (page == 1) {
-					im.setDisplayName(ChatColor.GREEN + "Set damage (PVP)");
-					if (showhelp) {
-						lores.add(ChatColor.GRAY + "Enable or disable PVP in the arena by setting");
-						lores.add(ChatColor.GRAY + "the damage indicator.");
-						lores.add(ChatColor.GRAY + "Click to toggle between YES, NO and ZERO.");
-					}
-					lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getDamageEnabled()));
-				} else {
-					
-				}
-				break;
-			case 20:
-				if (page == 1) {
 					im.setDisplayName(ChatColor.GREEN + "Set the minimum number of players");
 					if (showhelp) {
 						lores.add(ChatColor.GRAY + "Left click to increase, right click to decrease.");
@@ -283,7 +270,7 @@ public class Menus {
 					
 				}
 				break;
-			case 21:
+			case 20:
 				if (page == 1) {
 					im.setDisplayName(ChatColor.GREEN + "Set the maximum number of players");
 					if (showhelp) {
@@ -293,6 +280,26 @@ public class Menus {
 					is.setAmount(arena.getStructureManager().getMaxPlayers());
 				} else {
 					
+				}
+				break;
+			case 21:
+				if (page == 1) {
+					im.setDisplayName(ChatColor.GREEN + "Set vote percentage");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Determine the votes needed to force-start");
+						lores.add(ChatColor.GRAY + "the arena with < the minimum players.");
+						lores.add(ChatColor.GRAY + "0.6 (60%) & minplayers=3, 2 votes (66%) needed.");
+						lores.add(ChatColor.GRAY + "Left click to increase, right click to decrease.");
+					}
+					lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getVotePercent()));
+				} else {
+					im.setDisplayName(ChatColor.GREEN + "Set damage (PVP)");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Enable or disable PVP in the arena by setting");
+						lores.add(ChatColor.GRAY + "the damage indicator.");
+						lores.add(ChatColor.GRAY + "Click to toggle between YES, NO and ZERO.");
+					}
+					lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getDamageEnabled()));
 				}
 				break;
 			case 23:

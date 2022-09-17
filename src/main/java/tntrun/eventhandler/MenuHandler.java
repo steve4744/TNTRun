@@ -33,6 +33,7 @@ import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.messages.Messages;
 import tntrun.utils.FormattingCodesParser;
+import tntrun.utils.Utils;
 
 public class MenuHandler implements Listener {
 
@@ -131,6 +132,7 @@ public class MenuHandler implements Listener {
 		boolean leftclick = e.getClick().isLeftClick();
 		int page = Character.getNumericValue(title.charAt(title.indexOf("/") - 1));
 		int slot = e.getRawSlot();
+		String cmd = "trsetup ";
 		switch (slot) {
 			case 4:
 				String status = arena.getStatusManager().isArenaEnabled() ? "Enabled" : "Disabled";
@@ -180,6 +182,26 @@ public class MenuHandler implements Listener {
 				break;
 			case 19:
 				if (page == 1) {
+					int minplayers = leftclick ? (is.getAmount() + 1) : (is.getAmount() - 1);
+					Bukkit.dispatchCommand(player, "trsetup setminplayers " + arenaname + " " + minplayers);
+					plugin.getMenus().updateConfigItem(inv, slot, arena, page);
+					player.updateInventory();
+				}
+				break;
+			case 20:
+				if (page == 1) {
+					int maxplayers = leftclick ? (is.getAmount() + 1) : (is.getAmount() - 1);
+					Bukkit.dispatchCommand(player, "trsetup setmaxplayers " + arenaname + " " + maxplayers);
+					plugin.getMenus().updateConfigItem(inv, slot, arena, page);
+					player.updateInventory();
+				}
+				break;
+			case 21:
+				if (page == 1) {
+					double percent = leftclick ? (arena.getStructureManager().getVotePercent() + 0.05) :
+								(arena.getStructureManager().getVotePercent() - 0.05);
+					cmd += "setvotepercent " + arenaname + " " + Utils.getDecimalFormat(String.valueOf(percent));
+				} else {
 					String damage = arena.getStructureManager().getDamageEnabled().toString();
 					if (damage.equalsIgnoreCase("NO")) {
 						damage = " YES";
@@ -188,26 +210,11 @@ public class MenuHandler implements Listener {
 					} else {
 						damage = " NO";
 					}
-					Bukkit.dispatchCommand(player, "trsetup setdamage " + arenaname + damage);
-					plugin.getMenus().updateConfigItem(inv, slot, arena, page);
-					player.updateInventory();
+					cmd += "setdamage " + arenaname + damage;
 				}
-				break;
-			case 20:
-				if (page == 1) {
-					int minplayers = leftclick ? (is.getAmount() + 1) : (is.getAmount() - 1);
-					Bukkit.dispatchCommand(player, "trsetup setminplayers " + arenaname + " " + minplayers);
-					plugin.getMenus().updateConfigItem(inv, slot, arena, page);
-					player.updateInventory();
-				}
-				break;
-			case 21:
-				if (page == 1) {
-					int maxplayers = leftclick ? (is.getAmount() + 1) : (is.getAmount() - 1);
-					Bukkit.dispatchCommand(player, "trsetup setmaxplayers " + arenaname + " " + maxplayers);
-					plugin.getMenus().updateConfigItem(inv, slot, arena, page);
-					player.updateInventory();
-				}
+				Bukkit.dispatchCommand(player, cmd);
+				plugin.getMenus().updateConfigItem(inv, slot, arena, page);
+				player.updateInventory();
 				break;
 			case 23:
 				if (page == 1) {

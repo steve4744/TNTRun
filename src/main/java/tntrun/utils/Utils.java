@@ -252,13 +252,18 @@ public class Utils {
 		return TNTRun.getInstance().getConfig().getBoolean("debug", false);
 	}
 
-	public static String getFormattedCurrency(String amount) {
+	public static String getDecimalFormat(String amount) {
 		String formattedAmount = amount;
 		if (!isNumber(amount)) {
 			DecimalFormat df = new DecimalFormat("0.00");
 			formattedAmount = (amount.endsWith(".00") || amount.endsWith(".0")) ? amount.split("\\.")[0] : df.format(Double.valueOf(amount));
 		}
-		return TNTRun.getInstance().getConfig().getString("currency.prefix") + formattedAmount + TNTRun.getInstance().getConfig().getString("currency.suffix");
+		return formattedAmount;
+	}
+
+	public static String getFormattedCurrency(String amount) {
+		return TNTRun.getInstance().getConfig().getString("currency.prefix") + getDecimalFormat(amount) +
+				TNTRun.getInstance().getConfig().getString("currency.suffix");
 	}
 
 	/**
