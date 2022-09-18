@@ -321,7 +321,7 @@ public class Menus {
 						lores.add(ChatColor.GRAY + "Left click to increase, right click to decrease.");
 					}
 					lores.add(status + arena.getStructureManager().getVotePercent() + ChatColor.GOLD +
-							"  Votes Required: " + ChatColor.GREEN + arena.getScoreboardHandler().getVotesRequired(arena));
+							"  Votes Required: " + ChatColor.GREEN + arena.getPlayerHandler().getVotesRequired(arena));
 				} else {
 					im.setDisplayName(ChatColor.GREEN + "Set damage (PVP)");
 					if (showhelp) {

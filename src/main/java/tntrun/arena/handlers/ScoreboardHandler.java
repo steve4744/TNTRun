@@ -61,7 +61,7 @@ public class ScoreboardHandler {
 				s = s.replace("{PS}", arena.getPlayersManager().getPlayersCount() + "");
 				s = s.replace("{MPS}", arena.getStructureManager().getMaxPlayers() + "");
 				s = s.replace("{COUNT}", arena.getGameHandler().count + "");
-				s = s.replace("{VOTES}", getVotesRequired(arena) + "");
+				s = s.replace("{VOTES}", arena.getPlayerHandler().getVotesRequired(arena) + "");
 				s = s.replace("{DJ}", arena.getPlayerHandler().getDoubleJumps(player) + "");
 				s = plugin.getScoreboardManager().getPlaceholderString(s, player);
 				o.getScore(s).setScore(size);
@@ -72,14 +72,6 @@ public class ScoreboardHandler {
 		} catch (NullPointerException ex) {
 
 		}
-	}
-
-	public int getVotesRequired(Arena arena) {
-		int minPlayers = arena.getStructureManager().getMinPlayers();
-		double votePercent = arena.getStructureManager().getVotePercent();
-		int votesCast = arena.getPlayerHandler().getVotesCast();
-
-		return (int) (Math.ceil(minPlayers * votePercent) - votesCast);
 	}
 
 	public void removeScoreboard(Player player) {

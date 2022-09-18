@@ -714,6 +714,12 @@ public class PlayerHandler {
 		return votes.size();
 	}
 
+	public int getVotesRequired(Arena arena) {
+		int minPlayers = arena.getStructureManager().getMinPlayers();
+		double votePercent = arena.getStructureManager().getVotePercent();
+		return (int) (Math.ceil(minPlayers * votePercent) - getVotesCast());
+	}
+
 	public void clearPotionEffects(Player player) {
 		for (PotionEffect effect : player.getActivePotionEffects()) {
 			player.removePotionEffect(effect.getType());
