@@ -382,6 +382,14 @@ public class StructureManager {
 		this.countdown = countdown;
 	}
 
+	public void setStartVisibleCountdown(int start) {
+		this.startVisibleCountdown = start;
+	}
+
+	public void toggleTestMode() {
+		this.testmode = !testmode;
+	}
+
 	public void setTeleportDestination(TeleportDestination teleportDest) {
 		this.teleportDest = teleportDest;
 	}

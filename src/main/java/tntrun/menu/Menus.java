@@ -163,9 +163,9 @@ public class Menus {
 	 * @return ItemStack
 	 */
 	private ItemStack createConfigItem(Material material, int slot, Arena arena, int page) {
-		String done = ChatColor.GREEN + "Complete";
+		String done = "Complete";
 		String todo = ChatColor.RED + "Not set";
-		String status = ChatColor.GOLD + "Status: ";
+		String status = ChatColor.GOLD + "Status: " + ChatColor.GREEN;
 		List<String> lores = new ArrayList<>();
 		boolean showhelp = plugin.getConfig().getBoolean("configmenu.lore", true);
 
@@ -181,7 +181,7 @@ public class Menus {
 				if (showhelp) {
 					lores.add(ChatColor.GRAY + "Click to Enable or Disable the arena.");
 				}
-				lores.add(status + ChatColor.GREEN + (arena.getStatusManager().isArenaEnabled() ? "Enabled" : "Disabled"));
+				lores.add(status + (arena.getStatusManager().isArenaEnabled() ? "Enabled" : "Disabled"));
 				break;
 			case 10:
 				if (page == 1) {
@@ -192,7 +192,11 @@ public class Menus {
 					}
 					lores.add(status + (plugin.getGlobalLobby().isLobbyLocationSet() ? done : todo));
 				} else {
-					
+					im.setDisplayName(ChatColor.GREEN + "Set arena countdown");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Left click to increase, right click to decrease.");
+					}
+					lores.add(status + arena.getStructureManager().getCountdown());
 				}
 				break;
 			case 11:
@@ -205,7 +209,11 @@ public class Menus {
 					}
 					lores.add(status + (arena.getStructureManager().isArenaBoundsSet() ? done : todo));
 				} else {
-					
+					im.setDisplayName(ChatColor.GREEN + "Set arena time limit");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Left click to increase, right click to decrease.");
+					}
+					lores.add(status + arena.getStructureManager().getTimeLimit());
 				}
 				break;
 			case 12:
@@ -218,7 +226,13 @@ public class Menus {
 					}
 					lores.add(status + (arena.getStructureManager().getLoseLevel().isConfigured() ? done : todo));
 				} else {
-					
+					im.setDisplayName(ChatColor.GREEN + "Set start time of visible countdown");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Set the time at which the countdown is");
+						lores.add(ChatColor.GRAY + "displayed continuously on the screen.");
+						lores.add(ChatColor.GRAY + "Left click to increase, right click to decrease.");
+					}
+					lores.add(status + arena.getStructureManager().getStartVisibleCountdown());
 				}
 				break;
 			case 14:
@@ -230,7 +244,11 @@ public class Menus {
 					}
 					lores.add(status + (arena.getStructureManager().isSpawnpointSet() ? done : todo));
 				} else {
-					
+					im.setDisplayName(ChatColor.GREEN + "Set test mode status");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Click to enable or disable test mode.");
+					}
+					lores.add(status + (arena.getStructureManager().isTestMode() ? "Enabled" : "Disabled"));
 				}
 				break;
 			case 15:
@@ -242,7 +260,13 @@ public class Menus {
 					}
 					lores.add(status + (arena.getStructureManager().isSpectatorSpawnSet() ? done : todo));
 				} else {
-					
+					im.setDisplayName(ChatColor.GREEN + "Set gameleveldestroydelay");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Set the time before a block is broken after being");
+						lores.add(ChatColor.GRAY + "stepped on by a player (default 8 ticks).");
+						lores.add(ChatColor.GRAY + "Left click to increase, right click to decrease.");
+					}
+					lores.add(status + arena.getStructureManager().getGameLevelDestroyDelay());
 				}
 				break;
 			case 16:
@@ -253,9 +277,15 @@ public class Menus {
 						lores.add(ChatColor.GRAY + "their previous location or to the lobby.");
 						lores.add(ChatColor.GRAY + "Click to toggle between LOBBY and PREVIOUS location.");
 					}
-					lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getTeleportDestination()));
+					lores.add(status + arena.getStructureManager().getTeleportDestination());
 				} else {
-					
+					im.setDisplayName(ChatColor.GREEN + "Set regeneration delay");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Set the time allowed for regeneration before players");
+						lores.add(ChatColor.GRAY + "are allowed to re-join the arena (default 60 ticks).");
+						lores.add(ChatColor.GRAY + "Left click to increase, right click to decrease.");
+					}
+					lores.add(status + arena.getStructureManager().getRegenerationDelay());
 				}
 				break;
 			case 19:
@@ -264,7 +294,7 @@ public class Menus {
 					if (showhelp) {
 						lores.add(ChatColor.GRAY + "Left click to increase, right click to decrease.");
 					}
-					lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getMinPlayers()));
+					lores.add(status + arena.getStructureManager().getMinPlayers());
 					is.setAmount(arena.getStructureManager().getMinPlayers());
 				} else {
 					
@@ -276,7 +306,7 @@ public class Menus {
 					if (showhelp) {
 						lores.add(ChatColor.GRAY + "Left click to increase, right click to decrease.");
 					}
-					lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getMaxPlayers()));
+					lores.add(status + arena.getStructureManager().getMaxPlayers());
 					is.setAmount(arena.getStructureManager().getMaxPlayers());
 				} else {
 					
@@ -288,10 +318,10 @@ public class Menus {
 					if (showhelp) {
 						lores.add(ChatColor.GRAY + "Determine the votes needed to force-start");
 						lores.add(ChatColor.GRAY + "the arena with < the minimum players.");
-						lores.add(ChatColor.GRAY + "0.6 (60%) & minplayers=3, 2 votes (66%) needed.");
 						lores.add(ChatColor.GRAY + "Left click to increase, right click to decrease.");
 					}
-					lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getVotePercent()));
+					lores.add(status + arena.getStructureManager().getVotePercent() + ChatColor.GOLD +
+							"  Votes Required: " + ChatColor.GREEN + arena.getScoreboardHandler().getVotesRequired(arena));
 				} else {
 					im.setDisplayName(ChatColor.GREEN + "Set damage (PVP)");
 					if (showhelp) {
@@ -299,7 +329,7 @@ public class Menus {
 						lores.add(ChatColor.GRAY + "the damage indicator.");
 						lores.add(ChatColor.GRAY + "Click to toggle between YES, NO and ZERO.");
 					}
-					lores.add(status + ChatColor.GREEN + (arena.getStructureManager().getDamageEnabled()));
+					lores.add(status + arena.getStructureManager().getDamageEnabled());
 				}
 				break;
 			case 23:

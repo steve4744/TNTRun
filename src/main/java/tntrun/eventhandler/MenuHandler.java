@@ -143,48 +143,76 @@ public class MenuHandler implements Listener {
 				break;
 			case 10:
 				if (page == 1) {
-					Bukkit.dispatchCommand(player, "trsetup setlobby");
-					player.closeInventory();
+					cmd += "setlobby";
+				} else {
+					int amount = leftclick ? (arena.getStructureManager().getCountdown() + 5) : (arena.getStructureManager().getCountdown() - 5);
+					cmd += "setcountdown " + arenaname + " " + amount;
 				}
+				Bukkit.dispatchCommand(player, cmd);
+				plugin.getMenus().updateConfigItem(inv, slot, arena, page);
+				player.updateInventory();
 				break;
 			case 11:
 				if (page == 1) {
-					Bukkit.dispatchCommand(player, "trsetup setarena " + arenaname);
-					player.closeInventory();
+					cmd += "setarena " + arenaname;
+				} else {
+					int amount = leftclick ? (arena.getStructureManager().getTimeLimit() + 10) : (arena.getStructureManager().getTimeLimit() - 10);
+					cmd += "settimelimit " + arenaname + " " + amount;
 				}
+				Bukkit.dispatchCommand(player, cmd);
+				plugin.getMenus().updateConfigItem(inv, slot, arena, page);
+				player.updateInventory();
 				break;
 			case 12:
 				if (page == 1) {
-					Bukkit.dispatchCommand(player, "trsetup setloselevel " + arenaname);
-					player.closeInventory();
+					cmd += "setloselevel " + arenaname;
+					Bukkit.dispatchCommand(player, cmd);
+				} else {
+					int amount = leftclick ? (arena.getStructureManager().getStartVisibleCountdown() + 1) : (arena.getStructureManager().getStartVisibleCountdown() - 1);
+					arena.getStructureManager().setStartVisibleCountdown(amount);
 				}
+				plugin.getMenus().updateConfigItem(inv, slot, arena, page);
+				player.updateInventory();
 				break;
 			case 14:
 				if (page == 1) {
 					Bukkit.dispatchCommand(player, "trsetup setspawn " + arenaname);
-					player.closeInventory();
+				} else {
+					arena.getStructureManager().toggleTestMode();
 				}
+				plugin.getMenus().updateConfigItem(inv, slot, arena, page);
+				player.updateInventory();
 				break;
 			case 15:
 				if (page == 1) {
-					Bukkit.dispatchCommand(player, "trsetup setspectate " + arenaname);
-					player.closeInventory();
+					cmd += "setspectate " + arenaname;
+				} else {
+					int delay = leftclick ? (arena.getStructureManager().getGameLevelDestroyDelay() + 1) : (arena.getStructureManager().getGameLevelDestroyDelay() - 1);
+					cmd += "setgameleveldestroydelay " + arenaname + " " + delay;
 				}
+				Bukkit.dispatchCommand(player, cmd);
+				plugin.getMenus().updateConfigItem(inv, slot, arena, page);
+				player.updateInventory();
 				break;
 			case 16:
 				if (page == 1) {
 					String dest = arena.getStructureManager().getTeleportDestination().toString();
 					dest = dest.equalsIgnoreCase("LOBBY") ? " PREVIOUS" : " LOBBY";
-					Bukkit.dispatchCommand(player, "trsetup setteleport " + arenaname + dest);
-					plugin.getMenus().updateConfigItem(inv, slot, arena, page);
-					player.updateInventory();
+					cmd += "setteleport " + arenaname + dest;
+				} else {
+					int delay = leftclick ? (arena.getStructureManager().getRegenerationDelay() + 1) : (arena.getStructureManager().getRegenerationDelay() - 1);
+					cmd += "setregenerationdelay " + arenaname + " " + delay;
 				}
+				Bukkit.dispatchCommand(player, cmd);
+				plugin.getMenus().updateConfigItem(inv, slot, arena, page);
+				player.updateInventory();
 				break;
 			case 19:
 				if (page == 1) {
 					int minplayers = leftclick ? (is.getAmount() + 1) : (is.getAmount() - 1);
 					Bukkit.dispatchCommand(player, "trsetup setminplayers " + arenaname + " " + minplayers);
 					plugin.getMenus().updateConfigItem(inv, slot, arena, page);
+					plugin.getMenus().updateConfigItem(inv, 21, arena, page);
 					player.updateInventory();
 				}
 				break;
@@ -198,8 +226,7 @@ public class MenuHandler implements Listener {
 				break;
 			case 21:
 				if (page == 1) {
-					double percent = leftclick ? (arena.getStructureManager().getVotePercent() + 0.05) :
-								(arena.getStructureManager().getVotePercent() - 0.05);
+					double percent = leftclick ? (arena.getStructureManager().getVotePercent() + 0.05) : (arena.getStructureManager().getVotePercent() - 0.05);
 					cmd += "setvotepercent " + arenaname + " " + Utils.getDecimalFormat(String.valueOf(percent));
 				} else {
 					String damage = arena.getStructureManager().getDamageEnabled().toString();

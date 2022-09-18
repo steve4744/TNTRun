@@ -74,7 +74,7 @@ public class ScoreboardHandler {
 		}
 	}
 
-	private int getVotesRequired(Arena arena) {
+	public int getVotesRequired(Arena arena) {
 		int minPlayers = arena.getStructureManager().getMinPlayers();
 		double votePercent = arena.getStructureManager().getVotePercent();
 		int votesCast = arena.getPlayerHandler().getVotesCast();
