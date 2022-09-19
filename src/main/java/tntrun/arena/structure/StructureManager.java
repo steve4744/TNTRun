@@ -386,8 +386,24 @@ public class StructureManager {
 		this.startVisibleCountdown = start;
 	}
 
+	public void togglePunchDamage() {
+		this.punchDamage = !punchDamage;
+	}
+
 	public void toggleTestMode() {
 		this.testmode = !testmode;
+	}
+
+	public void toggleArenaStats() {
+		this.statsEnabled = !statsEnabled;
+	}
+
+	public void toggleShopEnabled() {
+		this.shopEnabled = !shopEnabled;
+	}
+
+	public void setStatsMinPlayers(int amount) {
+		this.statsMinPlayers = amount;
 	}
 
 	public void setTeleportDestination(TeleportDestination teleportDest) {

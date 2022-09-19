@@ -179,7 +179,7 @@ public class Menus {
 				}
 				im.setDisplayName(ChatColor.GREEN + "Set arena status");
 				if (showhelp) {
-					lores.add(ChatColor.GRAY + "Click to Enable or Disable the arena.");
+					lores.add(ChatColor.GRAY + "Click to enable or disable the arena.");
 				}
 				lores.add(status + (arena.getStatusManager().isArenaEnabled() ? "Enabled" : "Disabled"));
 				break;
@@ -297,7 +297,13 @@ public class Menus {
 					lores.add(status + arena.getStructureManager().getMinPlayers());
 					is.setAmount(arena.getStructureManager().getMinPlayers());
 				} else {
-					
+					im.setDisplayName(ChatColor.GREEN + "Set damage (PVP)");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Enable or disable PVP in the arena by setting");
+						lores.add(ChatColor.GRAY + "the damage indicator.");
+						lores.add(ChatColor.GRAY + "Click to toggle between YES, NO and ZERO.");
+					}
+					lores.add(status + arena.getStructureManager().getDamageEnabled());
 				}
 				break;
 			case 20:
@@ -309,7 +315,13 @@ public class Menus {
 					lores.add(status + arena.getStructureManager().getMaxPlayers());
 					is.setAmount(arena.getStructureManager().getMaxPlayers());
 				} else {
-					
+					im.setDisplayName(ChatColor.GREEN + "Set punch damage status");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "In a PVP arena, inflicting damage with an");
+						lores.add(ChatColor.GRAY + "empty hand (punch) can be disallowed. ");
+						lores.add(ChatColor.GRAY + "Click to enable or disable punch damage.");
+					}
+					lores.add(status + (arena.getStructureManager().isPunchDamage() ? "Enabled" : "Disabled"));
 				}
 				break;
 			case 21:
@@ -323,13 +335,11 @@ public class Menus {
 					lores.add(status + arena.getStructureManager().getVotePercent() + ChatColor.GOLD +
 							"  Votes Required: " + ChatColor.GREEN + arena.getPlayerHandler().getVotesRequired(arena));
 				} else {
-					im.setDisplayName(ChatColor.GREEN + "Set damage (PVP)");
+					im.setDisplayName(ChatColor.GREEN + "Set kit status");
 					if (showhelp) {
-						lores.add(ChatColor.GRAY + "Enable or disable PVP in the arena by setting");
-						lores.add(ChatColor.GRAY + "the damage indicator.");
-						lores.add(ChatColor.GRAY + "Click to toggle between YES, NO and ZERO.");
+						lores.add(ChatColor.GRAY + "Click to enable or disable kits.");
 					}
-					lores.add(status + arena.getStructureManager().getDamageEnabled());
+					lores.add(status + (arena.getStructureManager().isKitsEnabled() ? "Enabled" : "Disabled"));
 				}
 				break;
 			case 23:
@@ -339,10 +349,24 @@ public class Menus {
 						lores.add(ChatColor.GRAY + "Target a sign and click to create a join sign.");
 					}
 				} else {
-					
+					im.setDisplayName(ChatColor.GREEN + "Set arena stats status");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Click to enable or disable arena stats.");
+					}
+					lores.add(status + (arena.getStructureManager().isArenaStatsEnabled() ? "Enabled" : "Disabled"));
 				}
 				break;
 			case 24:
+				if (page == 2) {
+					im.setDisplayName(ChatColor.GREEN + "Set min players for stats");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Stats will only be recorded if the number");
+						lores.add(ChatColor.GRAY + "of players exceeds this amount.");
+						lores.add(ChatColor.GRAY + "A value of zero means stats is always active.");
+						lores.add(ChatColor.GRAY + "Left click to increase, right click to decrease.");
+					}
+					lores.add(status + arena.getStructureManager().getStatsMinPlayers());
+				}
 				break;
 			case 25:
 				if (page == 1) {
@@ -352,7 +376,11 @@ public class Menus {
 					}
 					lores.add(status + (arena.getStructureManager().isArenaFinished() ? done : todo));
 				} else {
-					
+					im.setDisplayName(ChatColor.GREEN + "Set shop status");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Click to enable or disable the shop.");
+					}
+					lores.add(status + (arena.getStructureManager().isShopEnabled() ? "Enabled" : "Disabled"));
 				}
 				break;
 			case 27:

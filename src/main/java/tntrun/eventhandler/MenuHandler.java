@@ -135,11 +135,8 @@ public class MenuHandler implements Listener {
 		String cmd = "trsetup ";
 		switch (slot) {
 			case 4:
-				String status = arena.getStatusManager().isArenaEnabled() ? "Enabled" : "Disabled";
-				status = status.equalsIgnoreCase("Enabled") ? "disable " : "enable ";
+				String status = arena.getStatusManager().isArenaEnabled() ? "disable " : "enable ";
 				Bukkit.dispatchCommand(player, "trsetup " + status + arenaname);
-				plugin.getMenus().updateConfigItem(inv, slot, arena, page);
-				player.updateInventory();
 				break;
 			case 10:
 				if (page == 1) {
@@ -149,8 +146,6 @@ public class MenuHandler implements Listener {
 					cmd += "setcountdown " + arenaname + " " + amount;
 				}
 				Bukkit.dispatchCommand(player, cmd);
-				plugin.getMenus().updateConfigItem(inv, slot, arena, page);
-				player.updateInventory();
 				break;
 			case 11:
 				if (page == 1) {
@@ -160,28 +155,30 @@ public class MenuHandler implements Listener {
 					cmd += "settimelimit " + arenaname + " " + amount;
 				}
 				Bukkit.dispatchCommand(player, cmd);
-				plugin.getMenus().updateConfigItem(inv, slot, arena, page);
-				player.updateInventory();
 				break;
 			case 12:
 				if (page == 1) {
 					cmd += "setloselevel " + arenaname;
 					Bukkit.dispatchCommand(player, cmd);
 				} else {
+					if (arena.getStatusManager().isArenaEnabled()) {
+						Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", arenaname));
+						return;
+					}
 					int amount = leftclick ? (arena.getStructureManager().getStartVisibleCountdown() + 1) : (arena.getStructureManager().getStartVisibleCountdown() - 1);
 					arena.getStructureManager().setStartVisibleCountdown(amount);
 				}
-				plugin.getMenus().updateConfigItem(inv, slot, arena, page);
-				player.updateInventory();
 				break;
 			case 14:
 				if (page == 1) {
 					Bukkit.dispatchCommand(player, "trsetup setspawn " + arenaname);
 				} else {
+					if (arena.getStatusManager().isArenaEnabled()) {
+						Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", arenaname));
+						return;
+					}
 					arena.getStructureManager().toggleTestMode();
 				}
-				plugin.getMenus().updateConfigItem(inv, slot, arena, page);
-				player.updateInventory();
 				break;
 			case 15:
 				if (page == 1) {
@@ -191,8 +188,6 @@ public class MenuHandler implements Listener {
 					cmd += "setgameleveldestroydelay " + arenaname + " " + delay;
 				}
 				Bukkit.dispatchCommand(player, cmd);
-				plugin.getMenus().updateConfigItem(inv, slot, arena, page);
-				player.updateInventory();
 				break;
 			case 16:
 				if (page == 1) {
@@ -204,30 +199,11 @@ public class MenuHandler implements Listener {
 					cmd += "setregenerationdelay " + arenaname + " " + delay;
 				}
 				Bukkit.dispatchCommand(player, cmd);
-				plugin.getMenus().updateConfigItem(inv, slot, arena, page);
-				player.updateInventory();
 				break;
 			case 19:
 				if (page == 1) {
 					int minplayers = leftclick ? (is.getAmount() + 1) : (is.getAmount() - 1);
-					Bukkit.dispatchCommand(player, "trsetup setminplayers " + arenaname + " " + minplayers);
-					plugin.getMenus().updateConfigItem(inv, slot, arena, page);
-					plugin.getMenus().updateConfigItem(inv, 21, arena, page);
-					player.updateInventory();
-				}
-				break;
-			case 20:
-				if (page == 1) {
-					int maxplayers = leftclick ? (is.getAmount() + 1) : (is.getAmount() - 1);
-					Bukkit.dispatchCommand(player, "trsetup setmaxplayers " + arenaname + " " + maxplayers);
-					plugin.getMenus().updateConfigItem(inv, slot, arena, page);
-					player.updateInventory();
-				}
-				break;
-			case 21:
-				if (page == 1) {
-					double percent = leftclick ? (arena.getStructureManager().getVotePercent() + 0.05) : (arena.getStructureManager().getVotePercent() - 0.05);
-					cmd += "setvotepercent " + arenaname + " " + Utils.getDecimalFormat(String.valueOf(percent));
+					cmd += "setminplayers " + arenaname + " " + minplayers;
 				} else {
 					String damage = arena.getStructureManager().getDamageEnabled().toString();
 					if (damage.equalsIgnoreCase("NO")) {
@@ -240,8 +216,29 @@ public class MenuHandler implements Listener {
 					cmd += "setdamage " + arenaname + damage;
 				}
 				Bukkit.dispatchCommand(player, cmd);
-				plugin.getMenus().updateConfigItem(inv, slot, arena, page);
-				player.updateInventory();
+				break;
+			case 20:
+				if (page == 1) {
+					int maxplayers = leftclick ? (is.getAmount() + 1) : (is.getAmount() - 1);
+					cmd += "setmaxplayers " + arenaname + " " + maxplayers;
+					Bukkit.dispatchCommand(player, cmd);
+				} else {
+					if (arena.getStatusManager().isArenaEnabled()) {
+						Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", arenaname));
+						return;
+					}
+					arena.getStructureManager().togglePunchDamage();
+				}
+				break;
+			case 21:
+				if (page == 1) {
+					double percent = leftclick ? (arena.getStructureManager().getVotePercent() + 0.05) : (arena.getStructureManager().getVotePercent() - 0.05);
+					cmd += "setvotepercent " + arenaname + " " + Utils.getDecimalFormat(String.valueOf(percent));
+				} else {
+					String kits = arena.getStructureManager().isKitsEnabled() ? "disablekits " : "enablekits ";
+					cmd += kits + arenaname;
+				}
+				Bukkit.dispatchCommand(player, cmd);
 				break;
 			case 23:
 				if (page == 1) {
@@ -253,12 +250,33 @@ public class MenuHandler implements Listener {
 						Messages.sendMessage(player, Messages.signfail);
 					}
 					player.closeInventory();
+				} else {
+					if (arena.getStatusManager().isArenaEnabled()) {
+						Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", arenaname));
+						return;
+					}
+					arena.getStructureManager().toggleArenaStats();
+				}
+				break;
+			case 24:
+				if (page == 2) {
+					if (arena.getStatusManager().isArenaEnabled()) {
+						Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", arenaname));
+						return;
+					}
+					int min = leftclick ? (arena.getStructureManager().getStatsMinPlayers() + 1) : (arena.getStructureManager().getStatsMinPlayers() - 1);
+					arena.getStructureManager().setStatsMinPlayers(min);
 				}
 				break;
 			case 25:
 				if (page == 1) {
 					Bukkit.dispatchCommand(player, "trsetup finish " + arenaname);
-					player.closeInventory();
+				} else {
+					if (arena.getStatusManager().isArenaEnabled()) {
+						Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", arenaname));
+						return;
+					}
+					arena.getStructureManager().toggleShopEnabled();
 				}
 				break;
 			case 27:
@@ -266,13 +284,20 @@ public class MenuHandler implements Listener {
 					player.closeInventory();
 					plugin.getMenus().buildConfigMenu(player, arena, 1);
 				}
-				break;
+				return;
 			case 35:
 				if (page == 1) {
 					player.closeInventory();
 					plugin.getMenus().buildConfigMenu(player, arena, 2);
 				}
+				return;
 		}
+		plugin.getMenus().updateConfigItem(inv, slot, arena, page);
+		if (slot == 19 && page == 1) {
+			// refresh vote percent if min players changes
+			plugin.getMenus().updateConfigItem(inv, 21, arena, page);
+		}
+		player.updateInventory();
 	}
 
 	private boolean isValidClick(InventoryClickEvent e) {
