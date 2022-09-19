@@ -383,7 +383,7 @@ public class StructureManager {
 	}
 
 	public void setStartVisibleCountdown(int start) {
-		this.startVisibleCountdown = start;
+		this.startVisibleCountdown = start > 0 ? start : 0;
 	}
 
 	public void togglePunchDamage() {
@@ -403,7 +403,7 @@ public class StructureManager {
 	}
 
 	public void setStatsMinPlayers(int amount) {
-		this.statsMinPlayers = amount;
+		this.statsMinPlayers = amount > 0 ? amount : 0;
 	}
 
 	public void setTeleportDestination(TeleportDestination teleportDest) {
