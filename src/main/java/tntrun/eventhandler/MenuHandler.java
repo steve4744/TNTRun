@@ -285,6 +285,9 @@ public class MenuHandler implements Listener {
 					plugin.getMenus().buildConfigMenu(player, arena, 1);
 				}
 				return;
+			case 31:
+				player.closeInventory();
+				return;
 			case 35:
 				if (page == 1) {
 					player.closeInventory();

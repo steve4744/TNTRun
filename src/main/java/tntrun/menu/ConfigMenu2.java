@@ -34,7 +34,8 @@ public enum ConfigMenu2 {
 	BLACK_CARPET(23),
 	PURPLE_CARPET(24),
 	BLUE_CARPET(25),
-	ARROW(27);
+	ARROW(27),
+	BARRIER(31);
 
 	private int slot;
 

@@ -33,6 +33,7 @@ public enum ConfigMenu {
 	FILLED_MAP(21),
 	OAK_SIGN(23),
 	DIAMOND(25),
+	BARRIER(31),
 	ARROW(35);
 
 	private int slot;

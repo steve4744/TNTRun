@@ -386,6 +386,9 @@ public class Menus {
 			case 27:
 				im.setDisplayName(ChatColor.GREEN + "<- Back");
 				break;
+			case 31:
+				im.setDisplayName(ChatColor.GREEN + "Exit");
+				break;
 			case 35:
 				im.setDisplayName(ChatColor.GREEN + "Next ->");
 		}
