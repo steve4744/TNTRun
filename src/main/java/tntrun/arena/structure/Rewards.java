@@ -123,6 +123,14 @@ public class Rewards {
 		xpreward.put(place, xprwd);
 	}
 
+	public void deleteMaterialReward(int place) {
+		materialrewards.remove(place);
+	}
+
+	public void deleteCommandReward(int place) {
+		commandrewards.remove(place);
+	}
+
 	public void setMinPlayersRequired(int min, int place) {
 		minplayersrequired.put(place, min);
 	}

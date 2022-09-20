@@ -102,11 +102,17 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 	private class ChooseMaterial extends StringPrompt {
 		@Override
 		public String getPromptText(ConversationContext context) {
+			context.getForWhom().sendRawMessage(GRAY + "Enter NONE to delete any existing Material reward.");
 			return GOLD + " What Material do you want to reward the player with?";
 		}
 
 		@Override
 		public Prompt acceptInput(ConversationContext context, String message) {
+			if (message.equalsIgnoreCase("none")) {
+				arena.getStructureManager().getRewards().deleteMaterialReward(place);
+				context.getForWhom().sendRawMessage(PREFIX + podium + "material reward for " + GOLD + arena.getArenaName() + GRAY + " deleted");
+				return Prompt.END_OF_CONVERSATION;
+			}
 			Material material = Material.getMaterial(message.toUpperCase());
 			if (material == null){
 				TNTRunConversation.sendErrorMessage(context, "This is not a valid material");
@@ -173,11 +179,17 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 		@Override
 		public String getPromptText(ConversationContext context) {
 			context.getForWhom().sendRawMessage(GRAY + "Remember you can include %PLAYER% to apply it to that player.\nExample: 'perm setrank %PLAYER% vip'");
+			context.getForWhom().sendRawMessage(GRAY + "Enter NONE to delete any existing Command reward.");
 			return GOLD + " What would you like the Command reward to be?";
 		}
 
 		@Override
 		public Prompt acceptInput(ConversationContext context, String message) {
+			if (message.equalsIgnoreCase("none")) {
+				arena.getStructureManager().getRewards().deleteCommandReward(place);
+				context.getForWhom().sendRawMessage(PREFIX + podium + "command reward for " + GOLD + arena.getArenaName() + GRAY + " deleted");
+				return Prompt.END_OF_CONVERSATION;
+			}
 			String command = message.replace("/", "");
 			context.setSessionData("command", command);
 			return new ChooseRunNow();
