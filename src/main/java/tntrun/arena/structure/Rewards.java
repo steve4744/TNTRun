@@ -38,6 +38,8 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
 import tntrun.TNTRun;
 import tntrun.messages.Messages;
 import tntrun.utils.Utils;
@@ -82,7 +84,7 @@ public class Rewards {
 		return activereward.getOrDefault(place, false);
 	}
 
-	public void setMaterialReward(String item, String amount, boolean isFirstItem, int place) {
+	public void setMaterialReward(String item, String amount, String label, boolean isFirstItem, int place) {
 		if (isFirstItem) {
 			materialrewards.remove(place);
 		}
@@ -91,11 +93,20 @@ public class Rewards {
 		}
 
 		ItemStack reward = new ItemStack(Material.getMaterial(item), Integer.valueOf(amount));
+		if (!label.isEmpty()) {
+			setMaterialDisplayName(reward, label);
+		}
 		materialrewards.computeIfAbsent(place, k -> new ArrayList<>()).add(reward);
 
 		if (Utils.debug()) {
 			Bukkit.getLogger().info("[TNTRun] reward(" + place + ") = " + materialrewards.toString());
 		}
+	}
+
+	private void setMaterialDisplayName(ItemStack is, String label) {
+		ItemMeta im = is.getItemMeta();
+		im.setDisplayName(label);
+		is.setItemMeta(im);
 	}
 
 	public void setMoneyReward(int money, int place) {

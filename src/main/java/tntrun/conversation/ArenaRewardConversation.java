@@ -142,11 +142,41 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 		@Override
 		protected Prompt acceptValidatedInput(ConversationContext context, Number amount) {
 			context.setSessionData("amount", amount.intValue());
+			return new ChooseDisplayName();
+		}
+	}
+
+	private class ChooseDisplayName extends BooleanPrompt {
+		@Override
+		public String getPromptText(ConversationContext context) {
+			return GOLD + " Would you like to add a custom display name?\n" +
+					GREEN + "[yes, no]";
+		}
+		@Override
+		protected Prompt acceptValidatedInput(ConversationContext context, boolean addName) {
+			if (addName) {
+				return new AddDisplayName();
+			}
+			context.setSessionData("label", "");
+			return new MaterialProcessComplete();
+		}
+	}
+
+	private class AddDisplayName extends StringPrompt {
+		@Override
+		public String getPromptText(ConversationContext context) {
+			return GOLD + " What display name do you want to attach to the " + context.getSessionData("material").toString() + "?";
+		}
+
+		@Override
+		public Prompt acceptInput(ConversationContext context, String message) {
+			context.setSessionData("label", message);
 			return new MaterialProcessComplete();
 		}
 	}
 
 	private class MaterialProcessComplete extends BooleanPrompt {
+		@Override
 		public String getPromptText(ConversationContext context) {
 			return GOLD + " Reward saved - would you like to add another Material?\n" +
 					GREEN + "[yes, no]";
@@ -156,6 +186,7 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 			arena.getStructureManager().getRewards().setMaterialReward(
 					context.getSessionData("material").toString(),
 					context.getSessionData("amount").toString(),
+					context.getSessionData("label").toString(),
 					isFirstItem,
 					place);
 
@@ -216,6 +247,7 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 	}
 
 	private class CommandProcessComplete extends BooleanPrompt {
+		@Override
 		public String getPromptText(ConversationContext context) {
 			return GOLD + " Reward saved - would you like to add another Command?\n" +
 					GREEN + "[yes, no]";
@@ -263,6 +295,7 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 	}
 
 	private class XPProcessComplete extends MessagePrompt {
+		@Override
 		public String getPromptText(ConversationContext context) {
 			arena.getStructureManager().getRewards().setXPReward(
 					Integer.parseInt(context.getSessionData("amount").toString()), place);
@@ -301,6 +334,7 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 	}
 
 	private class MoneyProcessComplete extends MessagePrompt {
+		@Override
 		public String getPromptText(ConversationContext context) {
 			arena.getStructureManager().getRewards().setMoneyReward(
 					Integer.parseInt(context.getSessionData("amount").toString()), place);
