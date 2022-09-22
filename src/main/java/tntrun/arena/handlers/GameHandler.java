@@ -567,10 +567,12 @@ public class GameHandler {
 				player.addPotionEffect(pe);
 			}
 		}
-		String cmd = plugin.shop.getPurchasedCommands().get(player.getName());
-		if (cmd != null) {
+		List<String> cmds = plugin.shop.getPurchasedCommands().get(player.getName());
+		if (cmds != null) {
 			final ConsoleCommandSender console = Bukkit.getConsoleSender();
-			Bukkit.dispatchCommand(console, cmd.replace("{PLAYER}", player.getName()).replace("%PLAYER%", player.getName()));
+			cmds.stream().forEach(cmd -> {
+				Bukkit.dispatchCommand(console, cmd.replace("{PLAYER}", player.getName()).replace("%PLAYER%", player.getName()));
+			});
 		}
 
 		arena.getPlayerHandler().removePurchase(player);

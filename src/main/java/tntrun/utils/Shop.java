@@ -53,7 +53,7 @@ public class Shop {
 	private Map<Integer, Integer> itemSlot = new HashMap<>();
 	private Map<String, List<ItemStack>> pitems = new HashMap<>(); // player-name -> items
 	private Map<String, List<PotionEffect>> potionMap = new HashMap<>();  // player-name -> effects
-	private Map<String, String> commandMap = new HashMap<>();  // player-name -> command
+	private Map<String, List<String>> commandMap = new HashMap<>();  // player-name -> commands
 	private boolean doublejumpPurchase;
 	private FileConfiguration cfg;
 
@@ -79,9 +79,14 @@ public class Shop {
 		buyers.add(player.getName());
 
 		if (isCommandPurchase(kit)) {
+			List<String> cmds = new ArrayList<>();
 			List<String> lore = cfg.getStringList(kit + ".lore");
-			String cmd = ChatColor.stripColor(FormattingCodesParser.parseFormattingCodes(lore.get(0)));
-			commandMap.put(player.getName(), cmd);
+			lore.stream()
+				.limit(cfg.getInt(kit + ".items.1.amount"))
+				.forEachOrdered(e -> {
+					cmds.add(ChatColor.stripColor(FormattingCodesParser.parseFormattingCodes(e)));
+			});
+			commandMap.put(player.getName(), cmds);
 			player.closeInventory();
 			return;
 		}
@@ -347,7 +352,7 @@ public class Shop {
 		return buyers;
 	}
 
-	public Map<String, String> getPurchasedCommands() {
+	public Map<String, List<String>> getPurchasedCommands() {
 		return commandMap;
 	}
 
