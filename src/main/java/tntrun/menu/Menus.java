@@ -297,6 +297,7 @@ public class Menus {
 					lores.add(status + arena.getStructureManager().getMinPlayers());
 					is.setAmount(arena.getStructureManager().getMinPlayers());
 				} else {
+					im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 					im.setDisplayName(ChatColor.GREEN + "Set damage (PVP)");
 					if (showhelp) {
 						lores.add(ChatColor.GRAY + "Enable or disable PVP in the arena by setting");
