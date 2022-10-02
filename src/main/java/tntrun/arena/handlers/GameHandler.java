@@ -207,7 +207,7 @@ public class GameHandler {
 			if (plugin.useStats() && isStatsActive()) {
 				plugin.getStats().addPlayedGames(player, 1);
 			}
-			if (arena.getPlayerHandler().hasDoubleJumps(player)) {
+			if (arena.getPlayerHandler().hasDoubleJumps(player.getName())) {
 				player.setAllowFlight(true);
 			}
 

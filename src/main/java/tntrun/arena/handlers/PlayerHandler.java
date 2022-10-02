@@ -811,27 +811,27 @@ public class PlayerHandler {
 		}
 	}
 
-	public boolean hasDoubleJumps(Player player) {
-		return getDoubleJumps(player) > 0;
+	public boolean hasDoubleJumps(String playerName) {
+		return getDoubleJumps(playerName) > 0;
 	}
 
-	public int getDoubleJumps(Player player) {
-		return doublejumps.get(player.getName()) != null ? doublejumps.get(player.getName()) : 0;
+	public int getDoubleJumps(String playerName) {
+		return doublejumps.get(playerName) != null ? doublejumps.get(playerName) : 0;
 	}
 
-	public void decrementDoubleJumps(Player player) {
-		if (hasDoubleJumps(player)) {
-			doublejumps.put(player.getName(), getDoubleJumps(player) - 1);
+	public void decrementDoubleJumps(String playerName) {
+		if (hasDoubleJumps(playerName)) {
+			doublejumps.put(playerName, getDoubleJumps(playerName) - 1);
 		}
 	}
 
-	public void incrementDoubleJumps(Player player, Integer amount) {
-		doublejumps.put(player.getName(), getDoubleJumps(player) + amount);
+	public void incrementDoubleJumps(String playerName, int amount) {
+		doublejumps.put(playerName, getDoubleJumps(playerName) + amount);
 	}
 
 	private void resetDoubleJumps(Player player) {
 		if (!plugin.getConfig().getBoolean("freedoublejumps.enabled")) {
-			plugin.getPData().saveDoubleJumpsToFile(player, getDoubleJumps(player));
+			plugin.getPData().saveDoubleJumpsToFile(player, getDoubleJumps(player.getName()));
 		}
 		doublejumps.remove(player.getName());
 	}

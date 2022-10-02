@@ -240,11 +240,11 @@ public class RestrictionHandler implements Listener {
 		if (u.contains(player.getName())) {
 			return;
 		}
-		if (!arena.getPlayerHandler().hasDoubleJumps(player)) {
+		if (!arena.getPlayerHandler().hasDoubleJumps(player.getName())) {
 			return;
 		}
 
-		arena.getPlayerHandler().decrementDoubleJumps(player);
+		arena.getPlayerHandler().decrementDoubleJumps(player.getName());
 		player.setFlying(false);
 		player.setVelocity(player.getLocation().getDirection()
 				.multiply(plugin.getConfig().getDouble("doublejumps.multiplier", 1.5D))
@@ -256,7 +256,7 @@ public class RestrictionHandler implements Listener {
 			@Override
 			public void run() {
 				u.remove(player.getName());
-				if (!arena.getPlayerHandler().hasDoubleJumps(player)) {
+				if (!arena.getPlayerHandler().hasDoubleJumps(player.getName())) {
 					player.setAllowFlight(false);
 				}
 			}

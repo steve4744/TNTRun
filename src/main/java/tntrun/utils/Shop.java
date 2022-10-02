@@ -143,7 +143,7 @@ public class Shop {
 
 		} else {
 			Arena arena = plugin.amanager.getPlayerArena(player.getName());
-			arena.getPlayerHandler().incrementDoubleJumps(player, quantity);
+			arena.getPlayerHandler().incrementDoubleJumps(player.getName(), quantity);
 			if (!arena.getStatusManager().isArenaStarting() && plugin.getConfig().getBoolean("scoreboard.displaydoublejumps")) {
 				if(plugin.getConfig().getBoolean("special.UseScoreboard")) {
 					arena.getScoreboardHandler().updateWaitingScoreboard(player);
@@ -242,7 +242,7 @@ public class Shop {
 		if (plugin.getConfig().getBoolean("freedoublejumps.enabled")) {
 			return maxjumps >= (plugin.getPData().getDoubleJumpsFromFile(p) + quantity);
 		}
-		return maxjumps >= (arena.getPlayerHandler().getDoubleJumps(p) + quantity);
+		return maxjumps >= (arena.getPlayerHandler().getDoubleJumps(p.getName()) + quantity);
 	}
 
 	/**

@@ -214,6 +214,30 @@ public class ConsoleCommands implements CommandExecutor {
 			String arenatype = (args.length == 3) ? args[1] : "";
 			plugin.getMenus().autoJoin(player, arenatype);
 			return true;
+		// give doublejumps
+		} else if (args[0].equalsIgnoreCase("givedoublejumps")) {
+			if (args.length != 3) {
+				Messages.sendMessage(sender, "&c Invalid number of arguments supplied");
+				return false;
+			}
+			Arena arena = plugin.amanager.getPlayerArena(args[1]);
+			if (arena == null) {
+				Messages.sendMessage(sender, "&7 " + args[1] + "&c is not in a TNTRun arena");
+				return false;
+			}
+			if (!Utils.isNumber(args[2]) || Integer.parseInt(args[2]) <= 0) {
+				Messages.sendMessage(sender, "&c DoubleJumps must be a positive integer");
+				return false;
+			}
+			arena.getPlayerHandler().incrementDoubleJumps(args[1], Integer.parseInt(args[2]));
+			Messages.sendMessage(sender, "&6 " + args[2] + "&7 doublejumps given to: &6" + args[1]);
+
+			if (!arena.getStatusManager().isArenaStarting() && plugin.getConfig().getBoolean("scoreboard.displaydoublejumps")) {
+				if(plugin.getConfig().getBoolean("special.UseScoreboard")) {
+					arena.getScoreboardHandler().updateWaitingScoreboard(Bukkit.getPlayer(args[1]));
+				}
+			}
+			return true;
 		}
 
 		return false;
@@ -233,6 +257,7 @@ public class ConsoleCommands implements CommandExecutor {
 		Messages.sendMessage(sender, "trconsole join {arena} {player}");
 		Messages.sendMessage(sender, "trconsole spectate {arena} {player}");
 		Messages.sendMessage(sender, "trconsole autojoin [pvp|nopvp] {player}");
+		Messages.sendMessage(sender, "trconsole givedoublejumps {player} {amount}");
 	}
 
 }
