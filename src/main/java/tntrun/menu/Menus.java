@@ -361,8 +361,8 @@ public class Menus {
 				if (page == 2) {
 					im.setDisplayName(ChatColor.GREEN + "Set min players for stats");
 					if (showhelp) {
-						lores.add(ChatColor.GRAY + "Stats will only be recorded if the number");
-						lores.add(ChatColor.GRAY + "of players exceeds this amount.");
+						lores.add(ChatColor.GRAY + "Set the minimum number of players required");
+						lores.add(ChatColor.GRAY + "for stats to be recorded.");
 						lores.add(ChatColor.GRAY + "A value of zero means stats is always active.");
 						lores.add(ChatColor.GRAY + "Left click to increase, right click to decrease.");
 					}
