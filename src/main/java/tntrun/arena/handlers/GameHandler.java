@@ -549,8 +549,8 @@ public class GameHandler {
 		if (!plugin.isGlobalShop() || !arena.getStructureManager().isShopEnabled()) {
 			return;
 		}
-		if (plugin.shop.getPlayersItems().containsKey(player.getName())) {
-			List<ItemStack> items = plugin.shop.getPlayersItems().get(player.getName());
+		if (plugin.getShop().getPlayersItems().containsKey(player.getName())) {
+			List<ItemStack> items = plugin.getShop().getPlayersItems().get(player.getName());
 			if (items != null) {
 				for (ItemStack item : items) {
 					if (isArmor(item)) {
@@ -562,12 +562,12 @@ public class GameHandler {
 			}
 			player.updateInventory();
 		}
-		if (plugin.shop.getPotionEffects(player) != null) {
-			for (PotionEffect pe : plugin.shop.getPotionEffects(player)) {
+		if (plugin.getShop().getPotionEffects(player) != null) {
+			for (PotionEffect pe : plugin.getShop().getPotionEffects(player)) {
 				player.addPotionEffect(pe);
 			}
 		}
-		List<String> cmds = plugin.shop.getPurchasedCommands().get(player.getName());
+		List<String> cmds = plugin.getShop().getPurchasedCommands().get(player.getName());
 		if (cmds != null) {
 			final ConsoleCommandSender console = Bukkit.getConsoleSender();
 			cmds.stream().forEach(cmd -> {

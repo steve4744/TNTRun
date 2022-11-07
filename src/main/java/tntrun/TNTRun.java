@@ -84,9 +84,9 @@ public class TNTRun extends JavaPlugin {
 	private Parties parties;
 	private Stats stats;
 	private MySQL mysql;
+	private Shop shop;
 
 	public ArenasManager amanager;
-	public Shop shop;
 	private ScoreboardManager scoreboardManager;
 
 	private static TNTRun instance;
@@ -405,6 +405,10 @@ public class TNTRun extends JavaPlugin {
 
 	public MySQL getMysql() {
 		return mysql;
+	}
+
+	public Shop getShop() {
+		return shop;
 	}
 
 	public void setupScoreboards() {

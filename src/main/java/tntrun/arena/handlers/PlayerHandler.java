@@ -887,11 +887,11 @@ public class PlayerHandler {
 		if (!plugin.isGlobalShop()) {
 			return;
 		}
-		plugin.shop.getPlayersItems().remove(player.getName());
-		plugin.shop.getBuyers().remove(player.getName());
-		plugin.shop.getPurchasedCommands().remove(player.getName());
-		if (plugin.shop.getPotionEffects(player) != null) {
-			plugin.shop.removePotionEffects(player);
+		plugin.getShop().getPlayersItems().remove(player.getName());
+		plugin.getShop().getBuyers().remove(player.getName());
+		plugin.getShop().getPurchasedCommands().remove(player.getName());
+		if (plugin.getShop().getPotionEffects(player) != null) {
+			plugin.getShop().removePotionEffects(player);
 		}
 	}
 
