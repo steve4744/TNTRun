@@ -39,7 +39,6 @@ import org.bukkit.potion.PotionEffectType;
 
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
-import tntrun.eventhandler.ShopHandler;
 import tntrun.messages.Messages;
 
 public class Shop {
@@ -59,7 +58,6 @@ public class Shop {
 
 	public Shop(TNTRun plugin) {
 		this.plugin = plugin;
-		plugin.getServer().getPluginManager().registerEvents(new ShopHandler(plugin), plugin);
 		shopFiles = new ShopFiles(plugin);
 		shopFiles.setShopItems();
 		cfg = shopFiles.getShopConfiguration();

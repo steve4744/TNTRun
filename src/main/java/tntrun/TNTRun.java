@@ -52,6 +52,7 @@ import tntrun.eventhandler.MenuHandler;
 import tntrun.eventhandler.PlayerLeaveArenaChecker;
 import tntrun.eventhandler.PlayerStatusHandler;
 import tntrun.eventhandler.RestrictionHandler;
+import tntrun.eventhandler.ShopHandler;
 import tntrun.kits.Kits;
 import tntrun.lobby.GlobalLobby;
 import tntrun.menu.Menus;
@@ -266,6 +267,7 @@ public class TNTRun extends JavaPlugin {
 		pm.registerEvents(new PlayerLeaveArenaChecker(this), this);
 		pm.registerEvents(new SignHandler(this), this);
 		pm.registerEvents(new MenuHandler(this), this);
+		pm.registerEvents(new ShopHandler(this), this);
 
 		setupShop();
 
@@ -296,10 +298,9 @@ public class TNTRun extends JavaPlugin {
 	}
 
 	public void setupShop() {
-		if (!isGlobalShop() || shop != null) {
-			return;
+		if (isGlobalShop()) {
+			shop = new Shop(this);
 		}
-		shop = new Shop(this);
 	}
 
 	public boolean isGlobalShop() {
@@ -407,9 +408,8 @@ public class TNTRun extends JavaPlugin {
 	}
 
 	public void setupScoreboards() {
-		if (!getConfig().getBoolean("special.UseScoreboard")) {
-			return;
+		if (getConfig().getBoolean("special.UseScoreboard")) {
+			scoreboardManager = new ScoreboardManager(this);
 		}
-		scoreboardManager = new ScoreboardManager(this);
 	}
 }
