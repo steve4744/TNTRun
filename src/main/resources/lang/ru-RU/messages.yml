@@ -77,16 +77,16 @@ statshead: '&7=========[&6TNTRun Статистика&7]========='
 rewardshead: '&7======[&6TNTRun Награды&7 - &a{ARENA}&7]======'
 leaderhead: '&7======[&6TNTRun Лидеры&7]========'
 resultshead: '&7============[&6TNTRun&7]============'
-leaderboard: '{POSITION}) &c{RANK}&b{COLOR}{PLAYER} &f: Победы &3{WINS}'
+leaderboard: '{POSITION} &c{RANK}&b{COLOR}{PLAYER} &f: Победы &3{WINS}'
 leadersign: '&1{PLAYER} &4{WINS}'
 shopmoneyheader: '&fTNTRun Магазин'
 shopmoneybalance: '&5Ваш баланс: &6{BAL}'
 statsdisabled: '&c Статистика в настоящее время отключена'
 helplobby: Телепортироваться в лобби
 helplist: Список всех атрибутов ИЛИ Список Арен
-helplistkit: Список всех наборов ИЛИ Список Список деталей
+helplistkit: Список всех наборов ИЛИ Список подробностей наборов
 helplistrewards: Список наград для арены
-helpjoin: Откройте меню входа в арену ИЛИ Присоединитесь к арене
+helpjoin: Откройте меню входа ИЛИ подключитесь к арене
 helpspectate: Присоединиться к арене как наблюдатель
 helpautojoin: Автоматически присоединяйтесь к первой доступной арене
 helpleave: Покинуть текущую арену
@@ -118,9 +118,9 @@ setupcountdown: 'Установите ограничение по времени
 setupmoney: Установить денежную награду победившему игроку
 setupteleport: Установка телепортации при проигрыше или победе на арене
 setupdamage: Включить/выключить PVP для арены
-setupbarcolor: Установить цвет боссбара
-setupreloadbars: Перезагрузить сообщения Bossbar(а)
-setupreloadtitles: Перезагрузить сообщения TitleBar(а)
+setupbarcolor: Установить цвет BossBar
+setupreloadbars: Перезагрузить сообщения Bossbar
+setupreloadtitles: Перезагрузить сообщения TitleBar
 setupreloadmsg: Перезагрузить сообщения арен
 setupreloadconfig: Перезагрузка конфигурационного файла
 setupenable: Включить арену
