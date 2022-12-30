@@ -533,15 +533,7 @@ public class PlayerHandler {
 			plugin.getLogger().info("Spectators in arena: " + arena.getPlayersManager().getSpectators().size());
 		}
 
-		plugin.getPData().restorePlayerHunger(player);
-		plugin.getPData().restorePlayerPotionEffects(player);
-		plugin.getPData().restorePlayerArmor(player);
-		plugin.getPData().restorePlayerInventory(player);
-		plugin.getPData().restorePlayerLevel(player);
-		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 80, 80, true));
-		if (plugin.getConfig().getBoolean("special.UseScoreboard")) {
-			plugin.getScoreboardManager().restorePrejoinScoreboard(player);
-		}
+		restorePlayerData(player);
 
 		if (plugin.isBungeecord() && plugin.getConfig().getBoolean("bungeecord.teleporttohub", true)) {
 			plugin.getBungeeHandler().connectToHub(player);
@@ -911,9 +903,28 @@ public class PlayerHandler {
 		plugin.getPData().storePlayerArmor(player);
 		plugin.getPData().storePlayerPotionEffects(player);
 		plugin.getPData().storePlayerHunger(player);
+		plugin.getPData().storePlayerHealth(player);
 		player.updateInventory();
 		if (plugin.getConfig().getBoolean("special.UseScoreboard")) {
 			plugin.getScoreboardManager().storePrejoinScoreboard(player);
+		}
+	}
+
+	/**
+	 * Restore the players data.
+	 *
+	 * @param player
+	 */
+	private void restorePlayerData(Player player) {
+		plugin.getPData().restorePlayerHealth(player);
+		plugin.getPData().restorePlayerHunger(player);
+		plugin.getPData().restorePlayerPotionEffects(player);
+		plugin.getPData().restorePlayerArmor(player);
+		plugin.getPData().restorePlayerInventory(player);
+		plugin.getPData().restorePlayerLevel(player);
+		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 80, 80, true));
+		if (plugin.getConfig().getBoolean("special.UseScoreboard")) {
+			plugin.getScoreboardManager().restorePrejoinScoreboard(player);
 		}
 	}
 

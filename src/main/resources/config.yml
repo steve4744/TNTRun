@@ -289,9 +289,10 @@ ondeath:
 onstart:
   delay: 0
 #
-# should a player's hunger bar be filled on joining the arena
+# should a player's hunger and health bars be filled on joining the arena
 onjoin:
   fillhunger: true
+  fillhealth: false
 #
 # setting this to true will prevent arrows being picked up and re-used
 removearrows: false

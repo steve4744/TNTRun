@@ -25,9 +25,11 @@ import java.util.Map;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -44,6 +46,7 @@ public class PlayerDataStore {
 	private Map<String, Integer> plhunger = new HashMap<>();
 	private Map<String, GameMode> plgamemode = new HashMap<>();
 	private Map<String, Integer> pllevel = new HashMap<>();
+	private Map<String, Double> plhealth = new HashMap<>();
 	private Map<String, Boolean> plflight = new HashMap<>();
 	private File file;
 	private final TNTRun plugin;
@@ -105,6 +108,14 @@ public class PlayerDataStore {
 		player.setLevel(0);
 	}
 
+	public void storePlayerHealth(Player player) {
+		LivingEntity le = (LivingEntity) player;
+		plhealth.put(player.getName(), le.getHealth());
+		if (plugin.getConfig().getBoolean("onjoin.fillhealth")) {
+			le.setHealth(le.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+		}
+	}
+
 	public void restorePlayerInventory(Player player) {
 		player.getInventory().setContents(plinv.remove(player.getName()));
 	}
@@ -139,6 +150,10 @@ public class PlayerDataStore {
 
 	public void restorePlayerLevel(Player player) {
 		player.setLevel(pllevel.remove(player.getName()));
+	}
+
+	public void restorePlayerHealth(Player player) {
+		((LivingEntity) player).setHealth(plhealth.remove(player.getName()));
 	}
 
 	public void saveDoubleJumpsToFile(OfflinePlayer player, int amount) {
