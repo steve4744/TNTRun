@@ -90,7 +90,9 @@ public class PlayerDataStore {
 
 	public void storePlayerHunger(Player player) {
 		plhunger.put(player.getName(), player.getFoodLevel());
-		player.setFoodLevel(20);
+		if (plugin.getConfig().getBoolean("onjoin.fillhunger")) {
+			player.setFoodLevel(20);
+		}
 	}
 
 	public void storePlayerGameMode(Player player) {
