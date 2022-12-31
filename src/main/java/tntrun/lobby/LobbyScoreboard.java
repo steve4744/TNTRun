@@ -34,5 +34,6 @@ public class LobbyScoreboard {
 			size--;
 		}
 		player.setScoreboard(scoreboard);
+		plugin.getScoreboardManager().addLobbyScoreboard(player.getName());
 	}
 }

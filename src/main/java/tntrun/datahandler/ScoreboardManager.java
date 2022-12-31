@@ -2,6 +2,7 @@ package tntrun.datahandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +25,7 @@ public class ScoreboardManager {
 
 	private TNTRun plugin;
 	private final String PLUGIN_NAME = "TNTRun";
+	private HashSet<String> lobbyScoreboards = new HashSet<>();
 	private Map<String, Scoreboard> scoreboardMap = new HashMap<>();
 	private Map<String, Scoreboard> prejoinScoreboards = new HashMap<>();
 
@@ -113,5 +115,17 @@ public class ScoreboardManager {
 		if (prejoinScoreboards.get(player.getName()) != null) {
 			player.setScoreboard(prejoinScoreboards.remove(player.getName()));
 		}
+	}
+
+	public boolean hasLobbyScoreboard(Player player) {
+		return lobbyScoreboards.contains(player.getName());
+	}
+
+	public void addLobbyScoreboard(String playerName) {
+		lobbyScoreboards.add(playerName);
+	}
+
+	public void removeLobbyScoreboard(String playerName) {
+		lobbyScoreboards.remove(playerName);
 	}
 }

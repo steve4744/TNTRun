@@ -42,6 +42,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -344,6 +345,20 @@ public class RestrictionHandler implements Listener {
 		}
 		if (projectile instanceof Arrow || projectile instanceof Trident) {
 			projectile.remove();
+		}
+	}
+
+	// remove lobby scoreboard if player teleports from lobby
+	@EventHandler
+	public void onLeaveLobby(PlayerTeleportEvent event) {
+		if (!plugin.getConfig().getBoolean("special.UseScoreboard") || !plugin.getConfig().getBoolean("scoreboard.enablelobbyscoreboard")) {
+			return;
+		}
+		Player player = event.getPlayer();
+		if (plugin.getScoreboardManager().hasLobbyScoreboard(player)) {
+			player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+			plugin.getScoreboardManager().restorePrejoinScoreboard(player);
+			plugin.getScoreboardManager().removeLobbyScoreboard(player.getName());
 		}
 	}
 }
