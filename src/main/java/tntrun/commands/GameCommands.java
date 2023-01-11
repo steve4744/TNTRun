@@ -171,7 +171,7 @@ public class GameCommands implements CommandExecutor {
 				}
 			} else {
 				if (!plugin.getConfig().getBoolean("invitationmessage.allowspectate")) {
-					Messages.sendMessage(player, Messages.arenarunning);
+					Messages.sendMessage(player, arena.getStatusManager().getFormattedMessage(Messages.arenarunning));
 					return false;
 				}
 				if (!arena.getPlayerHandler().canSpectate(player)) {
@@ -385,7 +385,7 @@ public class GameCommands implements CommandExecutor {
 				plugin.getServer().getConsoleSender().sendMessage("[TNTRun] Arena " + ChatColor.GOLD + arena.getArenaName() + ChatColor.WHITE + " force-started by " + ChatColor.AQUA + player.getName());
 				arena.getGameHandler().forceStartByCommand();
 			} else {
-				Messages.sendMessage(player, Messages.arenastarting.replace("{ARENA}", args[1]));
+				Messages.sendMessage(player, arena.getStatusManager().getFormattedMessage(Messages.arenastarting));
 				return false;
 			}
 		}

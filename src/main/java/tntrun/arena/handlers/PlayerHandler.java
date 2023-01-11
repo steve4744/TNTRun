@@ -90,7 +90,7 @@ public class PlayerHandler {
 		}
 		if (arena.getStatusManager().isArenaRunning()) {
 			if (!silent) {
-				Messages.sendMessage(player, Messages.arenarunning);
+				Messages.sendMessage(player, arena.getStatusManager().getFormattedMessage(Messages.arenarunning));
 			}
 			return false;
 		}
@@ -146,7 +146,7 @@ public class PlayerHandler {
 	public boolean preJoinChecks(Player player, boolean silent) {
 		if (!arena.getStatusManager().isArenaEnabled()) {
 			if (!silent) {
-				Messages.sendMessage(player, Messages.arenadisabled);
+				Messages.sendMessage(player, arena.getStatusManager().getFormattedMessage(Messages.arenadisabled));
 			}
 			return false;
 		}
@@ -158,7 +158,7 @@ public class PlayerHandler {
 		}
 		if (arena.getStatusManager().isArenaRegenerating()) {
 			if (!silent) {
-				Messages.sendMessage(player, Messages.arenaregenerating);
+				Messages.sendMessage(player, arena.getStatusManager().getFormattedMessage(Messages.arenaregenerating));
 			}
 			return false;
 		}

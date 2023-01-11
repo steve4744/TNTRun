@@ -101,7 +101,13 @@ public class StatusManager {
 		} else if(!isArenaEnabled()) {
 			message = Messages.arenadisabled;
 		}
-		return FormattingCodesParser.parseFormattingCodes(message);
+		return FormattingCodesParser.parseFormattingCodes(getFormattedMessage(message));
+	}
+
+	public String getFormattedMessage(String message) {
+		return message.replace("{ARENA}", arena.getArenaName())
+				.replace("{PS}", String.valueOf(arena.getPlayersManager().getPlayersCount()))
+				.replace("{MPS}", String.valueOf(arena.getStructureManager().getMaxPlayers()));
 	}
 
 	public String getArenaStatus() {

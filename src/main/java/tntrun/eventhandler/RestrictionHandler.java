@@ -166,7 +166,7 @@ public class RestrictionHandler implements Listener {
 			coolDown(player);
 
 			if (arena.getStatusManager().isArenaStarting()) {
-				Messages.sendMessage(player, Messages.arenastarting);
+				Messages.sendMessage(player, arena.getStatusManager().getFormattedMessage(Messages.arenastarting));
 				return;
 			}
 			if (arena.getPlayerHandler().vote(player)) {
