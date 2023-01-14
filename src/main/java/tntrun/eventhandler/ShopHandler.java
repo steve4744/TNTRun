@@ -37,7 +37,7 @@ private TNTRun plugin;
 	
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
-		if (!e.getView().getTitle().equals(plugin.getShop().getInvname())) {
+		if (!plugin.isGlobalShop() || !e.getView().getTitle().equals(plugin.getShop().getInvname())) {
 			return;
 		}
 		e.setCancelled(true);
