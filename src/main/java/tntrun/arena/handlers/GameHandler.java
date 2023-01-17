@@ -475,7 +475,7 @@ public class GameHandler {
 					}
 					stopArena();
 
-					if(plugin.getConfig().getStringList("commandsonwin") == null) {
+					if (plugin.getConfig().getStringList("commandsonwin").isEmpty()) {
 						return;
 					}
 
