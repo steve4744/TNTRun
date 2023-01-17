@@ -180,7 +180,7 @@ public class SignEditor {
 
 	private SignInfo getSignInfo(Block block, String arena) {
 		for (SignInfo si : getSigns(arena)) {
-			if (si.getBlock().equals(block)) {
+			if (block.equals(si.getBlock())) {
 				return si;
 			}
 		}
