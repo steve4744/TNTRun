@@ -199,6 +199,11 @@ public class RestrictionHandler implements Listener {
 			e.setCancelled(true);
 			plugin.getSound().ITEM_SELECT(player);
 			plugin.getMenus().buildTrackerMenu(player, arena);
+
+		} else if (e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.doublejump.material"))) {
+			e.setCancelled(true);
+			plugin.getSound().ITEM_SELECT(player);
+			handleFlight(player, arena);
 		}
 	}
 
@@ -232,6 +237,10 @@ public class RestrictionHandler implements Listener {
 			return;
 		}
 		e.setCancelled(true);
+		handleFlight(player, arena);
+	}
+
+	private void handleFlight(Player player, Arena arena) {
 		if (!arena.getStatusManager().isArenaRunning()) {
 			return;
 		}

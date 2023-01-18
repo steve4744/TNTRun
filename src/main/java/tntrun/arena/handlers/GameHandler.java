@@ -540,8 +540,13 @@ public class GameHandler {
 
 		if (arena.getStructureManager().isKitsEnabled() && plugin.getKitManager().getKits().size() > 0) {
 			arena.getPlayerHandler().allocateKits(player);
+			if (plugin.getConfig().getBoolean("items.leave.use")) {
+				arena.getPlayerHandler().addLeaveItem(player);
+			}
 		}
-
+		if (plugin.getConfig().getBoolean("items.doublejump.use")) {
+			arena.getPlayerHandler().addDoubleJumpItem(player);
+		}
 		givePlayerPurchasedItems(player);
 	}
 

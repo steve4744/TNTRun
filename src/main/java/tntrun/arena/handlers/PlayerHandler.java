@@ -686,7 +686,19 @@ public class PlayerHandler {
 		player.getInventory().setItem(plugin.getConfig().getInt("items.tracker.slot", 5), item);
 	}
 
-	private void addLeaveItem(Player player) {
+	protected void addDoubleJumpItem(Player player) {
+		if (!arena.getStructureManager().isAllowDoublejumps()) {
+			return;
+		}
+		ItemStack item = new ItemStack(Material.getMaterial(plugin.getConfig().getString("items.doublejump.material")));
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("items.doublejump.name")));
+		item.setItemMeta(meta);
+
+		player.getInventory().setItem(plugin.getConfig().getInt("items.doublejump.slot", 0), item);
+	}
+
+	protected void addLeaveItem(Player player) {
 		// Old config files will have BED as leave item which is no longer valid on 1.13. Update any invalid material to valid one.
 		Material leaveMaterial = Material.getMaterial(plugin.getConfig().getString("items.leave.material"));
 		if (leaveMaterial == null) {
@@ -780,9 +792,6 @@ public class PlayerHandler {
 
 		plugin.getKitManager().giveKit(kitname, player);
 
-		if (plugin.getConfig().getBoolean("items.leave.use")) {
-			addLeaveItem(player);
-		}
 		if (purchasedHead != null && purchasedHead.getType() == Material.PLAYER_HEAD) {
 			player.getInventory().setHelmet(purchasedHead);
 		}

@@ -187,6 +187,11 @@ items:
     material: COMPASS
     name: '&e&lPlayer Tracker'
     slot: 5
+  doublejump:
+    use: false
+    material: FEATHER
+    name: '&e&lDoublejump'
+    slot: 0
 #
 # set scoreboard text
 scoreboard:
