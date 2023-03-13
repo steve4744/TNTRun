@@ -260,7 +260,8 @@ public class PlayerHandler {
 			sendInvitationMessage(player);
 		}
 		for (Player oplayer : arena.getPlayersManager().getPlayers()) {
-			TitleMsg.sendFullTitle(oplayer, TitleMsg.join.replace("{PLAYER}", player.getName()), TitleMsg.subjoin.replace("{PLAYER}", player.getName()), 10, 20, 20, plugin);
+			TitleMsg.sendFullTitle(oplayer, TitleMsg.join.replace("{PLAYER}", player.getName()),
+					TitleMsg.subjoin.replace("{PLAYER}", player.getName()), 10, 20, 20, plugin);
 			if (playerCount != 1 || !plugin.getConfig().getBoolean("invitationmessage.enabled")) {
 				Messages.sendMessage(oplayer, getFormattedMessage(player, msgtoarenaplayers));
 			}
@@ -472,6 +473,9 @@ public class PlayerHandler {
 		}
 
 		Messages.sendMessage(player, getFormattedMessage(player, msgtoplayer));
+		TitleMsg.sendFullTitle(player, TitleMsg.leave.replace("{PLAYER}", player.getName()),
+				TitleMsg.subleave.replace("{PLAYER}", player.getName()), 10, 20, 20, plugin);
+
 		plugin.getSignEditor().modifySigns(arena.getArenaName());
 
 		if (!arena.getStatusManager().isArenaRunning()) {
@@ -485,6 +489,9 @@ public class PlayerHandler {
 
 		for (Player oplayer : arena.getPlayersManager().getAllParticipantsCopy()) {
 			Messages.sendMessage(oplayer, msgtoarenaplayers);
+			TitleMsg.sendFullTitle(oplayer, TitleMsg.leave.replace("{PLAYER}", player.getName()),
+					TitleMsg.subleave.replace("{PLAYER}", player.getName()), 10, 20, 20, plugin);
+
 			if (!arena.getStatusManager().isArenaStarting() && !arena.getStatusManager().isArenaRunning()) {
 				double progress = (double) arena.getPlayersManager().getPlayersCount() / arena.getStructureManager().getMinPlayers();
 				Bars.setBar(arena, Bars.waiting, arena.getPlayersManager().getPlayersCount(), 0, progress, plugin);

@@ -36,12 +36,18 @@ public class TitleMsg {
 	public static String substarting = "&7Starting in &6{COUNT}";
 	public static String start = "&7[&6TNTRun&7]";
 	public static String substart = "&7The Game has started";
+	public static String leave = "";
+	public static String subleave = "";
 
 	public static void sendFullTitle(Player player, String title, String subtitle, int fadeIn, int stay, int fadeOut, TNTRun plugin) {
 		if (!plugin.getConfig().getBoolean("special.UseTitle")) {
 			return;
 		}
-		player.sendTitle(FormattingCodesParser.parseFormattingCodes(title), FormattingCodesParser.parseFormattingCodes(subtitle), fadeIn, stay, fadeOut);
+		if (title.isEmpty() && subtitle.isEmpty()) {
+			return;
+		}
+		player.sendTitle(FormattingCodesParser.parseFormattingCodes(title),
+				FormattingCodesParser.parseFormattingCodes(subtitle), fadeIn, stay, fadeOut);
 	}
 
 	public static void loadTitles(TNTRun plugin) {
@@ -55,6 +61,8 @@ public class TitleMsg {
 		substarting = config.getString("substarting", substarting);
 		start = config.getString("start", start);
 		substart = config.getString("substart", substart);
+		leave = config.getString("leave", leave);
+		subleave = config.getString("subleave", subleave);
 		saveTitles(messageconfig);
 	}
 
@@ -68,6 +76,8 @@ public class TitleMsg {
 		config.set("substarting", substarting);
 		config.set("start", start);
 		config.set("substart", substart);
+		config.set("leave", leave);
+		config.set("subleave", subleave);
 		try {
 			config.save(messageconfig);
 		} catch (IOException e) {
