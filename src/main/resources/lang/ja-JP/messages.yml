@@ -21,91 +21,91 @@ arenanobounds: '&7 アリーナの境界線が設定されていません。'
 arenadisabled: '&7 アリーナを無効にしました。'
 arenarunning: '&7 このアリーナは既に有効になっています。'
 arenaregenerating: '&7 アリーナを再生中です。'
-arenavehicle: '&c You can''t join the game while sitting inside a vehicle'
+arenavehicle: '&c 車内に座ったままゲームに参加することはできません'
 arenajoined: '&c すでにアリーナに参加しています'
-arenadisabling: '&6 Arena is disabling'
-arenastarting: '&6 Arena already starting'
-signcreate: '&7 Sign successfully created'
-signremove: '&7 Sign successfully removed'
-signfail: '&7 You must be looking at a sign to create the join sign'
-arenafee: '&7 You have been charged &6{FEE} &7to enter the arena'
-arenanofee: '&c You require a fee of &6{FEE} &cto enter the arena'
-arenawaiting: '&6 Arena is waiting'
-playerscountinarena: '&6 Current number of players in arena: {COUNT} players'
-limitreached: '&7 Arena is full.'
-playerjoinedtoothers: '&c {RANK}&6{COLOR}{PLAYER} &7joined the arena (&6{PS}&7/&6{MPS}&7)'
-playerjoininvite: '&c{RANK}&6{COLOR}{PLAYER} &7has joined TNTRun arena &6{ARENA}&7, click to play'
+arenadisabling: '&6 アリーナを無効にしました。'
+arenastarting: '&6 このアリーナは既に有効になっています。'
+signcreate: '&7 サインが正常に作成されました'
+signremove: '&7 サインは正常に削除されました'
+signfail: '&7あなたは参加サインを作成するためにサインを見ている必要があります'
+arenafee: '&7あなたはアリーナに入るために &6{FEE} &7課金されました'
+arenanofee: '&c アリーナに参加するには &6{FEE} &cの手数料が必要です'
+arenawaiting: '&6 アリーナを無効にしました。'
+playerscountinarena: '&6 現在のプレイヤー数: {COUNT} 人'
+limitreached: '&7 Arena がいっぱいです。'
+playerjoinedtoothers: '&c {RANK}&6{COLOR}{PLAYER} &7がアリーナに参加しました (&6{PS}&7/6{MPS}&7)'
+playerjoininvite: '&c{RANK}&6{COLOR}{PLAYER} &7がTNTRunアリーナに参加しました &6{ARENA}&7, クリックしてプレイします'
 playerborderinvite: '&b---------------------------------------'
-playerclickinvite: Click to join {ARENA}
-playerjoinedasspectator: '&7 You joined arena &6{ARENA} &7as a spectator'
-playerlefttoplayer: '&7 You left the arena'
-playerlefttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7left the game (&6{PS}&7/&6{MPS}&7)'
-playernotplaying: '&c Targeted player &6{PLAYER} &cis no longer playing'
-playervotedforstart: '&f You voted to force-start the game'
-playeralreadyvotedforstart: '&c You have already voted'
-playercannotvote: '&c You cannot vote to force-start the arena'
-arenastarted: '&7 Arena started. Time limit is {TIMELIMIT} seconds'
-arenanolimit: '&7 Arena started. No time limit'
-arenacountdown: '&7 Arena starts in {COUNTDOWN} seconds'
-arenatimeout: '&7 Time is up. Ending game'
-playerwontoplayer: '&7 You won the game!'
-playerfinishedtestmode: '&7 Test game completed!'
-playerlosttoplayer: '&7 You lost the game'
-playerlosttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7lost the game (&6{PS}&7/&6{MPS}&7)'
-playerfirstplace: '&a1st place: &f{RANK}{COLOR}{PLAYER}'
-playersecondplace: '&a2nd place: &f{RANK}{COLOR}{PLAYER}'
-playerthirdplace: '&a3rd place: &f{RANK}{COLOR}{PLAYER}'
-playerrewardmessage: '&7 You have been rewarded: &6{REWARD}'
-playerrewardmaterial: '&6 Material :  &f'
-playerrewardcommand: '&6 Command : &f'
-playerrewardmoney: '&6 Money :    &f'
-playerrewardxp: '&6 XP :      &l  &f'
-playerboughtitem: '&7 You have bought item &6{ITEM} &7for &6{MONEY}'
-playerboughtwait: '&7 You will get your items when the game starts'
-playerkit: '&7 You have been given kit &6{KIT}'
-playersrequiredtostart: '&c There must be at least 2 players in the arena to force-start'
-notenoughmoney: '&c You need {MONEY} to buy this item'
-alreadyboughtitem: '&c You have already bought a shop item'
-shopnostock: '&c This item is currently out of stock'
-maxdoublejumpsexceeded: '&c You cannot exceed the maximum doublejumps allowed ({MAXJUMPS})'
-playernotinarena: '&c You are not in a TNTRun arena'
-playernotonline: '&6 {PLAYER} &7is not currently online'
-gamesplayed: '&bGames played &f: '
+playerclickinvite: クリックして {ARENA} に参加
+playerjoinedasspectator: '&7 あなたはアリーナに参加しました &6{ARENA} &7観客として参加しました'
+playerlefttoplayer: 'アリーナを抜けました。'
+playerlefttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7がアリーナに参加しました (&6{PS}&7/6{MPS}&7)'
+playernotplaying: '&c ターゲットプレーヤー &6{PLAYER} &cは再生されなくなりました'
+playervotedforstart: '&f あなたは強制的にゲームを開始するために投票しました'
+playeralreadyvotedforstart: '既に投票済みです'
+playercannotvote: '&c アリーナを強制的に開始するには投票できません'
+arenastarted: '&7 Arena が開始しました。制限時間は {TIMELIMIT} 秒です。'
+arenanolimit: '&7 Arena が開始しました。制限時間はありません'
+arenacountdown: '&7 Arena は {COUNTDOWN} 秒後に開始'
+arenatimeout: '&7 時間が終了しました。ゲーム終了'
+playerwontoplayer: '&bゲームに勝利しました！'
+playerfinishedtestmode: '&7 ゲームをテストしました！'
+playerlosttoplayer: '負けました、続けて頑張ってくださいね'
+playerlosttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7がアリーナに参加しました (&6{PS}&7/6{MPS}&7)'
+playerfirstplace: '&a1位: &f{RANK}{COLOR}{PLAYER}'
+playersecondplace: '&a2位: &f{RANK}{COLOR}{PLAYER}'
+playerthirdplace: '&a2位: &f{RANK}{COLOR}{PLAYER}'
+playerrewardmessage: '&7 報酬を受け取りました: &6{REWARD}'
+playerrewardmaterial: '&6 マテリアル: &f'
+playerrewardcommand: '&6 コマンド: &f'
+playerrewardmoney: '&6 Money : &f'
+playerrewardxp: '&6 XP : &f'
+playerboughtitem: '&7 &6{ITEM} &7の &6{MONEY} を購入しました'
+playerboughtwait: '&7 ゲーム開始時にアイテムが手に入ります。'
+playerkit: '&7 キットが与えられました &6{KIT}'
+playersrequiredtostart: '&c アリーナには少なくとも2人のプレイヤーがいる必要があります'
+notenoughmoney: '&c このアイテムを購入するには {MONEY} が必要です'
+alreadyboughtitem: '&c 既にショップアイテムを購入しています'
+shopnostock: '&c この商品は現在在庫切れです'
+maxdoublejumpsexceeded: '&c 許可されている最大ダブルジャンプを超えることはできません ({MAXJUMPS})'
+playernotinarena: '&c あなたはTNTRunアリーナにいません。'
+playernotonline: '&6 {PLAYER} &7は現在オンラインではありません'
+gamesplayed: '&bプレイ済みゲーム(&B): '
 gameswon: '&bWins &f: '
-gameslost: '&bLosses &f: '
+gameslost: '&b失敗(&B): '
 statshead: '&7=========[&6TNTRun Stats&7]========='
-rewardshead: '&7======[&6TNTRun Rewards&7 - &a{ARENA}&7]======'
-leaderhead: '&7======[&6TNTRun Leaderboard&7]======'
+rewardshead: '&7======[&6TNTRun報酬&7 - &a{ARENA}&7]======'
+leaderhead: '&7======[&6TNTRun リーダーボード&7]======'
 resultshead: '&7============[&6TNTRun&7]============'
-leaderboard: '{POSITION}) &c{RANK}&b{COLOR}{PLAYER} &f: Wins &3{WINS}'
+leaderboard: '{POSITION}) &c{RANK}&b{COLOR}{PLAYER} &f: &3{WINS} に勝利'
 leadersign: '&1{PLAYER} &4{WINS}'
-shopmoneyheader: '&fTNTRun Shop Account'
-shopmoneybalance: '&5Your balance is &6{BAL}'
-statsdisabled: '&c Stats are currently disabled'
-helplobby: Teleport to lobby
-helplist: List all arenas OR List arena details
-helplistkit: List all kits OR List kit details
-helplistrewards: List the rewards for the arena
-helpjoin: Open join menu OR Join the arena
-helpspectate: Join the arena as a spectator
-helpautojoin: Automatically join the first available arena
-helpleave: Leave the current arena
-helpvote: Vote to force-start current arena
-helpcmds: View all TNTRun commands
-helpinfo: View plugin info
-helpstats: View player stats
-helplb: Display the TNTRun leaderboard
-helpstart: Force-start the arena
-setuplobby: Set the global lobby at your current location
-setupdellobby: Delete the global lobby
-setupcreate: Create a new arena
-setupconfigure: Open menu to configure arena
-setupbounds: Set bounds for arena
-setuploselevel: Set loselevel point at your feet
-setupspawn: Set arena spawn at your feet
-setupspectate: Set spectator spawn point
-setupaddspawn: Set an additional spawn at your feet
-setupdelspawns: Delete all spawn points created with the addspawn command
+shopmoneyheader: '&fTNTRun ショップアカウント'
+shopmoneybalance: '&5あなたの残高は &6{BAL} です'
+statsdisabled: '&c 統計は現在無効になっています'
+helplobby: ロビーにテレポートする
+helplist: すべてのアリーナ、またはアリーナの詳細を一覧表示する
+helplistkit: すべてのキットまたはリストキットの詳細をリストする
+helplistrewards: アリーナの報酬を一覧表示する
+helpjoin: 参加メニューを開くか、アリーナに参加する
+helpspectate: 観戦者としてアリーナに参加する
+helpautojoin: 最初の利用可能なアリーナに自動的に参加する
+helpleave: 現在のアリーナから退出する
+helpvote: 現在のアリーナに投票する
+helpcmds: すべてのTNTRunコマンドを表示
+helpinfo: プラグイン情報を表示
+helpstats: プレイヤーの統計を表示
+helplb: TNTRunリーダーボードを表示する
+helpstart: アリーナを強制開始
+setuplobby: 現在のロビーにグローバルロビーを設定
+setupdellobby: グローバルロビーを削除
+setupcreate: 新しいアリーナを作成
+setupconfigure: アリーナを設定するためにメニューを開く
+setupbounds: アリーナの範囲を設定
+setuploselevel: 足元にloselevel点を設定
+setupspawn: 足元にアリーナのスポーンを設定する
+setupspectate: スペクテイターのスポーン地点を設定
+setupaddspawn: 足元に追加のスポーン地点を設定する
+setupdelspawns: addspawn コマンドで作成されたすべてのスポーン地点を削除します
 setupfinish: Finish arena and save
 setupdelspectate: Delete spectator spawn for arena
 setupdelay: Set delay for removing block when player steps on it
