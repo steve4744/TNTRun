@@ -34,7 +34,7 @@ If your server is running a minimum of Java 16 with Minecraft 1.16.5 or 1.17.1, 
 
 For Minecraft versions from 1.13.2 to 1.16.5, on servers running less than Java 16, you should download version 9.11 from Spigot.
 
-For Minecraft versions from 1.8 through to 1.12.2, the legacy version of TNTRun\_reloaded (version 6.8.7) is available in the GitHub Releases tab above. It can be [downloaded here.](https://github.com/steve4744/TNTRun/releases/download/v6.8.6/TNTRun_reloaded-6.8.7.jar "v6.8.7")
+For Minecraft versions from 1.8 through to 1.12.2, the legacy version of TNTRun\_reloaded (version 6.8.7) is available in the GitHub Releases tab above. It can be [downloaded here.](https://github.com/steve4744/TNTRun/releases/download/v6.8.7/TNTRun_reloaded-6.8.7.jar "v6.8.7")
 
 
 ## Development Builds
