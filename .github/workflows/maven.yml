@@ -4,11 +4,11 @@
 name: Java CI with Maven
 
 env:
-  VERSION: 9.24-SNAPSHOT
+  VERSION: 9.25-SNAPSHOT
 
 on:
   push:
-    branches: [ 9.24-SNAPSHOT ]
+    branches: [ 9.25-SNAPSHOT ]
       #  pull_request:
       #    branches: [ master ]
 
