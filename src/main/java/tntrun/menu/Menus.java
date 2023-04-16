@@ -454,6 +454,10 @@ public class Menus {
 			Messages.sendMessage(player, Messages.arenajoined);
 			return;
 		}
+		if (!player.hasPermission("tntrun.autojoin")) {
+			Messages.sendMessage(player,  Messages.nopermission);
+			return;
+		}
 
 		Arena autoArena = getAutoArena(player, type);
 		if (autoArena == null) {

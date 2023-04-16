@@ -16,7 +16,10 @@ commands:
     aliases: trconsole
 permissions:
   tntrun.join:
-    description: used to control who can play TNTRun and where.
+    description: used to control who can play TNTRun and where
+    default: true
+  tntrun.autojoin:
+    description: used to control who can use the autojoin command
     default: true
   tntrun.setup:
     description: used to create and modify arenas and gameplay
