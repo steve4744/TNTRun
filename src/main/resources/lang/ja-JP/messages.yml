@@ -106,22 +106,22 @@ setupspawn: 足元にアリーナのスポーンを設定する
 setupspectate: スペクテイターのスポーン地点を設定
 setupaddspawn: 足元に追加のスポーン地点を設定する
 setupdelspawns: addspawn コマンドで作成されたすべてのスポーン地点を削除します
-setupfinish: Finish arena and save
-setupdelspectate: Delete spectator spawn for arena
-setupdelay: Set delay for removing block when player steps on it
-setupregendelay: 'Set delay before players can re-join arena (Default: 60)'
-setupmax: 'Set maximum players for arena (Default: 15)'
-setupmin: 'Set minimum players for arena (Default: 2)'
-setupvote: 'Set vote percentage to force-start arena (Default: 0.75)'
-setuptimelimit: 'Set a time limit for arena (Default: 300 seconds)'
-setupcountdown: 'Set a countdown for arena (Default: 15 seconds)'
-setupmoney: Set a money reward for winning player
-setupteleport: Set teleport when you lose or win in arena
-setupdamage: Enable/disable PVP for the arena
-setupbarcolor: Set the BossBar color
-setupreloadbars: Reload Bar messages
-setupreloadtitles: Reload Title messages
-setupreloadmsg: Reload arena messages
+setupfinish: アリーナのセットアップを完了して保存する
+setupdelspectate: アリーナの観戦者のスポーンポイントを削除
+setupdelay: プレイヤーが踏んだ時のブロック削除の遅延を設定
+setupregendelay: 'プレイヤーがアリーナに再参加できるまでの時間を設定(デフォルト: 60)'
+setupmax: 'アリーナの最大プレイヤー数を設定 (デフォルト: 15)'
+setupmin: 'アリーナの最小プレイヤーを設定(デフォルト: 2)'
+setupvote: 'アリーナの強制スタートの投票率を設定(デフォルト: 0.75)'
+setuptimelimit: 'アリーナの制限時間を設定(デフォルト: 300 秒)'
+setupcountdown: 'アリーナのカウントダウンを設定(デフォルト：15秒)'
+setupmoney: 勝利したプレイヤーへの報酬を設定
+setupteleport: アリーナで負けた時や勝った時のテレポート地点を設定
+setupdamage: アリーナの PVP を有効/無効にする
+setupbarcolor: ボスバーの色を設定
+setupreloadbars: バーのメッセージを再読み込み
+setupreloadtitles: タイトルメッセージを再読み込み
+setupreloadmsg: アリーナのメッセージを再読み込み
 setupreloadconfig: Reload config file
 setupenable: Enable arena
 setupdisable: Disable arena
