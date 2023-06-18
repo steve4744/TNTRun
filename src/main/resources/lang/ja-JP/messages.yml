@@ -106,39 +106,39 @@ setupspawn: 足元にアリーナのスポーンを設定する
 setupspectate: スペクテイターのスポーン地点を設定
 setupaddspawn: 足元に追加のスポーン地点を設定する
 setupdelspawns: addspawn コマンドで作成されたすべてのスポーン地点を削除します
-setupfinish: Finish arena and save
-setupdelspectate: Delete spectator spawn for arena
-setupdelay: Set delay for removing block when player steps on it
-setupregendelay: 'Set delay before players can re-join arena (Default: 60)'
-setupmax: 'Set maximum players for arena (Default: 15)'
-setupmin: 'Set minimum players for arena (Default: 2)'
-setupvote: 'Set vote percentage to force-start arena (Default: 0.75)'
-setuptimelimit: 'Set a time limit for arena (Default: 300 seconds)'
-setupcountdown: 'Set a countdown for arena (Default: 15 seconds)'
-setupmoney: Set a money reward for winning player
-setupteleport: Set teleport when you lose or win in arena
-setupdamage: Enable/disable PVP for the arena
-setupbarcolor: Set the BossBar color
-setupreloadbars: Reload Bar messages
-setupreloadtitles: Reload Title messages
-setupreloadmsg: Reload arena messages
-setupreloadconfig: Reload config file
-setupenable: Enable arena
-setupdisable: Disable arena
-setupdelete: Delete arena
-setupreward: Set the rewards for the arena
-setupfee: Set the cost to join the arena
-setupcurrency: Set the currency to join the arena
-setuphelp: Commands required to setup a new arena
-setupenablekits: Enable kits for the arena
-setupdisablekits: Disable kits for the arena
-setupaddkit: Create a TNTRun kit
-setupdelkit: Delete a TNTRun kit
-setupp1: Set targeted block as first selection point
-setupp2: Set targeted block as second selection point
-setupclear: Clear selection points
+setupfinish: アリーナのセットアップを完了して保存する
+setupdelspectate: アリーナの観戦者のスポーンポイントを削除
+setupdelay: プレイヤーが踏んだ時のブロック削除の遅延を設定
+setupregendelay: 'プレイヤーがアリーナに再参加できるまでの時間を設定(デフォルト: 60)'
+setupmax: 'アリーナの最大プレイヤー数を設定 (デフォルト: 15)'
+setupmin: 'アリーナの最小プレイヤーを設定(デフォルト: 2)'
+setupvote: 'アリーナの強制スタートの投票率を設定(デフォルト: 0.75)'
+setuptimelimit: 'アリーナの制限時間を設定(デフォルト: 300 秒)'
+setupcountdown: 'アリーナのカウントダウンを設定(デフォルト：15秒)'
+setupmoney: 勝利したプレイヤーへの報酬を設定
+setupteleport: アリーナで負けた時や勝った時のテレポート地点を設定
+setupdamage: アリーナの PVP を有効/無効にする
+setupbarcolor: ボスバーの色を設定
+setupreloadbars: バーのメッセージを再読み込み
+setupreloadtitles: タイトルメッセージを再読み込み
+setupreloadmsg: アリーナのメッセージを再読み込み
+setupreloadconfig: 設定ファイルを再読み込み
+setupenable: このアリーナを有効化
+setupdisable: このアリーナを無効化
+setupdelete: このアリーナを削除
+setupreward: アリーナの報酬を設定
+setupfee: アリーナに参加するためのコストを設定
+setupcurrency: アリーナに参加する通貨を設定
+setuphelp: 新しいアリーナの設定に必要なコマンド
+setupenablekits: アリーナでキットを有効にする
+setupdisablekits: アリーナのキットを無効にする
+setupaddkit: TNTRunキットを作成
+setupdelkit: TNTRunキットを削除
+setupp1: ターゲットブロックを最初の選択点として設定
+setupp2: ターゲットブロックを2つ目の選択点として設定
+setupclear: 選択点をクリア
 setupwhitelist: Whitelist a command for use in-game
-setupresetstats: Remove all TNTRun stats for the player
+setupresetstats: プレイヤーのTNTRunでの統計をすべて削除する
 setupresetrank: Remove player's rank from the cache
 kitadd: '&7 The kit &6{KIT} &7has been created'
 kitdel: '&7 The kit &6{KIT} &7has been deleted'
@@ -151,11 +151,11 @@ partyleave: '&6 {PLAYER} &7has left the party'
 partyleaderleave: '&7 Party leader &6{PLAYER} &7has left - the party has been deleted'
 partynotmember: '&c You are not a member of any party'
 partynotleader: '&c You are not a party leader'
-partykick: '&6 {PLAYER} &7has been kicked from the party'
-partyunkick: '&6 {PLAYER} &7is allowed to join your party'
-partyinviteself: '&c You cannot invite yourself'
-partyinvite: '&6 {PLAYER} &7has invited you to join a party'
-partyban: '&c You are currently kicked from this party'
+partykick: '&6 {PLAYER} &7がパーティーからキックされました'
+partyunkick: '&6 {PLAYER} &7はあなたのパーティーへの参加が許可されました'
+partyinviteself: '自分を招待することはできません'
+partyinvite: '&6 {PLAYER} &7があなたをパーティーに招待しました'
+partyban: '&c あなたは現在このパーティーからキックされています。'
 partyinparty: '&c You are already in a party'
 partynotexist: '&c The selected party does not exist'
 partynoinvite: '&c You do not have an invitation to this party'
