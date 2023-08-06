@@ -128,6 +128,7 @@ public class MenuHandler implements Listener {
 			return;
 		}
 
+		inv.setMaxStackSize(256); // allow min and max players to go above 64
 		Player player = (Player) e.getWhoClicked();
 		boolean leftclick = e.getClick().isLeftClick();
 		int page = Character.getNumericValue(title.charAt(title.indexOf("/") - 1));
