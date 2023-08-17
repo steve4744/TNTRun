@@ -153,7 +153,8 @@ public class PlayerDataStore {
 	}
 
 	public void restorePlayerHealth(Player player) {
-		((LivingEntity) player).setHealth(plhealth.remove(player.getName()));
+		LivingEntity le = (LivingEntity) player;
+		le.setHealth(Math.min(le.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue(), plhealth.remove(player.getName())));
 	}
 
 	public void saveDoubleJumpsToFile(OfflinePlayer player, int amount) {
