@@ -22,7 +22,7 @@ public enum EnumLang {
 	Russian("ru-RU", "Russian", true),
 	Spanish("es-ES", "Spanish(Spain)", true),
 	Swedish("sv-SE", "Swedish", true),
-	Ukranian("uk-UA", "Ukranian", false),
+	Ukranian("uk-UA", "Ukranian", true),
 	Welsh("cy-GB", "Welsh", true);
 
 	private final String code;
