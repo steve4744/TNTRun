@@ -100,6 +100,9 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 		} else if (identifier.equals("player_count")) {
 			return String.valueOf(Utils.playerCount());
 
+		} else if (identifier.equals("spectator_count")) {
+			return String.valueOf(Utils.spectatorCount());
+
 		} else if (identifier.equals("pvp_player_count")) {
 			return String.valueOf(Utils.pvpPlayerCount());
 
@@ -129,6 +132,10 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 		} else if (identifier.startsWith("player_count")) {
 			Arena arena = getArenaFromPlaceholder(identifier, 3);
 			return arena != null ? String.valueOf(arena.getPlayersManager().getPlayersCount()) : null;
+
+		} else if (identifier.startsWith("spectator_count")) {
+			Arena arena = getArenaFromPlaceholder(identifier, 3);
+			return arena != null ? String.valueOf(arena.getPlayersManager().getSpectatorsCount()) : null;
 
 		} else if (identifier.startsWith("status")) {
 			Arena arena = getArenaFromPlaceholder(identifier, 2);

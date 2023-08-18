@@ -41,6 +41,10 @@ public class PlayersManager {
 		return players.size();
 	}
 
+	public int getSpectatorsCount() {
+		return spectators.size();
+	}
+
 	public HashSet<Player> getAllParticipantsCopy() {
 		HashSet<Player> p = new HashSet<>();
 		p.addAll(players.values());

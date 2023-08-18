@@ -83,6 +83,14 @@ public class Utils {
 		return pCount;
 	}
 
+	public static int spectatorCount() {
+		int sCount = 0;
+		for (Arena arena : TNTRun.getInstance().amanager.getArenas()) {
+			sCount += arena.getPlayersManager().getSpectatorsCount();
+		}
+		return sCount;
+	}
+
 	public static int pvpPlayerCount() {
 		int pCount = 0;
 		for (Arena arena : TNTRun.getInstance().amanager.getPvpArenas()) {
