@@ -282,6 +282,9 @@ public class GameHandler {
 			if (Utils.debug()) {
 				plugin.getLogger().info("stopArena is removing player " + player.getName());
 			}
+			if (arena.getStructureManager().hasCommandOnStop()) {
+				executeCommandOnStop(player);
+			}
 			arena.getScoreboardHandler().removeScoreboard(player);
 			arena.getPlayerHandler().leavePlayer(player, "", "");
 		}
@@ -394,11 +397,11 @@ public class GameHandler {
 	}
 
 	/**
-	 * Called when there is only 1 player left, to update winner stats and
+	 * Called when there is only 1 player left to update winner stats and
 	 * teleport winner and spectators to the arena spawn point. It determines who
 	 * should receive the broadcast results and then stops the arena.
 	 *
-	 * @param player
+	 * @param player winner
 	 */
 	private void startEnding(final Player player) {
 		if (plugin.useStats() && isStatsActive()) {
@@ -469,6 +472,9 @@ public class GameHandler {
 					if (arena.getPlayersManager().getPlayersCount() == 1) {
 						String msg = arena.getStructureManager().isTestMode() ? Messages.playerfinishedtestmode : Messages.playerwontoplayer;
 						arena.getPlayerHandler().leaveWinner(player, msg);
+						if (arena.getStructureManager().hasCommandOnStop()) {
+							executeCommandOnStop(player);
+						}
 					}
 					if (Utils.debug()) {
 						plugin.getLogger().info("GH StartEnding calling stopArena...");
@@ -673,7 +679,7 @@ public class GameHandler {
 				arena.getStructureManager().getCommandOnStart().replace("%PLAYER%", player.getName()));
 	}
 
-	public void executeCommandOnStop(Player player) {
+	private void executeCommandOnStop(Player player) {
 		Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(),
 				arena.getStructureManager().getCommandOnStop().replace("%PLAYER%", player.getName()));
 	}
