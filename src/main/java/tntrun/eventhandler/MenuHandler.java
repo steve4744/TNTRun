@@ -295,6 +295,8 @@ public class MenuHandler implements Listener {
 					plugin.getMenus().buildConfigMenu(player, arena, 2);
 				}
 				return;
+			default:
+				return;
 		}
 		plugin.getMenus().updateConfigItem(inv, slot, arena, page);
 		if (slot == 19 && page == 1) {
