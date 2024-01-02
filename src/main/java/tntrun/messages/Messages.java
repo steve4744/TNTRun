@@ -85,9 +85,8 @@ public class Messages {
 	public static String playerfinishedtestmode = "&7 Test game completed!";
 	public static String playerlosttoplayer = "&7 You lost the game";
 	public static String playerlosttoothers = "&c {RANK}&6{COLOR}{PLAYER} &7lost the game (&6{PS}&7/&6{MPS}&7)";
-	public static String playerfirstplace = "&a1st place: &f{RANK}{COLOR}{PLAYER}";
-	public static String playersecondplace = "&a2nd place: &f{RANK}{COLOR}{PLAYER}";
-	public static String playerthirdplace = "&a3rd place: &f{RANK}{COLOR}{PLAYER}";
+	public static String playerposition = "&a{POS}: &f{RANK}{COLOR}{PLAYER}";
+	public static String rewardlistposition = "&a{POS} : ";
 	public static String playerrewardmessage = "&7 You have been rewarded: &6{REWARD}";
 	public static String playerrewardmaterial = "&6 Material :  &f";
 	public static String playerrewardcommand = "&6 Command : &f";
@@ -276,9 +275,8 @@ public class Messages {
 		playerfinishedtestmode = config.getString("playerfinishedtestmode", playerfinishedtestmode);
 		playerlosttoplayer = config.getString("playerlosttoplayer", playerlosttoplayer);
 		playerlosttoothers = config.getString("playerlosttoothers", playerlosttoothers);
-		playerfirstplace = config.getString("playerfirstplace", playerfirstplace);
-		playersecondplace = config.getString("playersecondplace", playersecondplace);
-		playerthirdplace = config.getString("playerthirdplace", playerthirdplace);
+		playerposition = config.getString("playerposition", playerposition);
+		rewardlistposition = config.getString("rewardlistposition", rewardlistposition);
 		playerrewardmessage = config.getString("playerrewardmessage", playerrewardmessage);
 		playerrewardmaterial = config.getString("playerrewardmaterial", playerrewardmaterial);
 		playerrewardcommand = config.getString("playerrewardcommand", playerrewardcommand);
@@ -384,17 +382,6 @@ public class Messages {
 		partynoinvite = config.getString("partynoinvite", partynoinvite);
 		partynotenabled = config.getString("partynotenabled", partynotenabled);
 
-		// temp fix (v9.15) to not rely on manual updates to the messages file
-		if (!playerfirstplace.contains("{PLAYER}")) {
-			playerfirstplace += "{COLOR}{PLAYER}";
-		}
-		if (!playersecondplace.contains("{PLAYER}")) {
-			playersecondplace += "{COLOR}{PLAYER}";
-		}
-		if (!playerthirdplace.contains("{PLAYER}")) {
-			playerthirdplace += "{COLOR}{PLAYER}";
-		}
-
 		saveMessages(messageconfig);
 	}
 
@@ -454,9 +441,8 @@ public class Messages {
 		config.set("playerfinishedtestmode", playerfinishedtestmode);
 		config.set("playerlosttoplayer", playerlosttoplayer);
 		config.set("playerlosttoothers", playerlosttoothers);
-		config.set("playerfirstplace", playerfirstplace);
-		config.set("playersecondplace", playersecondplace);
-		config.set("playerthirdplace", playerthirdplace);
+		config.set("playerposition", playerposition);
+		config.set("rewardlistposition", rewardlistposition);
 		config.set("playerrewardmessage", playerrewardmessage);
 		config.set("playerrewardmaterial", playerrewardmaterial);
 		config.set("playerrewardcommand", playerrewardcommand);
