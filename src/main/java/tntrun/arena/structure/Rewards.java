@@ -18,7 +18,6 @@
 package tntrun.arena.structure;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +25,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringJoiner;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.Bukkit;
@@ -56,8 +53,10 @@ public class Rewards {
 	private Map<Integer, Integer> xpreward = new HashMap<>();
 	private Map<Integer, List<String>> commandrewards = new HashMap<>();
 	private Map<Integer, List<ItemStack>> materialrewards = new HashMap<>();
-	private Map<Integer, Boolean> activereward = new HashMap<>();
 	private Map<Integer, Integer> minplayersrequired = new HashMap<>();
+	private List<String> places = new ArrayList<>(List.of("reward"));
+	private int startingPlayers;
+	private int maxplaces;
 	private int index;
 
 	public List<ItemStack> getMaterialReward(int place) {
@@ -80,8 +79,22 @@ public class Rewards {
 		return minplayersrequired.getOrDefault(place, 0);
 	}
 
-	public boolean isActiveReward(int place) {
-		return activereward.getOrDefault(place, false);
+	public int getMaxPlaces() {
+		return maxplaces;
+	}
+
+	/**
+	 * Check if the player's finishing position has a reward.
+	 *
+	 * @param place
+	 * @return
+	 */
+	private boolean isActiveReward(int place) {
+		if (Utils.debug()) {
+			Bukkit.getLogger().info("[TNTRun] place = " + place +", maxplaces = " + maxplaces +
+					", starters = " + startingPlayers + ", min = " + getMinPlayersRequired(place));
+		}
+		return place <= (maxplaces + 1) && startingPlayers >= getMinPlayersRequired(place);
 	}
 
 	public void setMaterialReward(String item, String amount, String label, boolean isFirstItem, int place) {
@@ -200,19 +213,13 @@ public class Rewards {
 		}
 	}
 
-	public void setActiveRewards(int playercount) {
-		for (int place = 1; place < 4; place++) {
-			activereward.put(place, false);
-			if (playercount >= getMinPlayersRequired(place)) {
-				activereward.put(place, true);
-			}
-		}
+	public void setStartingPlayers(int starters) {
+		startingPlayers = starters;
 	}
 
 	public void saveToConfig(FileConfiguration config) {
 		index = 1;
-		Stream<String> stream = Stream.of("reward", "places.second", "places.third");
-		stream.forEach(path -> {
+		places.stream().forEach(path -> {
 			config.set(path + ".minPlayers", getMinPlayersRequired(index));
 			config.set(path + ".money", getMoneyReward(index));
 			config.set(path + ".xp", getXPReward(index));
@@ -227,9 +234,9 @@ public class Rewards {
 	}
 
 	public void loadFromConfig(FileConfiguration config) {
+		maxplaces = config.isConfigurationSection("places") ? config.getConfigurationSection("places").getKeys(false).size() : 0;
 		index = 1;
-		Stream<String> stream = Stream.of("reward", "places.second", "places.third");
-		stream.forEach(path -> {
+		getRewardPlaces(config).stream().forEach(path -> {
 			setMinPlayersRequired(config.getInt(path + ".minPlayers"), index);
 			setMoneyReward(config.getInt(path + ".money"), index);
 			setXPReward(config.getInt(path + ".xp"), index);
@@ -247,6 +254,23 @@ public class Rewards {
 		});
 	}
 
+	private List<String> getRewardPlaces(FileConfiguration config) {
+		for (String key : config.getConfigurationSection("places").getKeys(false)) {
+			// temp code to rewrite config from v9.27
+			if (key.equalsIgnoreCase("second")) {
+				places.add("places.2");
+				continue;
+			} else if (key.equalsIgnoreCase("third")) {
+				places.add("places.3");
+				continue;
+			}
+
+			places.add("places." + key);
+		}
+
+		return places;
+	}
+
 	private boolean isValidReward(String materialreward, int materialamount) {
 		if (Material.getMaterial(materialreward) != null && materialamount > 0) {
 			return true;
@@ -255,10 +279,10 @@ public class Rewards {
 	}
 
 	public void listRewards(Player player, String arenaName) {
-		List<String> places = Arrays.asList(Messages.playerfirstplace, Messages.playersecondplace, Messages.playerthirdplace);
 		Messages.sendMessage(player, Messages.rewardshead.replace("{ARENA}", arenaName), false);
 
-		IntStream.range(1, 4).forEach(i -> {
+		IntStream.range(1, maxplaces + 2).forEach(i -> {
+
 			StringBuilder sb = new StringBuilder(200);
 			if (getXPReward(i) != 0) {
 				sb.append("\n   " + Messages.playerrewardxp + getXPReward(i));
@@ -279,7 +303,7 @@ public class Rewards {
 				sb.setLength(sb.length() - 2);
 			}
 			if (sb.length() != 0) {
-				sb.insert(0, places.get(i-1).replace("{RANK}", "").replace("{COLOR}", "").replace("{PLAYER}", ""));
+				sb.insert(0, Messages.rewardlistposition.replace("{POS}", String.valueOf(i)));
 				Messages.sendMessage(player, sb.toString(), false);
 			}
 		});

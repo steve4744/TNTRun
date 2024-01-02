@@ -20,6 +20,8 @@ package tntrun.arena.handlers;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -168,6 +170,7 @@ public class GameHandler {
 	// main arena handler
 	private int timeremaining;
 	private int arenahandler;
+	private int startingPlayers;
 	private boolean forceStartByCmd;
 	private boolean hasTimeLimit;
 
@@ -176,9 +179,10 @@ public class GameHandler {
 	 */
 	private void startArena() {
 		arena.getStatusManager().setRunning(true);
+		startingPlayers = arena.getPlayersManager().getPlayersCount();
 		if (Utils.debug()) {
 			plugin.getLogger().info("Arena " + arena.getArenaName() + " started");
-			plugin.getLogger().info("Players in arena: " + arena.getPlayersManager().getPlayersCount());
+			plugin.getLogger().info("Players in arena: " + startingPlayers);
 		}
 
 		plugin.getServer().getPluginManager().callEvent(new ArenaStartEvent(arena));
@@ -187,8 +191,8 @@ public class GameHandler {
 			arena.getScoreboardHandler().removeScoreboard(player);
 		}
 
-		arena.getStructureManager().getRewards().setActiveRewards(arena.getPlayersManager().getPlayersCount());
-		setActiveStats(arena.getPlayersManager().getPlayersCount());
+		arena.getStructureManager().getRewards().setStartingPlayers(startingPlayers);
+		setActiveStats(startingPlayers);
 
 		String message = Messages.trprefix;
 		int limit = arena.getStructureManager().getTimeLimit();
@@ -304,7 +308,8 @@ public class GameHandler {
 
 	/**
 	 * Remove the block under the player's feet, monitor player's position for lose.
-	 * Check for winner, i.e. last player remaining, and for 2nd and 3rd places.
+	 * Check for winner, i.e. last player remaining, and for other places.
+	 *
 	 * @param player
 	 */
 	private void handlePlayer(final Player player) {
@@ -330,16 +335,16 @@ public class GameHandler {
 	}
 
 	/**
-	 * Get Map containing the 2nd and 3rd place player names.
+	 * Get map containing the player names for 2nd, 3rd and other places.
 	 *
-	 * @return player names finishing 2nd and 3rd.
+	 * @return player names finishing in places to be displayed.
 	 */
 	public Map<Integer, String> getPlaces() {
 		return places;
 	}
 
 	/**
-	 * Store the names of the players finishing in places 2 and 3.
+	 * Store the names of the players finishing in the top places (2nd and 3rd by default).
 	 * The players can be at the lose level or can have quit the game.
 	 * Exit if the map already contains the player - 3rd placed spectator could
 	 * subsequently quit and be rewarded multiple prizes.
@@ -351,9 +356,7 @@ public class GameHandler {
 			return;
 		}
 		int remainingPlayers = arena.getPlayersManager().getPlayersCount();
-		if (remainingPlayers < 4 && remainingPlayers > 1) {
-			places.put(remainingPlayers, playerName);
-		}
+		places.put(remainingPlayers, playerName);
 	}
 
 	/**
@@ -636,38 +639,32 @@ public class GameHandler {
 	}
 
 	/**
-	 * Gets the players in the first 3 positions at the end of the game.
+	 * Gets the player positions at the end of the game up to the maximum set in the configuration.
 	 *
 	 * @param winner player
-	 * @return string podium places
+	 * @return string places
 	 */
 	private String getPodiumPlaces(Player winner) {
 		StringBuilder sb = new StringBuilder(200);
 		String header = Messages.resultshead.replace("{ARENA}", arena.getArenaName());
 		sb.append("\n" + header);
 		sb.append("\n ");
-		sb.append("\n" + Messages.playerfirstplace.replace("{RANK}", Utils.getRank(winner.getName()))
+		sb.append("\n" + Messages.playerposition.replace("{POS}", "1").replace("{RANK}", Utils.getRank(winner.getName()))
 								.replace("{COLOR}", Utils.getColourMeta(winner)).replace("{PLAYER}", winner.getName()));
 
-		if (places.get(2) != null) {
-			String playerName = places.get(2);
-			sb.append("\n" + Messages.playersecondplace.replace("{RANK}", Utils.getRank(playerName))
-								.replace("{COLOR}", Utils.getColourMeta(playerName))
-								.replace("{PLAYER}", playerName));
+		places.entrySet().stream()
+			.sorted(Entry.comparingByKey())
+			.forEach(e -> {
+				if (e.getKey() <= Math.min(arena.getStructureManager().getMaxFinalPositions(), startingPlayers)) {
+					String playerName = e.getValue();
+					sb.append("\n" + Messages.playerposition.replace("{POS}", String.valueOf(e.getKey()))
+									.replace("{RANK}", Utils.getRank(playerName))
+									.replace("{COLOR}", Utils.getColourMeta(playerName))
+									.replace("{PLAYER}", playerName));
+				}
+			}
+		);
 
-		} else {
-			sb.append("\n" + Messages.playersecondplace.replace("{RANK}", "").replace("{COLOR}", "").replace("{PLAYER}", "-"));
-		}
-
-		if (places.get(3) != null) {
-			String playerName = places.get(3);
-			sb.append("\n" + Messages.playerthirdplace.replace("{RANK}", Utils.getRank(playerName))
-								.replace("{COLOR}", Utils.getColourMeta(playerName))
-								.replace("{PLAYER}", playerName));
-
-		} else {
-			sb.append("\n" + Messages.playerthirdplace.replace("{RANK}", "").replace("{COLOR}", "").replace("{PLAYER}", "-"));
-		}
 		sb.append("\n ");
 		sb.append("\n" + header);
 

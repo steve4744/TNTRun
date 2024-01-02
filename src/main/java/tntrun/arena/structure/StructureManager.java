@@ -76,6 +76,7 @@ public class StructureManager {
 	private String commandOnStart;
 	private String commandOnStop;
 	private boolean shopEnabled = true;
+	private int maxFinalPositions = 3;
 
 	public String getWorldName() {
 		return world;
@@ -219,6 +220,10 @@ public class StructureManager {
 
 	public double getFee() {
 		return fee;
+	}
+
+	public int getMaxFinalPositions() {
+		return maxFinalPositions;
 	}
 
 	public Material getCurrency() {
@@ -446,6 +451,10 @@ public class StructureManager {
 		this.fee = fee;
 	}
 
+	public void setMaxFinalPositions(int size) {
+		this.maxFinalPositions = size;
+	}
+
 	public void setCurrency(Material currency) {
 		if (currency.isAir()) {
 			this.currency = null;
@@ -515,6 +524,7 @@ public class StructureManager {
 		config.set("spawnpoints", additionalSpawnPoints);
 		config.set("commandOnStart", getCommandOnStart());
 		config.set("commandOnStop", getCommandOnStop());
+		config.set("displayfinalpositions", maxFinalPositions);
 		config.set("shop.enabled", shopEnabled);
 		rewards.saveToConfig(config);
 		try {
@@ -562,6 +572,7 @@ public class StructureManager {
 		additionalSpawnPoints = (List<Vector>) config.getList("spawnpoints", new ArrayList<>());
 		commandOnStart = config.getString("commandOnStart", "");
 		commandOnStop = config.getString("commandOnStop", "");
+		maxFinalPositions = config.getInt("displayfinalpositions", maxFinalPositions);
 		shopEnabled = config.getBoolean("shop.enabled", true);
 	}
 
