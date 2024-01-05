@@ -79,10 +79,6 @@ public class Rewards {
 		return minplayersrequired.getOrDefault(place, 0);
 	}
 
-	public int getMaxPlaces() {
-		return maxplaces;
-	}
-
 	/**
 	 * Check if the player's finishing position has a reward.
 	 *
@@ -91,10 +87,10 @@ public class Rewards {
 	 */
 	private boolean isActiveReward(int place) {
 		if (Utils.debug()) {
-			Bukkit.getLogger().info("[TNTRun] place = " + place +", maxplaces = " + getMaxPlaces() +
+			Bukkit.getLogger().info("[TNTRun] place = " + place +", maxplaces = " + maxplaces +
 					", starters = " + startingPlayers + ", min = " + getMinPlayersRequired(place));
 		}
-		return place <= (getMaxPlaces()) && startingPlayers >= getMinPlayersRequired(place);
+		return place <= maxplaces && startingPlayers >= getMinPlayersRequired(place);
 	}
 
 	public void setMaterialReward(String item, String amount, String label, boolean isFirstItem, int place) {
@@ -224,7 +220,7 @@ public class Rewards {
 
 	public void saveToConfig(FileConfiguration config) {
 		path = "reward";
-		IntStream.range(1, getMaxPlaces() + 1).forEach(index -> {
+		IntStream.range(1, maxplaces + 1).forEach(index -> {
 
 			config.set(path + ".minPlayers", getMinPlayersRequired(index));
 			config.set(path + ".money", getMoneyReward(index));
@@ -299,7 +295,7 @@ public class Rewards {
 	public void listRewards(Player player, String arenaName) {
 		Messages.sendMessage(player, Messages.rewardshead.replace("{ARENA}", arenaName), false);
 
-		IntStream.range(1, getMaxPlaces() + 1).forEach(i -> {
+		IntStream.range(1, maxplaces + 1).forEach(i -> {
 
 			StringBuilder sb = new StringBuilder(200);
 			if (getXPReward(i) != 0) {
