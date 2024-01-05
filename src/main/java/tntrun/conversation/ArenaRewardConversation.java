@@ -31,7 +31,7 @@ import org.bukkit.conversations.StringPrompt;
 import tntrun.arena.Arena;
 import tntrun.utils.Utils;
 
-public class ArenaRewardConversation extends FixedSetPrompt {
+public class ArenaRewardConversation extends NumericPrompt {
 	private Arena arena;
 	private boolean isFirstItem = true;
 	private String podium;
@@ -39,35 +39,29 @@ public class ArenaRewardConversation extends FixedSetPrompt {
 	private static final String PREFIX = GRAY + "[" + GOLD + "TNTRun_reloaded" + GRAY + "] ";
 
 	public ArenaRewardConversation(Arena arena) {
-		super("first", "second", "third");
 		this.arena = arena;
 	}
 
 	@Override
 	public String getPromptText(ConversationContext context) {
-		return GOLD + " What reward place would you like to set?\n"
-				+ GREEN + formatFixedSet();
+		return GOLD + " What position would you like to set a reward for? (1, 2, 3, ...)\n";
 	}
 
 	@Override
-	protected Prompt acceptValidatedInput(ConversationContext context, String choice) {
-		switch(choice.toLowerCase()) {
-		case "first":
-			podium = GOLD + "First " + GRAY + "place ";
-			place = 1;
-			break;
-		case "second":
-			podium = GOLD + "Second " + GRAY + "place ";
-			place = 2;
-			break;
-		case "third":
-			podium = GOLD + "Third " + GRAY + "place ";
-			place = 3;
-			break;
-		default:
-			place = 0;
-		}
-		return place != 0 ? new ChooseRewardType() : null;
+	protected boolean isNumberValid(ConversationContext context, Number input) {
+		return input.intValue() > 0 && input.intValue() < 100;
+	}
+
+	@Override
+	protected String getFailedValidationText(ConversationContext context, Number invalidInput) {
+		return "Position must be between 1 and 99.";
+	}
+
+	@Override
+	protected Prompt acceptValidatedInput(ConversationContext context, Number position) {
+		place = (int)position;
+		podium = GRAY + "Position " + GOLD + place + GRAY + ": ";
+		return new ChooseRewardType();
 	}
 
 	private class ChooseRewardType extends FixedSetPrompt {

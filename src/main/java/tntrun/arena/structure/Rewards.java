@@ -54,10 +54,10 @@ public class Rewards {
 	private Map<Integer, List<String>> commandrewards = new HashMap<>();
 	private Map<Integer, List<ItemStack>> materialrewards = new HashMap<>();
 	private Map<Integer, Integer> minplayersrequired = new HashMap<>();
-	private List<String> places = new ArrayList<>(List.of("reward"));
 	private int startingPlayers;
 	private int maxplaces;
 	private int index;
+	private String path;
 
 	public List<ItemStack> getMaterialReward(int place) {
 		return materialrewards.get(place);
@@ -91,10 +91,10 @@ public class Rewards {
 	 */
 	private boolean isActiveReward(int place) {
 		if (Utils.debug()) {
-			Bukkit.getLogger().info("[TNTRun] place = " + place +", maxplaces = " + maxplaces +
+			Bukkit.getLogger().info("[TNTRun] place = " + place +", maxplaces = " + getMaxPlaces() +
 					", starters = " + startingPlayers + ", min = " + getMinPlayersRequired(place));
 		}
-		return place <= (maxplaces + 1) && startingPlayers >= getMinPlayersRequired(place);
+		return place <= (getMaxPlaces()) && startingPlayers >= getMinPlayersRequired(place);
 	}
 
 	public void setMaterialReward(String item, String amount, String label, boolean isFirstItem, int place) {
@@ -110,6 +110,7 @@ public class Rewards {
 			setMaterialDisplayName(reward, label);
 		}
 		materialrewards.computeIfAbsent(place, k -> new ArrayList<>()).add(reward);
+		maxplaces = Math.max(maxplaces, place);
 
 		if (Utils.debug()) {
 			Bukkit.getLogger().info("[TNTRun] reward(" + place + ") = " + materialrewards.toString());
@@ -124,6 +125,7 @@ public class Rewards {
 
 	public void setMoneyReward(int money, int place) {
 		moneyreward.put(place, money);
+		maxplaces = Math.max(maxplaces, place);
 	}
 	
 	public void setCommandReward(String cmdreward, boolean isFirstCmd, int place) {
@@ -134,6 +136,8 @@ public class Rewards {
 			Bukkit.getLogger().info("[TNTRun] reward(" + place + ") = " + commandrewards.toString());
 		}
 		commandrewards.computeIfAbsent(place, k -> new ArrayList<>()).add(cmdreward);
+		maxplaces = Math.max(maxplaces, place);
+
 		if (Utils.debug()) {
 			Bukkit.getLogger().info("[TNTRun] reward(" + place + ") = " + commandrewards.toString());
 		}
@@ -145,6 +149,7 @@ public class Rewards {
 
 	public void setXPReward(int xprwd, int place) {
 		xpreward.put(place, xprwd);
+		maxplaces = Math.max(maxplaces, place);
 	}
 
 	public void deleteMaterialReward(int place) {
@@ -218,8 +223,9 @@ public class Rewards {
 	}
 
 	public void saveToConfig(FileConfiguration config) {
-		index = 1;
-		places.stream().forEach(path -> {
+		path = "reward";
+		IntStream.range(1, getMaxPlaces() + 1).forEach(index -> {
+
 			config.set(path + ".minPlayers", getMinPlayersRequired(index));
 			config.set(path + ".money", getMoneyReward(index));
 			config.set(path + ".xp", getXPReward(index));
@@ -229,14 +235,17 @@ public class Rewards {
 					config.set(path + ".material." + is.getType().toString()  + ".amount", is.getAmount());
 				});
 			}
-			index++;
+			path = "places." + (index + 1);
 		});
 	}
 
 	public void loadFromConfig(FileConfiguration config) {
-		maxplaces = config.isConfigurationSection("places") ? config.getConfigurationSection("places").getKeys(false).size() : 0;
+		if (!config.isConfigurationSection("reward")) {
+			return;
+		}
 		index = 1;
-		getRewardPlaces(config).stream().forEach(path -> {
+		getPlacesFromFile(config).stream().forEach(path -> {
+
 			setMinPlayersRequired(config.getInt(path + ".minPlayers"), index);
 			setMoneyReward(config.getInt(path + ".money"), index);
 			setXPReward(config.getInt(path + ".xp"), index);
@@ -252,23 +261,32 @@ public class Rewards {
 			}
 			index++;
 		});
+
+		maxplaces = index - 1;
 	}
 
-	private List<String> getRewardPlaces(FileConfiguration config) {
+	private List<String> getPlacesFromFile(FileConfiguration config) {
+		List<String> paths = new ArrayList<>(List.of("reward"));
+		if (!config.isConfigurationSection("places")) {
+			return paths;
+		}
 		for (String key : config.getConfigurationSection("places").getKeys(false)) {
 			// temp code to rewrite config from v9.27
 			if (key.equalsIgnoreCase("second")) {
-				places.add("places.2");
+				paths.add("places." + 2);
 				continue;
 			} else if (key.equalsIgnoreCase("third")) {
-				places.add("places.3");
+				paths.add("places." + 3);
 				continue;
 			}
 
-			places.add("places." + key);
+			paths.add("places." + key);
+		}
+		if (Utils.debug()) {
+			Bukkit.getLogger().info("[TNTRun] reward paths = " + paths.toString());
 		}
 
-		return places;
+		return paths;
 	}
 
 	private boolean isValidReward(String materialreward, int materialamount) {
@@ -281,7 +299,7 @@ public class Rewards {
 	public void listRewards(Player player, String arenaName) {
 		Messages.sendMessage(player, Messages.rewardshead.replace("{ARENA}", arenaName), false);
 
-		IntStream.range(1, maxplaces + 2).forEach(i -> {
+		IntStream.range(1, getMaxPlaces() + 1).forEach(i -> {
 
 			StringBuilder sb = new StringBuilder(200);
 			if (getXPReward(i) != 0) {
