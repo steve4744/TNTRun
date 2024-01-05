@@ -87,7 +87,7 @@ public class Rewards {
 	 */
 	private boolean isActiveReward(int place) {
 		if (Utils.debug()) {
-			Bukkit.getLogger().info("[TNTRun] place = " + place +", maxplaces = " + maxplaces +
+			Bukkit.getLogger().info("[TNTRun_reloaded] place = " + place +", maxplaces = " + maxplaces +
 					", starters = " + startingPlayers + ", min = " + getMinPlayersRequired(place));
 		}
 		return place <= maxplaces && startingPlayers >= getMinPlayersRequired(place);
@@ -98,7 +98,7 @@ public class Rewards {
 			materialrewards.remove(place);
 		}
 		if (Utils.debug()) {
-			Bukkit.getLogger().info("[TNTRun] reward(" + place + ") = " + materialrewards.toString());
+			Bukkit.getLogger().info("[TNTRun_reloaded] reward(" + place + ") = " + materialrewards.toString());
 		}
 
 		ItemStack reward = new ItemStack(Material.getMaterial(item), Integer.valueOf(amount));
@@ -109,7 +109,7 @@ public class Rewards {
 		maxplaces = Math.max(maxplaces, place);
 
 		if (Utils.debug()) {
-			Bukkit.getLogger().info("[TNTRun] reward(" + place + ") = " + materialrewards.toString());
+			Bukkit.getLogger().info("[TNTRun_reloaded] reward(" + place + ") = " + materialrewards.toString());
 		}
 	}
 
@@ -129,13 +129,13 @@ public class Rewards {
 			commandrewards.remove(place);
 		}
 		if (Utils.debug()) {
-			Bukkit.getLogger().info("[TNTRun] reward(" + place + ") = " + commandrewards.toString());
+			Bukkit.getLogger().info("[TNTRun_reloaded] reward(" + place + ") = " + commandrewards.toString());
 		}
 		commandrewards.computeIfAbsent(place, k -> new ArrayList<>()).add(cmdreward);
 		maxplaces = Math.max(maxplaces, place);
 
 		if (Utils.debug()) {
-			Bukkit.getLogger().info("[TNTRun] reward(" + place + ") = " + commandrewards.toString());
+			Bukkit.getLogger().info("[TNTRun_reloaded] reward(" + place + ") = " + commandrewards.toString());
 		}
 	}
 	
@@ -168,7 +168,7 @@ public class Rewards {
 		final ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 
 		if (Utils.debug()) {
-			Bukkit.getLogger().info("[TNTRun] Checking rewards for " + player.getName());
+			Bukkit.getLogger().info("[TNTRun_reloaded] Checking rewards for " + player.getName());
 		}
 		if (getMaterialReward(place) != null) {
 			getMaterialReward(place).forEach(reward -> {
@@ -279,7 +279,7 @@ public class Rewards {
 			paths.add("places." + key);
 		}
 		if (Utils.debug()) {
-			Bukkit.getLogger().info("[TNTRun] reward paths = " + paths.toString());
+			Bukkit.getLogger().info("[TNTRun_reloaded] reward paths = " + paths.toString());
 		}
 
 		return paths;

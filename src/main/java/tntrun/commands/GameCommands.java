@@ -382,7 +382,7 @@ public class GameCommands implements CommandExecutor {
 				return false;
 			}
 			if (!arena.getStatusManager().isArenaStarting()) {
-				plugin.getServer().getConsoleSender().sendMessage("[TNTRun] Arena " + ChatColor.GOLD + arena.getArenaName() + ChatColor.WHITE + " force-started by " + ChatColor.AQUA + player.getName());
+				plugin.getServer().getConsoleSender().sendMessage("[TNTRun_reloaded] Arena " + ChatColor.GOLD + arena.getArenaName() + ChatColor.WHITE + " force-started by " + ChatColor.AQUA + player.getName());
 				arena.getGameHandler().forceStartByCommand();
 			} else {
 				Messages.sendMessage(player, arena.getStatusManager().getFormattedMessage(Messages.arenastarting));

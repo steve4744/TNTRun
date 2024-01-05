@@ -29,12 +29,12 @@ public class OwnLocations {
 	private HashMap<String, Location> loc2 = new HashMap<>();
 
 	protected void putPlayerLoc1(String playername, Location loc) {
-		Bukkit.getLogger().info("[TNTRun] Location P1 set to " + loc.toString());
+		Bukkit.getLogger().info("[TNTRun_reloaded] Location P1 set to " + loc.toString());
 		loc1.put(playername, loc);
 	}
 
 	protected void putPlayerLoc2(String playername, Location loc) {
-		Bukkit.getLogger().info("[TNTRun] Location P2 set to " + loc.toString());
+		Bukkit.getLogger().info("[TNTRun_reloaded] Location P2 set to " + loc.toString());
 		loc2.put(playername, loc);
 	}
 
