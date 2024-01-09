@@ -203,7 +203,7 @@ public class MenuHandler implements Listener {
 				break;
 			case 19:
 				if (page == 1) {
-					int minplayers = leftclick ? (is.getAmount() + 1) : (is.getAmount() - 1);
+					int minplayers = leftclick ? (arena.getStructureManager().getMinPlayers() + 1) : (arena.getStructureManager().getMinPlayers() - 1);
 					cmd += "setminplayers " + arenaname + " " + minplayers;
 				} else {
 					String damage = arena.getStructureManager().getDamageEnabled().toString();
@@ -220,7 +220,7 @@ public class MenuHandler implements Listener {
 				break;
 			case 20:
 				if (page == 1) {
-					int maxplayers = leftclick ? (is.getAmount() + 1) : (is.getAmount() - 1);
+					int maxplayers = leftclick ? (arena.getStructureManager().getMaxPlayers() + 1) : (arena.getStructureManager().getMaxPlayers() - 1);
 					cmd += "setmaxplayers " + arenaname + " " + maxplayers;
 					Bukkit.dispatchCommand(player, cmd);
 				} else {
