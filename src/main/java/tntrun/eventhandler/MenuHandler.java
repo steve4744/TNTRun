@@ -260,7 +260,14 @@ public class MenuHandler implements Listener {
 				}
 				break;
 			case 24:
-				if (page == 2) {
+				if (page == 1) {
+					if (arena.getStatusManager().isArenaEnabled()) {
+						Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", arenaname));
+						return;
+					}
+					int pos = leftclick ? (arena.getStructureManager().getMaxFinalPositions() + 1) : (arena.getStructureManager().getMaxFinalPositions() - 1);
+					arena.getStructureManager().setMaxFinalPositions(pos);
+				} else {
 					if (arena.getStatusManager().isArenaEnabled()) {
 						Messages.sendMessage(player, Messages.arenanotdisabled.replace("{ARENA}", arenaname));
 						return;

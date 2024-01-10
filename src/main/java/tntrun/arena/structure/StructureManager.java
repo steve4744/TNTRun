@@ -452,7 +452,7 @@ public class StructureManager {
 	}
 
 	public void setMaxFinalPositions(int size) {
-		this.maxFinalPositions = size;
+		this.maxFinalPositions = size > 0 ? size : 1;
 	}
 
 	public void setCurrency(Material currency) {

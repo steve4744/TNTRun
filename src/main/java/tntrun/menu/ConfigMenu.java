@@ -32,6 +32,7 @@ public enum ConfigMenu {
 	REDSTONE(20),
 	FILLED_MAP(21),
 	OAK_SIGN(23),
+	LADDER(24),
 	DIAMOND(25),
 	BARRIER(31),
 	ARROW(35);

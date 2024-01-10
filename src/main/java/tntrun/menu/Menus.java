@@ -358,7 +358,17 @@ public class Menus {
 				}
 				break;
 			case 24:
-				if (page == 2) {
+				if (page == 1) {
+					im.setDisplayName(ChatColor.GREEN + "Set max final leaderboard size");
+					if (showhelp) {
+						lores.add(ChatColor.GRAY + "Set the maximum number of player positions");
+						lores.add(ChatColor.GRAY + "to display at the end of a game.");
+						lores.add(ChatColor.GRAY + "The default is 3, displaying 1st, 2nd and 3rd.");
+						lores.add(ChatColor.GRAY + "Left click to increase, right click to decrease.");
+					}
+					lores.add(status + arena.getStructureManager().getMaxFinalPositions());
+					is.setAmount(arena.getStructureManager().getMaxFinalPositions());
+				} else {
 					im.setDisplayName(ChatColor.GREEN + "Set min players for stats");
 					if (showhelp) {
 						lores.add(ChatColor.GRAY + "Set the minimum number of players required");
