@@ -65,10 +65,6 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 	@Override
 	public String onRequest(OfflinePlayer p, String identifier) {
 
-		if (p == null) {
-			return "";
-		}
-		String uuid = plugin.getStats().getPlayerUUID(p);
 		if (identifier.equals("version")) {
 			return String.valueOf(plugin.getDescription().getVersion());
 
@@ -80,22 +76,6 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 
 		} else if (identifier.equals("nopvp_arena_count")) {
 			return String.valueOf(plugin.amanager.getNonPvpArenas().size());
-
-		} else if (identifier.equals("played")) {
-			return String.valueOf(plugin.getStats().getPlayedGames(uuid));
-
-		} else if (identifier.equals("wins")) {
-			return String.valueOf(plugin.getStats().getWins(uuid));
-
-		} else if (identifier.equals("losses")) {
-			return String.valueOf(plugin.getStats().getLosses(uuid));
-
-		} else if (identifier.equals("winstreak")) {
-			return String.valueOf(plugin.getPData().getWinStreak(p));
-
-		} else if (identifier.equals("current_arena")) {
-			Arena arena = plugin.amanager.getPlayerArena(p.getName());
-			return arena != null ? arena.getArenaName() : FormattingCodesParser.parseFormattingCodes(Messages.playernotinarena);
 
 		} else if (identifier.equals("player_count")) {
 			return String.valueOf(Utils.playerCount());
@@ -160,10 +140,6 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 			Arena arena = getArenaFromPlaceholder(identifier, 3);
 			return arena != null ? Utils.getTitleCase(arena.getStructureManager().getDamageEnabled().toString()) : null;
 
-		} else if (identifier.equals("doublejumps")) {
-			Arena arena = plugin.amanager.getPlayerArena(p.getName());
-			return arena != null ? String.valueOf(arena.getPlayerHandler().getDoubleJumps(p.getName())) : String.valueOf(getUncachedDoubleJumps(p));
-
 		} else if (identifier.startsWith("joinfee")) {
 			Arena arena = getArenaFromPlaceholder(identifier, 2);
 			return arena != null ? String.valueOf(arena.getStructureManager().getFee()) : null;
@@ -171,14 +147,6 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 		} else if (identifier.startsWith("currency")) {
 			Arena arena = getArenaFromPlaceholder(identifier, 2);
 			return arena != null && arena.getStructureManager().isCurrencyEnabled() ? arena.getStructureManager().getCurrency().toString() : null;
-
-		} else if (identifier.startsWith("position")) {
-			String[] temp = identifier.split("_");
-			if (!isValidType(temp[1])) {
-				return null;
-			}
-			int pos = plugin.getStats().getPosition(uuid, temp[1]);
-			return pos > 0 ? String.valueOf(pos) : "";
 
 		} else if (identifier.startsWith("leaderboard") || identifier.startsWith("lb")) {
 			if (!isValidLeaderboardIdentifier(identifier)) {
@@ -191,6 +159,41 @@ public class TNTRunPlaceholders extends PlaceholderExpansion {
 
 			return plugin.getStats().getLeaderboardPosition(pos, type, entry);
 		}
+
+		if (p == null) {
+			return "";
+		}
+		String uuid = plugin.getStats().getPlayerUUID(p);
+
+		if (identifier.equals("played")) {
+			return String.valueOf(plugin.getStats().getPlayedGames(uuid));
+
+		} else if (identifier.equals("wins")) {
+			return String.valueOf(plugin.getStats().getWins(uuid));
+
+		} else if (identifier.equals("losses")) {
+			return String.valueOf(plugin.getStats().getLosses(uuid));
+
+		} else if (identifier.equals("winstreak")) {
+			return String.valueOf(plugin.getPData().getWinStreak(p));
+
+		} else if (identifier.equals("current_arena")) {
+			Arena arena = plugin.amanager.getPlayerArena(p.getName());
+			return arena != null ? arena.getArenaName() : FormattingCodesParser.parseFormattingCodes(Messages.playernotinarena);
+
+		} else if (identifier.equals("doublejumps")) {
+			Arena arena = plugin.amanager.getPlayerArena(p.getName());
+			return arena != null ? String.valueOf(arena.getPlayerHandler().getDoubleJumps(p.getName())) : String.valueOf(getUncachedDoubleJumps(p));
+
+		} else if (identifier.startsWith("position")) {
+			String[] temp = identifier.split("_");
+			if (!isValidType(temp[1])) {
+				return null;
+			}
+			int pos = plugin.getStats().getPosition(uuid, temp[1]);
+			return pos > 0 ? String.valueOf(pos) : "";
+		}
+
 		return null;
 	}
 
