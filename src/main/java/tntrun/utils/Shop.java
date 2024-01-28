@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -55,6 +56,7 @@ public class Shop {
 	private Map<String, List<String>> commandMap = new HashMap<>();  // player-name -> commands
 	private boolean doublejumpPurchase;
 	private FileConfiguration cfg;
+	private Inventory shopInv;
 
 	public Shop(TNTRun plugin) {
 		this.plugin = plugin;
@@ -63,6 +65,11 @@ public class Shop {
 		cfg = shopFiles.getShopConfiguration();
 		invsize = getValidSize();
 		invname = FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("shop.name"));
+	}
+
+	public void buildShopMenu(Player player) {
+		shopInv = Bukkit.createInventory(null, getInvsize(), getInvname());
+		setItems(shopInv, player);
 	}
 
 	public void giveItem(int slot, Player player, String title) {
@@ -443,5 +450,9 @@ public class Shop {
 	private int getEnchantmentAmplifier(String enchant) {
 		String[] array = enchant.split("#");
 		return (array.length > 2 && Utils.isNumber(array[2])) ? Integer.valueOf(array[2]) : 1;
+	}
+
+	public Inventory getShopInv() {
+		return shopInv;
 	}
 }

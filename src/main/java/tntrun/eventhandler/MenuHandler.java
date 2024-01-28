@@ -32,7 +32,6 @@ import org.bukkit.inventory.ItemStack;
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.messages.Messages;
-import tntrun.utils.FormattingCodesParser;
 import tntrun.utils.Utils;
 
 public class MenuHandler implements Listener {
@@ -49,8 +48,7 @@ public class MenuHandler implements Listener {
 		if (inv == null) {
 			return;
 		}
-		String title = FormattingCodesParser.parseFormattingCodes(Messages.menutracker);
-		if (!e.getView().getTitle().equals(title)) {
+		if (!inv.equals(plugin.getMenus().getTrackerInv())) {
 			return;
 		}
 		if (!isValidClick(e)) {
@@ -81,8 +79,7 @@ public class MenuHandler implements Listener {
 		if (inv == null) {
 			return;
 		}
-		String title = FormattingCodesParser.parseFormattingCodes(Messages.menutitle);
-		if (!e.getView().getTitle().equals(title)) {
+		if (!inv.equals(plugin.getMenus().getArenaInv())) {
 			return;
 		}
 		if (!isValidClick(e)) {
@@ -100,7 +97,7 @@ public class MenuHandler implements Listener {
 		Player player = (Player) e.getWhoClicked();
 		String arenaname = is.getItemMeta().getDisplayName();
 		String cmd = "tntrun join " + ChatColor.stripColor(arenaname);
-	
+
 		Bukkit.dispatchCommand(player, cmd);
 		player.closeInventory();
 	}
@@ -109,6 +106,9 @@ public class MenuHandler implements Listener {
 	public void onItemSelect(InventoryClickEvent e) {
 		Inventory inv = e.getClickedInventory();
 		if (inv == null) {
+			return;
+		}
+		if (!inv.equals(plugin.getMenus().getConfigInv())) {
 			return;
 		}
 		String title = e.getView().getTitle();

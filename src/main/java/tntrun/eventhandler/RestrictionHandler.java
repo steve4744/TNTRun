@@ -44,7 +44,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import tntrun.TNTRun;
@@ -140,9 +139,8 @@ public class RestrictionHandler implements Listener {
 				return;
 			}
 			plugin.getSound().ITEM_SELECT(player);
-			Inventory inv = Bukkit.createInventory(null, plugin.getShop().getInvsize(), plugin.getShop().getInvname());
-			plugin.getShop().setItems(inv, player);
-			player.openInventory(inv);
+			plugin.getShop().buildShopMenu(player);
+			player.openInventory(plugin.getShop().getShopInv());
 
 		} else if (e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.info.material"))) {
 			e.setCancelled(true);

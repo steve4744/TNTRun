@@ -25,6 +25,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import tntrun.TNTRun;
+import tntrun.arena.Arena;
 import tntrun.messages.Messages;
 
 public class ShopHandler implements Listener {
@@ -37,14 +38,20 @@ private TNTRun plugin;
 	
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
-		if (!plugin.isGlobalShop() || !e.getView().getTitle().equals(plugin.getShop().getInvname())) {
+		if (!plugin.isGlobalShop() || !e.getClickedInventory().equals(plugin.getShop().getShopInv())) {
 			return;
 		}
 		e.setCancelled(true);
+
 		if (e.getRawSlot() == plugin.getShop().getInvsize() -1) {
 			return;
 		}
-		Player p = (Player)e.getWhoClicked();
+		Player p = (Player) e.getWhoClicked();
+		Arena arena = plugin.amanager.getPlayerArena(p.getName());
+		if (arena == null) {
+			return;
+		}
+
 		if (e.getSlot() == e.getRawSlot() && e.getCurrentItem() != null) {
 			ItemStack current = e.getCurrentItem();
 			if (current.hasItemMeta() && current.getItemMeta().hasDisplayName()) {
