@@ -48,7 +48,8 @@ public class MenuHandler implements Listener {
 		if (inv == null) {
 			return;
 		}
-		if (!inv.equals(plugin.getMenus().getTrackerInv())) {
+		Player player = (Player) e.getWhoClicked();
+		if (!inv.equals(plugin.getMenus().getInv(player.getName()))) {
 			return;
 		}
 		if (!isValidClick(e)) {
@@ -59,7 +60,6 @@ public class MenuHandler implements Listener {
 			return;
 		}
 
-		Player player = (Player) e.getWhoClicked();
 		String target = is.getItemMeta().getDisplayName();
 		Player targetPlayer = Bukkit.getPlayer(target);
 		Arena arena = plugin.amanager.getPlayerArena(player.getName());
@@ -79,7 +79,8 @@ public class MenuHandler implements Listener {
 		if (inv == null) {
 			return;
 		}
-		if (!inv.equals(plugin.getMenus().getArenaInv())) {
+		Player player = (Player) e.getWhoClicked();
+		if (!inv.equals(plugin.getMenus().getInv(player.getName()))) {
 			return;
 		}
 		if (!isValidClick(e)) {
@@ -94,7 +95,6 @@ public class MenuHandler implements Listener {
 			return;
 		}
 
-		Player player = (Player) e.getWhoClicked();
 		String arenaname = is.getItemMeta().getDisplayName();
 		String cmd = "tntrun join " + ChatColor.stripColor(arenaname);
 
@@ -108,7 +108,8 @@ public class MenuHandler implements Listener {
 		if (inv == null) {
 			return;
 		}
-		if (!inv.equals(plugin.getMenus().getConfigInv())) {
+		Player player = (Player) e.getWhoClicked();
+		if (!inv.equals(plugin.getMenus().getInv(player.getName()))) {
 			return;
 		}
 		String title = e.getView().getTitle();
@@ -128,8 +129,7 @@ public class MenuHandler implements Listener {
 			return;
 		}
 
-		inv.setMaxStackSize(256); // allow min and max players to go above 64
-		Player player = (Player) e.getWhoClicked();
+		inv.setMaxStackSize(256); // allow min and max players to go above 6
 		boolean leftclick = e.getClick().isLeftClick();
 		int page = Character.getNumericValue(title.charAt(title.indexOf("/") - 1));
 		int slot = e.getRawSlot();

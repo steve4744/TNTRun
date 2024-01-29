@@ -20,8 +20,10 @@ package tntrun.menu;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Stream;
 
@@ -46,9 +48,7 @@ public class Menus {
 
 	private final TNTRun plugin;
 	private int keyPos;
-	private Inventory arenaInv;
-	private Inventory configInv;
-	private Inventory trackerInv;
+	private Map<String, Inventory> invMap = new HashMap<>();
 
 	public Menus(TNTRun plugin) {
 		this.plugin = plugin;
@@ -62,7 +62,8 @@ public class Menus {
 	public void buildJoinMenu(Player player) {
 		TreeMap<String, Arena> arenas = getDisplayArenas();
 		int size = getJoinMenuSize(arenas.size());
-		arenaInv = Bukkit.createInventory(null, size, FormattingCodesParser.parseFormattingCodes(Messages.menutitle));
+		Inventory inv = Bukkit.createInventory(null, size, FormattingCodesParser.parseFormattingCodes(Messages.menutitle));
+		invMap.put(player.getName(), inv);
 
 		keyPos = 9;
 		//TODO provide permanent fix for > 28 arenas
@@ -93,11 +94,11 @@ public class Menus {
 				case 16, 25, 34, 43 -> keyPos+=3;
 				default             -> keyPos++;
 			};
-			arenaInv.setItem(keyPos,is);
+			inv.setItem(keyPos,is);
 		});
 
-		fillEmptySlots(arenaInv, size);
-		player.openInventory(arenaInv);
+		fillEmptySlots(inv, size);
+		player.openInventory(inv);
 	}
 
 	/**
@@ -108,7 +109,8 @@ public class Menus {
 	 */
 	public void buildTrackerMenu(Player player, Arena arena) {
 		int size = getTrackerMenuSize(arena.getPlayersManager().getPlayersCount());
-		trackerInv = Bukkit.createInventory(null, size, FormattingCodesParser.parseFormattingCodes(Messages.menutracker));
+		Inventory inv = Bukkit.createInventory(null, size, FormattingCodesParser.parseFormattingCodes(Messages.menutracker));
+		invMap.put(player.getName(), inv);
 
 		for (Player p : arena.getPlayersManager().getPlayers()) {
 			ItemStack is = new ItemStack(Material.PLAYER_HEAD);
@@ -119,11 +121,11 @@ public class Menus {
 			skullMeta.setOwningPlayer(p);
 			is.setItemMeta(skullMeta);
 
-			trackerInv.addItem(is);
+			inv.addItem(is);
 		}
 
-		fillEmptySlots(trackerInv, size);
-		player.openInventory(trackerInv);
+		fillEmptySlots(inv, size);
+		player.openInventory(inv);
 	}
 
 	/**
@@ -136,22 +138,23 @@ public class Menus {
 	public void buildConfigMenu(Player player, Arena arena, int page) {
 		final int size = 36;
 		String title = "TNTRun setup {PAGE}/2 - ".replace("{PAGE}", String.valueOf(page)) + arena.getArenaName();
-		configInv = Bukkit.createInventory(null, size, title);
+		Inventory inv = Bukkit.createInventory(null, size, title);
+		invMap.put(player.getName(), inv);
 
 		if (page == 1) {
 			Stream.of(ConfigMenu.values()).forEach(item -> {
 				int slot = item.getSlot();
-				configInv.setItem(slot, createConfigItem(Material.getMaterial(String.valueOf(item)), slot, arena, page));
+				inv.setItem(slot, createConfigItem(Material.getMaterial(String.valueOf(item)), slot, arena, page));
 			});
 		} else {
 			Stream.of(ConfigMenu2.values()).forEach(item -> {
 				int slot = item.getSlot();
-				configInv.setItem(slot, createConfigItem(Material.getMaterial(String.valueOf(item)), slot, arena, page));
+				inv.setItem(slot, createConfigItem(Material.getMaterial(String.valueOf(item)), slot, arena, page));
 			});
 		}
 
-		fillEmptySlots(configInv, size);
-		player.openInventory(configInv);
+		fillEmptySlots(inv, size);
+		player.openInventory(inv);
 	}
 
 	/**
@@ -562,15 +565,7 @@ public class Menus {
 		return invsize;
 	}
 
-	public Inventory getArenaInv() {
-		return arenaInv;
-	}
-
-	public Inventory getConfigInv() {
-		return configInv;
-	}
-
-	public Inventory getTrackerInv() {
-		return trackerInv;
+	public Inventory getInv(String playerName) {
+		return invMap.get(playerName);
 	}
 }

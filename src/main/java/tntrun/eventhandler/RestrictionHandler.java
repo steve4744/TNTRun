@@ -140,7 +140,7 @@ public class RestrictionHandler implements Listener {
 			}
 			plugin.getSound().ITEM_SELECT(player);
 			plugin.getShop().buildShopMenu(player);
-			player.openInventory(plugin.getShop().getShopInv());
+			player.openInventory(plugin.getShop().getInv(player.getName()));
 
 		} else if (e.getMaterial() == Material.getMaterial(plugin.getConfig().getString("items.info.material"))) {
 			e.setCancelled(true);

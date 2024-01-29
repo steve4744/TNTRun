@@ -38,7 +38,8 @@ private TNTRun plugin;
 	
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
-		if (!plugin.isGlobalShop() || !e.getClickedInventory().equals(plugin.getShop().getShopInv())) {
+		Player p = (Player) e.getWhoClicked();
+		if (!plugin.isGlobalShop() || !e.getClickedInventory().equals(plugin.getShop().getInv(p.getName()))) {
 			return;
 		}
 		e.setCancelled(true);
@@ -46,7 +47,7 @@ private TNTRun plugin;
 		if (e.getRawSlot() == plugin.getShop().getInvsize() -1) {
 			return;
 		}
-		Player p = (Player) e.getWhoClicked();
+
 		Arena arena = plugin.amanager.getPlayerArena(p.getName());
 		if (arena == null) {
 			return;

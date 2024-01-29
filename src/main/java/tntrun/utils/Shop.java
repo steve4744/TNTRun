@@ -56,7 +56,7 @@ public class Shop {
 	private Map<String, List<String>> commandMap = new HashMap<>();  // player-name -> commands
 	private boolean doublejumpPurchase;
 	private FileConfiguration cfg;
-	private Inventory shopInv;
+	private Map<String, Inventory> invMap = new HashMap<>();
 
 	public Shop(TNTRun plugin) {
 		this.plugin = plugin;
@@ -68,8 +68,9 @@ public class Shop {
 	}
 
 	public void buildShopMenu(Player player) {
-		shopInv = Bukkit.createInventory(null, getInvsize(), getInvname());
-		setItems(shopInv, player);
+		Inventory inv = Bukkit.createInventory(null, getInvsize(), getInvname());
+		invMap.put(player.getName(), inv);
+		setItems(inv, player);
 	}
 
 	public void giveItem(int slot, Player player, String title) {
@@ -452,7 +453,7 @@ public class Shop {
 		return (array.length > 2 && Utils.isNumber(array[2])) ? Integer.valueOf(array[2]) : 1;
 	}
 
-	public Inventory getShopInv() {
-		return shopInv;
+	public Inventory getInv(String playerName) {
+		return invMap.get(playerName);
 	}
 }
