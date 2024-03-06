@@ -22,6 +22,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import tntrun.TNTRun;
@@ -38,8 +39,12 @@ private TNTRun plugin;
 	
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
+		Inventory inv = e.getClickedInventory();
+		if (inv == null) {
+			return;
+		}
 		Player p = (Player) e.getWhoClicked();
-		if (!plugin.isGlobalShop() || !e.getClickedInventory().equals(plugin.getShop().getInv(p.getName()))) {
+		if (!plugin.isGlobalShop() || !inv.equals(plugin.getShop().getInv(p.getName()))) {
 			return;
 		}
 		e.setCancelled(true);
