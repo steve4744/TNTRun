@@ -17,7 +17,7 @@
 
 TNTRun is a highly configurable, fully automated minigame for Minecraft servers. Traditionally players start on a layer of sand supported by TNT blocks, although any combination of blocks can be used. Once the game starts, every block that a player steps on will disappear. If a player falls through a hole, he/she will continue to run on the layer below. Once a player falls through the final layer he/she loses the game and becomes a spectator for the remainder of the game. The last player remaining wins the game.
 
-This fork was created in 2016 from the unsupported TNTRun by Shevchik for Minecraft v1.10, and has been improved and updated as new versions of Minecraft have been released. The latest version of TNTRun_reloaded requires a minimum Java version of 17, so is supported on servers running Minecraft versions 1.17.1 to 1.20.2.
+This fork was created in 2016 from the unsupported TNTRun by Shevchik for Minecraft v1.10, and has been improved and updated as new versions of Minecraft have been released. The latest version of TNTRun_reloaded requires a minimum Java version of 17, so is supported on servers running Minecraft versions 1.17.1 to 1.20.4.
 
 The following description and features apply to the latest release. Some of the features will not be present in the older versions which are maintained and supported on an 'as is' basis, and will only be updated if a bug is reported or an existing feature breaks.
 
@@ -67,6 +67,7 @@ Development snapshots are created by GitHub Actions every time a commit is pushe
     In-game scoreboard
     Titles and bossbars
     Spectator system
+    Player tracker for spectators
     Player stats
     Leader board
     Auto updating leader board signs
@@ -76,7 +77,7 @@ Development snapshots are created by GitHub Actions every time a commit is pushe
     Kits - can be enabled per arena
     Heads - interfaces with HeadsPlus plugin by Thatsmusic99
     PVP can be enabled/disabled per arena
-    Configurable player rewards for 1st, 2nd and 3rd places
+    Configurable rewards for players finishing in any position: 1st, 2nd, 3rd, ... etc.
     Built-in placeholder support
     mcMMO support - allow players in same mcMMO party to PVP if enabled in arena
     MySQL support
@@ -92,7 +93,7 @@ The latest version of TNTRun_reloaded has been tested with the following version
 
     WorldEdit 7.3.0 (optional, internal commands setP1 and setP2 can be used to set arena bounds)
     Vault 1.7 (optional, required to use economy)
-    HeadsPlus 7.0.16 (optional, allow players to buy and run around wearing different heads)
+    HeadsPlus 7.1.0 (optional, allow players to buy and run around wearing different heads)
     mcMMO 2.1.224 (optional, will allow players in same mcMMO party to PVP in arena)
     PlaceholderAPI 2.11.4 (optional, needed to use placeholders)
     AlessioDP Parties 3.2.13 (optional, can be used in place of native tntrun parties)
@@ -118,4 +119,4 @@ For legacy Minecraft 1.12.2 and below:
 <br />
 <br />
 <br />
-Updated steve4744 - 13th October 2023
+Updated steve4744 - 14th March 2024

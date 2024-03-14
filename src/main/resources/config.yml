@@ -104,13 +104,18 @@ parties:
 #
 # configure arena join menu
 menu:
+  # set menu item for non-PVP arenas
   item: TNT
+  # set menu item for PVP arenas
   pvpitem: IRON_BLOCK
+  # set menu background colour
   panecolor: LIGHT_BLUE
+  # should disabled arenas be included in the menu
   includedisabled: false
 #
-# arena config menu
+# configure arena config menu
 configmenu:
+  # set 'lore' to false to not display the help text when hovering over each menu item
   lore: true
 #
 # configure sounds
@@ -150,7 +155,7 @@ doublejumps:
   multiplier: 1.5
   height: 0.7
 #
-# set GUI items while waiting for arena start
+# set hotbar items while waiting for arena start
 items:
   vote:
     use: true
@@ -193,11 +198,15 @@ items:
     name: '&e&lDoublejump'
     slot: 0
 #
-# set scoreboard text
+# set scoreboard text - only the header supports hex/rgb colours
 scoreboard:
+  # the header supports hex colours, e.g. header: '<#ff11aa>&lTNTRUN'
   header: '&6&lTNTRUN'
+  # set to true to add a player's doublejumps to the scoreboard
   displaydoublejumps: false
+  # set to true to remove the scoreboard when a player becomes a spectator
   removefromspectators: true
+  # set to true to display the lobby scoreboard when a player runs the "/tr lobby" command
   enablelobbyscoreboard: false
   waiting:
   - '&fWelcome to TNTRun'
@@ -243,8 +252,7 @@ MySQL:
   flags: allowPublicKeyRetrieval=true
   legacyDriver: false
 #
-# set sign text. If a join sign is placed on a STAINED_GLASS block, the colour of the block
-# can be configured to reflect the status of the arena
+# configure sign text
 signs:
   prefix: '&6&lTNTRun'
   join: '[Join]'
@@ -253,11 +261,13 @@ signs:
     ingame: '&c&l{PS}&8/&c&l{MPS}'
     regenerating: '&6&lRegen...'
     waiting: '&a&l{PS}&8/&a&l{MPS}'
+  # if a join sign is placed on a STAINED_GLASS block, the block colour can be set to reflect the arena status
   blockcolour:
     disabled: ''
     ingame: ''
     starting: ''
     waiting: ''
+  # set 'allowspectate' to true to allow players clicking on a sign of an in-game arena to join as spectators
   allowspectate: false
 #
 # bungeecord settings
