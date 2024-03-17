@@ -49,56 +49,56 @@ arenanolimit: '&7 அரங்கம் தொடங்கப்பட்டத�
 arenacountdown: '&7 {COUNTDOWN} நொடிகளில் அரங்கம் தொடங்கும்'
 arenatimeout: '&7 நேரம் முடிந்தது. ஆட்டம் முடிவுற்றது'
 playerwontoplayer: '&7 நீங்கள் வென்று விட்டீர்கள்!'
-playerfinishedtestmode: '&7 Test game completed!'
-playerlosttoplayer: '&7 You lost the game'
-playerlosttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7lost the game (&6{PS}&7/&6{MPS}&7)'
+playerfinishedtestmode: '&7 சோதனை ஆட்டம் முடிந்தது!'
+playerlosttoplayer: '&7 நீங்கள் விளையாட்டில் தோற்று விட்டீர்கள்'
+playerlosttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7தோற்றார் (&6{PS}&7/&6{MPS}&7)'
 playerposition: '&a{POS}: &f{RANK}{COLOR}{PLAYER}'
 rewardlistposition: '&a{POS} : '
-playerrewardmessage: '&7 You have been rewarded: &6{REWARD}'
-playerrewardmaterial: '&6 Material :  &f'
-playerrewardcommand: '&6 Command : &f'
-playerrewardmoney: '&6 Money :    &f'
-playerrewardxp: '&6 XP :      &l  &f'
-playerboughtitem: '&7 You have bought item &6{ITEM} &7for &6{MONEY}'
-playerboughtwait: '&7 You will get your items when the game starts'
-playerkit: '&7 You have been given kit &6{KIT}'
-playersrequiredtostart: '&c There must be at least 2 players in the arena to force-start'
-notenoughmoney: '&c You need {MONEY} to buy this item'
-alreadyboughtitem: '&c You have already bought a shop item'
-shopnostock: '&c This item is currently out of stock'
-maxdoublejumpsexceeded: '&c You cannot exceed the maximum doublejumps allowed ({MAXJUMPS})'
-playernotinarena: '&c You are not in a TNTRun arena'
-playernotonline: '&6 {PLAYER} &7is not currently online'
-gamesplayed: '&bGames played &f: '
-gameswon: '&bWins &f: '
-gameslost: '&bLosses &f: '
-statshead: '&7=========[&6TNTRun Stats&7]========='
-rewardshead: '&7======[&6TNTRun Rewards&7 - &a{ARENA}&7]======'
-leaderhead: '&7======[&6TNTRun Leaderboard&7]======'
-resultshead: '&7============[&6TNTRun&7]============'
-leaderboard: '{POSITION}) &c{RANK}&b{COLOR}{PLAYER} &f: Wins &3{WINS}'
+playerrewardmessage: '&7 உங்களுக்கு வெகுமதி தரப்பட்டது: &6{REWARD}'
+playerrewardmaterial: '&6 பொருள் : &f'
+playerrewardcommand: '&6 கட்டளை : &f'
+playerrewardmoney: '&6 பணம் :    &f'
+playerrewardxp: '&6 எக்ஸ்பி :      &l  &f'
+playerboughtitem: '&7 நீங்கள் &6{ITEM} &7 க்கு &6{MONEY} &7 வாங்கியிருக்கிறீர்கள்'
+playerboughtwait: '&7 ஆட்டம் தொடங்கியதும் உங்கள் பொருளைப் பெறுவீர்கள்'
+playerkit: '&7 உங்களுக்குக் கருவிகள் தரப்பட்டது &6{KIT}'
+playersrequiredtostart: '&c ஆட்டத்தைத் தொடங்க குறைந்தது 2 நபர்களாவது தேவை'
+notenoughmoney: '&c இதை வாங்க உங்களுக்கு {MONEY} தேவை'
+alreadyboughtitem: '&c கடையில் முன்பே பொருள் வாங்கி விட்டீர்கள்'
+shopnostock: '&c இந்தப் பொருள் தற்காலிகமாக இருப்பில் இல்லை'
+maxdoublejumpsexceeded: '&c அனுமதிக்கப்பட்ட அதிகபட்ச இரட்டை தாண்டுதலை உங்களால் பயன்படுத்த முடியாது ({MAXJUMPS})'
+playernotinarena: '&c நீங்கள் டிஎன்டி ரன் அரங்கத்தில் நீங்கள் இல்லை'
+playernotonline: '&6 {PLAYER} &7அவர் தற்போது விளையாட்டில் இல்லை'
+gamesplayed: '&bமொத்த ஆட்டங்கள் &f: '
+gameswon: '&bவெற்றிகள் &f: '
+gameslost: '&bதோல்விகள் &f: '
+statshead: '&7=========[&6டிஎன்டிரன் புள்ளியியல்&7]========='
+rewardshead: '&7======[&6டிஎன்டிரன் வெகுமதிகள்&7 - &a{ARENA}&7]======'
+leaderhead: '&7======[&6டிஎன்டிரன் முன்னணிப் பலகை&7]======'
+resultshead: '&7============[&6டிஎன்டிரன்&7]============'
+leaderboard: '{POSITION}) &c{RANK}&b{COLOR}{PLAYER} &f: வெற்றிகள் &3{WINS}'
 leadersign: '&1{PLAYER} &4{WINS}'
-shopmoneyheader: '&fTNTRun Shop Account'
-shopmoneybalance: '&5Your balance is &6{BAL}'
-statsdisabled: '&c Stats are currently disabled'
-helplobby: Teleport to lobby
-helplist: List all arenas OR List arena details
-helplistkit: List all kits OR List kit details
-helplistrewards: List the rewards for the arena
-helpjoin: Open join menu OR Join the arena
-helpspectate: Join the arena as a spectator
-helpautojoin: Automatically join the first available arena
-helpleave: Leave the current arena
-helpvote: Vote to force-start current arena
-helpcmds: View all TNTRun commands
-helpinfo: View plugin info
-helpstats: View player stats
-helplb: Display the TNTRun leaderboard
-helpstart: Force-start the arena
-setuplobby: Set the global lobby at your current location
-setupdellobby: Delete the global lobby
-setupcreate: Create a new arena
-setupconfigure: Open menu to configure arena
+shopmoneyheader: '&fடிஎன்டிரன் கடைக் கணக்கு'
+shopmoneybalance: '&5உங்கள் இருப்பு &6{BAL}'
+statsdisabled: '&c புள்ளியியல் தற்போது முடக்கப்பட்டுள்ளது'
+helplobby: லாபிக்கு எடுத்துச் செல்
+helplist: மொத்த அரங்கங்களின் பட்டியல் அல்லது அரங்கங்களின் விபரம்
+helplistkit: மொத்த கருவிகளின் பட்டியல் அல்லது கருவிகளின் விபரம்
+helplistrewards: அரங்கத்தின் வெகுமதிப் பட்டியல்
+helpjoin: சேர்க்கைப் பட்டியலில் திறக்க அல்லது அரங்கத்தில் சேர
+helpspectate: கண்காணிப்பாளராக அரங்கத்தில் சேர
+helpautojoin: இருக்கும் அரங்கத்தில் தன்னிச்சையாகச் சேர
+helpleave: தற்போதைய அரங்கத்திலிருந்து வெளிவர
+helpvote: தற்போதைய அரங்கத்தை தொடங்க வாக்களிக்க
+helpcmds: எல்லா டிஎன்டிரன் கட்டளைகளையும் பார்க்க
+helpinfo: ப்ளக்-இன் விவரங்களைப் பார்க்க
+helpstats: வீரர்களின் புள்ளிகளைப் பார்க்க
+helplb: டிஎன்டிரன் முன்னணி பலகையைக் காட்டு
+helpstart: அரங்கத்தைக் கட்டாயத் தொடக்கம் செய்ய
+setuplobby: உங்களின் தற்போதைய பொது லாபியை அமைக்க
+setupdellobby: பொது லாபியை நீக்கு
+setupcreate: புது அரங்கத்தை உருவாக்கு
+setupconfigure: அரங்கத்தைக் கட்டமைக்கும் பட்டியலைத் திறக்க
 setupbounds: Set bounds for arena
 setuploselevel: Set loselevel point at your feet
 setupspawn: Set arena spawn at your feet
