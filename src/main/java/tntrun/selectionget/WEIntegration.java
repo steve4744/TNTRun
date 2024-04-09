@@ -54,8 +54,8 @@ public class WEIntegration {
 			BlockVector3 v1 = selector.getRegion().getMinimumPoint();
 			BlockVector3 v2 = selector.getRegion().getMaximumPoint();
 			
-			locs[0] = new Location(player.getWorld(), v1.getX(), v1.getY(), v1.getZ());
-			locs[1] = new Location(player.getWorld(), v2.getX(), v2.getY(), v2.getZ());	
+			locs[0] = new Location(player.getWorld(), v1.x(), v1.y(), v1.z());
+			locs[1] = new Location(player.getWorld(), v2.x(), v2.y(), v2.z());
 			
 		} catch (IncompleteRegionException e1) {
 			Messages.sendMessage(player, "&c Invalid WorldEdit selection");
