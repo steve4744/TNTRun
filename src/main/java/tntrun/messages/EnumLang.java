@@ -22,6 +22,7 @@ public enum EnumLang {
 	Russian("ru-RU", "Russian", true),
 	Spanish("es-ES", "Spanish(Spain)", true),
 	Swedish("sv-SE", "Swedish", true),
+	Tamil("ta-IN", "Tamil", true),
 	Ukranian("uk-UA", "Ukranian", true),
 	Welsh("cy-GB", "Welsh", true);
 
