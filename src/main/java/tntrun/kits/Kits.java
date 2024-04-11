@@ -178,7 +178,7 @@ public class Kits {
 			if (pe == null) {
 				continue;
 			}
-			Messages.sendMessage(player, "&6Potion Effect&7 : &c" + pe.getType().getName(), false);
+			Messages.sendMessage(player, "&6Potion Effect&7 : &c" + pe.getType().getKey().getKey(), false);
 		}
 	}
 

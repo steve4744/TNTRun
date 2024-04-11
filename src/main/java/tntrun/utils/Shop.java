@@ -21,11 +21,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
@@ -37,7 +37,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.messages.Messages;
@@ -188,10 +187,12 @@ public class Shop {
 			String ench = getEnchantmentName(enchs);
 			int level = getEnchantmentLevel(enchs);
 
-			Enchantment realEnch = getEnchantmentFromString(ench);
-			if (realEnch != null) {
-				meta.addEnchant(realEnch, level, true);
+			if (getEnchantmentFromString(ench) == null) {
+				plugin.getLogger().info("Enchantment is invalid: " + ench);
+				continue;
 			}
+			meta.addEnchant(getEnchantmentFromString(ench), level, true);
+
 			if (material == Material.SNOWBALL && ench.equalsIgnoreCase("knockback")) {
 				knockback = level;
 			}
@@ -223,7 +224,11 @@ public class Shop {
 				PotionEffect effect = createPotionEffect(peffects);
 				if (effect != null) {
 					potionmeta.addCustomEffect(effect, true);
-					potionmeta.setColor(PotionEffectType.getByName(getEnchantmentName(peffects)).getColor());
+					NamespacedKey key = NamespacedKey.minecraft(getEnchantmentName(peffects).toLowerCase());
+					if (Registry.EFFECT.get(key) == null) {
+						continue;
+					}
+					potionmeta.setColor(Registry.EFFECT.get(key).getColor());
 				}
 			}
 		}
@@ -235,9 +240,15 @@ public class Shop {
 		String name = getEnchantmentName(effect);
 		int duration = getEnchantmentDuration(effect);
 		int amplifier = getEnchantmentAmplifier(effect);
+		NamespacedKey key = NamespacedKey.minecraft(name.toLowerCase());
 
-		PotionEffect peffect = new PotionEffect(PotionEffectType.getByName(name), duration * 20, amplifier);
-		return peffect;
+		PotionEffectType type = Registry.EFFECT.get(key);
+		if (type == null) {
+			plugin.getLogger().info("Potion effect type is invalid: " + name);
+			return null;
+		}
+
+		return new PotionEffect(type, duration * 20, amplifier);
 	}
 
 	private boolean canBuyDoubleJumps(FileConfiguration cfg, Player p, int kit) {
@@ -320,7 +331,10 @@ public class Shop {
 		if (effect != null) {
 			potionmeta.addCustomEffect(effect, true);
 			potionmeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
-			potionmeta.setColor(PotionEffectType.getByName(getEnchantmentName(enchantment)).getColor());
+			NamespacedKey key = NamespacedKey.minecraft(getEnchantmentName(enchantment).toLowerCase());
+			if (Registry.EFFECT.get(key) != null) {
+				potionmeta.setColor(Registry.EFFECT.get(key).getColor());
+			}
 		}
 
 		if ((lore != null) && (!lore.isEmpty())) {
@@ -330,8 +344,8 @@ public class Shop {
 		return item;
 	}
 
-	private Enchantment getEnchantmentFromString(String enchantment) {		
-		return Enchantment.getByKey(NamespacedKey.minecraft(enchantment.toLowerCase()));
+	private Enchantment getEnchantmentFromString(String enchantment) {
+		return Registry.ENCHANTMENT.get(NamespacedKey.minecraft(enchantment.toLowerCase()));
 	}
 
 	public List<PotionEffect> getPotionEffects(Player player) {

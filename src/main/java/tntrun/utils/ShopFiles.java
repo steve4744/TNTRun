@@ -90,7 +90,8 @@ public class ShopFiles {
 		iLore.add("Sword + Knockback#1");
 		cfg.addDefault("2.items.1.lore", iLore);
 		iEnch = new ArrayList<String>();
-		iEnch.add("KNOCKBACK#1");
+		iEnch.add("KNOCKBACK#2");
+		iEnch.add("SWEEPING#1");
 		cfg.addDefault("2.items.1.enchantments", iEnch);
 		/*
 		 * third item
@@ -199,7 +200,7 @@ public class ShopFiles {
 		cfg.addDefault("7.items.1.material", "POTION");
 		cfg.addDefault("7.items.1.amount", Integer.valueOf(1));
 		iEnch = new ArrayList<String>();
-		iEnch.add("JUMP#45");
+		iEnch.add("JUMP_BOOST#45");
 		cfg.addDefault("7.items.1.enchantments", iEnch);
 		/*
 		* eighth item
@@ -254,7 +255,7 @@ public class ShopFiles {
 		iLore.add("Slowness");
 		cfg.addDefault("10.items.1.lore", iLore);
 		iEnch = new ArrayList<String>();
-		iEnch.add("SLOW#30");
+		iEnch.add("SLOWNESS#30");
 		cfg.addDefault("10.items.1.enchantments", iEnch);
 		/*
 		* eleventh item
@@ -275,7 +276,7 @@ public class ShopFiles {
 		iLore.add("Confusion");
 		cfg.addDefault("11.items.1.lore", iLore);
 		iEnch = new ArrayList<String>();
-		iEnch.add("CONFUSION#30");
+		iEnch.add("NAUSEA#30");
 		cfg.addDefault("11.items.1.enchantments", iEnch);
 		/*
 		* twelfth item
