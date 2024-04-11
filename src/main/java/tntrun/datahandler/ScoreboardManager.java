@@ -12,6 +12,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Criteria;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
@@ -59,7 +60,7 @@ public class ScoreboardManager {
 		Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
 		if (config.getBoolean("special.UseScoreboard")) {
-			Objective o = scoreboard.registerNewObjective(PLUGIN_NAME, "waiting", PLUGIN_NAME);
+			Objective o = scoreboard.registerNewObjective(PLUGIN_NAME, Criteria.DUMMY, PLUGIN_NAME);
 			o.setDisplaySlot(DisplaySlot.SIDEBAR);
 
 			String header = FormattingCodesParser.parseFormattingCodes(config.getString("scoreboard.header", ChatColor.GOLD.toString() + ChatColor.BOLD + "TNTRUN"));
