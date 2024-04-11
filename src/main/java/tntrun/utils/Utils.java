@@ -211,16 +211,16 @@ public class Utils {
 
 	public static void displayJoinMessage(Player player, String arenaname, String joinMessage) {
 		final String border = FormattingCodesParser.parseFormattingCodes(Messages.playerborderinvite);
-		TextComponent jointc = new TextComponent(TextComponent.fromLegacyText(border + "\n"));
+		TextComponent jointc = new TextComponent(TextComponent.fromLegacy(border + "\n"));
 		jointc.addExtra(getJoinTextComponent(joinMessage, arenaname));
-		jointc.addExtra(new TextComponent(TextComponent.fromLegacyText("\n" + border)));
+		jointc.addExtra(new TextComponent(TextComponent.fromLegacy("\n" + border)));
 		player.spigot().sendMessage(jointc);
 	}
 
 	private static TextComponent getJoinTextComponent(String text, String arenaname) {
 		String hoverMessage = FormattingCodesParser.parseFormattingCodes(Messages.playerclickinvite.replace("{ARENA}", arenaname));
 		Content content = new Text(hoverMessage);
-		TextComponent component = new TextComponent(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', text)));
+		TextComponent component = new TextComponent(TextComponent.fromLegacy(ChatColor.translateAlternateColorCodes('&', text)));
 
 		component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tntrun joinorspectate " + arenaname));
 		component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, content));
@@ -450,7 +450,7 @@ public class Utils {
 	}
 
 	public static void displayPartyInvite(Player player, String target, String joinMessage) {
-		TextComponent partytc = new TextComponent(TextComponent.fromLegacyText("Would you like to "));
+		TextComponent partytc = new TextComponent(TextComponent.fromLegacy("Would you like to "));
 		partytc.addExtra(getPartyInviteComponent("Accept", "Click to Accept", player, target));
 		partytc.addExtra(" or ");
 		partytc.addExtra(getPartyInviteComponent("Decline", "Click to Decline", player, target));
