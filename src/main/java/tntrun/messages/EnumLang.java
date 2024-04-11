@@ -13,6 +13,7 @@ public enum EnumLang {
 	Finnish("fi-FI", "Finnish", false),
 	French("fr-FR", "French", true),
 	German("de-DE", "German", true),
+	Hungarian("hu-HU", "Hungarian", false),
 	Italian("it-IT", "Italian", true),
 	Japanese("ja-JP", "Japanese", true),
 	Korean("ko-KR", "Korean", true),
