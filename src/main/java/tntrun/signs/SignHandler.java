@@ -21,6 +21,7 @@ import java.util.HashMap;
 
 import org.bukkit.ChatColor;
 import org.bukkit.block.Sign;
+import org.bukkit.block.sign.Side;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -84,9 +85,12 @@ public class SignHandler implements Listener {
 			return;
 		}
 		Sign sign = (Sign) e.getClickedBlock().getState();
-		if (sign.getLine(0).equalsIgnoreCase(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")))) {
-			String line = ChatColor.stripColor(sign.getLine(1).toLowerCase());
-			if (line.equalsIgnoreCase(ChatColor.stripColor(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.join"))))) {
+		if (sign.getSide(Side.FRONT).getLine(0).equalsIgnoreCase(
+				FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")))) {
+
+			String line = ChatColor.stripColor(sign.getSide(Side.FRONT).getLine(1).toLowerCase());
+			if (line.equalsIgnoreCase(ChatColor.stripColor(
+					FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.join"))))) {
 				line = "[join]";
 			}
 			if (signs.containsKey(line)) {
@@ -102,13 +106,15 @@ public class SignHandler implements Listener {
 		}
 		Player player = e.getPlayer();
 		Sign sign = (Sign) e.getBlock().getState();
-		if (sign.getLine(0).equalsIgnoreCase(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")))) {
+		if (sign.getSide(Side.FRONT).getLine(0).equalsIgnoreCase(
+				FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")))) {
+
 			if (!player.hasPermission("tntrun.setup")) {
 				Messages.sendMessage(player, Messages.nopermission);
 				e.setCancelled(true);
 				return;
 			}
-			String line = sign.getLine(1).toLowerCase();
+			String line = sign.getSide(Side.FRONT).getLine(1).toLowerCase();
 			if (line.equalsIgnoreCase(FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.join")))) {
 				line = "[join]";
 			}

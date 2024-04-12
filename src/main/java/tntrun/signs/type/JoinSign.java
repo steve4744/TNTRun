@@ -20,6 +20,7 @@ package tntrun.signs.type;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
+import org.bukkit.block.sign.Side;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.SignChangeEvent;
@@ -56,7 +57,8 @@ public class JoinSign implements SignType {
 	@Override
 	public void handleClick(PlayerInteractEvent e) {
 		Player player = e.getPlayer();
-		Arena arena = plugin.amanager.getArenaByName(ChatColor.stripColor(((Sign) e.getClickedBlock().getState()).getLine(2)));
+		Sign sign = (Sign) e.getClickedBlock().getState();
+		Arena arena = plugin.amanager.getArenaByName(ChatColor.stripColor(sign.getSide(Side.FRONT).getLine(2)));
 		if (arena == null) {
 			Messages.sendMessage(player, Messages.arenanotexist);
 			e.getClickedBlock().breakNaturally();
@@ -79,8 +81,9 @@ public class JoinSign implements SignType {
 
 	@Override
 	public void handleDestroy(BlockBreakEvent e) {
-		Block b = e.getBlock();
-		plugin.getSignEditor().removeSign(b, ChatColor.stripColor(((Sign) b.getState()).getLine(2)));
+		Block block = e.getBlock();
+		Sign sign = (Sign) block.getState();
+		plugin.getSignEditor().removeSign(block, ChatColor.stripColor(sign.getSide(Side.FRONT).getLine(2)));
 		Messages.sendMessage(e.getPlayer(), Messages.signremove);
 	}
 

@@ -36,6 +36,7 @@ import org.bukkit.block.Sign;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Directional;
 import org.bukkit.block.data.type.WallSign;
+import org.bukkit.block.sign.Side;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -115,7 +116,8 @@ public class SignEditor {
 		if (block.getState() instanceof Sign) {
 			Sign sign = (Sign) block.getState();
 			position = 0;
-			sign.setLine(position, FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")));
+			sign.getSide(Side.FRONT).setLine(position,
+					FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")));
 			plugin.getStats().getWinMap().entrySet().stream()
 				.sorted(Entry.comparingByValue(Comparator.reverseOrder()))
 				.limit(3)
@@ -132,8 +134,10 @@ public class SignEditor {
 						lbentry = e.getKey();
 					}
 					position++;
-					String line = FormattingCodesParser.parseFormattingCodes(Messages.leadersign).replace("{PLAYER}", lbentry.substring(0, Math.min(lbentry.length(), 11))).replace("{WINS}", String.valueOf(e.getValue()));
-	      			sign.setLine(position, line);	
+					String line = FormattingCodesParser.parseFormattingCodes(Messages.leadersign)
+							.replace("{PLAYER}", lbentry.substring(0, Math.min(lbentry.length(), 11)))
+							.replace("{WINS}", String.valueOf(e.getValue()));
+					sign.getSide(Side.FRONT).setLine(position, line);
 				});
 			sign.update();
 		}
@@ -157,10 +161,10 @@ public class SignEditor {
 	public void removeSign(Block block, String arena) {
 		if (block.getState() instanceof Sign) {
 			Sign sign = (Sign) block.getState();
-			sign.setLine(0, "");
-			sign.setLine(1, "");
-			sign.setLine(2, "");
-			sign.setLine(3, "");
+			sign.getSide(Side.FRONT).setLine(0, "");
+			sign.getSide(Side.FRONT).setLine(1, "");
+			sign.getSide(Side.FRONT).setLine(2, "");
+			sign.getSide(Side.FRONT).setLine(3, "");
 			sign.update();
 		}
 		addArena(arena);
@@ -216,7 +220,8 @@ public class SignEditor {
 					colour = plugin.getConfig().getString("signs.blockcolour.disabled");
 					break;
 				case "Running":
-					text = FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.status.ingame")).replace("{MPS}", maxPlayers + "").replace("{PS}", players + "");
+					text = FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.status.ingame"))
+						.replace("{MPS}", maxPlayers + "").replace("{PS}", players + "");
 					colour = plugin.getConfig().getString("signs.blockcolour.ingame");
 					break;
 				case "Regenerating":
@@ -224,20 +229,26 @@ public class SignEditor {
 					colour = plugin.getConfig().getString("signs.blockcolour.ingame");
 					break;
 				case "Starting":
-					text = FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.status.waiting")).replace("{MPS}", maxPlayers + "").replace("{PS}", players + "");
+					text = FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.status.waiting"))
+						.replace("{MPS}", maxPlayers + "")
+						.replace("{PS}", players + "");
 					colour = plugin.getConfig().getString("signs.blockcolour.starting");
 					break;
 				default:
-					text = FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.status.waiting")).replace("{MPS}", maxPlayers + "").replace("{PS}", players + "");
+					text = FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.status.waiting"))
+						.replace("{MPS}", maxPlayers + "")
+						.replace("{PS}", players + "");
 					colour = plugin.getConfig().getString("signs.blockcolour.waiting");
 			}
 
 			for (Block block : getSignsBlocks(arenaname)) {
 				if (block.getState() instanceof Sign) {
 					Sign sign = (Sign) block.getState();
-					sign.setLine(0, FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")));
-					sign.setLine(1, FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.join")));
-					sign.setLine(3, text);
+					sign.getSide(Side.FRONT).setLine(0,
+							FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")));
+					sign.getSide(Side.FRONT).setLine(1,
+							FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.join")));
+					sign.getSide(Side.FRONT).setLine(3, text);
 					sign.update();
 					setBlockColour(block, colour);
 				} else {
@@ -287,7 +298,10 @@ public class SignEditor {
 			ConfigurationSection section = file.getConfigurationSection("leaderboards");
 			for (String block : section.getKeys(false)) {
 				ConfigurationSection blockSection = section.getConfigurationSection(block);
-				SignInfo si = new SignInfo(blockSection.getString("world"), blockSection.getInt("x"), blockSection.getInt("y"), blockSection.getInt("z"));
+				SignInfo si = new SignInfo(blockSection.getString("world"),
+						blockSection.getInt("x"),
+						blockSection.getInt("y"),
+						blockSection.getInt("z"));
 				addLBSignInfo(si);
 			}
 			refreshLeaderBoards();
@@ -297,7 +311,10 @@ public class SignEditor {
 	private void readSignInfo(ConfigurationSection section, String arena) {
 		for (String block : section.getKeys(false)) {
 			ConfigurationSection blockSection = section.getConfigurationSection(block);
-			SignInfo si = new SignInfo(blockSection.getString("world"), blockSection.getInt("x"), blockSection.getInt("y"), blockSection.getInt("z"));
+			SignInfo si = new SignInfo(blockSection.getString("world"),
+					blockSection.getInt("x"),
+					blockSection.getInt("y"),
+					blockSection.getInt("z"));
 			addSignInfo(si, arena);
 		}
 		modifySigns(arena);
@@ -338,9 +355,12 @@ public class SignEditor {
 
 	public void createJoinSign(Block block, String arenaname) {
 		Sign sign = (Sign)block.getState();
-		sign.setLine(0, FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")));
-		sign.setLine(1, FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.join")));
-		sign.setLine(2, FormattingCodesParser.parseFormattingCodes(arenaname));
+		sign.getSide(Side.FRONT).setLine(0,
+				FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")));
+		sign.getSide(Side.FRONT).setLine(1,
+				FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.join")));
+		sign.getSide(Side.FRONT).setLine(2,
+				FormattingCodesParser.parseFormattingCodes(arenaname));
 		addSign(block, arenaname);
 		sign.update();
 		new BukkitRunnable() {
