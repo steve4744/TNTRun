@@ -55,6 +55,7 @@ public class LeaderboardSign implements SignType {
 
 	@Override
 	public void handleClick(PlayerInteractEvent e) {
+		e.setCancelled(true);
 		//TODO refresh sign on click?
 	}
 

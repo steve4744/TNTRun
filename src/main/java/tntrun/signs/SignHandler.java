@@ -30,6 +30,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerSignOpenEvent;
 
 import tntrun.TNTRun;
 import tntrun.messages.Messages;
@@ -124,6 +125,15 @@ public class SignHandler implements Listener {
 				// at this point it must be a TNTRun leaderboard sign
 				signs.get("[leaderboard]").handleDestroy(e);
 			}
+		}
+	}
+
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+	public void onSignEdit(PlayerSignOpenEvent e) {
+		Sign sign = e.getSign();
+		if (sign.getSide(Side.FRONT).getLine(0).equalsIgnoreCase(
+				FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")))) {
+			e.setCancelled(true);
 		}
 	}
 
