@@ -51,7 +51,7 @@ public class PlayerEffects implements Listener {
 		}
 		
 		Location location = player.getLocation();
-		player.getWorld().spawnParticle(Particle.SPELL_WITCH, location, 0);
+		player.getWorld().spawnParticle(Particle.WITCH, location, 0);
 	}
 
 }

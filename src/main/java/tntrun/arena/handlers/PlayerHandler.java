@@ -936,7 +936,7 @@ public class PlayerHandler {
 		plugin.getPData().restorePlayerArmor(player);
 		plugin.getPData().restorePlayerInventory(player);
 		plugin.getPData().restorePlayerLevel(player);
-		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 80, 80, true));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 80, 80, true));
 		if (plugin.getConfig().getBoolean("special.UseScoreboard")) {
 			plugin.getScoreboardManager().restorePrejoinScoreboard(player);
 		}
