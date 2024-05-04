@@ -78,19 +78,19 @@ public class GameZone {
 	private Block getBlockUnderPlayer(int y, Location location) {
 		PlayerPosition loc = new PlayerPosition(location.getX(), y, location.getZ());
 		Block b11 = loc.getBlock(location.getWorld(), +PLAYER_BOUNDINGBOX_ADD, -PLAYER_BOUNDINGBOX_ADD);
-		if (b11.getType() != Material.AIR) {
+		if (b11.getType() != Material.AIR && b11.getType() != Material.LIGHT) {
 			return b11;
 		}
 		Block b12 = loc.getBlock(location.getWorld(), -PLAYER_BOUNDINGBOX_ADD, +PLAYER_BOUNDINGBOX_ADD);
-		if (b12.getType() != Material.AIR) {
+		if (b12.getType() != Material.AIR && b12.getType() != Material.LIGHT) {
 			return b12;
 		}
 		Block b21 = loc.getBlock(location.getWorld(), +PLAYER_BOUNDINGBOX_ADD, +PLAYER_BOUNDINGBOX_ADD);
-		if (b21.getType() != Material.AIR) {
+		if (b21.getType() != Material.AIR && b21.getType() != Material.LIGHT) {
 			return b21;
 		}
 		Block b22 = loc.getBlock(location.getWorld(), -PLAYER_BOUNDINGBOX_ADD, -PLAYER_BOUNDINGBOX_ADD);
-		if (b22.getType() != Material.AIR) {
+		if (b22.getType() != Material.AIR && b22.getType() != Material.LIGHT) {
 			return b22;
 		}
 		return null;
@@ -98,7 +98,7 @@ public class GameZone {
 
 	private final int MAX_BLOCKS_PER_TICK = 10;
 
-	public void saveBlock(Block b) {
+	private void saveBlock(Block b) {
 		b.setType(Material.AIR);
 	}
 
