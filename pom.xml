@@ -29,8 +29,8 @@
     </repository>
     <!-- mcMMO Repo -->
     <repository>
-        <id>CodeMC</id>
-        <url>https://repo.codemc.org/repository/maven-public/</url>
+        <id>neetgames</id>
+        <url>https://nexus.neetgames.com/repository/maven-releases/</url>
     </repository>
     <!-- HeadsPlus Repo -->
     <repository>
@@ -77,35 +77,35 @@
     <dependency>
         <groupId>me.clip</groupId>
         <artifactId>placeholderapi</artifactId>
-        <version>2.11.5</version>
+        <version>2.11.6</version>
         <scope>provided</scope>
     </dependency>
     <!-- bStats -->
     <dependency>
         <groupId>org.bstats</groupId>
         <artifactId>bstats-bukkit</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.2</version>
         <scope>compile</scope>
     </dependency>
     <!-- WorldEdit -->
     <dependency>
         <groupId>com.sk89q.worldedit</groupId>
         <artifactId>worldedit-bukkit</artifactId>
-        <version>7.3.1-SNAPSHOT</version>
+        <version>7.3.2-SNAPSHOT</version>
         <scope>provided</scope>
     </dependency>
     <!-- HeadsPlus -->
     <dependency>
         <groupId>io.github.thatsmusic99</groupId>
         <artifactId>headsplus</artifactId>
-        <version>7.1.1</version>
+        <version>7.1.2</version>
         <scope>provided</scope>
     </dependency>
     <!-- mcMMO -->
     <dependency>
         <groupId>com.gmail.nossr50.mcMMO</groupId>
         <artifactId>mcMMO</artifactId>
-        <version>2.1.224</version>
+        <version>2.2.012</version>
         <scope>provided</scope>
         <exclusions>
           <exclusion>
