@@ -41,7 +41,6 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Content;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import tntrun.TNTRun;
-import tntrun.VersionChecker;
 import tntrun.arena.Arena;
 import tntrun.messages.Messages;
 
@@ -115,44 +114,6 @@ public class Utils {
 			});
 		});
 		return names;
-	}
-
-	/**
-	 * Compare the current version of the plugin with the latest version available on SpigotMC.
-	 *
-	 * @param current version of this plugin
-	 */
-	public static void checkUpdate(String current) {
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				log.info("Checking plugin version...");
-				new VersionChecker();
-				version = VersionChecker.get().getVersion().split(";");
-
-				if (version[0].equalsIgnoreCase("error")) {
-					throw new NullPointerException("An error has occurred while checking the version! Please report this here: https://www.spigotmc.org/threads/tntrun_reloaded.303586/");
-
-				} else if (version[0].equalsIgnoreCase(current)) {
-					log.info("You are running the most recent version");
-					TNTRun.getInstance().setNeedUpdate(false);
-
-				} else if (current.toLowerCase().contains("beta") || current.toLowerCase().contains("snapshot")) {
-					log.info("You are running dev build: " + current);
-					log.info("Latest public release    : " + version[0]);
-					TNTRun.getInstance().setNeedUpdate(false);
-
-				} else {
-					log.info("Your version: " + current);
-					log.info("New version : " + version[0]);
-					log.info("New version available! Download now: https://www.spigotmc.org/resources/tntrun_reloaded.53359/");
-					TNTRun.getInstance().setNeedUpdate(true);
-					for (Player p : Bukkit.getOnlinePlayers()) {
-						Utils.displayUpdate(p);
-					}
-				}
-			}
-		}.runTaskLaterAsynchronously(TNTRun.getInstance(), 30L);
 	}
 
 	public static void displayInfo(CommandSender sender) {

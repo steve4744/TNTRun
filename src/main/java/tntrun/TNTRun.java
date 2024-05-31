@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -90,6 +91,8 @@ public class TNTRun extends JavaPlugin {
 	private ScoreboardManager scoreboardManager;
 
 	private static TNTRun instance;
+	private String version;
+	private static final int SPIGOT_ID = 53359;
 	private static final int BSTATS_PLUGIN_ID = 2192;
 
 	@Override
@@ -113,6 +116,7 @@ public class TNTRun extends JavaPlugin {
 		menus = new Menus(this);
 		parties = new Parties(this);
 
+		version = getDescription().getVersion();
 		setupPlugin();
 		setupScoreboards();
 
@@ -223,9 +227,29 @@ public class TNTRun extends JavaPlugin {
 	}
 
 	private void checkUpdate() {
-		if (getConfig().getBoolean("special.CheckForNewVersion", true)) {
-			Utils.checkUpdate(getDescription().getVersion());
+		if (!getConfig().getBoolean("special.CheckForNewVersion", true)) {
+			return;
 		}
+		new VersionChecker(this, SPIGOT_ID).getVersion(latestVersion -> {
+			if (version.equals(latestVersion)) {
+				log.info("You are running the most recent version");
+				setNeedUpdate(false);
+
+			} else if (version.contains("beta") || version.toLowerCase().contains("snapshot")) {
+				log.info("You are running dev build: " + version);
+				log.info("Latest release: " + latestVersion);
+				setNeedUpdate(false);
+
+			} else if (Character.isDigit(latestVersion.charAt(0))) {
+				log.info("Current version: " + version);
+				log.info("Latest release: " + latestVersion);
+				log.info("Latest release available from Spigot: https://www.spigotmc.org/resources/TNTRun_reloaded." + SPIGOT_ID + "/");
+				setNeedUpdate(true);
+				for (Player p : Bukkit.getOnlinePlayers()) {
+					Utils.displayUpdate(p);
+				}
+			}
+		});
 	}
 
 	private void connectToMySQL() {
