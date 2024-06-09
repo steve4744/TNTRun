@@ -357,9 +357,11 @@ public class TNTRun extends JavaPlugin {
 				for (String file : arenaList) {
 					Arena arena = new Arena(file.substring(0, file.length() - 4), instance);
 					arena.getStructureManager().loadFromConfig();
-					arena.getStatusManager().enableArena();
 					amanager.registerArena(arena);
 					Bars.createBar(arena.getArenaName());
+					if (arena.getStructureManager().isEnableOnRestart()) {
+						arena.getStatusManager().enableArena();
+					}
 				}
 				if (isBungeecord()) {
 					amanager.setBungeeArena();

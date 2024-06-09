@@ -77,6 +77,7 @@ public class StructureManager {
 	private String commandOnStop;
 	private boolean shopEnabled = true;
 	private int maxFinalPositions = 3;
+	private boolean enableOnRestart = true;
 
 	public String getWorldName() {
 		return world;
@@ -308,6 +309,10 @@ public class StructureManager {
 		return !getDamageEnabled().toString().equalsIgnoreCase("no");
 	}
 
+	public boolean isEnableOnRestart() {
+		return enableOnRestart;
+	}
+
 	public void setArenaFinished(boolean finished) {
 		this.finished = finished;
 	}
@@ -525,6 +530,7 @@ public class StructureManager {
 		config.set("commandOnStart", getCommandOnStart());
 		config.set("commandOnStop", getCommandOnStop());
 		config.set("displayfinalpositions", maxFinalPositions);
+		config.set("enableOnRestart", enableOnRestart);
 		config.set("shop.enabled", shopEnabled);
 		rewards.saveToConfig(config);
 		try {
@@ -574,6 +580,7 @@ public class StructureManager {
 		commandOnStart = config.getString("commandOnStart", "");
 		commandOnStop = config.getString("commandOnStop", "");
 		maxFinalPositions = config.getInt("displayfinalpositions", maxFinalPositions);
+		enableOnRestart = config.getBoolean("enableOnRestart", true);
 		shopEnabled = config.getBoolean("shop.enabled", true);
 	}
 

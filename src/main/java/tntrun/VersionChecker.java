@@ -31,7 +31,7 @@ public class VersionChecker {
 	private TNTRun plugin;
 	private final int resourceId;
 
-	public VersionChecker(TNTRun plugin,int resourceId) {
+	public VersionChecker(TNTRun plugin, int resourceId) {
 		this.plugin = plugin;
 		this.resourceId = resourceId;
 	}
