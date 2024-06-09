@@ -55,6 +55,7 @@ public class StructureManager {
 	private DamageEnabled damageEnabled = DamageEnabled.NO;
 	private boolean testmode = false;
 	private boolean finished = false;
+	private boolean enableOnRestart = true;
 
 	public String getWorldName() {
 		return world;
@@ -187,6 +188,10 @@ public class StructureManager {
 		return finished;
 	}
 
+	public boolean isEnableOnRestart() {
+		return enableOnRestart;
+	}
+
 	public void setArenaFinished(boolean finished) {
 		this.finished = finished;
 	}
@@ -299,6 +304,7 @@ public class StructureManager {
 		config.set("damageenabled", damageEnabled.toString());
 		config.set("testmode", testmode);
 		config.set("finished", finished);
+		config.set("enableOnRestart", enableOnRestart);
 		// save kits
 		kits.saveToConfig(config);
 		// save rewards
@@ -341,6 +347,7 @@ public class StructureManager {
 		damageEnabled = DamageEnabled.valueOf(config.getString("damageenabled", DamageEnabled.NO.toString()));
 		testmode = config.getBoolean("testmode");
 		finished = config.getBoolean("finished");
+		enableOnRestart = config.getBoolean("enableOnRestart");
 		if (!finished && arena.getStructureManager().isArenaConfigured()) {
 			finished = true;
 		}
