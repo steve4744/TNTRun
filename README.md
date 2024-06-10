@@ -1,10 +1,10 @@
 # TNTRun_reloaded
 
-[![Resource](https://img.shields.io/badge/SpigotMC-Resource-orange.svg)](https://www.spigotmc.org/resources/tntrun_reloaded-tntrun-for-1-13-1-16.53359/)
+[![Resource](https://img.shields.io/badge/SpigotMC-Resource-orange.svg)](https://www.spigotmc.org/resources/tntrun_reloaded-tntrun-for-1-13-1-20.53359/)
 [![Java CI with Maven](https://github.com/steve4744/TNTRun/workflows/Java%20CI%20with%20Maven/badge.svg)](https://github.com/steve4744/TNTRun/actions?query=workflow%3A%22Java+CI+with+Maven%22)
 [![Dev Build](https://img.shields.io/badge/Dev%20Build-Latest-orange?logo=github-actions)](https://github.com/steve4744/TNTRun/releases)
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
-[![Legacy Release](https://img.shields.io/badge/Legacy%20Release-v6.8.7-blue.svg)](https://github.com/steve4744/TNTRun/releases/tag/v6.8.7)
+[![Legacy Release](https://img.shields.io/badge/Legacy%20Release-v6.8.9-blue.svg)](https://github.com/steve4744/TNTRun/releases/tag/v6.8.9)
 
 
 [![Discord Chat](https://img.shields.io/discord/308323056592486420?logo=discord)](https://discord.gg/wFYSAS4)
@@ -36,7 +36,7 @@ If your server is running a minimum of Java 16 with Minecraft 1.16.5 or 1.17.1, 
 
 For Minecraft versions from 1.13.2 to 1.16.5, on servers running less than Java 16, you should download version 9.11 from Spigot.
 
-For Minecraft versions from 1.8 through to 1.12.2, the legacy version of TNTRun\_reloaded (version 6.8.7) is available in the GitHub Releases tab above. It can be [downloaded here.](https://github.com/steve4744/TNTRun/releases/download/v6.8.7/TNTRun_reloaded-6.8.7.jar "v6.8.7")
+For Minecraft versions from 1.8 through to 1.12.2, the legacy version of TNTRun\_reloaded (version 6.8.9) is available in the GitHub Releases tab above. It can be [downloaded here.](https://github.com/steve4744/TNTRun/releases/download/v6.8.9/TNTRun_reloaded-6.8.9.jar "v6.8.9")
 
 
 ## Development Builds
@@ -113,7 +113,7 @@ FAWE is also supported, and can be used in place of the WorldEdit on 1.13+ serve
 
 For legacy Minecraft 1.12.2 and below:
 
-    TNTRun_reloaded 6.8.7
+    TNTRun_reloaded 6.8.9
     WorldEdit 6
     Vault (optional)
 
@@ -121,4 +121,4 @@ For legacy Minecraft 1.12.2 and below:
 <br />
 <br />
 <br />
-Updated steve4744 - 31st May 2024
+Updated steve4744 - 10th June 2024
