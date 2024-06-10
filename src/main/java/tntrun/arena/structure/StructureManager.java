@@ -347,7 +347,7 @@ public class StructureManager {
 		damageEnabled = DamageEnabled.valueOf(config.getString("damageenabled", DamageEnabled.NO.toString()));
 		testmode = config.getBoolean("testmode");
 		finished = config.getBoolean("finished");
-		enableOnRestart = config.getBoolean("enableOnRestart");
+		enableOnRestart = config.getBoolean("enableOnRestart", enableOnRestart);
 		if (!finished && arena.getStructureManager().isArenaConfigured()) {
 			finished = true;
 		}
