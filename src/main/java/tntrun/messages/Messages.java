@@ -195,6 +195,10 @@ public class Messages {
 	public static String partynotexist = "&c The selected party does not exist";
 	public static String partynoinvite = "&c You do not have an invitation to this party";
 	public static String partynotenabled = "&c TNTRun parties are not currently enabled";
+	public static String partyclickaccept = "&6&lAccept";
+	public static String partyclickdecline = "&6&lDecline";
+	public static String partyaccepttext = "&7Click to &baccept &7the invitation";
+	public static String partydeclinetext = "&7Click to &cdecline &7the invitation";
 	
 	public static void sendMessage(CommandSender sender, String message) {
 		sendMessage(sender, message, true);
@@ -381,6 +385,10 @@ public class Messages {
 		partynotexist = config.getString("partynotexist", partynotexist);
 		partynoinvite = config.getString("partynoinvite", partynoinvite);
 		partynotenabled = config.getString("partynotenabled", partynotenabled);
+		partyclickaccept = config.getString("partyclickaccept", partyclickaccept);
+		partyclickdecline = config.getString("partyclickdecline", partyclickdecline);
+		partyaccepttext = config.getString("partyaccepttext", partyaccepttext);
+		partydeclinetext = config.getString("partydeclinetext", partydeclinetext);
 
 		saveMessages(messageconfig);
 	}
@@ -548,6 +556,10 @@ public class Messages {
 		config.set("partynotexist", partynotexist);
 		config.set("partynoinvite", partynoinvite);
 		config.set("partynotenabled", partynotenabled);
+		config.set("partyclickaccept", partyclickaccept);
+		config.set("partyclickdecline", partyclickdecline);
+		config.set("partyaccepttext", partyaccepttext);
+		config.set("partydeclinetext", partydeclinetext);
 		try {
 			config.save(messageconfig);
 		} catch (IOException e) {

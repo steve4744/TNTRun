@@ -170,22 +170,22 @@ public class Utils {
 		player.spigot().sendMessage(getTextComponent("/trsetup finish {arena}", true), getTextComponent(Messages.setupfinish));
 	}
 
+	/**
+	 * Display a clickable invitation message when the first player joins an arena.
+	 *
+	 * @param player first player that joins an arena
+	 * @param arenaname
+	 * @param joinMessage
+	 */
 	public static void displayJoinMessage(Player player, String arenaname, String joinMessage) {
+		final String command = "/tntrun joinorspectate ";
 		final String border = FormattingCodesParser.parseFormattingCodes(Messages.playerborderinvite);
 		TextComponent jointc = new TextComponent(TextComponent.fromLegacy(border + "\n"));
-		jointc.addExtra(getJoinTextComponent(joinMessage, arenaname));
+
+		jointc.addExtra(buildComponent(joinMessage, Messages.playerclickinvite.replace("{ARENA}", arenaname), arenaname, command));
+
 		jointc.addExtra(new TextComponent(TextComponent.fromLegacy("\n" + border)));
 		player.spigot().sendMessage(jointc);
-	}
-
-	private static TextComponent getJoinTextComponent(String text, String arenaname) {
-		String hoverMessage = FormattingCodesParser.parseFormattingCodes(Messages.playerclickinvite.replace("{ARENA}", arenaname));
-		Content content = new Text(hoverMessage);
-		TextComponent component = new TextComponent(TextComponent.fromLegacy(ChatColor.translateAlternateColorCodes('&', text)));
-
-		component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tntrun joinorspectate " + arenaname));
-		component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, content));
-		return component;
 	}
 
 	public static String getTitleCase(String input) {
@@ -410,21 +410,37 @@ public class Utils {
 		return max;
 	}
 
-	public static void displayPartyInvite(Player player, String target, String joinMessage) {
-		TextComponent partytc = new TextComponent(TextComponent.fromLegacy("Would you like to "));
-		partytc.addExtra(getPartyInviteComponent("Accept", "Click to Accept", player, target));
-		partytc.addExtra(" or ");
-		partytc.addExtra(getPartyInviteComponent("Decline", "Click to Decline", player, target));
-		partytc.addExtra(" the party invitation?");
-		Bukkit.getPlayer(target).spigot().sendMessage(partytc);
+	/**
+	 * Display a clickable invitation to join a TNTRun party.
+	 *
+	 * @param player party leader
+	 * @param target player being invited
+	 */
+	public static void displayPartyInvite(Player player, String target) {
+		final String command1 = "/tntrun party accept ";
+		final String command2 = "/tntrun party decline ";
+
+		TextComponent accept = buildComponent(Messages.partyclickaccept, Messages.partyaccepttext, player.getName(), command1);
+		TextComponent decline = buildComponent(Messages.partyclickdecline, Messages.partydeclinetext, player.getName(), command2);
+		accept.addExtra(" | ");
+
+		Bukkit.getPlayer(target).spigot().sendMessage(accept, decline);
 	}
 
-	private static TextComponent getPartyInviteComponent(String text, String hoverMessage, Player player, String target) {
-		Content content = new Text(hoverMessage);
-		TextComponent component = new TextComponent(text);
-		component.setColor(ChatColor.GOLD);
-		component.setBold(true);
-		component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tntrun party " + text + " " + player.getName()));
+	/**
+	 * Add the click event and hover text to the text component.
+	 *
+	 * @param text
+	 * @param hoverMessage
+	 * @param target target of command, e.g. party leader or arena
+	 * @param command
+	 * @return
+	 */
+	private static TextComponent buildComponent(String text, String hoverMessage, String target, String command) {
+		Content content = new Text(ChatColor.translateAlternateColorCodes('&', hoverMessage));
+		TextComponent component = new TextComponent(ChatColor.translateAlternateColorCodes('&', text));
+
+		component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command + target));
 		component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, content));
 		return component;
 	}

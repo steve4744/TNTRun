@@ -162,7 +162,7 @@ public class Parties {
 		invitedMap.computeIfAbsent(player.getName(), k -> new ArrayList<>()).add(targetName);
 
 		Messages.sendMessage(Bukkit.getPlayer(targetName), Messages.partyinvite.replace("{PLAYER}", player.getName()));
-		Utils.displayPartyInvite(player, targetName, "");
+		Utils.displayPartyInvite(player, targetName);
 	}
 
 	/**
