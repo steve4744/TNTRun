@@ -210,12 +210,13 @@ public class Parties {
 	 */
 	private void declinePartyInvite(Player player, String leaderName) {
 		String playerName = player.getName();
-		invitedMap.get(leaderName).removeIf(list -> list.contains(playerName));
-		String msg = Messages.partydecline.replace("{PLAYER}", playerName);
-		Messages.sendMessage(player, msg);
-		Messages.sendMessage(Bukkit.getPlayer(leaderName), msg);
-		if (Utils.debug()) {
-			plugin.getLogger().info(playerName + " has declined the party invitation from " + leaderName);
+		if (invitedMap.get(leaderName).removeIf(list -> list.contains(playerName))) {
+			String msg = Messages.partydecline.replace("{PLAYER}", playerName);
+			Messages.sendMessage(player, msg);
+			Messages.sendMessage(Bukkit.getPlayer(leaderName), msg);
+			if (Utils.debug()) {
+				plugin.getLogger().info(playerName + " has declined the party invitation from " + leaderName);
+			}
 		}
 	}
 
