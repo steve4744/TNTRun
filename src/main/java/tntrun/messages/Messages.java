@@ -133,6 +133,7 @@ public class Messages {
 	public static String helpstart = "Force-start the arena";
 	public static String helplistkit = "List all kits OR List kit details";
 	public static String helplistrewards = "List the rewards for the arena";
+	public static String helpclick = "Click to select";
 
 	public static String setuplobby = "Set the global lobby at your current location";
 	public static String setupdellobby = "Delete the global lobby";
@@ -311,6 +312,7 @@ public class Messages {
 		helplist = config.getString("helplist", helplist);
 		helplistkit = config.getString("helplistkit", helplistkit);
 		helplistrewards = config.getString("helplistrewards", helplistrewards);
+		helpclick = config.getString("helpclick", helpclick);
 		helpjoin = config.getString("helpjoin", helpjoin);
 		helpspectate = config.getString("helpspectate", helpspectate);
 		helpautojoin = config.getString("helpautojoin", helpautojoin);
@@ -482,6 +484,7 @@ public class Messages {
 		config.set("helplist", helplist);
 		config.set("helplistkit", helplistkit);
 		config.set("helplistrewards", helplistrewards);
+		config.set("helpclick", helpclick);
 		config.set("helpjoin", helpjoin);
 		config.set("helpspectate", helpspectate);
 		config.set("helpautojoin", helpautojoin);

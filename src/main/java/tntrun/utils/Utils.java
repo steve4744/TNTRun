@@ -46,7 +46,6 @@ import tntrun.messages.Messages;
 
 public class Utils {
 
-	private static String[] version = {"Nothing", "Nothing"};
 	private static Map<String, String> ranks = new HashMap<>();
 	private static Map<String, String> colours = new HashMap<>();
 	private static final Logger log = TNTRun.getInstance().getLogger();
@@ -119,7 +118,7 @@ public class Utils {
 	public static void displayInfo(CommandSender sender) {
 		Messages.sendMessage(sender, "&7============" + Messages.trprefix + "============", false);
 		Messages.sendMessage(sender, "&bPlugin Version: &f" + TNTRun.getInstance().getDescription().getVersion(), false);
-		Messages.sendMessage(sender, "&bWebsite: &fhttps://www.spigotmc.org/resources/tntrun_reloaded.53359/", false);
+		Messages.sendMessage(sender, "&bWeb: &f" + TNTRun.getInstance().getSpigotURL(), false);
 		Messages.sendMessage(sender, "&bTNTRun_reloaded Author: &fsteve4744", false);
 	}
 
@@ -132,7 +131,7 @@ public class Utils {
 
 			TextComponent link = new TextComponent(" Click here to download");
 			link.setColor(ChatColor.AQUA);
-			link.setClickEvent( new ClickEvent( ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/tntrun_reloaded.53359/"));
+			link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, TNTRun.getInstance().getSpigotURL()));
 			tc.addExtra(link);
 
 			Content content = new Text(getUpdateMessage().create());
@@ -156,7 +155,7 @@ public class Utils {
 
 	private static ComponentBuilder getUpdateMessage() {
 		ComponentBuilder cb = new ComponentBuilder("Current version : ").color(ChatColor.AQUA).append(TNTRun.getInstance().getDescription().getVersion()).color(ChatColor.GOLD);
-		cb.append("\nLatest version : ").color(ChatColor.AQUA).append(version[0]).color(ChatColor.GOLD);
+		cb.append("\nLatest version : ").color(ChatColor.AQUA).append(TNTRun.getInstance().getLatestRelease()).color(ChatColor.GOLD);
 		return cb;
 	}
 
@@ -180,9 +179,10 @@ public class Utils {
 	public static void displayJoinMessage(Player player, String arenaname, String joinMessage) {
 		final String command = "/tntrun joinorspectate ";
 		final String border = FormattingCodesParser.parseFormattingCodes(Messages.playerborderinvite);
+		final String clickAction = "RUN_COMMAND";
 		TextComponent jointc = new TextComponent(TextComponent.fromLegacy(border + "\n"));
 
-		jointc.addExtra(buildComponent(joinMessage, Messages.playerclickinvite.replace("{ARENA}", arenaname), arenaname, command));
+		jointc.addExtra(buildComponent(joinMessage, Messages.playerclickinvite.replace("{ARENA}", arenaname), arenaname, command, clickAction));
 
 		jointc.addExtra(new TextComponent(TextComponent.fromLegacy("\n" + border)));
 		player.spigot().sendMessage(jointc);
@@ -197,17 +197,18 @@ public class Utils {
 	}
 
 	public static TextComponent getTextComponent(String text, Boolean click) {
-		Content content = new Text("Click to select");
-		TextComponent tc = new TextComponent(text);
-		if (click) {
-			String splitter = text.contains("{") ? "{" : "[";
-			tc.setColor(ChatColor.GOLD);
-			tc.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, StringUtils.substringBefore(text, splitter)));
-			tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, content));
-			tc.addExtra(getTextComponentDelimiter(" - "));
-		} else {
+		if (!click) {
+			TextComponent tc = new TextComponent(text);
 			tc.setColor(ChatColor.RED);
+			return tc;
 		}
+		final String clickAction = "SUGGEST_COMMAND";
+		String splitter = text.contains("{") ? "{" : "[";
+
+		TextComponent tc = buildComponent(text, Messages.helpclick, StringUtils.substringBefore(text, splitter), "", clickAction);
+		tc.setColor(ChatColor.GOLD);
+		tc.addExtra(getTextComponentDelimiter(" - "));
+
 		return tc;
 	}
 
@@ -419,9 +420,10 @@ public class Utils {
 	public static void displayPartyInvite(Player player, String target) {
 		final String command1 = "/tntrun party accept ";
 		final String command2 = "/tntrun party decline ";
+		final String clickAction = "RUN_COMMAND";
 
-		TextComponent accept = buildComponent(Messages.partyclickaccept, Messages.partyaccepttext, player.getName(), command1);
-		TextComponent decline = buildComponent(Messages.partyclickdecline, Messages.partydeclinetext, player.getName(), command2);
+		TextComponent accept = buildComponent(Messages.partyclickaccept, Messages.partyaccepttext, player.getName(), command1, clickAction);
+		TextComponent decline = buildComponent(Messages.partyclickdecline, Messages.partydeclinetext, player.getName(), command2, clickAction);
 		accept.addExtra(" | ");
 
 		Bukkit.getPlayer(target).spigot().sendMessage(accept, decline);
@@ -434,14 +436,16 @@ public class Utils {
 	 * @param hoverMessage
 	 * @param target target of command, e.g. party leader or arena
 	 * @param command
+	 * @param action the click event action
 	 * @return
 	 */
-	private static TextComponent buildComponent(String text, String hoverMessage, String target, String command) {
-		Content content = new Text(ChatColor.translateAlternateColorCodes('&', hoverMessage));
+	private static TextComponent buildComponent(String text, String hoverMessage, String target, String command, String clickAction) {
 		TextComponent component = new TextComponent(ChatColor.translateAlternateColorCodes('&', text));
+		Content content = new Text(ChatColor.translateAlternateColorCodes('&', hoverMessage));
 
-		component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command + target));
+		component.setClickEvent(new ClickEvent(ClickEvent.Action.valueOf(clickAction), command + target));
 		component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, content));
 		return component;
 	}
+
 }

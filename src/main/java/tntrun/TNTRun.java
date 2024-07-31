@@ -92,8 +92,10 @@ public class TNTRun extends JavaPlugin {
 
 	private static TNTRun instance;
 	private String version;
+	private String latestRelease;
 	private static final int SPIGOT_ID = 53359;
 	private static final int BSTATS_PLUGIN_ID = 2192;
+	private static final String SPIGOT_URL = "https://www.spigotmc.org/resources/TNTRun_reloaded." + SPIGOT_ID + "/";
 
 	@Override
 	public void onEnable() {
@@ -231,6 +233,7 @@ public class TNTRun extends JavaPlugin {
 			return;
 		}
 		new VersionChecker(this, SPIGOT_ID).getVersion(latestVersion -> {
+			latestRelease = latestVersion;
 			if (version.equals(latestVersion)) {
 				log.info("You are running the most recent version");
 				setNeedUpdate(false);
@@ -243,7 +246,7 @@ public class TNTRun extends JavaPlugin {
 			} else if (Character.isDigit(latestVersion.charAt(0))) {
 				log.info("Current version: " + version);
 				log.info("Latest release: " + latestVersion);
-				log.info("Latest release available from Spigot: https://www.spigotmc.org/resources/TNTRun_reloaded." + SPIGOT_ID + "/");
+				log.info("Latest release available from Spigot: " + SPIGOT_URL);
 				setNeedUpdate(true);
 				for (Player p : Bukkit.getOnlinePlayers()) {
 					Utils.displayUpdate(p);
@@ -435,6 +438,14 @@ public class TNTRun extends JavaPlugin {
 
 	public Shop getShop() {
 		return shop;
+	}
+
+	public String getLatestRelease() {
+		return latestRelease;
+	}
+
+	public String getSpigotURL() {
+		return SPIGOT_URL;
 	}
 
 	public void setupScoreboards() {
