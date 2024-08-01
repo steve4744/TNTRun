@@ -124,20 +124,22 @@ public class Utils {
 
 	public static void displayUpdate(Player player) {
 		if (player.hasPermission("tntrun.version.check")) {
+			final String newmsg = " A new version is available!";
+			final String download = " Click here to download";
+			final String url = TNTRun.getInstance().getSpigotURL();
+
 			TextComponent tc = getTextComponentPrefix();
-			TextComponent message = new TextComponent(" New version available!");
+			TextComponent message = new TextComponent(newmsg);
 			message.setColor(ChatColor.WHITE);
 			tc.addExtra(message);
-
-			TextComponent link = new TextComponent(" Click here to download");
-			link.setColor(ChatColor.AQUA);
-			link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, TNTRun.getInstance().getSpigotURL()));
-			tc.addExtra(link);
 
 			Content content = new Text(getUpdateMessage().create());
 			tc.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, content));
 
-			player.spigot().sendMessage(tc);
+			TextComponent link = buildComponent(download, url, url, "", "OPEN_URL");
+			link.setColor(ChatColor.AQUA);
+
+			player.spigot().sendMessage(tc, link);
 		}
 	}
 
