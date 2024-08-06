@@ -48,5 +48,8 @@ permissions:
   tntrun.party:
     description: allow players to create and join TNTRun parties
     default: true
+  tntrun.forcejoinbypass:
+    description: allow players to be excluded from the forcejoin command
+    default: op
 libraries:
   - org.apache.commons:commons-lang3:3.12.0

@@ -63,6 +63,7 @@ import tntrun.commands.setup.kits.UnlinkKit;
 import tntrun.commands.setup.lobby.DeleteLobby;
 import tntrun.commands.setup.lobby.SetLobby;
 import tntrun.commands.setup.other.AddToWhitelist;
+import tntrun.commands.setup.other.ForceJoin;
 import tntrun.commands.setup.other.GiveDoubleJumps;
 import tntrun.commands.setup.other.ResetCachedRank;
 import tntrun.commands.setup.other.ResetStats;
@@ -135,6 +136,7 @@ public class SetupCommandsHandler implements CommandExecutor {
 		commandHandlers.put("resetstats", new ResetStats(plugin));
 		commandHandlers.put("resetcachedrank", new ResetCachedRank(plugin));
 		commandHandlers.put("givedoublejumps", new GiveDoubleJumps(plugin));
+		commandHandlers.put("forcejoin", new ForceJoin(plugin));
 	}
 
 	@Override

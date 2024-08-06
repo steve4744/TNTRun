@@ -238,6 +238,22 @@ public class ConsoleCommands implements CommandExecutor {
 				}
 			}
 			return true;
+		} else if (args[0].equalsIgnoreCase("forcejoin")) {
+			if (args.length != 2) {
+				Messages.sendMessage(sender, "&c Invalid number of arguments supplied");
+				return false;
+			}
+			Arena arena = plugin.amanager.getArenaByName(args[0]);
+			if (arena == null) {
+				Messages.sendMessage(sender, Messages.arenanotexist.replace("{ARENA}", args[0]));
+				return false;
+			}
+			for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+				if (!onlinePlayer.hasPermission("tntrun.forcejoinbypass") && arena.getPlayerHandler().checkJoin(onlinePlayer)) {
+					arena.getPlayerHandler().spawnPlayer(onlinePlayer, Messages.playerjoinedtoothers);
+				}
+			}
+			return true;
 		}
 
 		return false;
@@ -258,6 +274,7 @@ public class ConsoleCommands implements CommandExecutor {
 		Messages.sendMessage(sender, "trconsole spectate {arena} {player}");
 		Messages.sendMessage(sender, "trconsole autojoin [pvp|nopvp] {player}");
 		Messages.sendMessage(sender, "trconsole givedoublejumps {player} {amount}");
+		Messages.sendMessage(sender, "trconsole forcejoin {arena}");
 	}
 
 }
