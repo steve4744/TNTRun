@@ -85,6 +85,7 @@ helplobby: Teleportování do lobby
 helplist: List všech arén nebo List detailů určité arény
 helplistkit: List všech kitů nebo List detailů kitu
 helplistrewards: Listovat výhry konkrétní arény
+helpclick: Click to select
 helpjoin: Otevřít připojovací arény nebo připojení se do arény
 helpspectate: Připojit se do arény jako divák
 helpautojoin: Automaticky se připojit do první dostupné arény
@@ -139,6 +140,7 @@ setupclear: Vymazat vybrané body
 setupwhitelist: Povolení příkazu pro použití ve hře
 setupresetstats: Smazání všech TNTRun statistik pro hráče
 setupresetrank: Vymazání ranku hráče z cache
+setupforcejoin: Force all online players to join an arena
 kitadd: '&7 Kit s názvem &6{KIT} &7Byl vytvořen'
 kitdel: '&7 Kit s názvem &6{KIT} &7byl vymazán'
 kitexists: '&c Tento kit už existuje s názvem : &6{KIT}'
@@ -159,3 +161,7 @@ partyinparty: '&c Už si v partě'
 partynotexist: '&c Zvolená parta neexistuje'
 partynoinvite: '&c Nemáš pozvánku do této party'
 partynotenabled: '&c TNTRun party nejsou momentálně zaplé'
+partyclickaccept: '&6&lAccept'
+partyclickdecline: '&6&lDecline'
+partyaccepttext: '&7Click to &baccept &7the invitation'
+partydeclinetext: '&7Click to &cdecline &7the invitation'
