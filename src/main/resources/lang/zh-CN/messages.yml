@@ -1,5 +1,5 @@
 ---
-trprefix: '&7[&6TNTRun_重製&7]'
+trprefix: '&7[&6TNTRun_重制&7]'
 menutitle: '&1TNTRun 地图'
 menuarenaname: '&a{ARENA}'
 menutext: '&5玩家: &6{PS}/{MPS}'
@@ -85,6 +85,7 @@ helplobby: 传送到大厅
 helplist: 列出所有地图或是详细资料
 helplistkit: 列出所有职业或是详细资料
 helplistrewards: 列出该地图的奖赏
+helpclick: Click to select
 helpjoin: 打开选单或是加入游戏
 helpspectate: 以旁观者加入游戏
 helpautojoin: 自动加入游戏
@@ -139,6 +140,7 @@ setupclear: 清除选取点
 setupwhitelist: 可在游戏内使用的指令
 setupresetstats: 已经移除玩家的统计信息
 setupresetrank: 从缓存移除了玩家的等级
+setupforcejoin: Force all online players to join an arena
 kitadd: '&7 职业 &6{KIT} &7已被创建'
 kitdel: '&7 职业 &6{KIT} &7已被删除'
 kitexists: '&c 指定的职业已存在 : &6{KIT}'
@@ -159,3 +161,7 @@ partyinparty: '&c 你已在组队中'
 partynotexist: '&c 组队不存在'
 partynoinvite: '&c 你未被邀请到组队'
 partynotenabled: '&c TNTRun组队当前未启用'
+partyclickaccept: '&6&lAccept'
+partyclickdecline: '&6&lDecline'
+partyaccepttext: '&7Click to &baccept &7the invitation'
+partydeclinetext: '&7Click to &cdecline &7the invitation'

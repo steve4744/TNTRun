@@ -1,30 +1,30 @@
 ---
 trprefix: '&7[&6TNTRun_reloaded&7]'
-menutitle: '&1TNTRun_reloaded Arenas'
+menutitle: '&1TNTRun_reloaded Arénák'
 menuarenaname: '&a{ARENA}'
-menutext: '&5Players: &6{PS}/{MPS}'
-menufee: '&5Join Fee: &6{FEE}'
-menupvp: '&5PVP: &6Enabled'
-menutracker: '&1TNTRun player tracker'
-nopermission: '&c You don''t have permission to do this'
-nolobby: '&c Global lobby isn''t set, run &6/trsetup setlobby'
-lobbyunloaded: '&c Lobby world is unloaded or doesn''t exist'
-teleporttolobby: '&7 Teleported to lobby'
-arenanotexist: '&c Arena &6{ARENA}&c doesn''t exist'
+menutext: '&6{PS}/{MPS} &5játékos'
+menufee: '&5Részvételi díj: &6{FEE}'
+menupvp: '&5PVP: &6Bekapcsolva'
+menutracker: '&1TNTRun játékoskövető'
+nopermission: '&c Nincs engedélyed ahhoz, hogy megtedd ezt'
+nolobby: '&c A globális váró nincs beállítva, futtasd a &6/trsetup setlobby &cparancsot'
+lobbyunloaded: '&c A váró világa nincs betöltve, vagy nem létezik'
+teleporttolobby: '&7 Teleportálva a váróba'
+arenanotexist: '&c Nem létezik &6{ARENA}&c nevű aréna'
 noarenas: '&c There are no arenas available to join'
 arenanotdisabled: '&c Please disable arena: &6/trsetup disable {ARENA}'
 arenanospectatorspawn: '&c No spectator spawn set for arena &6{ARENA}'
-availablearenas: '&7 Available arenas: {COUNT}'
-availablekits: '&7 Available kits: {COUNT}'
-arenawolrdna: '&7 Arena world is not loaded'
-arenanobounds: '&7 Arena bounds not set'
-arenadisabled: '&7 Arena is disabled'
-arenarunning: '&7 Arena already running'
-arenaregenerating: '&7 Arena is regenerating'
+availablearenas: '&7 Elérhető arénák: {COUNT}'
+availablekits: '&7 Elérhető felszerelések: {COUNT}'
+arenawolrdna: '&7 Az aréna világa nincs betöltve'
+arenanobounds: '&7 Az aréna határai nincsenek megadva'
+arenadisabled: '&7 Az aréna le van tiltva'
+arenarunning: '&7 Az aréna már fut'
+arenaregenerating: '&7 Az aréna éppen regenerálódik'
 arenavehicle: '&c You can''t join the game while sitting inside a vehicle'
 arenajoined: '&c You have already joined an arena'
 arenadisabling: '&6 Arena is disabling'
-arenastarting: '&6 Arena already starting'
+arenastarting: '&6 Az aréna már indul'
 signcreate: '&7 Sign successfully created'
 signremove: '&7 Sign successfully removed'
 signfail: '&7 You must be looking at a sign to create the join sign'
@@ -85,6 +85,7 @@ helplobby: Teleport to lobby
 helplist: List all arenas OR List arena details
 helplistkit: List all kits OR List kit details
 helplistrewards: List the rewards for the arena
+helpclick: Click to select
 helpjoin: Open join menu OR Join the arena
 helpspectate: Join the arena as a spectator
 helpautojoin: Automatically join the first available arena
@@ -139,6 +140,7 @@ setupclear: Clear selection points
 setupwhitelist: Whitelist a command for use in-game
 setupresetstats: Remove all TNTRun stats for the player
 setupresetrank: Remove player's rank from the cache
+setupforcejoin: Force all online players to join an arena
 kitadd: '&7 The kit &6{KIT} &7has been created'
 kitdel: '&7 The kit &6{KIT} &7has been deleted'
 kitexists: '&c The specified kit already exists : &6{KIT}'
@@ -159,3 +161,7 @@ partyinparty: '&c You are already in a party'
 partynotexist: '&c The selected party does not exist'
 partynoinvite: '&c You do not have an invitation to this party'
 partynotenabled: '&c TNTRun parties are not currently enabled'
+partyclickaccept: '&6&lAccept'
+partyclickdecline: '&6&lDecline'
+partyaccepttext: '&7Click to &baccept &7the invitation'
+partydeclinetext: '&7Click to &cdecline &7the invitation'

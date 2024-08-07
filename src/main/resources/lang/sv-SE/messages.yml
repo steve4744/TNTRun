@@ -85,6 +85,7 @@ helplobby: Teleportera till lobbyn
 helplist: Lista alla arenor ELLER Lista arenadetaljer
 helplistkit: Lista alla kit ELLER Lista kitdetaljer
 helplistrewards: Lista belöningarna för arenan
+helpclick: Click to select
 helpjoin: Öppna gå med-menyn ELLER Gå med i arenan
 helpspectate: Gå med på arenan som åskådare
 helpautojoin: Gå automatiskt med i den första tillgängliga arenan
@@ -139,6 +140,7 @@ setupclear: Rensa urvalspunkter
 setupwhitelist: Vitlista ett kommando för användning i spelet
 setupresetstats: Ta bort alla TNTRun statistik för spelaren
 setupresetrank: Ta bort spelarens rang från cachen
+setupforcejoin: Force all online players to join an arena
 kitadd: '&7 De kit &6{KIT} &7Har skapats'
 kitdel: '&7 De kit &6{KIT} &7har blivit raderad'
 kitexists: '&c Det angivna kitet finns redan : &6{KIT}'
@@ -159,3 +161,7 @@ partyinparty: '&c Du är redan i en party'
 partynotexist: '&c Den valda party existerar inte'
 partynoinvite: '&c Du har ingen inbjudan till detta party'
 partynotenabled: '&c TNTRun parties är för närvarande inte aktiverade'
+partyclickaccept: '&6&lAccept'
+partyclickdecline: '&6&lDecline'
+partyaccepttext: '&7Click to &baccept &7the invitation'
+partydeclinetext: '&7Click to &cdecline &7the invitation'

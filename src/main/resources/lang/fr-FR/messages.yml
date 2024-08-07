@@ -85,6 +85,7 @@ helplobby: Téléporté au lobby
 helplist: Lister toutes les arènes OU Les détails de la liste des arènes
 helplistkit: Lister tous les kits OU Lister les détails des kits
 helplistrewards: Lister les récompenses des arènes
+helpclick: Click to select
 helpjoin: Ouvrir le menu d'inscription OU Rejoindre l'arène
 helpspectate: Rejoindre l'arène en tant que spectateur
 helpautojoin: Rejoindre automatiquement la première arène disponible
@@ -139,6 +140,7 @@ setupclear: Effacer les points de sélection
 setupwhitelist: Whitelister une commande à utiliser en jeu
 setupresetstats: Retirer toutes les statistiques TNTRun d'un joueur
 setupresetrank: Retirer le rang du joueur de la cache
+setupforcejoin: Force all online players to join an arena
 kitadd: '&7 Le kit &6{KIT} &7a été créé'
 kitdel: '&7 Le kit &6{KIT} &7a été supprimé'
 kitexists: '&cLe kit spécifié existe déjà : &6{KIT}'
@@ -159,3 +161,7 @@ partyinparty: '&cVous êtes déjà dans un groupe'
 partynotexist: '&cLe groupe sélectionné n''existe pas'
 partynoinvite: '&c Vous n''avez pas d''invitation à ce groupe'
 partynotenabled: '&c Les parties TNTRun ne sont pas activées pour le moment'
+partyclickaccept: '&6&lAccept'
+partyclickdecline: '&6&lDecline'
+partyaccepttext: '&7Click to &baccept &7the invitation'
+partydeclinetext: '&7Click to &cdecline &7the invitation'
