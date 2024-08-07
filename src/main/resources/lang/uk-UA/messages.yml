@@ -85,6 +85,7 @@ helplobby: Телепорт у лобі
 helplist: Перелічити всі арени АБО Список деталей арен
 helplistkit: Показати всі комплекти АБО Список комплектів
 helplistrewards: Список нагород за арену
+helpclick: Click to select
 helpjoin: Відкрити меню приєднання АБО приєднатися до арени
 helpspectate: Приєднатися до Арени як глядач
 helpautojoin: Автоматично вступити до першої доступної арени
@@ -139,6 +140,7 @@ setupclear: Очистити точки виділення
 setupwhitelist: Білий список команд для використання в грі
 setupresetstats: Видалити всю статистику TNTRun для гравця
 setupresetrank: Видалити ранг гравця з кешу
+setupforcejoin: Force all online players to join an arena
 kitadd: '&7 Комплект &6{KIT} &7успішно створено'
 kitdel: '&7 Комплект &6{KIT} &7успішно видалено'
 kitexists: '&c Указаний комплект вже існує: &6{KIT}'
@@ -159,3 +161,7 @@ partyinparty: 'Ви вже у вечірці'
 partynotexist: 'Вибрана вечірка не існує'
 partynoinvite: '&c У вас немає запрошення до цієї вечірки'
 partynotenabled: '&c Вечірки наразі вимкнено'
+partyclickaccept: '&6&lAccept'
+partyclickdecline: '&6&lDecline'
+partyaccepttext: '&7Click to &baccept &7the invitation'
+partydeclinetext: '&7Click to &cdecline &7the invitation'
