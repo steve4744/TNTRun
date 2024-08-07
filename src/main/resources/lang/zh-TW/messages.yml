@@ -85,6 +85,7 @@ helplobby: 傳送到大廳
 helplist: 列出所有地圖或是詳細資料
 helplistkit: 列出所有職業或是詳細資料
 helplistrewards: 列出該地圖的獎賞
+helpclick: Click to select
 helpjoin: 打開選單或是加入遊戲
 helpspectate: 以旁觀者加入遊戲
 helpautojoin: 自動加入遊戲
@@ -139,6 +140,7 @@ setupclear: 清除選取點
 setupwhitelist: 可在遊戲內使用的指令
 setupresetstats: 刪除播放器的所有 TNTRun 統計數據
 setupresetrank: 從緩存中移除玩家的排名
+setupforcejoin: Force all online players to join an arena
 kitadd: '&7 該套件 &6{KIT} &7已經被創造了'
 kitdel: '&7 該套件 &6{KIT} &7已被刪除'
 kitexists: '&c 指定的職業已存在 : &6{KIT}'
@@ -159,3 +161,7 @@ partyinparty: '&c 你已經在派對中'
 partynotexist: '&c 所選方不存在'
 partynoinvite: '&c 您沒有參加此派對的邀請'
 partynotenabled: '&c TNTRun 當前未啟用各方'
+partyclickaccept: '&6&lAccept'
+partyclickdecline: '&6&lDecline'
+partyaccepttext: '&7Click to &baccept &7the invitation'
+partydeclinetext: '&7Click to &cdecline &7the invitation'
