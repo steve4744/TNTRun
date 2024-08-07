@@ -85,6 +85,7 @@ helplobby: 로비로 순간이동
 helplist: 모든 경기장 나열 또는 경기장 세부 정보 나열
 helplistkit: 모든 키트 나열 또는 키트 세부 정보 나열
 helplistrewards: 경기장에 대한 보상 나열
+helpclick: Click to select
 helpjoin: 참가 메뉴 열기 또는 경기장 참가
 helpspectate: 관전자로 경기장에 참여
 helpautojoin: 사용 가능한 첫 번째 경기장에 자동으로 참여
@@ -139,6 +140,7 @@ setupclear: 선택 포인트 지우기
 setupwhitelist: 게임 내에서 사용할 명령어를 허용 목록에 추가
 setupresetstats: 플레이어에 대한 모든 TNT Run 통계 제거
 setupresetrank: 캐시에서 플레이어의 순위를 제거합니다.
+setupforcejoin: Force all online players to join an arena
 kitadd: '&7 The kit &6{KIT} &7has been created'
 kitdel: '&7 The kit &6{KIT} &7has been deleted'
 kitexists: '&c 지정된 키트가 이미 존재함: &6{KIT}'
@@ -159,3 +161,7 @@ partyinparty: '&c 당신은 이미 파티에 있습니다'
 partynotexist: '&c 선택한 당사자가 존재하지 않습니다'
 partynoinvite: '&c You do not have an invitation to this party'
 partynotenabled: '&c TNTRun parties are not currently enabled'
+partyclickaccept: '&6&lAccept'
+partyclickdecline: '&6&lDecline'
+partyaccepttext: '&7Click to &baccept &7the invitation'
+partydeclinetext: '&7Click to &cdecline &7the invitation'
