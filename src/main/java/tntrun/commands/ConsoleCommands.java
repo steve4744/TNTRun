@@ -243,9 +243,9 @@ public class ConsoleCommands implements CommandExecutor {
 				Messages.sendMessage(sender, "&c Invalid number of arguments supplied");
 				return false;
 			}
-			Arena arena = plugin.amanager.getArenaByName(args[0]);
+			Arena arena = plugin.amanager.getArenaByName(args[1]);
 			if (arena == null) {
-				Messages.sendMessage(sender, Messages.arenanotexist.replace("{ARENA}", args[0]));
+				Messages.sendMessage(sender, Messages.arenanotexist.replace("{ARENA}", args[1]));
 				return false;
 			}
 			for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
