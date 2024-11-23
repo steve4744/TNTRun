@@ -48,7 +48,7 @@ public class StructureManager {
 	private int gameleveldestroydelay = 8;
 	private LoseLevel loselevel = new LoseLevel();
 	private SpectatorSpawn spectatorspawn = new SpectatorSpawn();
-	private Vector spawnpoint = null;
+	private PlayerSpawn playerspawn = new PlayerSpawn();
 	private int minPlayers = 2;
 	private int maxPlayers = 15;
 	private double votesPercent = 0.75;
@@ -124,19 +124,27 @@ public class StructureManager {
 	}
 
 	public Vector getSpawnPointVector() {
-		return spawnpoint;
+		return playerspawn.getVector();
 	}
 
 	public Location getSpawnPoint() {
-		Vector v = spawnpoint;
+		Vector v = playerspawn.getVector();
 		if (hasAdditionalSpawnPoints()) {
 			v = nextSpawnPoint();
 		}
-		return new Location(getWorld(), v.getX(), v.getY(), v.getZ());
+		return new Location(getWorld(),
+					v.getX(),
+					v.getY(),
+					v.getZ(),
+					playerspawn.getYaw(),
+					playerspawn.getPitch());
 	}
 
 	public Location getPrimarySpawnPoint() {
-		return new Location(getWorld(), spawnpoint.getX(), spawnpoint.getY(), spawnpoint.getZ());
+		return new Location(getWorld(),
+					playerspawn.getVector().getX(),
+					playerspawn.getVector().getY(),
+					playerspawn.getVector().getZ());
 	}
 
 	public List<Vector> getAdditionalSpawnPoints() {
@@ -287,7 +295,7 @@ public class StructureManager {
 		if (!loselevel.isConfigured()) {
 			return "Arena loselevel not set";
 		}
-		if (spawnpoint == null) {
+		if (!playerspawn.isConfigured()) {
 			return "Arena spawnpoint not set";
 		}
 		return "yes";
@@ -298,7 +306,7 @@ public class StructureManager {
 	}
 
 	public boolean isSpawnpointSet() {
-		return spawnpoint != null;
+		return playerspawn.isConfigured();
 	}
 
 	public boolean isSpectatorSpawnSet() {
@@ -337,7 +345,7 @@ public class StructureManager {
 
 	public boolean setSpawnPoint(Location loc) {
 		if (isInArenaBounds(loc)) {
-			spawnpoint = loc.toVector();
+			playerspawn.setPlayerSpawn(loc);
 			return true;
 		}
 		return false;
@@ -474,7 +482,7 @@ public class StructureManager {
 
 	private Vector nextSpawnPoint() {
 		if (freeSpawnList.isEmpty()) {
-			freeSpawnList.add(spawnpoint);
+			freeSpawnList.add(playerspawn.getVector());
 			freeSpawnList.addAll(additionalSpawnPoints);
 		}
 		return freeSpawnList.remove(0);
@@ -498,7 +506,7 @@ public class StructureManager {
 		} catch (Exception e) {
 		}
 		try {
-			config.set("spawnpoint", spawnpoint);
+			playerspawn.saveToConfig(config);
 		} catch (Exception e) {
 		}
 		try {
@@ -548,7 +556,7 @@ public class StructureManager {
 		p2 = config.getVector("p2", null);
 		gameleveldestroydelay = config.getInt("gameleveldestroydelay", gameleveldestroydelay);
 		loselevel.loadFromConfig(config);
-		spawnpoint = config.getVector("spawnpoint", null);
+		playerspawn.loadFromConfig(config);
 		spectatorspawn.loadFromConfig(config);
 		maxPlayers = config.getInt("maxPlayers", maxPlayers);
 		minPlayers = config.getInt("minPlayers", minPlayers);
