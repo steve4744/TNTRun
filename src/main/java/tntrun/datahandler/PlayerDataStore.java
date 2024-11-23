@@ -112,7 +112,7 @@ public class PlayerDataStore {
 		LivingEntity le = (LivingEntity) player;
 		plhealth.put(player.getName(), le.getHealth());
 		if (plugin.getConfig().getBoolean("onjoin.fillhealth")) {
-			le.setHealth(le.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+			le.setHealth(le.getAttribute(Attribute.MAX_HEALTH).getValue());
 		}
 	}
 
@@ -154,7 +154,7 @@ public class PlayerDataStore {
 
 	public void restorePlayerHealth(Player player) {
 		LivingEntity le = (LivingEntity) player;
-		le.setHealth(Math.min(le.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue(), plhealth.remove(player.getName())));
+		le.setHealth(Math.min(le.getAttribute(Attribute.MAX_HEALTH).getValue(), plhealth.remove(player.getName())));
 	}
 
 	public void saveDoubleJumpsToFile(OfflinePlayer player, int amount) {

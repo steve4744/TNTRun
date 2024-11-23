@@ -17,11 +17,11 @@
 
 package tntrun.arena.handlers;
 
+import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import com.google.common.base.Enums;
-
 import tntrun.TNTRun;
 import tntrun.utils.Sounds;
 
@@ -35,7 +35,8 @@ public class SoundHandler extends Sounds {
 	
 	@Override
 	public void NOTE_PLING(Player p, float volume, float pitch) {
-		p.playSound(p.getLocation(), Sound.valueOf("BLOCK_NOTE_BLOCK_PLING"), volume, pitch);
+		NamespacedKey key = NamespacedKey.minecraft("BLOCK_NOTE_BLOCK_PLING");
+		p.playSound(p.getLocation(), Registry.SOUNDS.get(key), volume, pitch);
 	}
 
 	@Override
@@ -73,7 +74,8 @@ public class SoundHandler extends Sounds {
 	 * @return sound
 	 */
 	private Sound getSound(String path) {
-		return Enums.getIfPresent(Sound.class, plugin.getConfig().getString("sounds." + path + ".sound")).orNull();
+		NamespacedKey key = NamespacedKey.minecraft(plugin.getConfig().getString("sounds." + path + ".sound"));
+		return Registry.SOUNDS.get(key);
 	}
 
 	/**
