@@ -63,6 +63,7 @@ public class ScoreboardHandler {
 			s = s.replace("{COUNT}", arena.getGameHandler().count + "");
 			s = s.replace("{VOTES}", arena.getPlayerHandler().getVotesRequired(arena) + "");
 			s = s.replace("{DJ}", arena.getPlayerHandler().getDoubleJumps(player.getName()) + "");
+			s = s.replace("{MIN}", String.valueOf(arena.getStructureManager().getMinPlayers()));
 
 			o.getScore(plugin.getScoreboardManager().getTeamEntry(scoreboard, size, s)).setScore(size);
 			size--;
@@ -109,6 +110,7 @@ public class ScoreboardHandler {
 			s = s.replace("{LOST}", arena.getGameHandler().lostPlayers + "");
 			s = s.replace("{LIMIT}", arena.getGameHandler().getTimeRemaining()/20 + "");
 			s = s.replace("{DJ}", arena.getPlayerHandler().getDoubleJumps(player.getName()) + "");
+			s = s.replace("{MIN}", String.valueOf(arena.getStructureManager().getMinPlayers()));
 
 			o.getScore(plugin.getScoreboardManager().getTeamEntry(scoreboard, size, s)).setScore(size);
 			size--;
