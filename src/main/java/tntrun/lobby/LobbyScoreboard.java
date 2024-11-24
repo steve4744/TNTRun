@@ -28,9 +28,9 @@ public class LobbyScoreboard {
 		int size = plugin.getConfig().getStringList("scoreboard.lobby").size();
 
 		for (String s : plugin.getConfig().getStringList("scoreboard.lobby")) {
-			s = FormattingCodesParser.parseFormattingCodes(s);
 			s = plugin.getScoreboardManager().getPlaceholderString(s, player);
-			o.getScore(s).setScore(size);
+			s = FormattingCodesParser.parseFormattingCodes(s);
+			o.getScore(plugin.getScoreboardManager().getTeamEntry(scoreboard, size, s)).setScore(size);
 			size--;
 		}
 		player.setScoreboard(scoreboard);

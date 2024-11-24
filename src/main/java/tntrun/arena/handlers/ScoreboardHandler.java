@@ -53,25 +53,21 @@ public class ScoreboardHandler {
 		Scoreboard scoreboard = plugin.getScoreboardManager().resetScoreboard(player);
 		Objective o = scoreboard.getObjective(DisplaySlot.SIDEBAR);
 
-		try {
-			int size = plugin.getConfig().getStringList("scoreboard.waiting").size();
+		int size = plugin.getConfig().getStringList("scoreboard.waiting").size();
 
-			for (String s : plugin.getConfig().getStringList("scoreboard.waiting")) {
-				s = FormattingCodesParser.parseFormattingCodes(s).replace("{ARENA}", arena.getArenaName());
-				s = s.replace("{PS}", arena.getPlayersManager().getPlayersCount() + "");
-				s = s.replace("{MPS}", arena.getStructureManager().getMaxPlayers() + "");
-				s = s.replace("{COUNT}", arena.getGameHandler().count + "");
-				s = s.replace("{VOTES}", arena.getPlayerHandler().getVotesRequired(arena) + "");
-				s = s.replace("{DJ}", arena.getPlayerHandler().getDoubleJumps(player.getName()) + "");
-				s = plugin.getScoreboardManager().getPlaceholderString(s, player);
-				o.getScore(s).setScore(size);
-				size--;
-			}
-			player.setScoreboard(scoreboard);
+		for (String s : plugin.getConfig().getStringList("scoreboard.waiting")) {
+			s = plugin.getScoreboardManager().getPlaceholderString(s, player);
+			s = FormattingCodesParser.parseFormattingCodes(s).replace("{ARENA}", arena.getArenaName());
+			s = s.replace("{PS}", arena.getPlayersManager().getPlayersCount() + "");
+			s = s.replace("{MPS}", arena.getStructureManager().getMaxPlayers() + "");
+			s = s.replace("{COUNT}", arena.getGameHandler().count + "");
+			s = s.replace("{VOTES}", arena.getPlayerHandler().getVotesRequired(arena) + "");
+			s = s.replace("{DJ}", arena.getPlayerHandler().getDoubleJumps(player.getName()) + "");
 
-		} catch (NullPointerException ex) {
-
+			o.getScore(plugin.getScoreboardManager().getTeamEntry(scoreboard, size, s)).setScore(size);
+			size--;
 		}
+		player.setScoreboard(scoreboard);
 	}
 
 	public void removeScoreboard(Player player) {
@@ -103,17 +99,18 @@ public class ScoreboardHandler {
 	private void updatePlayingScoreboard(Player player) {
 		Scoreboard scoreboard = plugin.getScoreboardManager().resetScoreboard(player);
 		Objective o = scoreboard.getObjective(DisplaySlot.SIDEBAR);
-
 		int size = plugin.getConfig().getStringList("scoreboard.playing").size();
+
 		for (String s : plugin.getConfig().getStringList("scoreboard.playing")) {
+			s = plugin.getScoreboardManager().getPlaceholderString(s, player);
 			s = FormattingCodesParser.parseFormattingCodes(s).replace("{ARENA}", arena.getArenaName());
 			s = s.replace("{PS}", arena.getPlayersManager().getPlayersCount() + "");
 			s = s.replace("{MPS}", arena.getStructureManager().getMaxPlayers() + "");
 			s = s.replace("{LOST}", arena.getGameHandler().lostPlayers + "");
 			s = s.replace("{LIMIT}", arena.getGameHandler().getTimeRemaining()/20 + "");
 			s = s.replace("{DJ}", arena.getPlayerHandler().getDoubleJumps(player.getName()) + "");
-			s = plugin.getScoreboardManager().getPlaceholderString(s, player);
-			o.getScore(s).setScore(size);
+
+			o.getScore(plugin.getScoreboardManager().getTeamEntry(scoreboard, size, s)).setScore(size);
 			size--;
 		}
 	}
