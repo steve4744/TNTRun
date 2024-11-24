@@ -19,6 +19,9 @@ package tntrun.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.iridium.iridiumcolorapi.IridiumColorAPI;
+
 import net.md_5.bungee.api.ChatColor;
 
 public class FormattingCodesParser {
@@ -26,6 +29,10 @@ public class FormattingCodesParser {
 	private final static Pattern HEXCOLOUR = Pattern.compile("<#([A-Fa-f0-9]){6}>");
 
 	public static String parseFormattingCodes(String message) {
+
+		if (message.contains("<GRADIENT") || message.contains("<RAINBOW")) {
+			message = IridiumColorAPI.process(message);
+		}
 
 		Matcher matcher = HEXCOLOUR.matcher(message);
 		while (matcher.find()) {

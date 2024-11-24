@@ -57,6 +57,11 @@
         <id>alessiodp-repo</id>
         <url>https://repo.alessiodp.com/releases/</url>
     </repository>
+    <!-- IridiumColorAPI Repo -->
+    <repository>
+        <id>iridiumdevelopment</id>
+        <url>https://nexus.iridiumdevelopment.net/repository/maven-releases/</url>
+    </repository>
   </repositories>
   <dependencies>
     <!-- Spigot API -->
@@ -128,6 +133,12 @@
         <artifactId>parties-api</artifactId>
         <version>3.2.16</version>
         <scope>provided</scope>
+    </dependency>
+    <!-- IridiumColorAPI -->
+    <dependency>
+        <groupId>com.iridium</groupId>
+        <artifactId>IridiumColorAPI</artifactId>
+        <version>1.0.9</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
     <dependency>
