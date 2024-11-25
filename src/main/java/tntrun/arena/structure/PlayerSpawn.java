@@ -70,7 +70,7 @@ public class PlayerSpawn {
 	 * @param arena config
 	 */
 	protected void loadFromConfig(FileConfiguration config) {
-		p1 = config.getVector("spawnpoint.p1", null);
+		p1 = config.isSet("spawnpoint.p1") ? config.getVector("spawnpoint.p1", null) : config.getVector("spawnpoint", null);
 		yaw = (float) config.getDouble("spawnpoint.yaw", 0.0);
 		pitch = (float) config.getDouble("spawnpoint.pitch", 0.0);
 	}
