@@ -198,9 +198,12 @@ items:
     name: '&e&lDoublejump'
     slot: 0
 #
-# set scoreboard text - only the header supports hex/rgb colours
+# set scoreboard text
 scoreboard:
-  # the header supports hex colours, e.g. header: '<#ff11aa>&lTNTRUN'
+  # all scoreboard entries support hex/rgb colours, gradients and Bukkit format codes.
+  # Examples: 
+  # header: '<#ff11aa>&lTNTRUN'
+  # header: '<GRADIENT:2C08BA>TNTRUN</GRADIENT:028A97>'
   header: '&6&lTNTRUN'
   # set to true to add a player's doublejumps to the scoreboard
   displaydoublejumps: false
