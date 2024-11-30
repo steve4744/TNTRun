@@ -17,7 +17,7 @@
 
 TNTRun is a highly configurable, fully automated minigame for Minecraft servers. Traditionally players start on a layer of sand supported by TNT blocks, although any combination of blocks can be used. Once the game starts, every block that a player steps on will disappear. If a player falls through a hole, he/she will continue to run on the layer below. Once a player falls through the final layer he/she loses the game and becomes a spectator for the remainder of the game. The last player remaining wins the game.
 
-This fork was created in 2016 from the unsupported TNTRun by Shevchik for Minecraft v1.10, and has been improved and updated as new versions of Minecraft have been released. The latest version of TNTRun_reloaded requires a minimum Java version of 21, and is supported on servers running Minecraft versions 1.20.6+.
+This fork was created in 2016 from the unsupported TNTRun by Shevchik for Minecraft v1.10, and has been improved and updated as new versions of Minecraft have been released. The latest version of TNTRun_reloaded requires a minimum Java version of 21, and is supported on servers running Minecraft versions 1.21.3+.
 
 The following description and features apply to the latest release. Some of the features will not be present in the older versions which are maintained and supported on an 'as is' basis, and will only be updated if a bug is reported or an existing feature breaks.
 
@@ -28,7 +28,9 @@ Optionally, a fee can be set to join each arena, which can be monetary or any Mi
 
 ## Download
 
-If your server is running Minecraft 1.20.6+, then the latest version of TNTRun\_reloaded can be [downloaded from Spigot.](https://www.spigotmc.org/resources/tntrun_reloaded.53359/ "TNTRun_reloaded")
+If your server is running Minecraft 1.21.3+, then the latest version of TNTRun\_reloaded can be [downloaded from Spigot.](https://www.spigotmc.org/resources/tntrun_reloaded.53359/ "TNTRun_reloaded")
+
+If your server is running a minimum of Java 21 with Minecraft 1.20.6 to 1.21.2, you should download version 9.29 from Spigot.
 
 If your server is running a minimum of Java 17 with Minecraft 1.17.1 to 1.20.4, you should download version 9.27 from Spigot.
 
@@ -60,7 +62,7 @@ Development snapshots are created by GitHub Actions every time a commit is pushe
     Configurable anti-camping system
     Translatable messages
     Command whitelist
-    Formatting codes support
+    Formatting codes and RGB/Hex colour support
     Full tab completion based on permissions
     Signs
     Configurable per-arena time limit
@@ -93,12 +95,12 @@ Links to download each plugin are available on TNTRun_reloaded's Spigot page.
 
 The latest version of TNTRun_reloaded has been tested with the following versions of these plugins:
 
-    WorldEdit 7.3.2 (optional, internal commands setP1 and setP2 can be used to set arena bounds)
+    WorldEdit 7.3.9 (optional, internal commands setP1 and setP2 can be used to set arena bounds)
     Vault 1.7 (optional, required to use economy)
-    HeadsPlus 7.1.2 (optional, allow players to buy and run around wearing different heads)
-    mcMMO 2.2.012 (optional, will allow players in same mcMMO party to PVP in arena)
+    HeadsPlus 7.1.5 (optional, allow players to buy and run around wearing different heads)
+    mcMMO 2.2.028 (optional, will allow players in same mcMMO party to PVP in arena)
     PlaceholderAPI 2.11.6 (optional, needed to use placeholders)
-    AlessioDP Parties 3.2.13 (optional, can be used in place of native tntrun parties)
+    AlessioDP Parties 3.2.16 (optional, can be used in place of native tntrun parties)
     
 One of the following plugins (or similar) is required to create Holographic Leaderboards for TNTRun_reloaded (see wiki for details and example).
     
@@ -121,4 +123,4 @@ For legacy Minecraft 1.12.2 and below:
 <br />
 <br />
 <br />
-Updated steve4744 - 8th August 2024
+Updated steve4744 - 30th November 2024
