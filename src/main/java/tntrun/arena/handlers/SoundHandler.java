@@ -35,7 +35,7 @@ public class SoundHandler extends Sounds {
 	
 	@Override
 	public void NOTE_PLING(Player p, float volume, float pitch) {
-		NamespacedKey key = NamespacedKey.minecraft("block_note_block_pling");
+		NamespacedKey key = getKey("block_note_block_pling");
 		p.playSound(p.getLocation(), Registry.SOUNDS.get(key), volume, pitch);
 	}
 
@@ -74,7 +74,7 @@ public class SoundHandler extends Sounds {
 	 * @return sound
 	 */
 	private Sound getSound(String path) {
-		NamespacedKey key = NamespacedKey.minecraft(plugin.getConfig().getString("sounds." + path + ".sound").toLowerCase());
+		NamespacedKey key = getKey(plugin.getConfig().getString("sounds." + path + ".sound"));
 		return Registry.SOUNDS.get(key);
 	}
 
@@ -106,4 +106,7 @@ public class SoundHandler extends Sounds {
 		return plugin.getConfig().getBoolean("sounds." + path + ".enabled");
 	}
 
+	private NamespacedKey getKey(String keyString) {
+		return NamespacedKey.minecraft(keyString.toLowerCase().replaceAll("_",  "."));
+	}
 }
