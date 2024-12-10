@@ -34,7 +34,7 @@ import tntrun.TNTRun;
 public class AutoTabCompleter implements TabCompleter {
 
 	private static final List<String> COMMANDS = Arrays.asList(
-			"help", "lobby", "list", "join", "leave", "vote", "cmds", "info", "stats", "listkits", "autojoin", "leaderboard", "party");
+			"help", "lobby", "list", "join", "leave", "vote", "info", "stats", "listkits", "autojoin", "leaderboard", "party");
 
 	private static final List<String> PARTY_COMMANDS = Arrays.asList(
 			"accept", "create", "decline", "info", "invite", "kick", "leave", "unkick");
@@ -52,6 +52,9 @@ public class AutoTabCompleter implements TabCompleter {
 			if (args.length == 1) {
 				list.addAll(COMMANDS);
 
+				if (sender.hasPermission("tntrun.setup")) {
+					list.add("cmds");
+				}
 				if (sender.hasPermission("tntrun.start")) {
 					list.add("start");
 				}
