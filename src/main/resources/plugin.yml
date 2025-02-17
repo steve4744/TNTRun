@@ -3,7 +3,7 @@ main: tntrun.TNTRun
 softdepend: [WorldEdit, Vault, HeadsPlus, mcMMO, PlaceholderAPI, Parties]
 version: ${project.version}
 api-version: 1.21.3
-author: [steve4744]
+author: steve4744
 commands:
   tntrunsetup:
     description: TNTRun arena setup commands
