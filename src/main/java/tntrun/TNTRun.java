@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -133,7 +134,10 @@ public class TNTRun extends JavaPlugin {
 
 		if (getConfig().getBoolean("special.Metrics", true)) {
 			log.info("Attempting to start metrics (bStats)...");
-			new Metrics(this, BSTATS_PLUGIN_ID);
+			Metrics metrics = new Metrics(this, BSTATS_PLUGIN_ID);
+			metrics.addCustomChart(new SimplePie("server_software", () -> {
+				return getServer().getName();
+			}));
 		}
 
 		setStorage();
