@@ -28,9 +28,11 @@ Optionally, a fee can be set to join each arena, which can be monetary or any Mi
 
 ## Download
 
-If your server is running Minecraft 1.21.3+, then the latest version of TNTRun\_reloaded can be [downloaded from Spigot.](https://www.spigotmc.org/resources/tntrun_reloaded.53359/ "TNTRun_reloaded")
+For servers running Minecraft 1.21.3+, then the latest version of TNTRun\_reloaded can be [downloaded from Spigot.](https://www.spigotmc.org/resources/tntrun_reloaded.53359/ "TNTRun_reloaded")
 
-If your server is running a minimum of Java 21 with Minecraft 1.20.6 to 1.21.2, you should download version 9.29 from Spigot.
+For servers running Minecraft 1.21 to 1.21.2, you should download version 9.29 from Spigot.
+
+For servers running Minecraft 1.20.6, you should download version 9.29.1 from [Releases.](https://github.com/steve4744/TNTRun/releases/download/v9.29.1/TNTRun_reloaded-9.29.1.jar "v9.29.1")
 
 If your server is running a minimum of Java 17 with Minecraft 1.17.1 to 1.20.4, you should download version 9.27 from Spigot.
 
@@ -123,4 +125,4 @@ For legacy Minecraft 1.12.2 and below:
 <br />
 <br />
 <br />
-Updated steve4744 - 30th November 2024
+Updated steve4744 - 18th February 2025
