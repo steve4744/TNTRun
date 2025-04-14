@@ -140,7 +140,7 @@ setupclear: Очистить выделенные точки
 setupwhitelist: Белый список команд для использования в игре
 setupresetstats: Удалить всю статистику TNTRun игрока
 setupresetrank: Удалить ранг игрока из кэша
-setupforcejoin:
+setupforcejoin: Force all online players to join an arena
 kitadd: '&7 Набор &6{KIT} &7был создан'
 kitdel: '&7 Набор &6{KIT} &7был удален'
 kitexists: '&c Указанный набор уже существует: &6{KIT}'
@@ -161,7 +161,7 @@ partyinparty: '&c Вы уже находитесь в группы'
 partynotexist: '&c Выбранной группы не существует'
 partynoinvite: '&c У вас нет приглашений в группу'
 partynotenabled: '&c Группы в данный момент не включены'
-partyclickaccept: ''
+partyclickaccept: '&6&lAccept'
 partyclickdecline: '&6&lDecline'
 partyaccepttext: '&7Click to &baccept &7the invitation'
 partydeclinetext: '&7Click to &cdecline &7the invitation'
