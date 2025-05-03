@@ -85,7 +85,7 @@ helplobby: Teletransportarse al lobby
 helplist: Listar todas las arenas O Listar detalles de arenas
 helplistkit: Listar todos los kits O Listar los detalles del kit
 helplistrewards: Listar las recompensas para la arena
-helpclick: Click to select
+helpclick: Haga clic para seleccionar
 helpjoin: Abrir el menú de partidas O unirse a la partida
 helpspectate: Unirse a la partida como espectador
 helpautojoin: Únase automáticamente a la primera partida disponible
@@ -140,7 +140,7 @@ setupclear: Quitar puntos de selección
 setupwhitelist: Incluir un comando en la lista blanca para usarlo en el juego
 setupresetstats: Elimina todas las estadísticas de TNTRun del jugador
 setupresetrank: Elimina el rango del jugador del caché
-setupforcejoin: Force all online players to join an arena
+setupforcejoin: Forzar a todos los jugadores en línea a unirse a una arena
 kitadd: '&7 Se ha creado el kit &6{KIT}'
 kitdel: '&7 El kit &6{KIT} &7ha sido eliminado'
 kitexists: '&c El kit especificado ya existe : &6{KIT}'
@@ -161,7 +161,7 @@ partyinparty: '&c ¡Ya estás en un equipo!'
 partynotexist: '&c El equipo seleccionado no existe'
 partynoinvite: '&c No tienes una invitación para este equipo'
 partynotenabled: '&c Los equipos TNTRun no están habilitados actualmente'
-partyclickaccept: '&6&lAccept'
-partyclickdecline: '&6&lDecline'
-partyaccepttext: ''
-partydeclinetext: '&7Click to &cdecline &7the invitation'
+partyclickaccept: '&6&lAceptar'
+partyclickdecline: '&6&lRechazar'
+partyaccepttext: '&7Haga clic para &baceptar &7la invitación'
+partydeclinetext: '&7Haga clic para &cdeclinar &7la invitación'
