@@ -35,7 +35,7 @@
     <!-- HeadsPlus Repo -->
     <repository>
         <id>bs-repo</id>
-        <url>https://ci.pluginwiki.us/plugin/repository/everything/</url>
+        <url>https://repo.bsdevelopment.org/releases</url>
     </repository>
     <!-- PlaceholderAPI Repo -->
     <repository>
