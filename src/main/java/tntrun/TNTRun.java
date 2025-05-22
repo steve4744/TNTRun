@@ -136,7 +136,8 @@ public class TNTRun extends JavaPlugin {
 			log.info("Attempting to start metrics (bStats)...");
 			Metrics metrics = new Metrics(this, BSTATS_PLUGIN_ID);
 			metrics.addCustomChart(new SimplePie("server_software", () -> {
-				return getServer().getName();
+				return getServer().getName() == "CraftBukkit" ? "Spigot" : getServer().getName();
+
 			}));
 		}
 
