@@ -68,7 +68,7 @@
     <dependency>
         <groupId>org.spigotmc</groupId>
         <artifactId>spigot-api</artifactId>
-        <version>1.21.4-R0.1-SNAPSHOT</version>
+        <version>1.21.5-R0.1-SNAPSHOT</version>
         <scope>provided</scope>
     </dependency>
     <!-- Vault API -->
@@ -89,7 +89,7 @@
     <dependency>
         <groupId>org.bstats</groupId>
         <artifactId>bstats-bukkit</artifactId>
-        <version>3.0.2</version>
+        <version>3.1.0</version>
         <scope>compile</scope>
     </dependency>
     <!-- WorldEdit -->
@@ -171,7 +171,7 @@
       <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-assembly-plugin</artifactId>
-          <version>3.6.0</version>
+          <version>3.7.1</version>
           <configuration>
               <descriptorRefs>
                   <descriptorRef>jar-with-dependencies</descriptorRef>
@@ -181,7 +181,7 @@
       <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-shade-plugin</artifactId>
-          <version>3.5.1</version>
+          <version>3.6.0</version>
           <configuration>
               <createDependencyReducedPom>false</createDependencyReducedPom>
                 <artifactSet>
