@@ -128,8 +128,11 @@ public class PlayerStatusHandler implements Listener {
 		if (!arena.getStatusManager().isArenaRunning()) {
 			return;
 		}
-		double knockback = plugin.isGlobalShop() ? plugin.getShop().getKnockback() : 1.0;
 		player.damage(0.5, projectile);
+		double knockback = plugin.isGlobalShop() ? plugin.getShop().getKnockback() : 1.0;
+		if (knockback <= 0) {
+			return;
+		}
 		player.setVelocity(projectile.getVelocity().multiply(knockback));
 	}
 
