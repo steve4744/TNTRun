@@ -297,7 +297,7 @@ public class RestrictionHandler implements Listener {
 			public void run() {
 				String uuid = plugin.useUuid() ? player.getUniqueId().toString() : player.getName();
 				plugin.getMysql().query("INSERT IGNORE INTO `" + table + "` (`username`, `played`, "
-							+ "`wins`, `looses`) VALUES "
+							+ "`wins`, `streak`) VALUES "
 							+ "('" + uuid + "', '0', '0', '0');");
 
 			}

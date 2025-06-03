@@ -281,7 +281,7 @@ public class TNTRun extends JavaPlugin {
 						+ "`played` int(16) NOT NULL, "
 						+ "UNIQUE KEY `username` (`username`) ) ENGINE=InnoDB DEFAULT CHARSET=latin1;");
 
-				mysql.query("ALTER TABLE `stats` RENAME COLUMN `looses` TO `streak`");
+				mysql.query("ALTER TABLE `" + getConfig().getString("MySQL.table") + "` RENAME COLUMN `looses` TO `streak`");
 
 				log.info("Connected to MySQL database!");
 			}
