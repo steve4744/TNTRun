@@ -277,9 +277,11 @@ public class TNTRun extends JavaPlugin {
 			public void run() {
 
 				mysql.query("CREATE TABLE IF NOT EXISTS `" + getConfig().getString("MySQL.table") + "` ( `username` varchar(50) NOT NULL, "
-						+ "`looses` int(16) NOT NULL, `wins` int(16) NOT NULL, "
+						+ "`streak` int(16) NOT NULL, `wins` int(16) NOT NULL, "
 						+ "`played` int(16) NOT NULL, "
 						+ "UNIQUE KEY `username` (`username`) ) ENGINE=InnoDB DEFAULT CHARSET=latin1;");
+
+				mysql.query("ALTER TABLE `stats` RENAME COLUMN `looses` TO `streak`");
 
 				log.info("Connected to MySQL database!");
 			}

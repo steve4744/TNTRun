@@ -19,6 +19,8 @@ package tntrun;
 
 import org.bukkit.scheduler.BukkitRunnable;
 
+import tntrun.utils.Utils;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -119,6 +121,9 @@ import java.util.logging.Logger;
 					open();
 				}
 
+				if (Utils.debug()) {
+					logger.info("Mysql query = " + query);
+				}
 				statement = c.prepareStatement(query);
 
 				if (statement.execute()) {
@@ -127,7 +132,9 @@ import java.util.logging.Logger;
 			} catch (final SQLException e) {
 				final String msg = e.getMessage();
 
-				logger.severe("Database query error: " + msg);
+				if (!msg.contains("looses")) {
+					logger.severe("Database query error: " + msg);
+				}
 
 				if (retry && msg.contains("_BUSY")) {
 					logger.severe("Retrying query...");
