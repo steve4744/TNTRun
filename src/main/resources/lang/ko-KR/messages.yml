@@ -72,6 +72,7 @@ playernotonline: '&6 {PLAYER}&7이(가) 현재 온라인 상태가 아닙니다.
 gamesplayed: '&b플레이한 게임&f:'
 gameswon: '&b승리&f: '
 gameslost: '&b패배&f: '
+winstreak: '&bWin streak &f: '
 statshead: '&7=========[&6TNT Run 통계&7]=========='
 rewardshead: '&7======[&6TNT Run 보상s&7 - &a{ARENA}&7]======'
 leaderhead: '&7======[&6TNT Run 리더보드&7]======'
