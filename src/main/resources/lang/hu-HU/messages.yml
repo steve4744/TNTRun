@@ -81,7 +81,7 @@ leadersign: '&1{PLAYER} &4{WINS}'
 shopmoneyheader: '&fTNTRun Shop Account'
 shopmoneybalance: '&5Your balance is &6{BAL}'
 statsdisabled: '&c Stats are currently disabled'
-helplobby: Teleport to lobby
+helplobby: Teleportál a váróba
 helplist: List all arenas OR List arena details
 helplistkit: List all kits OR List kit details
 helplistrewards: List the rewards for the arena
@@ -96,7 +96,7 @@ helpinfo: View plugin info
 helpstats: View player stats
 helplb: Display the TNTRun leaderboard
 helpstart: Force-start the arena
-setuplobby: Set the global lobby at your current location
+setuplobby: Állítsd be a jelenlegi pozíciódra a globális várót
 setupdellobby: Delete the global lobby
 setupcreate: Create a new arena
 setupconfigure: Open menu to configure arena

@@ -85,7 +85,7 @@ helplobby: Teleporteer naar lobby
 helplist: Toon alle arena's OF Lijst van de arena details
 helplistkit: Laat alle uitrustingen OF Lijst uitrusting gegevens zien
 helplistrewards: Laat de beloningen voor de arena zien
-helpclick: Click to select
+helpclick: Klik om te selecteren
 helpjoin: Open het menu of neem deel aan arena
 helpspectate: Neem deel aan de arena als toeschouwer
 helpautojoin: Automatisch toetreden tot de eerste beschikbare arena
@@ -140,7 +140,7 @@ setupclear: Selectiepunten wissen
 setupwhitelist: Whitelist een commando voor het gebruik in het spel
 setupresetstats: Verwijder alle TNTRun statistieken voor de speler
 setupresetrank: Verwijder spelers rang uit cache
-setupforcejoin: Force all online players to join an arena
+setupforcejoin: Dwing alle online spelers om een arena te betreden
 kitadd: '&7 De uitrusting &6{KIT} &7is aangemaakt'
 kitdel: '&7 De uitrusting &6{KIT} &7is verwijderd'
 kitexists: '&c De opgegeven uitrusting bestaat al: &6{KIT}'
@@ -161,7 +161,7 @@ partyinparty: '&c Je zit al in een groep'
 partynotexist: '&c De geselecteerde groep bestaat niet'
 partynoinvite: '&c Je hebt geen uitnodiging voor deze groep'
 partynotenabled: '&c TNTRun party is momenteel niet ingeschakeld'
-partyclickaccept: '&6&lAccept'
-partyclickdecline: '&6&lDecline'
-partyaccepttext: '&7Click to &baccept &7the invitation'
-partydeclinetext: '&7Click to &cdecline &7the invitation'
+partyclickaccept: '&6&lAccepteer'
+partyclickdecline: '&6&lAfwijzen'
+partyaccepttext: '&7Klik om de uitnodiging te &baccepteren'
+partydeclinetext: '&7Klik om de uitnodiging te &cweigeren'
