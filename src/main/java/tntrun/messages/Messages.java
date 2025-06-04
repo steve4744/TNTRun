@@ -113,6 +113,7 @@ public class Messages {
 	public static String gamesplayed = "&bGames played &f: ";
 	public static String gameswon = "&bWins &f: ";
 	public static String gameslost = "&bLosses &f: ";
+	public static String winstreak = "&bWin streak &f: ";
 	public static String statsdisabled = "&c Stats are currently disabled";
 	public static String leaderboard = "{POSITION}) &c{RANK}&b{COLOR}{PLAYER} &f: Wins &3{WINS}";
 	public static String leadersign = "&1{PLAYER} &4{WINS}";
@@ -300,6 +301,7 @@ public class Messages {
 		gamesplayed = config.getString("gamesplayed", gamesplayed);
 		gameswon = config.getString("gameswon", gameswon);
 		gameslost = config.getString("gameslost", gameslost);
+		winstreak = config.getString("winstreak", winstreak);
 		statshead = config.getString("statshead", statshead);
 		rewardshead = config.getString("rewardshead", rewardshead);
 		leaderhead = config.getString("leaderhead", leaderhead);
@@ -473,6 +475,7 @@ public class Messages {
 		config.set("gamesplayed", gamesplayed);
 		config.set("gameswon", gameswon);
 		config.set("gameslost", gameslost);
+		config.set("winstreak", winstreak);
 		config.set("statshead", statshead);
 		config.set("rewardshead", rewardshead);
 		config.set("leaderhead", leaderhead);

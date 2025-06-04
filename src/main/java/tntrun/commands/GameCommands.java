@@ -234,6 +234,7 @@ public class GameCommands implements CommandExecutor {
 			Messages.sendMessage(player, Messages.gamesplayed + plugin.getStats().getPlayedGames(uuid), false);
 			Messages.sendMessage(player, Messages.gameswon + plugin.getStats().getWins(uuid), false);
 			Messages.sendMessage(player, Messages.gameslost + plugin.getStats().getLosses(uuid), false);
+			Messages.sendMessage(player, Messages.winstreak + plugin.getPData().getWinStreak(player), false);
 		}
 
 		// leaderboard
