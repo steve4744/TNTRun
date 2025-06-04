@@ -173,7 +173,11 @@ public class PlayerDataStore {
 
 	public void setWinStreak(OfflinePlayer player, int amount) {
 		String uuid = plugin.useUuid() ? player.getUniqueId().toString() : player.getName();
-		saveConfigFile(uuid, ".winstreak", amount);
+		if (plugin.isFile()) {
+			saveConfigFile(uuid, ".winstreak", amount);
+			return;
+		}
+		plugin.getStats().addStreakToDB(player, amount);
 	}
 
 	private void saveConfigFile(String uuid, String path, int amount) {
@@ -207,12 +211,16 @@ public class PlayerDataStore {
 
 	public int getWinStreak(OfflinePlayer player) {
 		String uuid = plugin.useUuid() ? player.getUniqueId().toString() : player.getName();
-		return getWinStreakFromFile(uuid);
+		return plugin.isFile() ? getWinStreakFromFile(uuid) : getWinStreakFromDB(uuid);
 	}
 
 	private int getWinStreakFromFile(String name) {
 		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 		return config.getInt(name + ".winstreak", 0);
+	}
+
+	private int getWinStreakFromDB(String name) {
+		return plugin.getStats().getStreak(name);
 	}
 
 	public boolean hasStoredDoubleJumps(Player player) {

@@ -53,6 +53,7 @@ public class Stats {
 	private static Map<String, Integer> pmap = new HashMap<>();
 	private static Map<String, Integer> wmap = new HashMap<>();
 	private static Map<String, Integer> lmap = new HashMap<>();
+	private static Map<String, Integer> smap = new HashMap<>();
 	private static List<String> sortedPlayed = new ArrayList<>();
 	private static List<String> sortedWins = new ArrayList<>();
 	private static List<String> sortedLosses = new ArrayList<>();
@@ -144,6 +145,10 @@ public class Stats {
 		return wmap.containsKey(uuid) ? wmap.get(uuid) : 0;
 	}
 
+	public int getStreak(String uuid) {
+		return smap.containsKey(uuid) ? smap.get(uuid) : 0;
+	}
+
 	/**
 	 * Displays the leader board in chat. The number of entries is set in the configuration file.
 	 *
@@ -219,12 +224,12 @@ public class Stats {
 	}
 
 	/**
-	 * Cache the stats from the database. Online servers use players UUIDs and offline servers use player names.
+	 * Cache the stats from the database. Online servers use player UUIDs and offline servers use player names.
 	 * For online servers, validate the UUID as the file could contain player names if the server has been in
 	 * offline mode. Ignore UUID entries for servers in offline mode.
 	 */
 	private void getStatsFromDB(String table) {
-		Stream.of("wins", "played").forEach(stat -> {
+		Stream.of("wins", "played", "streak").forEach(stat -> {
 			Map<String, Integer> workingMap = new HashMap<>();
 			try {
 				ResultSet rs;
@@ -243,8 +248,10 @@ public class Stats {
 				}
 				if (stat.equalsIgnoreCase("wins")) {
 					wmap.putAll(workingMap);
-				} else {
+				} else if (stat.equalsIgnoreCase("played")) {
 					pmap.putAll(workingMap);
+				} else {
+					smap.putAll(workingMap);
 				}
 			} catch (SQLException ex) {
 				ex.printStackTrace();
@@ -282,12 +289,21 @@ public class Stats {
 		}
 	}
 
+	public void addStreakToDB(OfflinePlayer player, int value) {
+		String uuid = getPlayerUUID(player);
+		smap.put(uuid, value);
+		saveStatsToDB(uuid, "streak");
+	}
+
 	private void saveStatsToDB(String uuid, String statname) {
 		if (statname.equalsIgnoreCase("played") || statname.equalsIgnoreCase("reset")) {
 			updateDB("played", uuid, pmap.getOrDefault(uuid, 0));
 		}
 		if (statname.equalsIgnoreCase("wins") || statname.equalsIgnoreCase("reset")) {
 			updateDB("wins", uuid, wmap.getOrDefault(uuid, 0));
+		}
+		if (statname.equalsIgnoreCase("streak") || statname.equalsIgnoreCase("reset")) {
+			updateDB("streak", uuid, smap.getOrDefault(uuid, 0));
 		}
 	}
 
@@ -397,6 +413,7 @@ public class Stats {
 		pmap.remove(uuid);
 		wmap.remove(uuid);
 		lmap.remove(uuid);
+		smap.remove(uuid);
 		sortedWins.remove(uuid);
 		sortedPlayed.remove(uuid);
 		sortedLosses.remove(uuid);
