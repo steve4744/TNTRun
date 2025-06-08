@@ -248,6 +248,8 @@ public class SignEditor {
 							FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.prefix")));
 					sign.getSide(Side.FRONT).setLine(1,
 							FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.join")));
+					sign.getSide(Side.FRONT).setLine(2,
+							FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.arena") + arenaname));
 					sign.getSide(Side.FRONT).setLine(3, text);
 					sign.update();
 					setBlockColour(block, colour);
@@ -360,7 +362,8 @@ public class SignEditor {
 		sign.getSide(Side.FRONT).setLine(1,
 				FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.join")));
 		sign.getSide(Side.FRONT).setLine(2,
-				FormattingCodesParser.parseFormattingCodes(arenaname));
+				FormattingCodesParser.parseFormattingCodes(plugin.getConfig().getString("signs.arena") + arenaname));
+
 		addSign(block, arenaname);
 		sign.update();
 		new BukkitRunnable() {

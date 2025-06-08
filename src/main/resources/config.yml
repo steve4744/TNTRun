@@ -255,10 +255,13 @@ MySQL:
   flags: allowPublicKeyRetrieval=true
   legacyDriver: false
 #
-# configure sign text
+# configure sign text and colour for each line.
+# RGB colours are supported, e.g. to set the arena name colour
+# arena: <#FF00FF>
 signs:
   prefix: '&6&lTNTRun'
-  join: '[Join]'
+  join: '&0[Join]'
+  arena: '&0'
   status:
     disabled: '&cDisabled'
     ingame: '&c&l{PS}&8/&c&l{MPS}'
