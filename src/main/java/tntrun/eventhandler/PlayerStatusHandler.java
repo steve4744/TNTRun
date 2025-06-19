@@ -17,7 +17,12 @@
 
 package tntrun.eventhandler;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -30,6 +35,9 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
 import tntrun.arena.structure.StructureManager.DamageEnabled;
@@ -37,6 +45,7 @@ import tntrun.arena.structure.StructureManager.DamageEnabled;
 public class PlayerStatusHandler implements Listener {
 
 	private TNTRun plugin;
+	private final Map<UUID, Integer> snowballLevels = new HashMap<>();
 
 	public PlayerStatusHandler(TNTRun plugin) {
 		this.plugin = plugin;
@@ -129,11 +138,47 @@ public class PlayerStatusHandler implements Listener {
 			return;
 		}
 		player.damage(0.5, projectile);
-		double knockback = plugin.isGlobalShop() ? plugin.getShop().getKnockback() : 1.0;
+		double knockback = getKnockbackLevel(projectile);
 		if (knockback <= 0) {
 			return;
 		}
 		player.setVelocity(projectile.getVelocity().multiply(knockback));
 	}
 
+	// store the knockback enchantment for each snowball
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+	public void onSnowballThrow(ProjectileLaunchEvent e) {
+		Projectile projectile = e.getEntity();
+		if (!(projectile instanceof Snowball)) {
+			return;
+		}
+		if (!(projectile.getShooter() instanceof Player)) {
+			return;
+		}
+		Player player = (Player) projectile.getShooter();
+		Arena arena = plugin.amanager.getPlayerArena(player.getName());
+		if (arena == null) {
+			return;
+		}
+		if (!arena.getStatusManager().isArenaRunning()) {
+			return;
+		}
+		ItemStack is = player.getInventory().getItemInMainHand();
+		if (!is.hasItemMeta()) {
+			return;
+		}
+		ItemMeta im = is.getItemMeta();
+		if (im.hasEnchant(Enchantment.KNOCKBACK)) {
+			snowballLevels.put(projectile.getUniqueId(), im.getEnchantLevel(Enchantment.KNOCKBACK));
+		}
+	}
+
+	private double getKnockbackLevel(Projectile projectile) {
+		Snowball snowball = (Snowball) projectile;
+		int level = snowballLevels.getOrDefault(snowball.getUniqueId(), 0);
+		snowballLevels.remove(snowball.getUniqueId());
+		// snowball base knockback: 0.3
+		double kb = 0.3 + (0.2 * level);
+		return kb;
+	}
 }

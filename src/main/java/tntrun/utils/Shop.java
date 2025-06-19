@@ -46,7 +46,6 @@ public class Shop {
 	private TNTRun plugin;
 	private String invname;
 	private int invsize;
-	private int knockback;
 	private ShopFiles shopFiles;
 	private List<String> buyers = new ArrayList<>();
 	private Map<Integer, Integer> itemSlot = new HashMap<>();
@@ -192,10 +191,6 @@ public class Shop {
 				continue;
 			}
 			meta.addEnchant(getEnchantmentFromString(ench), level, true);
-
-			if (material == Material.SNOWBALL && ench.equalsIgnoreCase("knockback")) {
-				knockback = level;
-			}
 		}
 	}
 
@@ -374,10 +369,6 @@ public class Shop {
 
 	public Map<String, List<String>> getPurchasedCommands() {
 		return commandMap;
-	}
-
-	public double getKnockback() {
-		return Math.min(Math.max(knockback, 0), 5) * 0.4;
 	}
 
 	private int getValidSize() {
