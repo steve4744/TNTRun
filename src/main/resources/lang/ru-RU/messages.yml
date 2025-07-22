@@ -165,4 +165,4 @@ partynotenabled: '&c Группы в данный момент не включе
 partyclickaccept: '&6&lAccept'
 partyclickdecline: '&6&lDecline'
 partyaccepttext: '&7Click to &baccept &7the invitation'
-partydeclinetext: '&7Click to &cdecline &7the invitation'
+partydeclinetext: '&7Нажмите &cотклонить &7приглашение'
