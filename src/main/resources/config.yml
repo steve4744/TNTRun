@@ -69,10 +69,16 @@ freedoublejumps:
   amount: 10
 #
 # run server commands on win
-# setting to "- null" will disable the message
+# setting to "- null" will disable the commands
 commandsonwin:
 - say {PLAYER} won TNTRun on {ARENA}
 - say Congratulations...
+#
+# run server commands on lose
+# these commands will run multiple times, once for each losing player
+# setting to "- null" will disable the commands
+commandsonlose:
+- null
 #
 # set duration (seconds) for fireworks on win
 fireworksonwin:

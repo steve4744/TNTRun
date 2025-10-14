@@ -484,16 +484,23 @@ public class GameHandler {
 					}
 					stopArena();
 
-					if (plugin.getConfig().getStringList("commandsonwin").isEmpty()) {
+					final ConsoleCommandSender console = Bukkit.getConsoleSender();
+					if (!plugin.getConfig().getStringList("commandsonwin").isEmpty()) {
+						plugin.getConfig().getStringList("commandsonwin").forEach(command -> {
+							Bukkit.dispatchCommand(console, command.replace("{PLAYER}", player.getName()).replace("{ARENA}", arena.getArenaName()));
+						});
+					}
+					if (plugin.getConfig().getStringList("commandsonlose").isEmpty()) {
 						return;
 					}
-
-					final ConsoleCommandSender console = Bukkit.getConsoleSender();
-					for(String commands : plugin.getConfig().getStringList("commandsonwin")) {
-						Bukkit.dispatchCommand(console, commands.replace("{PLAYER}", player.getName()).replace("{ARENA}", arena.getArenaName()));
-					}
+					arena.getPlayersManager().getAllParticipantsCopy().stream()
+						.filter(p -> !p.getName().equalsIgnoreCase(player.getName()))
+						.forEach(p -> {
+							plugin.getConfig().getStringList("commandsonlose").forEach(command -> {
+								Bukkit.dispatchCommand(console, command.replace("{PLAYER}", p.getName()).replace("{ARENA}", arena.getArenaName()));
+							});
+						});
 				} catch (NullPointerException ex) {
-
 				}
 			}
 		}.runTaskLater(plugin, 40 + (getFireworkDuration() * 20));
