@@ -221,8 +221,8 @@ public class GameHandler {
 
 			TitleMsg.sendFullTitle(player, TitleMsg.start, TitleMsg.substart, 20, 20, 20, plugin);
 
-			if (arena.getStructureManager().hasCommandOnStart()) {
-				executeCommandOnStart(player);
+			if (arena.getStructureManager().hasCommandsOnStart()) {
+				executeCommandsOnStart(player);
 			}
 		}
 
@@ -286,8 +286,8 @@ public class GameHandler {
 			if (Utils.debug()) {
 				plugin.getLogger().info("stopArena is removing player " + player.getName());
 			}
-			if (arena.getStructureManager().hasCommandOnStop()) {
-				executeCommandOnStop(player);
+			if (arena.getStructureManager().hasCommandsOnStop()) {
+				executeCommandsOnStop(player);
 			}
 			arena.getScoreboardHandler().removeScoreboard(player);
 			arena.getPlayerHandler().leavePlayer(player, "", "");
@@ -475,8 +475,8 @@ public class GameHandler {
 					if (arena.getPlayersManager().getPlayersCount() == 1) {
 						String msg = arena.getStructureManager().isTestMode() ? Messages.playerfinishedtestmode : Messages.playerwontoplayer;
 						arena.getPlayerHandler().leaveWinner(player, msg);
-						if (arena.getStructureManager().hasCommandOnStop()) {
-							executeCommandOnStop(player);
+						if (arena.getStructureManager().hasCommandsOnStop()) {
+							executeCommandsOnStop(player);
 						}
 					}
 					if (Utils.debug()) {
@@ -678,14 +678,18 @@ public class GameHandler {
 		return sb.toString();
 	}
 
-	private void executeCommandOnStart(Player player) {
-		Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(),
-				arena.getStructureManager().getCommandOnStart().replace("%PLAYER%", player.getName()));
+	private void executeCommandsOnStart(Player player) {
+		arena.getStructureManager().getCommandsOnStart().forEach(command -> {
+			Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(),
+				command.replace("{PLAYER}", player.getName()).replace("{ARENA}", arena.getArenaName()));
+		});
 	}
 
-	private void executeCommandOnStop(Player player) {
-		Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(),
-				arena.getStructureManager().getCommandOnStop().replace("%PLAYER%", player.getName()));
+	private void executeCommandsOnStop(Player player) {
+		arena.getStructureManager().getCommandsOnStop().forEach(command -> {
+			Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(),
+				command.replace("{PLAYER}", player.getName()).replace("{ARENA}", arena.getArenaName()));
+		});
 	}
 
 	private void setActiveStats(int playercount) {
