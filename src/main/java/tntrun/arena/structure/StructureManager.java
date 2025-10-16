@@ -587,9 +587,17 @@ public class StructureManager {
 			finished = true;
 		}
 		additionalSpawnPoints = (List<Vector>) config.getList("spawnpoints", new ArrayList<>());
-		//TODO commandOn[Start|Stop] as a string is redundant, migrated to a List in 9.33.
-		commandsOnStart = config.isSet("commandOnStart") ? List.of(config.getString("commandOnStart", "")) : config.getStringList("commandsOnStart");
-		commandsOnStop = config.isSet("commandOnStop") ? List.of(config.getString("commandOnStop", "")) : config.getStringList("commandsOnStop");
+		//TODO the string commandOn[Start|Stop] is redundant, migrated to a List in 9.33.
+		if (config.isSet("commandOnStart")) {
+			commandsOnStart = config.getString("commandOnStart", "").isEmpty() ? new ArrayList<>() : List.of(config.getString("commandOnStart"));
+		} else {
+			commandsOnStart = config.getStringList("commandsOnStart");
+		}
+		if (config.isSet("commandOnStop")) {
+			commandsOnStop = config.getString("commandOnStop", "").isEmpty() ? new ArrayList<>() : List.of(config.getString("commandOnStop"));
+		} else {
+			commandsOnStop = config.getStringList("commandsOnStop");
+		}
 		maxFinalPositions = config.getInt("displayfinalpositions", maxFinalPositions);
 		enableOnRestart = config.getBoolean("enableOnRestart", true);
 		shopEnabled = config.getBoolean("shop.enabled", true);
