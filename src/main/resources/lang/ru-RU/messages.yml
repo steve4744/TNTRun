@@ -38,7 +38,7 @@ playerjoininvite: '&c{RANK}&6{COLOR}{PLAYER} &7присоединился к а�
 playerborderinvite: '&b---------------------------------------'
 playerclickinvite: Нажмите, чтобы войти на {ARENA}
 playerjoinedasspectator: '&7 Вы присоединились к арене &6{ARENA} &7в роли наблюдателя'
-playerlefttoplayer: 'Вы покинули арену'
+playerlefttoplayer: '&7 Вы покинули арену'
 playerlefttoothers: '&c {RANK}&6{COLOR}{PLAYER} &7зашел на арену (&6{PS}&7/&6{MPS}&7)'
 playernotplaying: '&c Выбранный игрок &6{PLAYER} &cбольше не играет'
 playervotedforstart: '&f Вы проголосовали за принудительное создание игры'
@@ -165,4 +165,4 @@ partynotenabled: '&c Группы в данный момент не включе
 partyclickaccept: '&6&lAccept'
 partyclickdecline: '&6&lDecline'
 partyaccepttext: '&7Click to &baccept &7the invitation'
-partydeclinetext: '&7Click to &cdecline &7the invitation'
+partydeclinetext: '&7Нажмите &cотклонить &7приглашение'
