@@ -125,4 +125,4 @@ For legacy Minecraft 1.12.2 and below:
 <br />
 <br />
 <br />
-Updated steve4744 - 18th February 2025
+Updated steve4744 - 17th October 2025

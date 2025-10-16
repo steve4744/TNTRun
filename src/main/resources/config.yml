@@ -206,7 +206,7 @@ items:
 #
 # set scoreboard text
 scoreboard:
-  # all scoreboard entries support hex/rgb colours, gradients and Bukkit format codes.
+  # all scoreboard entries support hex/rgb colours, gradients and Bukkit format codes
   # Examples: 
   # header: '<#ff11aa>&lTNTRUN'
   # header: '<GRADIENT:2C08BA>TNTRUN</GRADIENT:028A97>'
