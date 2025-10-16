@@ -28,9 +28,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import tntrun.TNTRun;
 import tntrun.arena.Arena;
+import tntrun.menu.MenuHolder;
 import tntrun.messages.Messages;
 import tntrun.utils.Utils;
 
@@ -43,13 +45,40 @@ public class MenuHandler implements Listener {
 	}
 
 	@EventHandler
-	public void onTrackerSelect(InventoryClickEvent e) {
-		Inventory inv = e.getClickedInventory();
-		if (inv == null) {
+	public void onInventoryClick(InventoryClickEvent event) {
+		if (!(event.getWhoClicked() instanceof Player)) {
 			return;
 		}
-		Player player = (Player) e.getWhoClicked();
-		if (!inv.equals(plugin.getMenus().getInv(player.getName()))) {
+		Player player = (Player) event.getWhoClicked();
+		InventoryHolder holder = event.getInventory().getHolder();
+
+		// Only handle clicks in our menus
+		if (!(holder instanceof MenuHolder)) {
+			return;
+		}
+		event.setCancelled(true);
+
+		MenuHolder menuHolder = (MenuHolder) holder;
+		String menuType = menuHolder.getMenuType();
+
+		switch (menuType) {
+			case "join":
+				handleArenaSelect(event, player);
+				break;
+			case "config":
+				handleConfigSelect(event, player);
+				break;
+			case "tracker":
+				handleTrackerSelect(event, player);
+				break;
+			default:
+				break;
+			}
+	}
+
+	public void handleTrackerSelect(InventoryClickEvent e, Player player) {
+		Inventory inv = e.getClickedInventory();
+		if (inv == null) {
 			return;
 		}
 		if (!isValidClick(e)) {
@@ -73,14 +102,9 @@ public class MenuHandler implements Listener {
 		player.closeInventory();
 	}
 
-	@EventHandler
-	public void onArenaSelect(InventoryClickEvent e) {
+	public void handleArenaSelect(InventoryClickEvent e, Player player) {
 		Inventory inv = e.getClickedInventory();
 		if (inv == null) {
-			return;
-		}
-		Player player = (Player) e.getWhoClicked();
-		if (!inv.equals(plugin.getMenus().getInv(player.getName()))) {
 			return;
 		}
 		if (!isValidClick(e)) {
@@ -90,26 +114,19 @@ public class MenuHandler implements Listener {
 		if (is == null) {
 			return;
 		}
-		if (is.getType() != Material.getMaterial(plugin.getConfig().getString("menu.item")) &&
-				is.getType() != Material.getMaterial(plugin.getConfig().getString("menu.pvpitem"))) {
+		if (is.getType() == plugin.getMenus().getPane()) {
 			return;
 		}
 
-		String arenaname = is.getItemMeta().getDisplayName();
-		String cmd = "tntrun join " + ChatColor.stripColor(arenaname);
+		String cmd = "tntrun join " + ChatColor.stripColor(is.getItemMeta().getDisplayName());
 
 		Bukkit.dispatchCommand(player, cmd);
 		player.closeInventory();
 	}
 
-	@EventHandler
-	public void onItemSelect(InventoryClickEvent e) {
+	public void handleConfigSelect(InventoryClickEvent e, Player player) {
 		Inventory inv = e.getClickedInventory();
 		if (inv == null) {
-			return;
-		}
-		Player player = (Player) e.getWhoClicked();
-		if (!inv.equals(plugin.getMenus().getInv(player.getName()))) {
 			return;
 		}
 		String title = e.getView().getTitle();

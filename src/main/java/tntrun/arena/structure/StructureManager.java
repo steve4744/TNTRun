@@ -78,6 +78,8 @@ public class StructureManager {
 	private boolean shopEnabled = true;
 	private int maxFinalPositions = 3;
 	private boolean enableOnRestart = true;
+	private String menuItem;
+	private String menuPvpItem;
 
 	public String getWorldName() {
 		return world;
@@ -268,6 +270,14 @@ public class StructureManager {
 
 	public boolean hasCommandsOnStop() {
 		return !commandsOnStop.isEmpty();
+	}
+
+	public String getMenuItem(boolean pvpEnabled) {
+		return pvpEnabled ? menuPvpItem : menuItem;
+	}
+
+	public boolean hasMenuItem(boolean pvpEnabled) {
+		return pvpEnabled ? !menuPvpItem.isEmpty() : !menuItem.isEmpty();
 	}
 
 	public boolean isInArenaBounds(Location loc) {
@@ -542,6 +552,8 @@ public class StructureManager {
 		config.set("displayfinalpositions", maxFinalPositions);
 		config.set("enableOnRestart", enableOnRestart);
 		config.set("shop.enabled", shopEnabled);
+		config.set("menu.item", menuItem);
+		config.set("menu.pvpitem", menuPvpItem);
 		rewards.saveToConfig(config);
 		try {
 			config.save(arena.getArenaFile());
@@ -601,6 +613,8 @@ public class StructureManager {
 		maxFinalPositions = config.getInt("displayfinalpositions", maxFinalPositions);
 		enableOnRestart = config.getBoolean("enableOnRestart", true);
 		shopEnabled = config.getBoolean("shop.enabled", true);
+		menuItem = config.getString("menu.item", "");
+		menuPvpItem = config.getString("menu.pvpitem", "");
 	}
 
 }
