@@ -72,7 +72,7 @@ playernotonline: '&6 {PLAYER} &7அவர் தற்போது விளை�
 gamesplayed: '&bமொத்த ஆட்டங்கள் &f: '
 gameswon: '&bவெற்றிகள் &f: '
 gameslost: '&bதோல்விகள் &f: '
-winstreak: '&bWin streak &f: '
+winstreak: '&bவெற்றி தொடர் &f: '
 statshead: '&7=========[&6டிஎன்டிரன் புள்ளியியல்&7]========='
 rewardshead: '&7======[&6டிஎன்டிரன் வெகுமதிகள்&7 - &a{ARENA}&7]======'
 leaderhead: '&7======[&6டிஎன்டிரன் முன்னணிப் பலகை&7]======'
@@ -86,7 +86,7 @@ helplobby: லாபிக்கு எடுத்துச் செல்
 helplist: மொத்த அரங்கங்களின் பட்டியல் அல்லது அரங்கங்களின் விபரம்
 helplistkit: மொத்த கருவிகளின் பட்டியல் அல்லது கருவிகளின் விபரம்
 helplistrewards: அரங்கத்தின் வெகுமதிப் பட்டியல்
-helpclick: Click to select
+helpclick: தேர்ந்தெடுக்க தொடவும்
 helpjoin: சேர்க்கைப் பட்டியலில் திறக்க அல்லது அரங்கத்தில் சேர
 helpspectate: கண்காணிப்பாளராக அரங்கத்தில் சேர
 helpautojoin: இருக்கும் அரங்கத்தில் தன்னிச்சையாகச் சேர
@@ -141,7 +141,7 @@ setupclear: தேர்ந்தெடுக்கப்பட்ட நில�
 setupwhitelist: விளையாட்டின்போது பயன்படுத்தும் கட்டளையை அனுமதிக்க
 setupresetstats: போட்டியாளரின் எல்லா டிஎன்டி ரன் புள்ளிகளையும் நீக்க
 setupresetrank: தற்காலிக சேமிப்பிலிருந்து போட்டியாளரின் தரவரிசையை நீக்க
-setupforcejoin: Force all online players to join an arena
+setupforcejoin: அனைத்து ஆன்லைன் வீரர்களையும் ஒரு அரங்கில் சேர கட்டாயப்படுத்து
 kitadd: '&7 கருவி &6{KIT} &7உருவாக்கப்பட்டது'
 kitdel: '&7 கருவி &6{KIT} &7நீக்கப்பட்டது'
 kitexists: '&c குறிப்பிட்ட கருவி ஏற்கனவே உள்ளது : &6{KIT}'
@@ -162,7 +162,7 @@ partyinparty: '&c நீங்கள் ஏற்கனவே ஒரு அண�
 partynotexist: '&c நீங்கள் தேர்ந்தெடுத்த அணி இல்லை'
 partynoinvite: '&c இந்த அணியின் அழைப்பிதழ் உங்களிடம் இல்லை'
 partynotenabled: '&c டிஎன்டி ரன் அணிகள் தற்போது செயல்பாட்டில் இல்லை'
-partyclickaccept: '&6&lAccept'
-partyclickdecline: '&6&lDecline'
-partyaccepttext: '&7Click to &baccept &7the invitation'
-partydeclinetext: '&7Click to &cdecline &7the invitation'
+partyclickaccept: '&6&lஒப்புக்கொள்'
+partyclickdecline: '&6&lமறு'
+partyaccepttext: '&7அழைப்பை &cஏற்க &அழுத்தவும்'
+partydeclinetext: '&7அழைப்பை &cமறுக்க &அழுத்தவும்'
