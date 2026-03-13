@@ -87,6 +87,10 @@ public class GlobalLobby {
 		}
 	}
 
+	public LobbyScoreboard getLobbySb() {
+		return lobbysb;
+	}
+
 	public void saveToConfig() {
 		FileConfiguration config = new YamlConfiguration();
 

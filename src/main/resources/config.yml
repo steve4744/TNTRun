@@ -217,6 +217,8 @@ scoreboard:
   removefromspectators: true
   # set to true to display the lobby scoreboard when a player runs the "/tr lobby" command
   enablelobbyscoreboard: false
+  # set to true to display the lobby scoreboard when a player joins the server
+  autolobbyscoreboard: false
   waiting:
   - '&fWelcome to TNTRun'
   - '&a '

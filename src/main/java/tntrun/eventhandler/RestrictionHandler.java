@@ -275,6 +275,10 @@ public class RestrictionHandler implements Listener {
 	public void onJoin(PlayerJoinEvent e) {
 		final Player player = e.getPlayer();
 
+		if (plugin.getConfig().getBoolean("scoreboard.autolobbyscoreboard") && plugin.getConfig().getBoolean("scoreboard.enablelobbyscoreboard")) {
+			plugin.getGlobalLobby().getLobbySb().createLobbyScoreboard(player);
+		}
+
 		if (player.hasPermission("tntrun.version.check")) {
 			if (plugin.needUpdate()) {
 				new BukkitRunnable() {
@@ -291,6 +295,7 @@ public class RestrictionHandler implements Listener {
 		if (plugin.getStats().hasDatabaseEntry(player)) {
 			return;
 		}
+
 		final String table = plugin.getConfig().getString("MySQL.table", "stats");
 		new BukkitRunnable() {
 			@Override
