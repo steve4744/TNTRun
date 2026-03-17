@@ -24,6 +24,9 @@ special:
   # a player will receive up to the max allowed. Applies to free and shop doublejumps
   UseDoubleJumpPermissions: false
   #
+  # using kit permissions will disable specific kits for players
+  UseKitPermissions: false
+  #
   # check for new version of TNTRun_reloaded on SpigotMC.org
   CheckForNewVersion: true
   #

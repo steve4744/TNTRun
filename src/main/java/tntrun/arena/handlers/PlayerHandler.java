@@ -741,6 +741,8 @@ public class PlayerHandler {
 	 * receive the same linked kit or a random kit from the linked kit list, depending
 	 * on whether "random" is true or false in the arena config file.
 	 * If the arena has no linked kits, each player will receive a random kit.
+	 * If kit permissions are enabled then a player's access to certain kits can be disabled.
+	 * In this case a player may have no kit if all permission checks fail.
 	 * If the player has purchased a head, then this is preserved.
 	 * The leave item is re-added to the inventory according to the config setting.
 	 *
@@ -761,6 +763,15 @@ public class PlayerHandler {
 			plugin.getLogger().info("kitnames = " + kitnames.toString());
 		}
 
+		if (plugin.getConfig().getBoolean("special.UseKitPermissions")) {
+			kitnames.removeIf(kitname -> !player.hasPermission("tntrun.kit." + kitname));
+		}
+		if (kitnames.isEmpty()) {
+			if (Utils.debug()) {
+				plugin.getLogger().info(player.getName() + " has no valid kits available");
+			}
+			return;
+		}
 		String kit = kitnames.size() > 1 ? getRandomKitName(kitnames) : kitnames.get(0);
 		if (plugin.getKitManager().kitExists(kit)) {
 			giveKitToPlayer(kit, player);
