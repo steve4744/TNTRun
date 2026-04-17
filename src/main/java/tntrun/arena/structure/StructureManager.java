@@ -71,8 +71,8 @@ public class StructureManager {
 	private String currency;
 	private double fee = 0;
 	private boolean finished = false;
-	private List<Vector> additionalSpawnPoints = new ArrayList<>();
-	private List<Vector> freeSpawnList = new ArrayList<>();
+	private List<Location> additionalSpawnPoints = new ArrayList<>();
+	private List<Location> freeSpawnList = new ArrayList<>();
 	private List<String> commandsOnStart = new ArrayList<>();
 	private List<String> commandsOnStop = new ArrayList<>();
 	private boolean shopEnabled = true;
@@ -125,31 +125,20 @@ public class StructureManager {
 		return null;
 	}
 
-	public Vector getSpawnPointVector() {
-		return playerspawn.getVector();
-	}
-
 	public Location getSpawnPoint() {
-		Vector v = playerspawn.getVector();
-		if (hasAdditionalSpawnPoints()) {
-			v = nextSpawnPoint();
-		}
-		return new Location(getWorld(),
-					v.getX(),
-					v.getY(),
-					v.getZ(),
-					playerspawn.getYaw(),
-					playerspawn.getPitch());
+		return hasAdditionalSpawnPoints() ? nextSpawnPoint() : getPrimarySpawnPoint();
 	}
 
 	public Location getPrimarySpawnPoint() {
 		return new Location(getWorld(),
 					playerspawn.getVector().getX(),
 					playerspawn.getVector().getY(),
-					playerspawn.getVector().getZ());
+					playerspawn.getVector().getZ(),
+					playerspawn.getYaw(),
+					playerspawn.getPitch());
 	}
 
-	public List<Vector> getAdditionalSpawnPoints() {
+	public List<Location> getAdditionalSpawnPoints() {
 		return additionalSpawnPoints;
 	}
 
@@ -376,7 +365,7 @@ public class StructureManager {
 	 */
 	public boolean addSpawnPoint(Location loc) {
 		if (isInArenaBounds(loc)) {
-			additionalSpawnPoints.add(loc.toVector());
+			additionalSpawnPoints.add(loc);
 			return true;
 		}
 		return false;
@@ -490,15 +479,21 @@ public class StructureManager {
 		return additionalSpawnPoints != null && !additionalSpawnPoints.isEmpty();
 	}
 
-	private Vector nextSpawnPoint() {
+	/**
+	 * Loop through available spawn points returning the first location and removing it from the list.
+	 * Once the list is exhausted, re-add all the spawn points and repeat.
+	 *
+	 * @return
+	 */
+	private Location nextSpawnPoint() {
 		if (freeSpawnList.isEmpty()) {
-			freeSpawnList.add(playerspawn.getVector());
+			freeSpawnList.add(getPrimarySpawnPoint());
 			freeSpawnList.addAll(additionalSpawnPoints);
 		}
 		return freeSpawnList.remove(0);
 	}
 
-	public List<Vector> getFreeSpawnList() {
+	public List<Location> getFreeSpawnList() {
 		return freeSpawnList;
 	}
 
@@ -598,7 +593,7 @@ public class StructureManager {
 		if (!finished && arena.getStructureManager().isArenaConfigured()) {
 			finished = true;
 		}
-		additionalSpawnPoints = (List<Vector>) config.getList("spawnpoints", new ArrayList<>());
+		additionalSpawnPoints = (List<Location>) config.getList("spawnpoints", new ArrayList<>());
 		//TODO the string commandOn[Start|Stop] is redundant, migrated to a List in 9.33.
 		if (config.isSet("commandOnStart")) {
 			commandsOnStart = config.getString("commandOnStart", "").isEmpty() ? new ArrayList<>() : List.of(config.getString("commandOnStart"));

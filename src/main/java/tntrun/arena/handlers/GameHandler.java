@@ -452,7 +452,7 @@ public class GameHandler {
 					if (i >= ((getFireworkDuration() * 2) - 1) || arena.getPlayersManager().getPlayersCount() == 0) {
 						this.cancel();
 					}
-					Firework f = player.getWorld().spawn(arena.getStructureManager().getSpawnPoint(), Firework.class);
+					Firework f = player.getWorld().spawn(arena.getStructureManager().getPrimarySpawnPoint(), Firework.class);
 					FireworkMeta fm = f.getFireworkMeta();
 					fm.addEffect(FireworkEffect.builder()
 								.withColor(Color.GREEN).withColor(Color.RED)
