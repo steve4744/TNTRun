@@ -99,9 +99,9 @@ The latest version of TNTRun_reloaded has been tested with the following version
 
     WorldEdit 7.3.9 (optional, internal commands setP1 and setP2 can be used to set arena bounds)
     Vault 1.7 (optional, required to use economy)
-    HeadsPlus 7.1.5 (optional, allow players to buy and run around wearing different heads)
-    mcMMO 2.2.028 (optional, will allow players in same mcMMO party to PVP in arena)
-    PlaceholderAPI 2.11.6 (optional, needed to use placeholders)
+    HeadsPlus 7.2.0 (optional, allow players to buy and run around wearing different heads)
+    mcMMO 2.2.048 (optional, will allow players in same mcMMO party to PVP in arena)
+    PlaceholderAPI 2.12.2 (optional, needed to use placeholders)
     AlessioDP Parties 3.2.16 (optional, can be used in place of native tntrun parties)
     
 One of the following plugins (or similar) is required to create Holographic Leaderboards for TNTRun_reloaded (see wiki for details and example).
@@ -125,4 +125,4 @@ For legacy Minecraft 1.12.2 and below:
 <br />
 <br />
 <br />
-Updated steve4744 - 17th October 2025
+Updated steve4744 - 4th June 2026
